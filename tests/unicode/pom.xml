@@ -315,6 +315,15 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
+          <!-- Run TestsuiteTest (method) test cases in parallel too, not only the classes as in the
+               parent pom. -->
+          <properties>
+            <configurationParameters>
+              junit.vintage.execution.parallel.enabled=true
+              junit.vintage.execution.parallel.classes=true
+              junit.vintage.execution.parallel.methods=true
+            </configurationParameters>
+          </properties>
           <workingDirectory>${work.dir}</workingDirectory>
           <systemPropertyVariables>
             <jflex.ucd.dir>${ucd.dir}</jflex.ucd.dir>

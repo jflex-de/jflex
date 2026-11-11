@@ -11,6 +11,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import de.jflex.testing.SystemOutCapture;
 import de.jflex.util.javac.JavacUtils;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -230,17 +231,17 @@ public abstract class AbstractTestsuiteTest {
     assertTrue("Missing golden " + expected, expected.isFile());
 
     ByteArrayOutputStream output = new ByteArrayOutputStream();
-    PrintStream savedOut = System.out;
     // Parent null: only the JDK and the scanner, as when running it on its own.
     try (URLClassLoader loader = new URLClassLoader(new URL[] {outDir.toURI().toURL()}, null)) {
       Method main = loader.loadClass(className).getMethod("main", String[].class);
-      System.setOut(new PrintStream(output, true, spec.outputFileEncoding));
       String[] args = {"--encoding", spec.inputFileEncoding, input.getPath()};
-      main.invoke(null, (Object) args);
+      // Make sure to isolate the output of each concurrent thread
+      try (SystemOutCapture capture =
+          SystemOutCapture.start(new PrintStream(output, true, spec.outputFileEncoding))) {
+        main.invoke(null, (Object) args);
+      }
     } catch (InvocationTargetException e) {
       throw new AssertionError("Scanner " + className + " threw on " + input, e.getCause());
-    } finally {
-      System.setOut(savedOut);
     }
 
     String expectedText =
