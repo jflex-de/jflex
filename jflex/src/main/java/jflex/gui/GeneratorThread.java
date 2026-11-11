@@ -27,6 +27,9 @@ public class GeneratorThread extends Thread {
   /** options from GUI */
   final Options options;
 
+  /** output to the GUI message area */
+  final Out out;
+
   /** input file setting from GUI */
   String inputFile;
 
@@ -41,12 +44,15 @@ public class GeneratorThread extends Thread {
    *
    * @param parent the frame, main UI component
    * @param options the options from UI settings
+   * @param out where to print messages
    * @param inputFile input file from UI settings
    * @param outputDir output directory from UI settings
    */
-  public GeneratorThread(MainFrame parent, Options options, String inputFile, String outputDir) {
+  public GeneratorThread(
+      MainFrame parent, Options options, Out out, String inputFile, String outputDir) {
     this.parent = parent;
     this.options = options;
+    this.out = out;
     this.inputFile = inputFile;
     this.outputDir = outputDir;
   }
@@ -55,20 +61,27 @@ public class GeneratorThread extends Thread {
   @Override
   public void run() {
     if (running) {
-      Out.error(ErrorMessages.ALREADY_RUNNING);
+      out.error(ErrorMessages.ALREADY_RUNNING);
       parent.generationFinished(false);
     } else {
       running = true;
       setPriority(MIN_PRIORITY);
       try {
         if (!Objects.equals(outputDir, "")) {
-          options.setDir(outputDir);
+          try {
+            options.setDir(outputDir);
+          } catch (GeneratorException e) {
+            // Report any potential errors generated form options, then rethrow.
+            // Can't be in the final catch, because LexGenerator has its own reporting.
+            out.error(e);
+            throw e;
+          }
         }
-        new LexGenerator(new File(inputFile), options).generate();
-        Out.statistics();
+        new LexGenerator(new File(inputFile), options, out).generate();
+        out.statistics();
         parent.generationFinished(true);
       } catch (GeneratorException e) {
-        Out.statistics();
+        out.statistics();
         parent.generationFinished(false);
       } finally {
         running = false;

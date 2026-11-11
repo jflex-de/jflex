@@ -7,7 +7,9 @@ package jflex.option;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import org.junit.Test;
 
@@ -63,5 +65,30 @@ public class OptionsTest {
     copy.setVerbose(true);
     assertTrue("original changed by copy", options.isSuppressed(ErrorMessages.NEVER_MATCH));
     assertFalse("original changed by copy", options.verbose());
+  }
+
+  /** Check errors-via-exception reporting in Options. */
+  @Test
+  public void suppressWarning_unknown_throwsWithMessage() {
+    Options options = new Options();
+    try {
+      options.suppressWarning("no-such-warning");
+      fail("expected GeneratorException");
+    } catch (GeneratorException e) {
+      assertTrue(e.getMessage(), e.hasErrorMessage());
+      assertTrue(e.getMessage(), e.getMessage().contains("\"no-such-warning\" unknown"));
+    }
+  }
+
+  @Test
+  public void setEncoding_unsupported_throwsWithMessage() {
+    Options options = new Options();
+    try {
+      options.setEncoding("no-such-encoding");
+      fail("expected GeneratorException");
+    } catch (GeneratorException e) {
+      assertTrue(e.getMessage(), e.hasErrorMessage());
+      assertTrue(e.getMessage(), e.getMessage().contains("no-such-encoding not supported"));
+    }
   }
 }

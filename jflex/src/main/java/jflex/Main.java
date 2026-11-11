@@ -6,6 +6,7 @@
 package jflex;
 
 import java.io.File;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +45,14 @@ public class Main {
    *
    * @param argv an array of {@link java.lang.String} objects.
    * @param options the options to set from the command line.
-   * @return a {@link java.util.List} object.
+   * @param out where to print messages.
+   * @return a {@link java.util.List} of input files.
    * @throws SilentExit if any.
+   * @throws GeneratorException on invalid options. Contains the error message if the error has not
+   *     been reported yet
    */
-  private static List<File> parseOptions(String[] argv, Options options) throws SilentExit {
+  private static List<File> parseOptions(String[] argv, Options options, Out out)
+      throws SilentExit {
     List<File> files = new ArrayList<>();
 
     for (int i = 0; i < argv.length; i++) {
@@ -55,7 +60,7 @@ public class Main {
       if (Objects.equals(argv[i], "-d")
           || Objects.equals(argv[i], "--outdir")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
-          Out.error(ErrorMessages.NO_DIRECTORY);
+          out.error(ErrorMessages.NO_DIRECTORY);
           throw new GeneratorException();
         }
         options.setDir(argv[i]);
@@ -65,17 +70,18 @@ public class Main {
       if (Objects.equals(argv[i], "--skel")
           || Objects.equals(argv[i], "-skel")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
-          Out.error(ErrorMessages.NO_SKEL_FILE);
+          out.error(ErrorMessages.NO_SKEL_FILE);
           throw new GeneratorException();
         }
 
+        out.println(ErrorMessages.READING_SKEL, argv[i]);
         options.setSkeleton(new File(argv[i]));
         continue;
       }
 
       if (Objects.equals(argv[i], "--encoding")) {
         if (++i >= argv.length) {
-          Out.error(ErrorMessages.NO_ENCODING);
+          out.error(ErrorMessages.NO_ENCODING);
           throw new GeneratorException();
         }
 
@@ -151,7 +157,7 @@ public class Main {
 
       if (Objects.equals(argv[i], "--version")
           || Objects.equals(argv[i], "-version")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Out.println(ErrorMessages.THIS_IS_JFLEX, Build.VERSION);
+        out.println(ErrorMessages.THIS_IS_JFLEX, Build.VERSION);
         throw new SilentExit(0);
       }
 
@@ -164,13 +170,13 @@ public class Main {
       if (Objects.equals(argv[i], "--help")
           || Objects.equals(argv[i], "-h")
           || Objects.equals(argv[i], "/h")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        printUsage();
+        printUsage(out);
         throw new SilentExit(0);
       }
 
       if (Objects.equals(argv[i], "--info")
           || Objects.equals(argv[i], "-info")) { // $NON-NLS-1$ //$NON-NLS-2$
-        printSystemInfo();
+        printSystemInfo(out);
         throw new SilentExit(0);
       }
 
@@ -201,15 +207,15 @@ public class Main {
       if (Objects.equals(argv[i], "--uniprops")
           || Objects.equals(argv[i], "-uniprops")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
-          Out.error(
+          out.error(
               ErrorMessages.PROPS_ARG_REQUIRES_UNICODE_VERSION, UnicodeProperties.UNICODE_VERSIONS);
           throw new GeneratorException();
         }
         String unicodeVersion = argv[i];
         try {
-          printUnicodePropertyValuesAndAliases(unicodeVersion);
+          printUnicodePropertyValuesAndAliases(unicodeVersion, out);
         } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-          Out.error(
+          out.error(
               ErrorMessages.UNSUPPORTED_UNICODE_VERSION_SUPPORTED_ARE,
               UnicodeProperties.UNICODE_VERSIONS);
           throw new GeneratorException(e);
@@ -218,8 +224,8 @@ public class Main {
       }
 
       if (argv[i].startsWith("-")) { // $NON-NLS-1$
-        Out.error(ErrorMessages.UNKNOWN_COMMANDLINE, argv[i]);
-        printUsage();
+        out.error(ErrorMessages.UNKNOWN_COMMANDLINE, argv[i]);
+        printUsage(out);
         throw new SilentExit();
       }
 
@@ -227,7 +233,7 @@ public class Main {
       File f = new File(argv[i]);
       if (f.isFile() && f.canRead()) files.add(f);
       else {
-        Out.error("Sorry, couldn't open \"" + f + "\""); // $NON-NLS-2$
+        out.error("Sorry, couldn't open \"" + f + "\""); // $NON-NLS-2$
         throw new GeneratorException();
       }
     }
@@ -240,9 +246,10 @@ public class Main {
    * unicodeVersion.
    *
    * @param unicodeVersion The Unicode version to print property values and aliases for
+   * @param out where to print to
    * @throws UnicodeProperties.UnsupportedUnicodeVersionException if unicodeVersion is not supported
    */
-  private static void printUnicodePropertyValuesAndAliases(String unicodeVersion)
+  private static void printUnicodePropertyValuesAndAliases(String unicodeVersion, Out out)
       throws UnicodeProperties.UnsupportedUnicodeVersionException {
     Pattern versionPattern = Pattern.compile("(\\d+)(?:\\.(\\d+))?(?:\\.\\d+)?");
     Matcher matcher = versionPattern.matcher(unicodeVersion);
@@ -280,67 +287,92 @@ public class Main {
     for (Map.Entry<String, SortedSet<String>> entry : propertyValuesToAliases.entrySet()) {
       String value = entry.getKey();
       SortedSet<String> aliases = entry.getValue();
-      Out.print(value);
+      out.print(value);
       if (aliases.size() > 0) {
         for (String alias : aliases) {
-          Out.print(", " + alias);
+          out.print(", " + alias);
         }
       }
-      Out.println("");
+      out.println("");
     }
   }
 
-  /** Prints the cli usage on stdout. */
-  private static void printUsage() {
-    Out.println(""); // $NON-NLS-1$
-    Out.println("Usage: jflex <options> <input-files>");
-    Out.println("");
-    Out.println("Where <options> can be one or more of");
-    Out.println("-d <directory>       write generated file to <directory>");
-    Out.println("--skel <file>        use external skeleton <file>");
-    Out.println("--encoding <name>    use <name> as input/output encoding");
-    Out.println("--pack               set default code generation method (default)");
-    Out.println("--jlex               strict JLex compatibility");
-    Out.println("--legacydot          dot (.) metachar matches [^\\n] instead of");
-    Out.println("                       [^\\n\\r\\u000B\\u000C\\u0085\\u2028\\u2029]");
-    Out.println("--nomin              skip minimization step");
-    Out.println("--nobak              don't create backup files");
-    Out.println("--dump               display transition tables");
-    Out.println(
+  /** Prints the cli usage. */
+  private static void printUsage(Out out) {
+    out.println(""); // $NON-NLS-1$
+    out.println("Usage: jflex <options> <input-files>");
+    out.println("");
+    out.println("Where <options> can be one or more of");
+    out.println("-d <directory>       write generated file to <directory>");
+    out.println("--skel <file>        use external skeleton <file>");
+    out.println("--encoding <name>    use <name> as input/output encoding");
+    out.println("--pack               set default code generation method (default)");
+    out.println("--jlex               strict JLex compatibility");
+    out.println("--legacydot          dot (.) metachar matches [^\\n] instead of");
+    out.println("                       [^\\n\\r\\u000B\\u000C\\u0085\\u2028\\u2029]");
+    out.println("--nomin              skip minimization step");
+    out.println("--nobak              don't create backup files");
+    out.println("--dump               display transition tables");
+    out.println(
         "--dot                write graphviz .dot files for the generated automata (alpha)");
-    Out.println("--verbose");
-    Out.println("-v                   display generation progress messages (default)");
-    Out.println("--quiet");
-    Out.println("-q                   display errors only");
-    Out.println("--warn-<warning>     switch on warning type <warning>, where <warning> is one of");
-    Out.println("                       unused, never-match, empty-match, cupsym-after-cup,");
-    Out.println("                       unicode-too-long, all.");
-    Out.println("--no-warn-<warning>  suppress warnings of type <warning>");
-    Out.println("--time               display generation time statistics");
-    Out.println("--version            print the version number of this copy of jflex");
-    Out.println("--info               print system + JDK information");
-    Out.println("--uniprops <ver>     print all supported properties for Unicode version <ver>");
-    Out.println("--help");
-    Out.println("-h                   print this message");
-    Out.println("");
-    Out.println(ErrorMessages.THIS_IS_JFLEX, Build.VERSION);
-    Out.println("Have a nice day!");
+    out.println("--verbose");
+    out.println("-v                   display generation progress messages (default)");
+    out.println("--quiet");
+    out.println("-q                   display errors only");
+    out.println("--warn-<warning>     switch on warning type <warning>, where <warning> is one of");
+    out.println("                       unused, never-match, empty-match, cupsym-after-cup,");
+    out.println("                       unicode-too-long, all.");
+    out.println("--no-warn-<warning>  suppress warnings of type <warning>");
+    out.println("--time               display generation time statistics");
+    out.println("--version            print the version number of this copy of jflex");
+    out.println("--info               print system + JDK information");
+    out.println("--uniprops <ver>     print all supported properties for Unicode version <ver>");
+    out.println("--help");
+    out.println("-h                   print this message");
+    out.println("");
+    out.println(ErrorMessages.THIS_IS_JFLEX, Build.VERSION);
+    out.println("Have a nice day!");
   }
 
   /**
-   * generate.
+   * Runs the generator with command line arguments, printing to {@code System.out}.
    *
-   * @param argv an array of {@link java.lang.String} objects.
+   * @param argv the command line.
    * @throws SilentExit if any.
+   * @throws GeneratorException if the options are invalid or generation fails. Error content will
+   *     already have been reported in outut.
    */
   public static void generate(String[] argv) throws SilentExit {
+    generate(argv, System.out);
+  }
+
+  /**
+   * Runs the generator with command line arguments.
+   *
+   * @param argv the command line.
+   * @param log where to print all messages.
+   * @throws SilentExit if any.
+   * @throws GeneratorException if the options are invalid or generation fails. Error content will
+   *     already have been reported in outut.
+   */
+  public static void generate(String[] argv, OutputStream log) throws SilentExit {
     Options options = new Options();
-    Out.setOptions(options);
-    List<File> files = parseOptions(argv, options);
+    generate(argv, options, new Out(options, log));
+  }
+
+  private static void generate(String[] argv, Options options, Out out) throws SilentExit {
+    List<File> files;
+    try {
+      files = parseOptions(argv, options, out);
+    } catch (GeneratorException e) {
+      // errors thrown by Options have not been reported yet
+      out.error(e);
+      throw e;
+    }
 
     if (files.size() > 0) {
       for (File file : files) {
-        new LexGenerator(file, options).generate();
+        new LexGenerator(file, options, out).generate();
       }
     } else {
       new MainFrame(options);
@@ -354,11 +386,13 @@ public class Main {
    * @param argv the commandline.
    */
   public static void main(String[] argv) {
+    Options options = new Options();
+    Out out = new Out(options);
     try {
-      generate(argv);
+      generate(argv, options, out);
     } catch (GeneratorException e) {
       if (e.isUnExpected()) {
-        Out.error(
+        out.error(
             "Unexpected exception encountered. This indicates a bug in JFlex."
                 + Out.NL
                 + "Please consider filing an issue at http://github.com/jflex-de/jflex/issues/new"
@@ -366,11 +400,11 @@ public class Main {
         Throwable cause = e.getCause();
         if (cause != null) {
           String msg = cause.getLocalizedMessage();
-          if (msg != null) Out.error(msg);
+          if (msg != null) out.error(msg);
           cause.printStackTrace();
         }
       } else {
-        Out.statistics();
+        out.statistics();
       }
       System.exit(1);
     } catch (SilentExit e) {
@@ -381,20 +415,24 @@ public class Main {
   // Only CLI, not meant for instantiation.
   private Main() {}
 
-  /** Print system information (e.g. in case of unexpected exceptions) */
-  public static void printSystemInfo() {
-    Out.err("Java version:     " + System.getProperty("java.version"));
-    Out.err("Runtime name:     " + System.getProperty("java.runtime.name"));
-    Out.err("Vendor:           " + System.getProperty("java.vendor"));
-    Out.err("VM version:       " + System.getProperty("java.vm.version"));
-    Out.err("VM vendor:        " + System.getProperty("java.vm.vendor"));
-    Out.err("VM name:          " + System.getProperty("java.vm.name"));
-    Out.err("VM info:          " + System.getProperty("java.vm.info"));
-    Out.err("OS name:          " + System.getProperty("os.name"));
-    Out.err("OS arch:          " + System.getProperty("os.arch"));
-    Out.err("OS version:       " + System.getProperty("os.version"));
-    Out.err("Encoding:         " + System.getProperty("file.encoding"));
-    Out.err("Unicode versions: " + UnicodeProperties.UNICODE_VERSIONS);
-    Out.err("JFlex version:    " + Build.VERSION);
+  /**
+   * Print system information (e.g. in case of unexpected exceptions)
+   *
+   * @param out where to print to
+   */
+  public static void printSystemInfo(Out out) {
+    out.err("Java version:     " + System.getProperty("java.version"));
+    out.err("Runtime name:     " + System.getProperty("java.runtime.name"));
+    out.err("Vendor:           " + System.getProperty("java.vendor"));
+    out.err("VM version:       " + System.getProperty("java.vm.version"));
+    out.err("VM vendor:        " + System.getProperty("java.vm.vendor"));
+    out.err("VM name:          " + System.getProperty("java.vm.name"));
+    out.err("VM info:          " + System.getProperty("java.vm.info"));
+    out.err("OS name:          " + System.getProperty("os.name"));
+    out.err("OS arch:          " + System.getProperty("os.arch"));
+    out.err("OS version:       " + System.getProperty("os.version"));
+    out.err("Encoding:         " + System.getProperty("file.encoding"));
+    out.err("Unicode versions: " + UnicodeProperties.UNICODE_VERSIONS);
+    out.err("JFlex version:    " + Build.VERSION);
   }
 }

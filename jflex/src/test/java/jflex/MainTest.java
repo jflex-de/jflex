@@ -7,6 +7,7 @@ package jflex;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -15,8 +16,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import jflex.logging.Out;
-import org.junit.After;
+import jflex.exceptions.GeneratorException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -25,11 +25,6 @@ import org.junit.rules.TemporaryFolder;
 public class MainTest {
 
   @Rule public TemporaryFolder tmp = new TemporaryFolder();
-
-  @After
-  public void resetOutput() {
-    Out.setOutputStream(System.out);
-  }
 
   /**
    * Writes a spec with a rule that can never be matched, which is a configurable warning.
@@ -53,8 +48,7 @@ public class MainTest {
   /** Runs {@link Main#generate} on the given options and specs and returns its output. */
   private String generate(String... argv) throws Exception {
     ByteArrayOutputStream output = new ByteArrayOutputStream();
-    Out.setOutputStream(output);
-    Main.generate(argv);
+    Main.generate(argv, output);
     return output.toString();
   }
 
@@ -114,5 +108,31 @@ public class MainTest {
 
     assertTrue(output, warnsFor(output, warnAll));
     assertFalse(output, warnsFor(output, plain));
+  }
+
+  /** An invalid command line option is reported in output before the exception. */
+  @Test
+  public void generate_unknownWarningOption_reportsError() throws Exception {
+    String spec = writeSpec("Unused", "");
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    try {
+      Main.generate(new String[] {"--no-warn-no-such-warning", spec}, output);
+      fail("expected GeneratorException");
+    } catch (GeneratorException e) {
+      assertTrue(output.toString(), output.toString().contains("\"no-such-warning\" unknown"));
+    }
+  }
+
+  /** An invalid directive in the spec is reported in output before the exception. */
+  @Test
+  public void generate_unknownWarningDirective_reportsError() throws Exception {
+    String spec = writeSpec("BadSuppress", "%suppress no-such-warning");
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    try {
+      Main.generate(new String[] {"-d", tmp.getRoot().getPath(), spec}, output);
+      fail("expected GeneratorException");
+    } catch (GeneratorException e) {
+      assertTrue(output.toString(), output.toString().contains("\"no-such-warning\" unknown"));
+    }
   }
 }

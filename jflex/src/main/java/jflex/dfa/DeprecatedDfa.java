@@ -131,7 +131,7 @@ public class DeprecatedDfa extends DFA {
    * @param equiv Equivalence table from {@link #old_minimize()}
    */
   void printTable(boolean[][] equiv) {
-    Out.dump("Equivalence table is : ");
+    Out.trace("Equivalence table is : ");
     StringBuilder line = new StringBuilder();
     for (int i = 1; i < numStates(); i++) {
       line.setLength(0);
@@ -143,7 +143,7 @@ public class DeprecatedDfa extends DFA {
           line.append(" x");
         }
       }
-      Out.dump(line.toString());
+      Out.trace(line.toString());
     }
   }
 

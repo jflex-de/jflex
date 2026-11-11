@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import jflex.generator.LexGenerator;
-import jflex.logging.Out;
 import jflex.option.Options;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -39,9 +38,6 @@ import org.apache.maven.project.MavenProject;
 public class JFlexMojo extends AbstractMojo {
   /** Name of the directory where to look for jflex files by default. */
   private static final String SRC_MAIN_JFLEX = "src/main/jflex";
-
-  /** Guards the static JFlex {@link Out} during generation. */
-  private static final Object OPTIONS_LOCK = new Object();
 
   @Parameter(property = "project", required = true, readonly = true)
   private MavenProject project;
@@ -218,10 +214,9 @@ public class JFlexMojo extends AbstractMojo {
       throw new MojoExecutionException("Illegal generation method: " + generationMethod);
     }
 
-    // JFlex output (Out) is static, so must be synchronized/locked for now.
-    synchronized (OPTIONS_LOCK) {
-      Options options = new Options();
-      Out.setOptions(options);
+    // Options and output are per run, so concurrent executions do not interfere.
+    Options options = new Options();
+    try {
       options.setDir(generatedFile.getParentFile());
       options.setRootDirectory(project.getBasedir());
       options.setDump(dump);
@@ -238,19 +233,17 @@ public class JFlexMojo extends AbstractMojo {
       options.setNoBackup(!backup); // NOPMD
 
       if (!isNullOrEmpty(encodingName)) {
-        try {
-          options.setEncoding(encodingName);
-        } catch (Exception e) {
-          throw new MojoExecutionException(e.getMessage());
-        }
+        options.setEncoding(encodingName);
       }
+    } catch (Exception e) {
+      throw new MojoExecutionException(e.getMessage(), e);
+    }
 
-      try {
-        new LexGenerator(lexFile, options).generate();
-        getLog().info("  generated " + generatedFile);
-      } catch (Exception e) {
-        throw new MojoExecutionException(e.getMessage(), e);
-      }
+    try {
+      new LexGenerator(lexFile, options).generate();
+      getLog().info("  generated " + generatedFile);
+    } catch (Exception e) {
+      throw new MojoExecutionException(e.getMessage(), e);
     }
   }
 

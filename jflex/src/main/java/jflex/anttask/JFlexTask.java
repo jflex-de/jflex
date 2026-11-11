@@ -17,7 +17,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.exceptions.GeneratorException;
 import jflex.generator.LexGenerator;
-import jflex.logging.Out;
 import jflex.option.Options;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -49,7 +48,6 @@ public class JFlexTask extends Task {
 
   /** Constructor for JFlexTask. */
   public JFlexTask() {
-    Out.setOptions(options);
     // ant default is different from the rest of JFlex
     setVerbose(false);
     setUnusedWarning(true);

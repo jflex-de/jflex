@@ -225,9 +225,9 @@ public class CharClasses {
     return IntCharSet.copyOf(classes.get(code));
   }
 
-  /** Dumps charclasses to the dump output stream. */
-  public void dump() {
-    Out.dump(toString());
+  /** Prints the char classes as trace output, for use under {@code DEBUG}. */
+  private void dump() {
+    Out.trace(toString());
   }
 
   /**

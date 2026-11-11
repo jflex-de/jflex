@@ -21,7 +21,6 @@ import jflex.chars.Interval;
 import jflex.core.unicode.CharClasses;
 import jflex.core.unicode.IntCharSet;
 import jflex.exceptions.GeneratorException;
-import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
 import jflex.state.StateSet;
@@ -77,15 +76,22 @@ public final class NFA {
 
   private LexScan scanner;
   private final Options options;
+  private final Out out;
   private RegExps regExps;
 
   // will be reused by several methods (avoids excessive object creation)
   private final StateSetEnumerator states = new StateSetEnumerator();
   private final StateSet tempStateSet = new StateSet();
 
-  /** Constructor for NFA. */
-  public NFA(int numInput, int estSize, Options options) {
+  /**
+   * Constructor for NFA.
+   *
+   * @param options the options of this generator run
+   * @param out the output of this generator run
+   */
+  public NFA(int numInput, int estSize, Options options, Out out) {
     this.options = options;
+    this.out = out;
     this.numInput = numInput;
     this.estSize = estSize;
     numStates = 0;
@@ -108,7 +114,11 @@ public final class NFA {
    * @param classes a {@link CharClasses} object.
    */
   public NFA(int numInput, LexScan scanner, RegExps regExps, Macros macros, CharClasses classes) {
-    this(numInput, regExps.NFASize(macros) + 2 * scanner.states.number(), scanner.options());
+    this(
+        numInput,
+        regExps.NFASize(macros) + 2 * scanner.states.number(),
+        scanner.options(),
+        scanner.out());
 
     this.scanner = scanner;
     this.regExps = regExps;
@@ -435,7 +445,7 @@ public final class NFA {
   }
 
   public void dumpTable() {
-    Out.dump(toString());
+    out.dump(toString());
   }
 
   @Override
@@ -472,16 +482,17 @@ public final class NFA {
     return result.toString();
   }
 
-  public void writeDot(File file) {
-    try {
-      PrintWriter writer =
-          new PrintWriter(
-              new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8));
+  /**
+   * Writes a dot-file representing this NFA.
+   *
+   * @param file output file.
+   * @throws IOException if the file cannot be written
+   */
+  public void writeDot(File file) throws IOException {
+    try (PrintWriter writer =
+        new PrintWriter(
+            new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
       writer.println(dotFormat());
-      writer.close();
-    } catch (IOException e) {
-      Out.error(ErrorMessages.FILE_WRITE, file);
-      throw new GeneratorException(e);
     }
   }
 
@@ -633,7 +644,7 @@ public final class NFA {
             addTransition(dfaStart + currentDFAState, input, dfaStart + nextDFAState);
           } else {
             if (options.dump()) {
-              Out.print("+");
+              out.print("+");
               // Out.debug("NOT FOUND!");
               // Out.debug("Table was "+dfaStates);
             }
