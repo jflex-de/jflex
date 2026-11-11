@@ -5,7 +5,9 @@
 
 package jflex.core.unicode;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jflex.chars.Interval;
 import net.jqwik.api.ForAll;
@@ -27,13 +29,13 @@ public class IntCharSetQuickcheck {
     IntCharSet union = IntCharSet.copyOf(s1);
     union.add(s2);
 
-    assertThat(union.invariants()).isTrue();
+    assertTrue(union.invariants());
 
-    assertThat(IntCharSet.isSubSet(s1, union)).isTrue();
-    assertThat(IntCharSet.isSubSet(s2, union)).isTrue();
+    assertTrue(IntCharSet.isSubSet(s1, union));
+    assertTrue(IntCharSet.isSubSet(s2, union));
 
     for (int i : union) {
-      assertThat(s1.contains(i) || s2.contains(i)).isTrue();
+      assertTrue(s1.contains(i) || s2.contains(i));
     }
   }
 
@@ -42,26 +44,26 @@ public class IntCharSetQuickcheck {
       @ForAll @IntRange(max = 100) IntCharSet s1, @ForAll @IntRange(max = 100) IntCharSet s2) {
     IntCharSet inter = s1.and(s2);
 
-    assertThat(inter.invariants()).isTrue();
+    assertTrue(inter.invariants());
 
-    assertThat(IntCharSet.isSubSet(inter, s1)).isTrue();
-    assertThat(IntCharSet.isSubSet(inter, s2)).isTrue();
+    assertTrue(IntCharSet.isSubSet(inter, s1));
+    assertTrue(IntCharSet.isSubSet(inter, s2));
 
     for (int i : s1) {
-      assertThat(!s2.contains(i) || inter.contains(i)).isTrue();
+      assertTrue(!s2.contains(i) || inter.contains(i));
     }
   }
 
   @Property
   public void andCommutes(@ForAll IntCharSet s1, @ForAll IntCharSet s2) {
-    assertThat(s1.and(s2)).isEqualTo(s2.and(s1));
+    assertEquals(s2.and(s1), s1.and(s2));
   }
 
   @Property
   public void addSelf(@ForAll IntCharSet set) {
     IntCharSet setPre = IntCharSet.copyOf(set);
     set.add(setPre);
-    assertThat(set).isEqualTo(setPre);
+    assertEquals(setPre, set);
   }
 
   @Property
@@ -70,7 +72,7 @@ public class IntCharSetQuickcheck {
     union1.add(s2);
     IntCharSet union2 = IntCharSet.copyOf(union1);
     union2.add(s2);
-    assertThat(union2).isEqualTo(union1);
+    assertEquals(union1, union2);
   }
 
   @Property
@@ -79,26 +81,26 @@ public class IntCharSetQuickcheck {
     // use intersection to ensure that argument of sub is contained in s1
     diff.sub(s1.and(s2));
 
-    assertThat(diff.invariants()).isTrue();
+    assertTrue(diff.invariants());
 
-    assertThat(IntCharSet.isSubSet(diff, s1)).isTrue();
-    assertThat(diff.and(s2).containsElements()).isFalse();
+    assertTrue(IntCharSet.isSubSet(diff, s1));
+    assertFalse(diff.and(s2).containsElements());
 
     // union of the diff and s2 should be equal to union of s1 and s2
     diff.add(s2);
     IntCharSet s3 = IntCharSet.copyOf(s1);
     s3.add(s2);
-    assertThat(diff).isEqualTo(s3);
+    assertEquals(s3, diff);
   }
 
   @Property
   public void containsItsElements(@ForAll IntCharSet set) {
-    for (int i : set) assertThat(set.contains(i)).isTrue();
+    for (int i : set) assertTrue(set.contains(i));
   }
 
   @Property
   public void allCharsContainsEverything(@ForAll IntCharSet set) {
-    assertThat(IntCharSet.allChars().contains(set)).isTrue();
+    assertTrue(IntCharSet.allChars().contains(set));
   }
 
   @Property
@@ -109,48 +111,48 @@ public class IntCharSetQuickcheck {
     s1.sub(inter);
     s1.add(inter);
 
-    assertThat(s1).isEqualTo(s1Pre);
+    assertEquals(s1Pre, s1);
   }
 
   @Property
   public void addEmpty(@ForAll IntCharSet set) {
     IntCharSet setPre = IntCharSet.copyOf(set);
     set.add(new IntCharSet());
-    assertThat(set).isEqualTo(setPre);
+    assertEquals(setPre, set);
   }
 
   @Property
   public void subEmpty(@ForAll IntCharSet set) {
     IntCharSet setPre = IntCharSet.copyOf(set);
     set.sub(new IntCharSet());
-    assertThat(set).isEqualTo(setPre);
+    assertEquals(setPre, set);
   }
 
   @Property
   public void andEmpty(@ForAll IntCharSet set) {
-    assertThat(set.and(new IntCharSet())).isEqualTo(new IntCharSet());
+    assertEquals(new IntCharSet(), set.and(new IntCharSet()));
   }
 
   @Property
   public void addAll(@ForAll IntCharSet set) {
     set.add(IntCharSet.allChars());
-    assertThat(set).isEqualTo(IntCharSet.allChars());
+    assertEquals(IntCharSet.allChars(), set);
   }
 
   @Property
   public void subSelf(@ForAll IntCharSet set) {
     set.sub(IntCharSet.copyOf(set));
-    assertThat(set).isEqualTo(new IntCharSet());
+    assertEquals(new IntCharSet(), set);
   }
 
   @Property
   public void andAll(@ForAll IntCharSet set) {
-    assertThat(set.and(IntCharSet.allChars())).isEqualTo(set);
+    assertEquals(set, set.and(IntCharSet.allChars()));
   }
 
   @Property
   public void andSelf(@ForAll IntCharSet set) {
-    assertThat(set.and(set)).isEqualTo(set);
+    assertEquals(set, set.and(set));
   }
 
   @Property
@@ -158,17 +160,17 @@ public class IntCharSetQuickcheck {
     IntCharSet comp = IntCharSet.allChars();
     comp.sub(set);
 
-    assertThat(comp.invariants()).isTrue();
-    assertThat(comp.and(set).containsElements()).isFalse();
+    assertTrue(comp.invariants());
+    assertFalse(comp.and(set).containsElements());
 
     comp.add(set);
-    assertThat(comp).isEqualTo(IntCharSet.allChars());
+    assertEquals(IntCharSet.allChars(), comp);
   }
 
   @Property
   public void invariants(
       @ForAll @Size(max = 15) @IntRange(max = CharClasses.maxChar) IntCharSet set) {
-    assertThat(set.invariants()).isTrue();
+    assertTrue(set.invariants());
   }
 
   @Property
@@ -178,7 +180,7 @@ public class IntCharSetQuickcheck {
     IntCharSet set2 = IntCharSet.copyOf(set);
     set.add(c);
     set2.add(Interval.ofCharacter(c));
-    assertThat(set).isEqualTo(set2);
+    assertEquals(set2, set);
   }
 
   @Property
@@ -186,17 +188,17 @@ public class IntCharSetQuickcheck {
     IntCharSet set1 = IntCharSet.of(i);
     IntCharSet set2 = new IntCharSet();
     set2.add(i);
-    assertThat(set1).isEqualTo(set2);
+    assertEquals(set2, set1);
   }
 
   @Property
   public void complementUnion(@ForAll IntCharSet set) {
     set.add(IntCharSet.complementOf(set));
-    assertThat(set).isEqualTo(IntCharSet.allChars());
+    assertEquals(IntCharSet.allChars(), set);
   }
 
   @Property
   public void complementIntersection(@ForAll IntCharSet set) {
-    assertThat(set.and(IntCharSet.complementOf(set))).isEqualTo(new IntCharSet());
+    assertEquals(new IntCharSet(), set.and(IntCharSet.complementOf(set)));
   }
 }

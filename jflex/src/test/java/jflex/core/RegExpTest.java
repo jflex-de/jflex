@@ -5,7 +5,9 @@
 
 package jflex.core;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import jflex.core.unicode.IntCharSet;
@@ -21,7 +23,7 @@ public class RegExpTest {
 
   @Test
   public void revString() {
-    assertThat(RegExp.revString("blah")).isEqualTo("halb");
+    assertEquals("halb", RegExp.revString("blah"));
   }
 
   @Test
@@ -47,10 +49,10 @@ public class RegExpTest {
     b = b.normaliseCCLs(null, 0);
     s = s.normaliseCCLs(null, 0);
     u = u.normaliseCCLs(null, 0);
-    assertThat(e1.isCharClass()).isTrue();
-    assertThat(e2.isCharClass()).isTrue();
-    assertThat(b.isCharClass()).isTrue();
-    assertThat(s.isCharClass()).isFalse();
-    assertThat(u.isCharClass()).isTrue();
+    assertTrue(e1.isCharClass());
+    assertTrue(e2.isCharClass());
+    assertTrue(b.isCharClass());
+    assertFalse(s.isCharClass());
+    assertTrue(u.isCharClass());
   }
 }

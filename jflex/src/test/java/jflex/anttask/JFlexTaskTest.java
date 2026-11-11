@@ -5,8 +5,10 @@
  */
 package jflex.anttask;
 
-import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,8 +38,8 @@ public class JFlexTaskTest {
   public void testPackageAndClass() throws IOException {
     task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     task.findPackageAndClass();
-    assertThat(task.getPackage()).isEqualTo("jflex");
-    assertThat(task.getClassName()).isEqualTo("LexScan");
+    assertEquals("jflex", task.getPackage());
+    assertEquals("LexScan", task.getClassName());
   }
 
   @Test
@@ -45,8 +47,8 @@ public class JFlexTaskTest {
     // FIXME
     task.setFile(new File(DIR_RESOURCES + "/jflex/simple.flex"));
     task.findPackageAndClass();
-    assertThat(task.getPackage()).isEqualTo(null);
-    assertThat(task.getClassName()).isEqualTo("Yylex");
+    assertNull(task.getPackage());
+    assertEquals("Yylex", task.getClassName());
   }
 
   @Test
@@ -57,7 +59,7 @@ public class JFlexTaskTest {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // not default jflex logic, but javac (uses package name)
-    assertThat(task.options().directory()).isEqualTo(new File(dir, "jflex"));
+    assertEquals(new File(dir, "jflex"), task.options().directory());
   }
 
   @Test
@@ -68,7 +70,7 @@ public class JFlexTaskTest {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic
-    assertThat(task.options().directory()).isEqualTo(dir);
+    assertEquals(dir, task.options().directory());
   }
 
   @Test
@@ -77,100 +79,97 @@ public class JFlexTaskTest {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic
-    assertThat(task.options().directory()).isEqualTo(new File(DIR_RESOURCES + "/jflex"));
+    assertEquals(new File(DIR_RESOURCES + "/jflex"), task.options().directory());
   }
 
   @Test
   public void testNomin() {
-    assertThat(!task.options().noMinimize()).isTrue();
+    assertFalse(task.options().noMinimize());
     task.setNomin(true);
-    assertThat(task.options().noMinimize()).isTrue();
+    assertTrue(task.options().noMinimize());
   }
 
   @Test
   public void testSkipMinimization() {
-    assertThat(!task.options().noMinimize()).isTrue();
+    assertFalse(task.options().noMinimize());
     task.setSkipMinimization(true);
-    assertThat(task.options().noMinimize()).isTrue();
+    assertTrue(task.options().noMinimize());
   }
 
   @Test
   public void testNobak() {
-    assertThat(!task.options().noBackup()).isTrue();
+    assertFalse(task.options().noBackup());
     task.setNobak(true);
-    assertThat(task.options().noBackup()).isTrue();
+    assertTrue(task.options().noBackup());
   }
 
   @Test
   public void testSkel() {
     task.setVerbose(false); // avoid to java console pop up
     task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
-    assertThat(task.options().skeleton().section(3).indexOf("java.util.Deque") > 0).isTrue();
+    assertTrue(task.options().skeleton().section(3).indexOf("java.util.Deque") > 0);
   }
 
   @Test
   public void testVerbose() {
     task.setVerbose(false);
-    assertThat(!task.options().verbose()).isTrue();
+    assertFalse(task.options().verbose());
     task.setVerbose(true);
-    assertThat(task.options().verbose()).isTrue();
+    assertTrue(task.options().verbose());
   }
 
   @Test
   public void testUnusedWarning() {
     // Defaults to enabled, for backward compatibility.
-    assertWithMessage("Defaults to not suppressed")
-        .that(task.options().isSuppressed(ErrorMessages.MACRO_UNUSED))
-        .isFalse();
+    assertFalse(
+        task.options().isSuppressed(ErrorMessages.MACRO_UNUSED), "Defaults to not suppressed");
     task.setUnusedWarning(false);
-    assertThat(task.options().isSuppressed(ErrorMessages.MACRO_UNUSED)).isTrue();
+    assertTrue(task.options().isSuppressed(ErrorMessages.MACRO_UNUSED));
   }
 
   @Test
   public void testUnusedWarning_Verbose() {
     task.setVerbose(false);
-    assertWithMessage("Disabled in quiet mode")
-        .that(task.options().isSuppressed(ErrorMessages.MACRO_UNUSED))
-        .isTrue();
+    assertTrue(task.options().isSuppressed(ErrorMessages.MACRO_UNUSED), "Disabled in quiet mode");
   }
 
   @Test
   public void testTime() {
-    assertThat(!task.options().time()).isTrue();
+    assertFalse(task.options().time());
     task.setTimeStatistics(true);
-    assertThat(task.options().time()).isTrue();
+    assertTrue(task.options().time());
     task.setTime(false);
-    assertThat(!task.options().time()).isTrue();
+    assertFalse(task.options().time());
   }
 
   @Test
   public void testDot() {
-    assertThat(!task.options().dot()).isTrue();
+    assertFalse(task.options().dot());
     task.setDot(true);
-    assertThat(task.options().dot()).isTrue();
+    assertTrue(task.options().dot());
     task.setGenerateDot(false);
-    assertThat(!task.options().dot()).isTrue();
+    assertFalse(task.options().dot());
   }
 
   @Test
   public void testDump() {
-    assertThat(!task.options().dump()).isTrue();
+    assertFalse(task.options().dump());
     task.setDump(true);
-    assertThat(task.options().dump()).isTrue();
+    assertTrue(task.options().dump());
   }
 
   @Test
   public void testJlex() {
-    assertThat(!task.options().jlex()).isTrue();
+    assertFalse(task.options().jlex());
     task.setJLex(true);
-    assertThat(task.options().jlex()).isTrue();
+    assertTrue(task.options().jlex());
   }
 
   @Test
   public void testLegacyDot() {
-    assertThat(task.options().legacyDot()).isFalse();
+    assertFalse(task.options().legacyDot());
     task.setLegacyDot(true);
-    assertThat(task.options().legacyDot()).isTrue();
+    assertTrue(task.options().legacyDot());
   }
 
   @Test
@@ -178,8 +177,8 @@ public class JFlexTaskTest {
     Charset defaultSet = Charset.defaultCharset();
     String name = "utf-8";
     Charset charset = Charset.forName(name);
-    assertThat(defaultSet).isEqualTo(task.options().encoding());
+    assertEquals(task.options().encoding(), defaultSet);
     task.setEncoding(name);
-    assertThat(charset).isEqualTo(task.options().encoding());
+    assertEquals(task.options().encoding(), charset);
   }
 }

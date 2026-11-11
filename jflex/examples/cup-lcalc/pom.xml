@@ -21,12 +21,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.google.truth</groupId>
-      <artifactId>truth</artifactId>
-      <version>1.4.5</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>com.github.vbmacher</groupId>
       <artifactId>java-cup-runtime</artifactId>
       <version>11b-20160615-3</version>
