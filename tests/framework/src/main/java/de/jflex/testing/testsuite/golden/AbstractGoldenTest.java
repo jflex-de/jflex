@@ -21,6 +21,9 @@ public abstract class AbstractGoldenTest {
   private SystemOutCapture capture;
 
   protected void compareSystemOutWith(GoldenInOutFilePair golden) throws FileNotFoundException {
+    if (capture != null) {
+      capture.close();
+    }
     // in-memory output comparison
     output = new DiffOutputStream(Files.newReader(golden.outputFile, StandardCharsets.UTF_8));
     capture = SystemOutCapture.start(new PrintStream(output));
