@@ -131,11 +131,11 @@ public class Options {
    */
   public void setDir(File d) {
     if (d.isFile()) {
-      throw new GeneratorException("Error: \"" + d + "\" is not a directory.");
+      throw new GeneratorException(ErrorMessages.NOT_A_DIRECTORY, d);
     }
 
     if (!d.isDirectory() && !d.mkdirs()) {
-      throw new GeneratorException("Error: couldn't create directory \"" + d + "\"");
+      throw new GeneratorException(ErrorMessages.CANNOT_CREATE_DIR, d);
     }
 
     directory = d;

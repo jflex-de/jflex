@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import jflex.exceptions.GeneratorException;
+import jflex.exceptions.SilentExit;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -120,6 +121,19 @@ public class MainTest {
       fail("expected GeneratorException");
     } catch (GeneratorException e) {
       assertTrue(output.toString(), output.toString().contains("\"no-such-warning\" unknown"));
+    }
+  }
+
+  /** An unknown command line option is reported with a single prefix. */
+  @Test
+  public void generate_unknownOption_reportsError() throws Exception {
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    try {
+      Main.generate(new String[] {"--no-such-option"}, output);
+      fail("expected SilentExit");
+    } catch (SilentExit e) {
+      assertTrue(output.toString(), output.toString().contains("Error: unknown option"));
+      assertFalse(output.toString(), output.toString().contains("Error: Error"));
     }
   }
 

@@ -280,14 +280,12 @@ public final class Out {
 
     warnings++;
 
-    String msg = NL + "Warning";
-    if (line > 0) msg = msg + " in line " + (line + 1);
-
-    if (args != null) {
-      err(msg + ": " + ErrorMessages.get(message, args));
-    } else {
-      err(msg + ": " + ErrorMessages.get(message));
+    String msg = NL + ErrorMessages.get(ErrorMessages.WARNING_PREFIX);
+    if (line > 0) {
+      msg += " " + ErrorMessages.get(ErrorMessages.IN_LINE, String.valueOf(line + 1));
     }
+
+    err(msg + ": " + ErrorMessages.get(message, args));
   }
 
   /**
@@ -301,9 +299,7 @@ public final class Out {
   public void warning(File file, ErrorMessages message, int line, int column) {
     if (options.isSuppressed(message)) return;
 
-    String msg = NL + "Warning";
-    if (file != null) msg += " in file \"" + file + "\"";
-    if (line >= 0) msg = msg + " (line " + (line + 1) + ")";
+    String msg = NL + ErrorMessages.prefix(ErrorMessages.WARNING_PREFIX, file, line);
 
     try {
       err(msg + ": " + NL + ErrorMessages.get(message));
@@ -349,7 +345,7 @@ public final class Out {
    */
   public void error(ErrorMessages message) {
     errors++;
-    err(NL + "Error: " + ErrorMessages.get(message));
+    err(NL + ErrorMessages.error(message));
   }
 
   /**
@@ -361,7 +357,7 @@ public final class Out {
    */
   public void error(ErrorMessages message, String data) {
     errors++;
-    err(NL + "Error: " + ErrorMessages.get(message, data));
+    err(NL + ErrorMessages.error(message, data));
   }
 
   /**
@@ -374,9 +370,7 @@ public final class Out {
    */
   public void error(File file, ErrorMessages message, int line, int column) {
 
-    String msg = NL + "Error";
-    if (file != null) msg += " in file \"" + file + "\"";
-    if (line >= 0) msg = msg + " (line " + (line + 1) + ")";
+    String msg = NL + ErrorMessages.prefix(ErrorMessages.ERROR_PREFIX, file, line);
 
     try {
       err(msg + ": " + NL + ErrorMessages.get(message));

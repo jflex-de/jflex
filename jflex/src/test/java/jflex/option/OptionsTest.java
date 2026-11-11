@@ -5,16 +5,22 @@
 
 package jflex.option;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 /** Tests for {@link Options}. */
 public class OptionsTest {
+
+  @Rule public TemporaryFolder tmp = new TemporaryFolder();
 
   private static void assertAllWarningsEnabled(String msg, Options options) {
     for (ErrorMessages warning : ErrorMessages.values()) {
@@ -90,5 +96,29 @@ public class OptionsTest {
       assertTrue(e.getMessage(), e.hasErrorMessage());
       assertTrue(e.getMessage(), e.getMessage().contains("no-such-encoding not supported"));
     }
+  }
+
+  @Test
+  public void setDir_file_throwsWithMessage() throws Exception {
+    Options options = new Options();
+    File file = tmp.newFile("not-a-dir");
+    try {
+      options.setDir(file);
+      fail("expected GeneratorException");
+    } catch (GeneratorException e) {
+      assertTrue(e.getMessage(), e.hasErrorMessage());
+      assertEquals("Error: \"" + file + "\" is not a directory.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void setDir_createsDirectory() throws Exception {
+    Options options = new Options();
+    File dir = new File(tmp.getRoot(), "new/sub");
+
+    options.setDir(dir);
+
+    assertTrue(dir.isDirectory());
+    assertEquals(dir, options.directory());
   }
 }
