@@ -17,6 +17,7 @@
 - jflex-maven-plugin: the encoding for reading lexer specifications now defaults
   to `project.build.sourceEncoding` if set, and can be configured as `encoding`
   in addition to `encodingName`.
+- jflex-maven-plugin: more robust package name detection (#539, #1160)
 - `%suppress`, `%no-warn`, `%warn`, and `%apiprivate` no longer carry over to
   later specs in the same run, e.g. for CLI with several files,
   jflex-maven-plugin, etc
