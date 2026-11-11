@@ -5,6 +5,7 @@
 
 package jflex.l10n;
 
+import java.io.File;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -107,7 +108,14 @@ public enum ErrorMessages {
   UNKNOWN_WARNING,
   NOT_A_WARNING_ID,
   UNICODE_TOO_LONG,
-  TOKEN_SIZE_LIMIT;
+  TOKEN_SIZE_LIMIT,
+  ERROR_PREFIX,
+  WARNING_PREFIX,
+  IN_FILE,
+  IN_LINE,
+  AT_LINE,
+  NOT_A_DIRECTORY,
+  CANNOT_CREATE_DIR;
 
   private static final Set<ErrorMessages> configurableWarnings =
       new HashSet<>(
@@ -135,13 +143,46 @@ public enum ErrorMessages {
   }
 
   /**
-   * Returns an error message.
+   * Returns an error message with arguments inserted.
+   *
+   * <p>Without arguments this is the same as {@link #get(ErrorMessages)}, so that quotes and braces
+   * in the message are not interpreted as format syntax.
    *
    * @param msg a {@link ErrorMessages} containing the format string.
+   * @param args the arguments for the format string, if any
    * @return a {@link java.lang.String} object.
    */
   public static String get(ErrorMessages msg, Object... args) {
+    if (args == null || args.length == 0) {
+      return get(msg);
+    }
     return MessageFormat.format(get(msg), args);
+  }
+
+  /**
+   * Returns an error message with the {@link #ERROR_PREFIX}, e.g. {@code Error: unknown option
+   * "-x".}
+   *
+   * @param msg the code of the error message
+   * @param args the arguments for the message, if any
+   */
+  public static String error(ErrorMessages msg, Object... args) {
+    return get(ERROR_PREFIX) + ": " + get(msg, args);
+  }
+
+  /**
+   * Returns a message prefix with location information, e.g. {@code Error in file "x.flex" (line
+   * 3)}.
+   *
+   * @param prefix {@link #ERROR_PREFIX} or {@link #WARNING_PREFIX}
+   * @param file the file the message refers to, or null for none
+   * @param line the 0-based line the message refers to, or a negative number for none
+   */
+  public static String prefix(ErrorMessages prefix, File file, int line) {
+    StringBuilder msg = new StringBuilder(get(prefix));
+    if (file != null) msg.append(' ').append(get(IN_FILE, file));
+    if (line >= 0) msg.append(' ').append(get(AT_LINE, String.valueOf(line + 1)));
+    return msg.toString();
   }
 
   /**

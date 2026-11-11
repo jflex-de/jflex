@@ -46,9 +46,7 @@ public class GeneratorException extends RuntimeException {
    * @param args arguments of the error message, if any
    */
   public GeneratorException(ErrorMessages message, Object... args) {
-    this(
-        "Error: "
-            + (args.length == 0 ? ErrorMessages.get(message) : ErrorMessages.get(message, args)));
+    this(ErrorMessages.error(message, args));
   }
 
   /**
