@@ -71,13 +71,17 @@
   </target>
 
   <target name="test" depends="compile">
-    <junit haltonfailure="yes">
-      <test name="${test.class}">
-        <formatter type="plain" usefile="false"/>
-      </test>
+    <!-- JUnit 5; needs Ant 1.10.6 or newer -->
+    <junitlauncher haltOnFailure="true" printSummary="true">
       <classpath refid="lib.path.id"/>
       <classpath refid="antbuild"/>
-    </junit>
+      <test name="${test.class}">
+        <!-- forked, so that the JUnit libraries don't have to be in Ant's own lib directory -->
+        <fork/>
+        <!-- details of failures are in ${ant.build}/TEST-${test.class}.txt -->
+        <listener type="legacy-plain" sendSysOut="true" sendSysErr="true" outputDir="${ant.build}"/>
+      </test>
+    </junitlauncher>
   </target>
 
   <target name="compile" depends="scanner,parser,init-ivy,retrieve">

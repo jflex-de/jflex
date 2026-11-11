@@ -6,13 +6,13 @@
 package jflex.examples.minijava;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for the generated {@link Lexer}.
@@ -24,7 +24,7 @@ public class LexerTest {
 
   private Lexer lexer;
 
-  @After
+  @AfterEach
   public void resetLexer() {
     lexer = null;
   }

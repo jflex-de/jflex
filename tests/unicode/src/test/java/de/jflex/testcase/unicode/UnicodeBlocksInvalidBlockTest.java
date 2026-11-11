@@ -6,19 +6,17 @@
  */
 package de.jflex.testcase.unicode;
 
-import de.jflex.testing.testsuite.JFlexTestRunner;
+import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
 import jflex.exceptions.GeneratorException;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 /** Test that a nonexistent Unicode block property character class triggers an error. */
-@RunWith(JFlexTestRunner.class)
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/unicode/unicode-blocks-failure.flex",
     generatorThrows = GeneratorException.class,
     sysout = "src/test/java/de/jflex/testcase/unicode/unicode-blocks-failure.output")
-public class UnicodeBlocksInvalidBlockTest {
+public class UnicodeBlocksInvalidBlockTest implements JFlexTest {
   @Test
   public void expectGenerationFailure() {
     // A jUnit test must have at least one test.

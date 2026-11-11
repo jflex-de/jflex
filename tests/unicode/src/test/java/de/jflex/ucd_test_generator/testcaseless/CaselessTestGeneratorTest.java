@@ -8,7 +8,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.ucd.UcdFiles;
 import de.jflex.ucd_test_generator.testcaseless.CaselessTestGenerator.Equivalences;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CaselessTestGeneratorTest {
 

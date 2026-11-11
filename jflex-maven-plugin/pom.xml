@@ -127,8 +127,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -147,4 +147,17 @@
       </plugin>
     </plugins>
   </reporting>
+  <profiles>
+    <profile>
+      <!-- maven-plugin-testing-harness makes Mockito spies of objects with final fields, which
+           JDK 26+ warns about and later JDKs will refuse. The option does not exist before. -->
+      <id>test-final-field-mutation</id>
+      <activation>
+        <jdk>[26,)</jdk>
+      </activation>
+      <properties>
+        <surefire.jdk.args>--enable-final-field-mutation=ALL-UNNAMED</surefire.jdk.args>
+      </properties>
+    </profile>
+  </profiles>
 </project>

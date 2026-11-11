@@ -7,17 +7,11 @@
 
 package de.jflex.testcase.line_cont;
 
-import de.jflex.testing.testsuite.JFlexTestRunner;
+import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(JFlexTestRunner.class)
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/line_cont/line.flex",
     sysout = "src/test/java/de/jflex/testcase/line_cont/line-flex.sysout",
     dump = true)
-public class LineTest {
-  @Test
-  public void ok() {}
-}
+public class LineTest implements JFlexTest {}

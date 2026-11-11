@@ -7,7 +7,7 @@ package de.jflex.testcase.action_pipe;
 import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Regression test for issue #201.

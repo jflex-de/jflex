@@ -4,19 +4,19 @@
  */
 package de.jflex.template;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Map;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TemplateVarsTest {
 
   private Foo foo;
 
-  @Before
+  @BeforeEach
   public void createFoo() {
     foo = new Foo();
     foo.templateName = "TemplateVarsTest";

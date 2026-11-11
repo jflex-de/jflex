@@ -13,7 +13,7 @@ import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Tests the inverse of the Unicode block property character class syntax for one block. */
 public class UnicodeBlocksInverseBlockTest {

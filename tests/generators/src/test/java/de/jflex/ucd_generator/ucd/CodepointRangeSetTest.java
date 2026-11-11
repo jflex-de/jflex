@@ -5,10 +5,10 @@
 package de.jflex.ucd_generator.ucd;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import de.jflex.testing.assertion.MoreAsserts;
 import de.jflex.ucd.CodepointRange;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Test for {@link CodepointRangeSet}. */
 public class CodepointRangeSetTest {
@@ -175,7 +175,7 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create(42, 43))
             .add(CodepointRange.create(50, 99))
             .substract(CodepointRange.create(40, 100));
-    MoreAsserts.assertThrows(IllegalStateException.class, rangeSet::build);
+    assertThrows(IllegalStateException.class, rangeSet::build);
   }
 
   @Test

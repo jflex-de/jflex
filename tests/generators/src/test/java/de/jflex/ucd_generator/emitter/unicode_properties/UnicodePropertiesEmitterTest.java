@@ -11,7 +11,7 @@ import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UcdVersions;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Test for {@link UnicodePropertiesEmitter}. */
 public class UnicodePropertiesEmitterTest {

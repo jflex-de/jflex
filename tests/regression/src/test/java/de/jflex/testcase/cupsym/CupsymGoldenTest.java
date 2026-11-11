@@ -10,7 +10,7 @@ import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
 import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.File;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * bug <a href "https://github.com/jflex-de/jflex/issues/58">#58 %cupsym doesn't affect all code</a>

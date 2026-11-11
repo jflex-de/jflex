@@ -8,7 +8,7 @@ package de.jflex.testcase.ctorarg;
 
 import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
 import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests that {@code %cupdebug} together with {@code %ctorarg} generates a scanner that compiles.

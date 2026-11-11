@@ -5,9 +5,9 @@
 
 package jflex.generator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -22,18 +22,17 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import jflex.logging.Out;
 import jflex.option.Options;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 /** Tests for {@link LexGenerator}. */
 public class LexGeneratorTest {
 
-  @Rule public TemporaryFolder tmp = new TemporaryFolder();
+  @TempDir File tmp;
 
   /** Writes a minimal spec for class {@code name} with an extra option line. */
   private File writeSpec(String name, String directive) throws Exception {
-    File spec = tmp.newFile(name + ".flex");
+    File spec = new File(tmp, name + ".flex");
     List<String> lines =
         Arrays.asList("%%", "%class " + name, "%int", directive, "%%", "\"a\" { return 1; }");
     Files.write(spec.toPath(), lines, StandardCharsets.UTF_8);
@@ -50,30 +49,30 @@ public class LexGeneratorTest {
   @Test
   public void generate_apiPrivateDoesNotLeak() throws Exception {
     Options options = new Options();
-    options.setDir(tmp.getRoot());
+    options.setDir(tmp);
 
     String privateApi = generate(writeSpec("PrivateApi", "%apiprivate"), options);
     String publicApi = generate(writeSpec("PublicApi", ""), options);
 
-    assertTrue(privateApi, privateApi.contains("private final void yyclose()"));
-    assertFalse(privateApi, privateApi.contains("public final void yyclose()"));
-    assertTrue(publicApi, publicApi.contains("public final void yyclose()"));
+    assertTrue(privateApi.contains("private final void yyclose()"), privateApi);
+    assertFalse(privateApi.contains("public final void yyclose()"), privateApi);
+    assertTrue(publicApi.contains("public final void yyclose()"), publicApi);
   }
 
   /** Two generators with different options do not affect each other. */
   @Test
   public void generate_optionsAreSeparate() throws Exception {
     Options privateOptions = new Options();
-    privateOptions.setDir(tmp.newFolder("private"));
+    privateOptions.setDir(new File(tmp, "private"));
     privateOptions.setSkeleton(privateOptions.skeleton().makePrivate());
     Options publicOptions = new Options();
-    publicOptions.setDir(tmp.newFolder("public"));
+    publicOptions.setDir(new File(tmp, "public"));
 
     String privateApi = generate(writeSpec("PrivateApi", ""), privateOptions);
     String publicApi = generate(writeSpec("PublicApi", ""), publicOptions);
 
-    assertTrue(privateApi, privateApi.contains("private final void yyclose()"));
-    assertTrue(publicApi, publicApi.contains("public final void yyclose()"));
+    assertTrue(privateApi.contains("private final void yyclose()"), privateApi);
+    assertTrue(publicApi.contains("public final void yyclose()"), publicApi);
   }
 
   /** A generator run with its own options and output, for running concurrently. */
@@ -114,8 +113,8 @@ public class LexGeneratorTest {
   public void generate_concurrentRunsAreSeparate() throws Exception {
     File privateSpec = writeSpec("PrivateApi", "%apiprivate");
     File publicSpec = writeSpec("PublicApi", "");
-    File privateDir = tmp.newFolder("private");
-    File publicDir = tmp.newFolder("public");
+    File privateDir = new File(tmp, "private");
+    File publicDir = new File(tmp, "public");
 
     ExecutorService executor = Executors.newFixedThreadPool(2);
     try {
@@ -127,17 +126,17 @@ public class LexGeneratorTest {
         Future<String> privateApi = executor.submit(verbose);
         Future<String> publicApi = executor.submit(quiet);
 
-        assertTrue(privateApi.get(), privateApi.get().contains("private final void yyclose()"));
-        assertTrue(publicApi.get(), publicApi.get().contains("public final void yyclose()"));
+        assertTrue(privateApi.get().contains("private final void yyclose()"), privateApi.get());
+        assertTrue(publicApi.get().contains("public final void yyclose()"), publicApi.get());
 
         String verboseMessages = verbose.messages();
-        assertTrue(verboseMessages, verboseMessages.contains("Reading \"" + privateSpec + "\""));
+        assertTrue(verboseMessages.contains("Reading \"" + privateSpec + "\""), verboseMessages);
         assertTrue(
-            verboseMessages,
             verboseMessages.contains(
-                "Writing code to \"" + new File(privateDir, "PrivateApi.java")));
-        assertFalse(verboseMessages, verboseMessages.contains("PublicApi"));
-        assertEquals("quiet run prints nothing", "", quiet.messages());
+                "Writing code to \"" + new File(privateDir, "PrivateApi.java")),
+            verboseMessages);
+        assertFalse(verboseMessages.contains("PublicApi"), verboseMessages);
+        assertEquals("", quiet.messages(), "quiet run prints nothing");
         assertEquals(0, verbose.out.errors());
         assertEquals(0, quiet.out.errors());
       }

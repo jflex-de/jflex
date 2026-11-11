@@ -11,7 +11,7 @@ import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
 import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.File;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * testing general lookahead expression case (e.g. a+a/a+)

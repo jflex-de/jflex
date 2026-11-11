@@ -1,0 +1,8 @@
+# Copyright 2026, Gerwin Klein
+# SPDX-License-Identifier: BSD-3-Clause
+
+# Generators for the parameters of the *Quickcheck property tests
+jflex.chars.IntervalGen
+jflex.core.unicode.CharClassesGen
+jflex.core.unicode.IntCharSetGen
+jflex.state.StateSetGen

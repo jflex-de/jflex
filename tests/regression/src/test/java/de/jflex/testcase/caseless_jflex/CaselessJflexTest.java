@@ -10,8 +10,8 @@ import static com.google.common.truth.Truth.assertWithMessage;
 
 import com.google.common.io.CharSource;
 import java.io.IOException;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test {@code %ignorecase} with JFlex semantics.
@@ -22,7 +22,7 @@ public class CaselessJflexTest {
 
   private CaselessScanner scanner;
 
-  @After
+  @AfterEach
   public void endOfFile() throws Exception {
     assertThat(scanner.yylex()).isEqualTo(State.END_OF_FILE);
   }

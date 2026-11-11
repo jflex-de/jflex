@@ -5,13 +5,13 @@
 package de.jflex.testing;
 
 import static com.google.common.truth.Truth.assertThat;
-import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import de.jflex.testing.diff.DiffOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Test for {@link DiffOutputStreamTest}. */
 public class DiffOutputStreamTest {
@@ -30,9 +30,9 @@ public class DiffOutputStreamTest {
     String in = "Hello world!\n";
     String out = "Hello\n";
     assertThrows(
-        DiffOutputStream.class + " throws an exception when the content differs",
         AssertionError.class,
-        () -> diff(in, out));
+        () -> diff(in, out),
+        DiffOutputStream.class + " throws an exception when the content differs");
   }
 
   @Test
@@ -40,9 +40,9 @@ public class DiffOutputStreamTest {
     String in = "Hello!\n";
     String out = "Hello world!\n";
     assertThrows(
-        DiffOutputStream.class + " throws an exception when the content differs",
         AssertionError.class,
-        () -> diff(in, out));
+        () -> diff(in, out),
+        DiffOutputStream.class + " throws an exception when the content differs");
   }
 
   @Test
@@ -58,13 +58,13 @@ public class DiffOutputStreamTest {
   public void close_contentRemaining_failsAndClosesInput() throws Exception {
     TrackedReader in = new TrackedReader("Hello\nworld!\n");
     assertThrows(
-        DiffOutputStream.class + " throws an exception when content was not output",
         AssertionError.class,
         () -> {
           try (DiffOutputStream differ = new DiffOutputStream(in)) {
             differ.write("Hello\n".getBytes("UTF-8"));
           }
-        });
+        },
+        DiffOutputStream.class + " throws an exception when content was not output");
     assertThat(in.closed).isTrue();
   }
 

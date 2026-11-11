@@ -10,7 +10,7 @@ import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
 import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.File;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * testing that dot (.) matches [^\n\r\u000B\u000C\u0085\u2028\u2029] and that \R matches "\r\n" |

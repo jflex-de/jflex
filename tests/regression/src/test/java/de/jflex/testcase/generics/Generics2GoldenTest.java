@@ -10,7 +10,7 @@ package de.jflex.testcase.generics;
 import com.google.common.collect.ImmutableMap;
 import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
 import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for feature request <a href="https://github.com/jflex-de/jflex/issues/75">#75 Support

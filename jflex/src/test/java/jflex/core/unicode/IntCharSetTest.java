@@ -9,7 +9,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
 import jflex.chars.Interval;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class IntCharSetTest {
 

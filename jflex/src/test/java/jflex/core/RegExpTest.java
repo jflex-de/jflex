@@ -9,7 +9,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import java.util.ArrayList;
 import jflex.core.unicode.IntCharSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link jflex.core.RegExp}.

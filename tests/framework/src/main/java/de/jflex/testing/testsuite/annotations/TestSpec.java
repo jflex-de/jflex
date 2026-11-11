@@ -4,10 +4,21 @@
  */
 package de.jflex.testing.testsuite.annotations;
 
+import de.jflex.testing.testsuite.JFlexTest;
+import de.jflex.testing.testsuite.JFlexTestExtension;
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+/**
+ * The scanner spec of a test class, which must implement {@link JFlexTest}. Before the tests of the
+ * class run, {@link JFlexTestExtension} runs JFlex on the spec and compiles the generated scanner.
+ */
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@ExtendWith(JFlexTestExtension.class)
 public @interface TestSpec {
 
   /** Lex specification. Required. */

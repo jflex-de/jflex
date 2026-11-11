@@ -5,38 +5,25 @@
 
 package jflex.maven.plugin.cup;
 
-import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
 import java.io.File;
-import org.apache.maven.plugin.testing.MojoRule;
+import org.apache.maven.api.plugin.testing.Basedir;
+import org.apache.maven.api.plugin.testing.InjectMojo;
+import org.apache.maven.api.plugin.testing.MojoTest;
 import org.apache.maven.project.MavenProject;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-/**
- * Integration test for {@link jflex.maven.plugin.cup.GenerateMojo} on {@code
- * /jflex/cup/sample-project/pom.xml}.
- */
+/** Runs the mojo with the configuration in the {@code pom.xml} of {@code sample-project}. */
+@MojoTest
 public class GenerateMojoIntegrationTest {
 
-  private MavenProject mavenTestProject;
-
-  @Rule
-  public MojoRule mojoRule =
-      new MojoRule() {
-        @Override
-        protected void before() throws Throwable {
-          super.before();
-          mavenTestProject = readMavenProject(new File("sample-project"));
-          assertThat(mavenTestProject.getGroupId()).isEqualTo("de.jflex.testing");
-          assertThat(mavenTestProject.getArtifactId()).isEqualTo("sample-project");
-        }
-      };
-
   @Test
-  public void testExecution() throws Exception {
-    mojoRule.executeMojo(mavenTestProject, "generate");
+  @Basedir("sample-project")
+  @InjectMojo(goal = "generate")
+  public void testExecution(GenerateMojo mojo) throws Exception {
+    mojo.execute();
+    MavenProject mavenTestProject = mojo.mavenProject;
     File outputDir = new File(mavenTestProject.getBasedir(), "/target/generated-sources/cup");
     assertWithMessage("The target `cup` directory exists in the target directory")
         .that(outputDir.exists())

@@ -10,7 +10,7 @@ import static com.google.common.truth.Truth.assertThat;
 import com.google.common.io.CharStreams;
 import java.io.IOException;
 import java.io.Reader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Test {@link RepeatContentReader}. */
 public class RepeatContentReaderTest {

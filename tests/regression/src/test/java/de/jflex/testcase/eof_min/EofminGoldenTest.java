@@ -10,7 +10,7 @@ import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
 import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.File;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Regression test <a href="https://github.com/jflex-de/jflex/issues/82">#82 State minimizer ignores

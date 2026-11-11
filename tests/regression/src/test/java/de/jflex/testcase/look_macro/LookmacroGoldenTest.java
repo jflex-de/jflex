@@ -11,7 +11,7 @@ import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
 import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.File;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * test for bug <a href="https://github.com/jflex-de/jflex/issues/100">#100 (macro use in length

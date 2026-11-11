@@ -6,10 +6,10 @@
 package de.jflex.testsuite;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import de.jflex.testing.SystemOutCapture;
 import de.jflex.util.javac.JavacUtils;
@@ -28,7 +28,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -36,11 +35,9 @@ import java.util.Set;
 import jflex.Main;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Runs the {@code .test} cases in {@code src/test/cases} of a test module, and optionally the
@@ -65,7 +62,6 @@ import org.junit.runners.Parameterized.Parameters;
  *       e.g. {@code dot,unicode-scripts}. All by default.
  * </ul>
  */
-@RunWith(Parameterized.class)
 public abstract class AbstractTestsuiteTest {
 
   private static final File SUITE_DIR =
@@ -82,14 +78,8 @@ public abstract class AbstractTestsuiteTest {
   private static final File OUT_DIR =
       new File(System.getProperty("jflex.testsuite.out", "target/testsuite"));
 
-  @Parameter(0)
-  public String caseName;
-
-  @Parameter(1)
-  public File testFile;
-
-  @Parameters(name = "{0}")
-  public static Collection<Object[]> cases() {
+  /** The name and the {@code .test} file of each case to run. */
+  static List<Arguments> cases() {
     Set<String> selected = new HashSet<>();
     for (String dir : System.getProperty("jflex.testsuite.cases", "").split(",")) {
       if (!dir.trim().isEmpty()) {
@@ -106,7 +96,7 @@ public abstract class AbstractTestsuiteTest {
       }
       casesDirs.add(generated);
     }
-    List<Object[]> result = new ArrayList<>();
+    List<Arguments> result = new ArrayList<>();
     for (File casesDir : casesDirs) {
       for (File dir : sorted(casesDir.listFiles(File::isDirectory))) {
         if (!selected.isEmpty() && !selected.contains(dir.getName())) {
@@ -114,7 +104,7 @@ public abstract class AbstractTestsuiteTest {
         }
         missing.remove(dir.getName());
         for (File test : sorted(dir.listFiles((d, name) -> name.endsWith(".test")))) {
-          result.add(new Object[] {dir.getName() + "/" + test.getName(), test});
+          result.add(Arguments.of(dir.getName() + "/" + test.getName(), test));
         }
       }
     }
@@ -128,12 +118,13 @@ public abstract class AbstractTestsuiteTest {
     return result;
   }
 
-  @Test
-  public void run() throws Exception {
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("cases")
+  public void run(String caseName, File testFile) throws Exception {
     SuiteCase spec = load(testFile);
     File dir = testFile.getParentFile();
     String fileName = testFile.getName();
-    assertEquals("name: in " + testFile, fileName.substring(0, fileName.length() - 5), spec.name);
+    assertEquals(fileName.substring(0, fileName.length() - 5), spec.name, "name: in " + testFile);
 
     File outDir = new File(OUT_DIR, caseName.substring(0, caseName.length() - 5));
     recreate(outDir);
@@ -142,7 +133,7 @@ public abstract class AbstractTestsuiteTest {
     if (spec.expectJFlexFail) {
       return;
     }
-    assertTrue("JFlex failed on " + spec.name + ".flex", generated);
+    assertTrue(generated, "JFlex failed on " + spec.name + ".flex");
 
     compile(outDir);
     String className =
@@ -211,13 +202,13 @@ public abstract class AbstractTestsuiteTest {
     actual = actual.replace('\\', '/');
     File golden = new File(flexFile.getParentFile(), spec.name + "-flex.output");
     String expected = new String(Files.readAllBytes(golden.toPath()), UTF_8).replace('\\', '/');
-    assertEquals("JFlex output, golden " + golden, lines(expected), lines(actual));
+    assertEquals(lines(expected), lines(actual), "JFlex output, golden " + golden);
     return success;
   }
 
   private static void compile(File outDir) throws Exception {
     File[] sources = outDir.listFiles((d, name) -> name.endsWith(".java"));
-    assertTrue("JFlex generated no Java file in " + outDir, sources.length > 0);
+    assertTrue(sources.length > 0, "JFlex generated no Java file in " + outDir);
     JavacUtils.compile(Arrays.asList(sources), outDir);
   }
 
@@ -227,8 +218,8 @@ public abstract class AbstractTestsuiteTest {
    */
   private static void runScanner(
       SuiteCase spec, File outDir, String className, File input, File expected) throws Exception {
-    assertTrue("Missing input " + input, input.isFile());
-    assertTrue("Missing golden " + expected, expected.isFile());
+    assertTrue(input.isFile(), "Missing input " + input);
+    assertTrue(expected.isFile(), "Missing golden " + expected);
 
     ByteArrayOutputStream output = new ByteArrayOutputStream();
     // Parent null: only the JDK and the scanner, as when running it on its own.
@@ -247,9 +238,9 @@ public abstract class AbstractTestsuiteTest {
     String expectedText =
         new String(Files.readAllBytes(expected.toPath()), spec.outputFileEncoding);
     assertEquals(
-        "Scanner output, golden " + expected,
         lines(expectedText),
-        lines(output.toString(spec.outputFileEncoding)));
+        lines(output.toString(spec.outputFileEncoding)),
+        "Scanner output, golden " + expected);
   }
 
   /** The lines of {@code text}, joined with {@code \n}, so that line endings don't matter. */
@@ -267,12 +258,12 @@ public abstract class AbstractTestsuiteTest {
   private static void recreate(File dir) throws IOException {
     if (dir.exists()) {
       for (File f : dir.listFiles()) {
-        assertTrue("Cannot delete " + f, f.isFile() && f.delete());
+        assertTrue(f.isFile() && f.delete(), "Cannot delete " + f);
       }
     } else {
-      assertTrue("Cannot create " + dir, dir.mkdirs());
+      assertTrue(dir.mkdirs(), "Cannot create " + dir);
     }
-    assertFalse("Not empty: " + dir, dir.list().length > 0);
+    assertFalse(dir.list().length > 0, "Not empty: " + dir);
   }
 
   private static File[] sorted(File[] files) {

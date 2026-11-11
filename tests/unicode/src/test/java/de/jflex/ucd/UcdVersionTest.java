@@ -11,13 +11,12 @@ import de.jflex.version.Version;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 /** Test {@link UcdVersion}. */
 public class UcdVersionTest {
-  @Rule public final TemporaryFolder tempDir = new TemporaryFolder();
+  @TempDir File tempDir;
 
   /**
    * Test that Unicode files are found on a recent zipped release. See
@@ -91,7 +90,7 @@ public class UcdVersionTest {
   }
 
   private File newFile(String path) throws IOException {
-    File file = new File(tempDir.getRoot(), path);
+    File file = new File(tempDir, path);
     Files.createDirectories(file.getParentFile().toPath());
     Files.createFile(file.toPath());
     return file;

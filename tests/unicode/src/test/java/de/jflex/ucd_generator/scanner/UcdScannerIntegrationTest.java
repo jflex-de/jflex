@@ -11,8 +11,8 @@ import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd_generator.TestedVersions;
 import de.jflex.version.Version;
 import java.io.IOException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /** Integration test for the {@link UcdScanner} on Unicode 6. */
 public class UcdScannerIntegrationTest {
@@ -33,7 +33,7 @@ public class UcdScannerIntegrationTest {
 
   private UcdScanner ucdScanner;
 
-  @Before
+  @BeforeEach
   public void ucdScanner() {
     ucdScanner = new UcdScanner(TestedVersions.UCD_VERSION_6_3);
     assertThat(ucdScanner.ucdVersion().version()).isEqualTo(new Version(6, 3, 0));

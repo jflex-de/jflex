@@ -6,18 +6,17 @@
 package jflex.core.unicode;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assume.assumeTrue;
 
-import com.pholser.junit.quickcheck.From;
-import com.pholser.junit.quickcheck.Property;
-import com.pholser.junit.quickcheck.generator.InRange;
-import com.pholser.junit.quickcheck.generator.Size;
-import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
-import java.util.ArrayList;
 import java.util.List;
 import jflex.base.Pair;
 import jflex.chars.Interval;
-import org.junit.runner.RunWith;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Assume;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.Provide;
+import net.jqwik.api.constraints.IntRange;
+import net.jqwik.api.constraints.Size;
 
 /**
  * Property-based tests for {@link CharClasses}
@@ -26,33 +25,37 @@ import org.junit.runner.RunWith;
  * @version JFlex 1.10.0-SNAPSHOT
  * @see IntCharSet
  */
-@RunWith(JUnitQuickcheck.class)
 public class CharClassesQuickcheck {
 
   // TODO(lsf): add testing for caseless; needs UnicodeProperties
 
+  @Provide
+  Arbitrary<Integer> intChars() {
+    return IntCharGen.intChars();
+  }
+
   @Property
-  public void invariants(CharClasses c) {
+  public void invariants(@ForAll CharClasses c) {
     assertThat(c.invariants()).isTrue();
   }
 
   @Property
-  public void maxCharCode(CharClasses c) {
+  public void maxCharCode(@ForAll CharClasses c) {
     // currently only testing with maxChar
     assertThat(c.getMaxCharCode()).isEqualTo(CharClasses.maxChar);
   }
 
   @Property
   public void addSingle(
-      CharClasses classes, @From(IntCharGen.class) int c1, @From(IntCharGen.class) int c2) {
-    assumeTrue(c1 != c2);
+      @ForAll CharClasses classes, @ForAll("intChars") int c1, @ForAll("intChars") int c2) {
+    Assume.that(c1 != c2);
     classes.makeClass(c1, false);
     assertThat(classes.invariants()).isTrue();
     assertThat(classes.getClassCode(c1)).isNotEqualTo(classes.getClassCode(c2));
   }
 
   @Property
-  public void addSingleSingleton(CharClasses classes, @From(IntCharGen.class) int c) {
+  public void addSingleSingleton(@ForAll CharClasses classes, @ForAll("intChars") int c) {
     classes.makeClass(c, false);
     IntCharSet set = classes.getCharClass(classes.getClassCode(c));
     assertThat(set).isEqualTo(IntCharSet.ofCharacter(c));
@@ -60,11 +63,11 @@ public class CharClassesQuickcheck {
 
   @Property
   public void addSet(
-      CharClasses classes,
-      @InRange(maxInt = CharClasses.maxChar) IntCharSet set,
-      @From(IntCharGen.class) int c) {
+      @ForAll CharClasses classes,
+      @ForAll @IntRange(max = CharClasses.maxChar) IntCharSet set,
+      @ForAll("intChars") int c) {
 
-    assumeTrue(!set.contains(c));
+    Assume.that(!set.contains(c));
 
     classes.makeClass(set, false);
     assertThat(classes.invariants()).isTrue();
@@ -78,7 +81,7 @@ public class CharClassesQuickcheck {
 
   @Property
   public void addSetParts(
-      CharClasses classes, @InRange(maxInt = CharClasses.maxChar) IntCharSet set) {
+      @ForAll CharClasses classes, @ForAll @IntRange(max = CharClasses.maxChar) IntCharSet set) {
 
     classes.makeClass(set, false);
 
@@ -92,7 +95,7 @@ public class CharClassesQuickcheck {
 
   @Property
   public void addSetComplement(
-      CharClasses classes, @InRange(maxInt = CharClasses.maxChar) IntCharSet set) {
+      @ForAll CharClasses classes, @ForAll @IntRange(max = CharClasses.maxChar) IntCharSet set) {
 
     classes.makeClass(set, false);
 
@@ -105,9 +108,9 @@ public class CharClassesQuickcheck {
   }
 
   @Property
-  public void addString(CharClasses classes, String s, @From(IntCharGen.class) int c) {
+  public void addString(@ForAll CharClasses classes, @ForAll String s, @ForAll("intChars") int c) {
 
-    assumeTrue(s.indexOf(c) < 0);
+    Assume.that(s.indexOf(c) < 0);
 
     classes.makeClass(s, false);
     assertThat(classes.invariants()).isTrue();
@@ -122,7 +125,7 @@ public class CharClassesQuickcheck {
 
   @Property
   public void normaliseSingle(
-      CharClasses classes, @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c) {
+      @ForAll CharClasses classes, @ForAll @IntRange(max = CharClasses.maxChar) int c) {
     CharClasses preClasses = CharClasses.copyOf(classes);
 
     classes.normalise();
@@ -139,11 +142,10 @@ public class CharClassesQuickcheck {
     return table.snd.get(top).block[offset];
   }
 
-  @Property(trials = 20)
+  @Property(tries = 20)
   public void computeTablesEq(
-      CharClasses classes,
-      @Size(min = 100, max = 100)
-          ArrayList<@InRange(minInt = 0, maxInt = CharClasses.maxChar) Integer> inputs) {
+      @ForAll CharClasses classes,
+      @ForAll @Size(100) List<@IntRange(max = CharClasses.maxChar) Integer> inputs) {
     Pair<int[], List<CMapBlock>> table = classes.computeTables();
     for (int input : inputs) {
       assertThat(translateBlocks(table, input)).isEqualTo(classes.getClassCode(input));
@@ -156,11 +158,10 @@ public class CharClassesQuickcheck {
     return offset == input ? table.snd[offset] : table.snd[top | offset];
   }
 
-  @Property(trials = 20)
+  @Property(tries = 20)
   public void getTablesEq(
-      CharClasses classes,
-      @Size(min = 100, max = 100)
-          ArrayList<@InRange(minInt = 0, maxInt = CharClasses.maxChar) Integer> inputs) {
+      @ForAll CharClasses classes,
+      @ForAll @Size(100) List<@IntRange(max = CharClasses.maxChar) Integer> inputs) {
     Pair<int[], int[]> table = classes.getTables();
     for (int input : inputs) {
       assertThat(translateFlat(table, input)).isEqualTo(classes.getClassCode(input));
@@ -168,7 +169,7 @@ public class CharClassesQuickcheck {
   }
 
   @Property
-  public void classCodesUnion(CharClasses classes) {
+  public void classCodesUnion(@ForAll CharClasses classes) {
     CharClassInterval[] intervals = classes.getIntervals();
     IntCharSet union = new IntCharSet();
     for (CharClassInterval i : intervals) {
@@ -178,7 +179,7 @@ public class CharClassesQuickcheck {
   }
 
   @Property
-  public void classCodesCode(CharClasses classes) {
+  public void classCodesCode(@ForAll CharClasses classes) {
     CharClassInterval[] intervals = classes.getIntervals();
 
     for (CharClassInterval i : intervals) {
@@ -189,7 +190,7 @@ public class CharClassesQuickcheck {
   }
 
   @Property
-  public void classCodesDisjointOrdered(CharClasses classes) {
+  public void classCodesDisjointOrdered(@ForAll CharClasses classes) {
     CharClassInterval[] intervals = classes.getIntervals();
 
     for (int i = 0; i < intervals.length - 1; i++) {

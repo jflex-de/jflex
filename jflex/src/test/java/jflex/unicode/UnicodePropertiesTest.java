@@ -6,12 +6,12 @@
 package jflex.unicode;
 
 import static com.google.common.truth.Truth.assertWithMessage;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Objects;
 import jflex.core.unicode.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class UnicodePropertiesTest {
 

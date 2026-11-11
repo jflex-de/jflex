@@ -9,7 +9,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.EOFException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test success cases for {@code %token_size_limit} directive.

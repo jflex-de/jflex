@@ -8,7 +8,7 @@
 package de.jflex.testing.unicodedata;
 
 import static com.google.common.truth.Truth.assertThat;
-import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -18,16 +18,15 @@ import com.google.common.io.CharSource;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.regex.Pattern;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /** Test for {@link AbstractSimpleParserTest}. */
+@ExtendWith(MockitoExtension.class)
 public class AbstractSimpleParserTest {
 
-  @Rule public MockitoRule rule = MockitoJUnit.rule();
   @Mock AbstractSimpleParser.PatternHandler handler;
 
   @Test

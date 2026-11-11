@@ -7,12 +7,12 @@
 
 package de.jflex.testcase.initthrow_eol;
 
-import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.google.common.io.CharSource;
 import java.io.IOException;
 import java.io.Reader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Regression test against bug <a href="https://github.com/jflex-de/jflex/issues/52">#52 single-line

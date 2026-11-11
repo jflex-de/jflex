@@ -9,7 +9,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import java.io.File;
 import jflex.option.Options;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Some unit tests for the jflex Emitter class

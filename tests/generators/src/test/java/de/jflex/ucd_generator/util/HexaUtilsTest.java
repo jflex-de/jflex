@@ -5,9 +5,9 @@
 package de.jflex.ucd_generator.util;
 
 import static com.google.common.truth.Truth.assertThat;
-import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Test for {@link HexaUtils}. */
 public class HexaUtilsTest {

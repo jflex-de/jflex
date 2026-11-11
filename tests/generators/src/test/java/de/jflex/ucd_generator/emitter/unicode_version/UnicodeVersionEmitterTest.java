@@ -8,7 +8,7 @@ package de.jflex.ucd_generator.emitter.unicode_version;
 import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.ucd_generator.util.JavaStrings;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Unit test for {@link UnicodeVersionEmitter}. */
 public class UnicodeVersionEmitterTest {
