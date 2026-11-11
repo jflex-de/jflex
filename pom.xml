@@ -210,6 +210,14 @@
         <scope>test</scope>
       </dependency>
       <dependency>
+        <!-- Avoid warning in plugin tests caused by Maven trying to log without a logger binding.
+             Use the version of the slf4j-api that Maven depends on. -->
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-nop</artifactId>
+        <version>1.7.36</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
         <version>${mockito.version}</version>
