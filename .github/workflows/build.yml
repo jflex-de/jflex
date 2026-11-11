@@ -122,15 +122,3 @@ jobs:
     - name: '📝 Javadoc'
       run: |
         ./mvnw javadoc:javadoc
-
-  docs:
-    name: 'Docs'
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v7
-    - name: 'Install LaTeX and pandoc'
-      run: |
-        sudo apt-get install \
-             pandoc texlive texlive-latex-extra lmodern
-    - name: "📄 Documentation"
-      run: cd docs; make

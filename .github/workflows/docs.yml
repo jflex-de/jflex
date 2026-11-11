@@ -1,0 +1,60 @@
+# Copyright 2026, Gerwin Klein
+# SPDX-License-Identifier: BSD-3-Clause
+
+name: Docs
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+jobs:
+  docs:
+    name: 'Docs'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      APT_ARCHIVES: /home/runner/apt-archives
+      APT_PACKAGES: pandoc texlive-latex-recommended texlive-latex-extra lmodern
+      APT_OPTS: >-
+        -o APT::Sandbox::User=root
+        -o Acquire::Retries=5
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: 'Update packages'
+      id: update
+      run: |
+        sudo apt-get update -qq
+        mkdir -p "$APT_ARCHIVES/partial"
+        key=$(sudo apt-get install --no-install-recommends --print-uris -qq $APT_PACKAGES \
+              | cut -d' ' -f2 | sort | sha256sum | cut -c1-16)
+        echo "key=apt-docs-${RUNNER_OS}-${RUNNER_ARCH}-${key}" >> "$GITHUB_OUTPUT"
+
+    - name: 'Cache .deb files'
+      uses: actions/cache@v5
+      with:
+        path: ${{ env.APT_ARCHIVES }}
+        key: ${{ steps.update.outputs.key }}
+        restore-keys: apt-docs-${{ runner.os }}-${{ runner.arch }}-
+
+    - name: 'Install LaTeX and pandoc'
+      run: |
+        # download .deb into $APT_ARCHIVES, so they can be cached below
+        APT_OPTS="$APT_OPTS -o Dir::Cache::Archives=$APT_ARCHIVES"
+        sudo apt-get install -y -qq --no-install-recommends $APT_OPTS $APT_PACKAGES
+        # drop obsolete versions, make cache readable for actions/cache
+        sudo apt-get autoclean -qq $APT_OPTS
+        sudo rm -rf "$APT_ARCHIVES/lock" "$APT_ARCHIVES/partial"
+        sudo chown -R "$USER" "$APT_ARCHIVES"
+
+    - name: "📄 Documentation"
+      run: cd docs; make
