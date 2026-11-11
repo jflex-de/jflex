@@ -5,8 +5,10 @@
 
 package jflex.core.unicode;
 
-import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jflex.chars.Interval;
 import org.junit.jupiter.api.Test;
@@ -20,7 +22,7 @@ public class IntCharSetTest {
     set.add(new Interval('o', 'z'));
     set.add(new Interval('A', 'Z'));
     set.add(new Interval('h', 'o'));
-    assertThat(set).isEqualTo(IntCharSet.of(new Interval('A', 'Z'), new Interval('a', 'z')));
+    assertEquals(IntCharSet.of(new Interval('A', 'Z'), new Interval('a', 'z')), set);
   }
 
   @Test
@@ -30,7 +32,7 @@ public class IntCharSetTest {
     set.add(new Interval('o', 'z'));
     set.add(new Interval('A', 'Z'));
     set.add(new Interval('i', 'n'));
-    assertThat(set).isEqualTo(IntCharSet.of(new Interval('A', 'Z'), new Interval('a', 'z')));
+    assertEquals(IntCharSet.of(new Interval('A', 'Z'), new Interval('a', 'z')), set);
   }
 
   @Test
@@ -40,15 +42,15 @@ public class IntCharSetTest {
     set.add(new Interval('o', 'z'));
     set.add(new Interval('A', 'Z'));
     set.add(new Interval('a', 'n'));
-    assertThat(set).isEqualTo(IntCharSet.of(new Interval('A', 'Z'), new Interval('a', 'z')));
+    assertEquals(IntCharSet.of(new Interval('A', 'Z'), new Interval('a', 'z')), set);
   }
 
   @Test
   public void add_lastCharacter() {
     IntCharSet set = IntCharSet.ofCharacterRange('a', 'k');
-    assertThat(set).isEqualTo(IntCharSet.ofCharacterRange('a', 'k'));
+    assertEquals(IntCharSet.ofCharacterRange('a', 'k'), set);
     set.add('l');
-    assertThat(set).isEqualTo(IntCharSet.ofCharacterRange('a', 'l'));
+    assertEquals(IntCharSet.ofCharacterRange('a', 'l'), set);
   }
 
   @Test
@@ -56,7 +58,7 @@ public class IntCharSetTest {
     IntCharSet set = new IntCharSet();
     set.add(new Interval('o', 'z'));
     set.add('n');
-    assertThat(set).isEqualTo(IntCharSet.ofCharacterRange('n', 'z'));
+    assertEquals(IntCharSet.ofCharacterRange('n', 'z'), set);
   }
 
   @Test
@@ -65,10 +67,9 @@ public class IntCharSetTest {
     set.add(new Interval('x', 'z'));
     set.add(new Interval('a', 'c'));
     set.add('n');
-    assertThat(set)
-        .isEqualTo(
-            IntCharSet.of(
-                new Interval('a', 'c'), Interval.ofCharacter('n'), new Interval('x', 'z')));
+    assertEquals(
+        IntCharSet.of(new Interval('a', 'c'), Interval.ofCharacter('n'), new Interval('x', 'z')),
+        set);
   }
 
   @Test
@@ -77,7 +78,7 @@ public class IntCharSetTest {
     IntCharSet copy = IntCharSet.copyOf(set);
     Interval i = set.getIntervals().get(0);
     i.end = 'X';
-    assertThat(copy).isNotEqualTo(set);
+    assertNotEquals(set, copy);
   }
 
   @Test
@@ -98,17 +99,16 @@ public class IntCharSetTest {
     //
     // 006B;LATIN SMALL LETTER K;Ll;0;L;;;;;N;;;004B;;004B
     // 212A;KELVIN SIGN;Lu;0;L;004B;;;;N;DEGREES KELVIN;;;006B;
-    assertWithMessage(
-            "The caseless version should be ['A'-'C']['H'-'O']['a'-'c']['h'-'o'][304-305][8490]")
-        .that(set.getCaseless(unicodeProperties))
-        .isEqualTo(
-            IntCharSet.of(
-                new Interval('A', 'C'),
-                new Interval('H', 'O'),
-                new Interval('a', 'c'),
-                new Interval('h', 'o'),
-                new Interval(0x130, 0x131),
-                Interval.ofCharacter(0x212A)));
+    assertEquals(
+        IntCharSet.of(
+            new Interval('A', 'C'),
+            new Interval('H', 'O'),
+            new Interval('a', 'c'),
+            new Interval('h', 'o'),
+            new Interval(0x130, 0x131),
+            Interval.ofCharacter(0x212A)),
+        set.getCaseless(unicodeProperties),
+        "The caseless version should be ['A'-'C']['H'-'O']['a'-'c']['h'-'o'][304-305][8490]");
   }
 
   @Test
@@ -122,14 +122,14 @@ public class IntCharSetTest {
             new Interval('İ', 'ı'), // http://www.fileformat.info/info/unicode/char/130/
             Interval.ofCharacter('K') // http://www.fileformat.info/info/unicode/char/212A/
             );
-    assertThat(set.toString()).isEqualTo("{ ['A'-'C']['H'-'O']['a'-'c']['h'-'o'][304-305][8490] }");
+    assertEquals("{ ['A'-'C']['H'-'O']['a'-'c']['h'-'o'][304-305][8490] }", set.toString());
   }
 
   @Test
   public void addIntCharSet() {
     IntCharSet set = IntCharSet.ofCharacterRange(0, 10);
     set.add(IntCharSet.of(new Interval(11, 20), new Interval(41, 42)));
-    assertThat(set).isEqualTo(IntCharSet.of(new Interval(0, 20), new Interval(41, 42)));
+    assertEquals(IntCharSet.of(new Interval(0, 20), new Interval(41, 42)), set);
   }
 
   @Test
@@ -137,7 +137,7 @@ public class IntCharSetTest {
     IntCharSet a = IntCharSet.of(new Interval(1, 7), new Interval(10, 42));
     a.sub(IntCharSet.ofCharacterRange(4, 7));
     a.sub(IntCharSet.ofCharacterRange(10, 41));
-    assertThat(a).isEqualTo(IntCharSet.of(new Interval(1, 3), Interval.ofCharacter(42)));
+    assertEquals(IntCharSet.of(new Interval(1, 3), Interval.ofCharacter(42)), a);
   }
 
   @Test
@@ -148,9 +148,9 @@ public class IntCharSetTest {
     IntCharSet d = IntCharSet.ofCharacterRange(1, 20);
     IntCharSet e = IntCharSet.of(new Interval(4, 6), new Interval(10, 15));
 
-    assertThat(a.contains(b)).isTrue();
-    assertThat(a.contains(e)).isTrue();
-    assertThat(a.contains(c)).isFalse();
-    assertThat(a.contains(d)).isFalse();
+    assertTrue(a.contains(b));
+    assertTrue(a.contains(e));
+    assertFalse(a.contains(c));
+    assertFalse(a.contains(d));
   }
 }

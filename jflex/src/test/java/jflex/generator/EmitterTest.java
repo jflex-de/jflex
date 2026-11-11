@@ -5,7 +5,7 @@
 
 package jflex.generator;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import jflex.option.Options;
@@ -23,11 +23,13 @@ public class EmitterTest {
     Options options = new Options();
     String bad = "something/or_other\\filename\\nFILE_NAMES_MUST_BE_ESCAPED\\u000A.flex";
     if (File.separatorChar == '\\') {
-      assertThat(Emitter.sourceFileString(new File(bad), options))
-          .isEqualTo("something/or_other/filename/nFILE_NAMES_MUST_BE_ESCAPED/u000A.flex");
+      assertEquals(
+          "something/or_other/filename/nFILE_NAMES_MUST_BE_ESCAPED/u000A.flex",
+          Emitter.sourceFileString(new File(bad), options));
     } else {
-      assertThat(Emitter.sourceFileString(new File(bad), options))
-          .isEqualTo("something/or_other\\\\filename\\\\nFILE_NAMES_MUST_BE_ESCAPED\\\\u000A.flex");
+      assertEquals(
+          "something/or_other\\\\filename\\\\nFILE_NAMES_MUST_BE_ESCAPED\\\\u000A.flex",
+          Emitter.sourceFileString(new File(bad), options));
     }
   }
 }

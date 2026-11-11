@@ -5,8 +5,11 @@
 
 package jflex.state;
 
-import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
@@ -42,22 +45,18 @@ public class StateSetQuickcheck {
 
   @Property
   public void size2nbits(@ForAll @IntRange(min = 1, max = 56) int size) {
-    assertThat(StateSet.size2nbits(StateSet.nbits2size(size))).isEqualTo(size);
+    assertEquals(size, StateSet.size2nbits(StateSet.nbits2size(size)));
   }
 
   @Property
   public void containsIsSubset(@ForAll StateSet s1, @ForAll StateSet s2) {
     boolean allElements = true;
     for (int e : s2) allElements &= s1.hasElement(e);
-    assertWithMessage("s1.contains(s2) should be equal to " + allElements)
-        .that(s1.contains(s2))
-        .isEqualTo(allElements);
+    assertEquals(allElements, s1.contains(s2), "s1.contains(s2) should be equal to " + allElements);
 
     allElements = true;
     for (int e : s1) allElements &= s2.hasElement(e);
-    assertWithMessage("s2.contains(s1) should be equal to " + allElements)
-        .that(s2.contains(s1))
-        .isEqualTo(allElements);
+    assertEquals(allElements, s2.contains(s1), "s2.contains(s1) should be equal to " + allElements);
   }
 
   @Property
@@ -65,11 +64,11 @@ public class StateSetQuickcheck {
     StateSet union = new StateSet(s1);
     union.add(s2);
 
-    assertThat(union.contains(s1)).isTrue();
-    assertThat(union.contains(s2)).isTrue();
+    assertTrue(union.contains(s1));
+    assertTrue(union.contains(s2));
 
     for (int i : union) {
-      assertThat(s1.hasElement(i) || s2.hasElement(i)).isTrue();
+      assertTrue(s1.hasElement(i) || s2.hasElement(i));
     }
   }
 
@@ -80,21 +79,21 @@ public class StateSetQuickcheck {
     StateSet union2 = new StateSet(s2);
     union2.add(s1);
 
-    assertThat(union1).isEqualTo(union2);
+    assertEquals(union2, union1);
   }
 
   @Property
   public void addEmpty(@ForAll StateSet set) {
     StateSet setPre = new StateSet(set);
     set.add(new StateSet());
-    assertThat(set).isEqualTo(setPre);
+    assertEquals(setPre, set);
   }
 
   @Property
   public void addSelf(@ForAll StateSet set) {
     StateSet setPre = new StateSet(set);
     set.add(set);
-    assertThat(set).isEqualTo(setPre);
+    assertEquals(setPre, set);
   }
 
   @Property
@@ -103,7 +102,7 @@ public class StateSetQuickcheck {
     union1.add(s2);
     StateSet union2 = new StateSet(union1);
     union2.add(s2);
-    assertThat(union2).isEqualTo(union1);
+    assertEquals(union1, union2);
   }
 
   @Property
@@ -112,11 +111,11 @@ public class StateSetQuickcheck {
     StateSet inter = new StateSet(s1);
     inter.intersect(s2);
 
-    assertThat(s1.contains(inter)).isTrue();
-    assertThat(s2.contains(inter)).isTrue();
+    assertTrue(s1.contains(inter));
+    assertTrue(s2.contains(inter));
 
     for (int i : s1) {
-      assertThat(!s2.hasElement(i) || inter.hasElement(i)).isTrue();
+      assertTrue(!s2.hasElement(i) || inter.hasElement(i));
     }
   }
 
@@ -126,10 +125,10 @@ public class StateSetQuickcheck {
       @ForAll @Size(max = 10) @IntRange(max = 100) StateSet s2) {
     // make s2 a subset of s1
     s1.add(s2);
-    assertThat(s1.contains(s2)).isTrue();
+    assertTrue(s1.contains(s2));
     StateSet s2Pre = new StateSet(s2);
     s2.intersect(s1);
-    assertThat(s2).isEqualTo(s2Pre);
+    assertEquals(s2Pre, s2);
   }
 
   @Property
@@ -139,32 +138,32 @@ public class StateSetQuickcheck {
     StateSet inter2 = new StateSet(s2);
     inter2.add(s1);
 
-    assertThat(inter1).isEqualTo(inter2);
+    assertEquals(inter2, inter1);
   }
 
   @Property
   public void intersectEmpty(@ForAll StateSet set) {
     set.intersect(new StateSet());
-    assertThat(set).isEqualTo(new StateSet());
+    assertEquals(new StateSet(), set);
   }
 
   @Property
   public void intersectSelf(@ForAll StateSet set) {
     StateSet setPre = new StateSet(set);
     set.intersect(set);
-    assertThat(set).isEqualTo(setPre);
+    assertEquals(setPre, set);
   }
 
   @Property
   public void containsItsElements(@ForAll StateSet set) {
-    for (int i : set) assertThat(set.hasElement(i)).isTrue();
+    for (int i : set) assertTrue(set.hasElement(i));
   }
 
   @Property
   public void removeRemoves(
       @ForAll @Size(max = 90) @IntRange(max = 100) StateSet s, @ForAll @IntRange(max = 100) int e) {
     s.remove(e);
-    assertThat(s.hasElement(e)).isFalse();
+    assertFalse(s.hasElement(e));
   }
 
   @Property
@@ -173,10 +172,10 @@ public class StateSetQuickcheck {
     Assume.that(s.hasElement(e));
     StateSet sPre = new StateSet(s);
     s.remove(e);
-    assertThat(sPre.contains(s)).isTrue();
-    assertThat(s).isNotEqualTo(sPre);
+    assertTrue(sPre.contains(s));
+    assertNotEquals(sPre, s);
     s.addState(e);
-    assertThat(s).isEqualTo(sPre);
+    assertEquals(sPre, s);
   }
 
   @Property
@@ -187,10 +186,10 @@ public class StateSetQuickcheck {
     Assume.that(s.hasElement(e));
     StateSet sPre = new StateSet(s);
     s.remove(e);
-    assertThat(sPre.contains(s)).isTrue();
-    assertThat(s).isNotEqualTo(sPre);
+    assertTrue(sPre.contains(s));
+    assertNotEquals(sPre, s);
     s.addState(e);
-    assertThat(s).isEqualTo(sPre);
+    assertEquals(sPre, s);
 
     // add larger state value to force resize
     int largerState;
@@ -200,30 +199,30 @@ public class StateSetQuickcheck {
       largerState = Integer.MAX_VALUE;
     }
     s.addState(largerState);
-    assertThat(s).contains(largerState);
+    assertTrue(s.hasElement(largerState));
     s.remove(largerState);
-    assertThat(s).isEqualTo(sPre);
+    assertEquals(sPre, s);
   }
 
   @Property
   public void clearMakesEmpty(@ForAll StateSet set) {
     set.clear();
-    assertThat(set).isEmpty();
-    assertThat(set).isEqualTo(new StateSet());
+    assertFalse(set.containsElements());
+    assertEquals(new StateSet(), set);
   }
 
   @Property
   public void addStateAdds(@ForAll StateSet set, @ForAll @IntRange(max = 34) int e) {
     set.addState(e);
-    assertThat(set.hasElement(e)).isTrue();
+    assertTrue(set.hasElement(e));
   }
 
   @Property
   public void addStateDoesNotRemove(@ForAll StateSet set, @ForAll("stateOrMax") int e) {
     StateSet setPre = new StateSet(set);
     set.addState(e);
-    assertThat(set.contains(setPre)).isTrue();
-    assertThat(set.hasElement(e)).isTrue();
+    assertTrue(set.contains(setPre));
+    assertTrue(set.hasElement(e));
 
     // add an out of range value to increase coverage of contains
 
@@ -234,9 +233,9 @@ public class StateSetQuickcheck {
     int newValue = (Integer.MAX_VALUE - offset) >= e ? offset + e : Integer.MAX_VALUE;
     Assume.that(!set.hasElement(newValue));
     set.addState(newValue);
-    assertThat(set.contains(setPre)).isTrue();
-    assertThat(set.hasElement(newValue)).isTrue();
-    assertThat(setPre.contains(set)).isFalse();
+    assertTrue(set.contains(setPre));
+    assertTrue(set.hasElement(newValue));
+    assertFalse(setPre.contains(set));
   }
 
   @Property
@@ -244,30 +243,30 @@ public class StateSetQuickcheck {
     StateSet set2 = new StateSet(set);
     set.addState(e);
     set2.add(new StateSet(10, e));
-    assertThat(set).isEqualTo(set2);
+    assertEquals(set2, set);
   }
 
   @Property
   public void complementNoOriginalElements(@ForAll StateSet s1, @ForAll StateSet s2) {
     StateSet comp = s1.complement(s2);
-    assertThat(comp).isNotNull();
+    assertNotNull(comp);
 
     // no elements of s1 are in the complement
     comp.intersect(s1);
-    assertThat(comp).isEmpty();
+    assertFalse(comp.containsElements());
   }
 
   @Property
   public void complementElements(@ForAll StateSet s1, @ForAll StateSet s2) {
     StateSet comp = s1.complement(s2);
-    assertThat(comp).isNotNull();
+    assertNotNull(comp);
 
     // only elements of s2 are in the complement
-    assertThat(s2.contains(comp)).isTrue();
+    assertTrue(s2.contains(comp));
 
     // ensure that comp does not contain s1
     if (s1.containsElements()) { // if s1 is {}, then it will always be contained in comp
-      assertThat(comp.contains(s1)).isFalse();
+      assertFalse(comp.contains(s1));
     }
   }
 
@@ -282,44 +281,44 @@ public class StateSetQuickcheck {
     StateSet union1 = new StateSet(comp);
     union1.add(s1);
 
-    assertThat(union1).isEqualTo(union0);
+    assertEquals(union0, union1);
   }
 
   @Property
   public void containsElements(@ForAll StateSet s, @ForAll @IntRange(max = 34) int e) {
     s.addState(e);
-    assertThat(s.containsElements()).isTrue();
+    assertTrue(s.containsElements());
 
     // remove each added element, ot ensure containsElements continues to work as elements are
     // removed
     while (s.containsElements()) {
       s.getAndRemoveElement();
     }
-    assertThat(s.containsElements()).isFalse();
+    assertFalse(s.containsElements());
   }
 
   @Property
   public void containsNoElements(@ForAll StateSet s) {
     s.clear();
-    assertThat(s.containsElements()).isFalse();
+    assertFalse(s.containsElements());
   }
 
   @Property
   public void copy(@ForAll StateSet set) {
     StateSet copy = set.copy();
-    assertThat(copy).isEqualTo(set);
+    assertEquals(set, copy);
     Assume.that(set.containsElements());
     set.clear();
-    assertThat(copy).isNotEqualTo(set);
+    assertNotEquals(set, copy);
   }
 
   @Property
   public void copyInto(@ForAll StateSet s1, @ForAll StateSet s2) {
     s1.copy(s2);
-    assertThat(s1).isEqualTo(s2);
+    assertEquals(s2, s1);
     Assume.that(s1.containsElements());
     s1.clear();
-    assertThat(s1).isNotEqualTo(s2);
+    assertNotEquals(s2, s1);
   }
 
   @Property
@@ -327,14 +326,14 @@ public class StateSetQuickcheck {
     // two StateSet objects with different memory backing, but equal content should have same
     // hashCode
     s1.copy(s2);
-    assertThat(s1.hashCode()).isEqualTo(s2.hashCode());
+    assertEquals(s2.hashCode(), s1.hashCode());
   }
 
   @Property
   public void getAndRemoveRemoves(@ForAll StateSet set) {
     Assume.that(set.containsElements());
     int e = set.getAndRemoveElement();
-    assertThat(set.hasElement(e)).isFalse();
+    assertFalse(set.hasElement(e));
   }
 
   @Property
@@ -342,7 +341,7 @@ public class StateSetQuickcheck {
     Assume.that(set.containsElements());
     StateSet setPre = set.copy();
     int e = set.getAndRemoveElement();
-    assertThat(setPre.hasElement(e)).isTrue();
+    assertTrue(setPre.hasElement(e));
   }
 
   @Property
@@ -351,15 +350,15 @@ public class StateSetQuickcheck {
     StateSet setPre = set.copy();
     int e = set.getAndRemoveElement();
     set.addState(e);
-    assertThat(set).isEqualTo(setPre);
+    assertEquals(setPre, set);
   }
 
   @Property
   public void enumerator(@ForAll StateSet set) {
     StateSetEnumerator s = set.states();
     for (int e : set) {
-      assertThat(s.hasMoreElements()).isTrue();
-      assertThat(s.nextElement()).isEqualTo(e);
+      assertTrue(s.hasMoreElements());
+      assertEquals(e, s.nextElement());
     }
   }
 }

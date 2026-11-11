@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -45,7 +45,7 @@ public class CalcTest {
   @Test
   public void output() throws Exception {
     File inputFile = openFile("src/test/data/example.as");
-    assertThat(inputFile.isFile()).isTrue();
+    assertTrue(inputFile.isFile());
 
     String[] argv = new String[] {inputFile.getPath()};
 
@@ -53,7 +53,7 @@ public class CalcTest {
 
     // test actual is expected
     File expected = openFile("src/test/data/output.good");
-    assertThat(expected.isFile()).isTrue();
+    assertTrue(expected.isFile());
 
     BufferedReader actualContent = readOutputStream();
     BufferedReader expectedContent = new BufferedReader(new FileReader(expected));
@@ -61,7 +61,7 @@ public class CalcTest {
     for (int lineNumber = 1; lineNumber != -1; lineNumber++) {
       String expectedLine = expectedContent.readLine();
       String actualLine = actualContent.readLine();
-      assertWithMessage("Line " + lineNumber).that(actualLine).isEqualTo(expectedLine);
+      assertEquals(expectedLine, actualLine, "Line " + lineNumber);
       if (expectedLine == null) lineNumber = -2; // EOF
     }
   }

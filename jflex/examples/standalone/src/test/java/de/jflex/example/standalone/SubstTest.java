@@ -5,8 +5,8 @@
 
 package de.jflex.example.standalone;
 
-import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -47,7 +47,7 @@ public class SubstTest {
   @Test
   public void output() throws Exception {
     File inputFile = openFile("src/test/data/sample.in");
-    assertThat(inputFile.isFile()).isTrue();
+    assertTrue(inputFile.isFile());
 
     String[] argv = new String[] {inputFile.getPath()};
 
@@ -55,7 +55,7 @@ public class SubstTest {
 
     // test actual is expected
     File expected = openFile("src/test/data/sample.expected");
-    assertThat(expected.isFile()).isTrue();
+    assertTrue(expected.isFile());
 
     BufferedReader actualContent = readOutputStream();
     BufferedReader expectedContent = new BufferedReader(new FileReader(expected));
@@ -63,7 +63,7 @@ public class SubstTest {
     for (int lineNumber = 1; lineNumber != -1; lineNumber++) {
       String expectedLine = expectedContent.readLine();
       String actualLine = actualContent.readLine();
-      assertWithMessage("Line " + lineNumber).that(actualLine).isEqualTo(expectedLine);
+      assertEquals(expectedLine, actualLine, "Line " + lineNumber);
       if (expectedLine == null) lineNumber = -2; // EOF
     }
   }
