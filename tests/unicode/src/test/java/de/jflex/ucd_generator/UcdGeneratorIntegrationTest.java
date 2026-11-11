@@ -22,9 +22,8 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  * Integration test for {@link UcdGenerator}.
@@ -34,7 +33,7 @@ import org.junit.rules.TemporaryFolder;
  */
 public class UcdGeneratorIntegrationTest {
 
-  @Rule public final TemporaryFolder tempDir = new TemporaryFolder();
+  @TempDir File tempDir;
 
   private final File testDir = new File("src/test/java/de/jflex/ucd_generator");
 
@@ -387,7 +386,8 @@ public class UcdGeneratorIntegrationTest {
   }
 
   private File generateUnicodeProperties(UcdVersion ucdVersion) throws Exception {
-    File outputDir = tempDir.newFolder();
+    File outputDir = new File(tempDir, "generated");
+    assertThat(outputDir.mkdir()).isTrue();
     UcdGenerator.emitUnicodeVersionXY(ucdVersion, outputDir);
 
     File f = new File(outputDir, ucdVersion.version().unicodeClassName() + ".java");
@@ -452,7 +452,8 @@ public class UcdGeneratorIntegrationTest {
    * the class path already has the checked-in class of the same name.
    */
   private UnicodePropertiesData parseUnicodeDataFromSource(File src) throws Exception {
-    File outputDir = tempDir.newFolder();
+    File outputDir = new File(tempDir, "classes");
+    assertThat(outputDir.mkdir()).isTrue();
     JavacUtils.compile(ImmutableList.of(src), outputDir);
     String className = "jflex.core.unicode.data." + src.getName().replaceFirst("\\.java$", "");
     try (URLClassLoader loader =

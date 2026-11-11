@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import org.junit.ComparisonFailure;
 
 /**
  * An output streams that asserts that every printed lined is equal to the one from the expected
@@ -38,7 +37,7 @@ public class DiffOutputStream extends OutputStream {
 
   /**
    * Handles assertion failures when the content differs. By default, just throws the {@link
-   * ComparisonFailure}.
+   * AssertionError}.
    */
   private ComparisonFailureHandler comparisonFailureHandler =
       failure -> {
@@ -71,7 +70,7 @@ public class DiffOutputStream extends OutputStream {
       String expectedLine = in.readLine();
       try {
         assertThatWrittenWasExpected(expectedLine);
-      } catch (ComparisonFailure failure) {
+      } catch (AssertionError failure) {
         comparisonFailureHandler.handle(failure);
       }
       count = 0;
@@ -156,6 +155,6 @@ public class DiffOutputStream extends OutputStream {
   }
 
   public interface ComparisonFailureHandler {
-    void handle(ComparisonFailure failure);
+    void handle(AssertionError failure);
   }
 }

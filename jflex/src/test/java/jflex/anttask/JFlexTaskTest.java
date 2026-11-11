@@ -12,8 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import jflex.l10n.ErrorMessages;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for the {@link jflex.anttask.JFlexTask}.
@@ -27,7 +27,7 @@ public class JFlexTaskTest {
   private final String DIR_RESOURCES = "src/test/resources";
   private final String FILE_LEXSCAN = "/jflex/LexScan-test.flex";
 
-  @Before
+  @BeforeEach
   public void setUp() {
     task = new JFlexTask();
   }

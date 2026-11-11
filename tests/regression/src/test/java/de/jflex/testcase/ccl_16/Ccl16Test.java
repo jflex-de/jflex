@@ -7,7 +7,7 @@ package de.jflex.testcase.ccl_16;
 
 import com.google.common.io.CharSource;
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for following bug: If {@code %16bit} is used with the {@code ccl.flex}, the scanner fails on

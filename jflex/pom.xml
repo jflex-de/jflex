@@ -66,8 +66,8 @@
       <artifactId>ant</artifactId>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -81,21 +81,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.pholser</groupId>
-      <artifactId>junit-quickcheck-core</artifactId>
-      <version>1.0</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.pholser</groupId>
-      <artifactId>junit-quickcheck-generators</artifactId>
-      <version>1.0</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>1.7.36</version>
+      <groupId>net.jqwik</groupId>
+      <artifactId>jqwik</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -110,6 +97,9 @@
             <include>**/*Tests.java</include>
             <include>**/*Quickcheck.java</include>
           </includes>
+          <systemPropertyVariables>
+            <java.util.logging.config.file>${project.basedir}/src/test/resources/logging.properties</java.util.logging.config.file>
+          </systemPropertyVariables>
         </configuration>
       </plugin>
       <plugin>

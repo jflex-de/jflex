@@ -11,19 +11,18 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
 import java.io.File;
-import java.io.IOException;
 import org.apache.maven.model.Model;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /** Tests for {@link jflex.maven.plugin.cup.GenerateMojo}. */
+@ExtendWith(MockitoExtension.class)
 public class GenerateMojoTest {
 
   private GenerateMojo mojo;
@@ -31,18 +30,14 @@ public class GenerateMojoTest {
   @Mock CliCupInvoker mockCupInvoker;
   @Mock Log mockLogger;
 
-  @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
-  @Rule public final TemporaryFolder tempDir = new TemporaryFolder();
+  @TempDir File tempTargetGeneratedCupDirectory;
 
-  private File tempTargetGeneratedCupDirectory;
-
-  @Before
-  public void setUp() throws IOException {
+  @BeforeEach
+  public void setUp() {
     mojo = new GenerateMojo(mockCupInvoker, mockLogger);
     Model pom = new Model();
     pom.setGroupId("de.jflex.testing.groupId");
     pom.setArtifactId("testing-artifactid");
-    tempTargetGeneratedCupDirectory = tempDir.newFolder("cup-maven-plugin-test");
     mojo.mavenProject = new MavenProjectStub(pom);
     mojo.generatedSourcesDirectory = tempTargetGeneratedCupDirectory;
     mojo.parserName = GenerateMojo.DEFAULT_PARSER_NAME;

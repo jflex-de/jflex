@@ -5,47 +5,35 @@
 
 package jflex.core.unicode;
 
-import com.pholser.junit.quickcheck.generator.GenerationStatus;
-import com.pholser.junit.quickcheck.generator.Generator;
-import com.pholser.junit.quickcheck.random.SourceOfRandomness;
 import java.util.List;
 import jflex.chars.Interval;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
 
 /**
- * Generator for random Integer values that ensure to sometimes generate a cased character
+ * Generator for random characters as {@code int}.
  *
- * @author Jesse Coultas
+ * @author Gerwin Klein
  * @version JFlex 1.10.0-SNAPSHOT
  */
-public class IntCharGen extends Generator<Integer> {
-  /** Constructs generator for CharClasses */
-  public IntCharGen() throws UnicodeProperties.UnsupportedUnicodeVersionException {
-    super(Integer.class);
+public class IntCharGen {
+
+  /** Characters up to {@link CharClasses#maxChar}, half with case options. */
+  static Arbitrary<Integer> intChars() {
+    return Arbitraries.oneOf(casedChars(), Arbitraries.integers().between(0, CharClasses.maxChar));
   }
 
-  @Override
-  public Integer generate(SourceOfRandomness r, GenerationStatus status) {
-    // ensure we sometimes generate an int that has case options
-    if (r.nextBoolean()) {
-      try {
-        return getRandomCased(r);
-      } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-        System.err.println("Warning: unable to fetch a random cased value - " + e.getMessage());
-      }
+  /** Characters with case options: a random interval of cased characters, then one of its chars. */
+  static Arbitrary<Integer> casedChars() {
+    List<Interval> casedIntervals;
+    try {
+      casedIntervals = new UnicodeProperties().getIntCharSet("cased").getIntervals();
+    } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
+      throw new IllegalStateException(e);
     }
-
-    return r.nextInt(0, CharClasses.maxChar);
+    return Arbitraries.of(casedIntervals)
+        .flatMap(interval -> Arbitraries.integers().between(interval.start, interval.end));
   }
 
-  public static Integer getRandomCased(SourceOfRandomness r)
-      throws UnicodeProperties.UnsupportedUnicodeVersionException {
-    // get list of casedIntervals
-    List<Interval> casedIntervals = (new UnicodeProperties()).getIntCharSet("cased").getIntervals();
-
-    // randomly pick an interval
-    Interval interval = casedIntervals.get(r.nextInt(0, casedIntervals.size() - 1));
-
-    // return a value between start and end of interval
-    return r.nextInt(interval.start, interval.end);
-  }
+  private IntCharGen() {}
 }

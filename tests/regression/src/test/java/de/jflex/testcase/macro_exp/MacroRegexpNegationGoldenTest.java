@@ -8,7 +8,7 @@ package de.jflex.testcase.macro_exp;
 
 import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
 import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * bug <a href="https://github.com/jflex-de/jflex/issues/57">#57 [Macro error on regexp negation

@@ -7,13 +7,13 @@
 package de.jflex.testcase.eofclose;
 
 import static com.google.common.truth.Truth.assertWithMessage;
-import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.google.common.io.CharSource;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.IOException;
 import java.io.Reader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Test for {@code eofclose} directive. */
 public class EofCloseTest {
@@ -25,9 +25,9 @@ public class EofCloseTest {
     EofClose scanner = scannerFactory.createForReader(reader);
     while (scanner.yylex() != EofClose.YYEOF) {}
     assertThrows(
-        "The scanner should close the reader at EOF, making reading further impossible",
         IOException.class,
-        reader::read);
+        reader::read,
+        "The scanner should close the reader at EOF, making reading further impossible");
   }
 
   @Test

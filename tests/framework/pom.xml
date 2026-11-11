@@ -14,7 +14,7 @@
   <artifactId>jflex-test-framework</artifactId>
   <name>JFlex test framework</name>
   <description>
-    Support classes for the JFlex test modules: the JFlexTestRunner and golden tests, the
+    Support classes for the JFlex test modules: the JFlexTestExtension and golden tests, the
     runner of the .test case files, assertions, and javac and scanner helpers. Not deployed.
 
     This module runs jflex-maven-plugin, which only resolves at the package
@@ -45,8 +45,8 @@
       <artifactId>truth</artifactId>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
     </dependency>
   </dependencies>
 

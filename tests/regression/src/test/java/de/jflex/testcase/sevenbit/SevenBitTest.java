@@ -8,7 +8,7 @@ package de.jflex.testcase.sevenbit;
 import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Test generation of a 7-bit scanner */
 public class SevenBitTest {

@@ -7,7 +7,7 @@
 package de.jflex.testcase.ccl_bug;
 
 import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test against <a href="https://github.com/jflex-de/jflex/issues/81">#81 {@code char[] ZZ_CMAP} is

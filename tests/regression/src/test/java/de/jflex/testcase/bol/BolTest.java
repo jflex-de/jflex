@@ -9,9 +9,9 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.io.CharSource;
 import java.io.IOException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /** Tests BOL and EOL operators. */
 public class BolTest {
@@ -20,13 +20,13 @@ public class BolTest {
   // test BOL in absence of char class for NL characters
   Bol2Scanner scanner2;
 
-  @Before
+  @BeforeEach
   public void testMustInitializeScanner() {
     scanner = null;
     scanner2 = null;
   }
 
-  @After
+  @AfterEach
   public void end() throws Exception {
     if (scanner != null) {
       assertThat(scanner.yylex()).isEqualTo(State.END_OF_FILE);

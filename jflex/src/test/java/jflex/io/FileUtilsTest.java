@@ -10,7 +10,7 @@ import static jflex.io.FileUtils.getRelativePath;
 import static jflex.io.FileUtils.slashify;
 
 import java.io.File;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class FileUtilsTest {
 

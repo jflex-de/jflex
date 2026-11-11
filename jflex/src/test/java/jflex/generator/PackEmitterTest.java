@@ -7,8 +7,8 @@ package jflex.generator;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * PackEmitterTest
@@ -21,7 +21,7 @@ public class PackEmitterTest {
   private static final String NL = "\n";
   private PackEmitter p;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     p =
         new PackEmitter("Bla") {

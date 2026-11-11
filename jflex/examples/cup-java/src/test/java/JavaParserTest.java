@@ -15,9 +15,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * This is an integration test for the java parser example.
@@ -29,14 +29,14 @@ public class JavaParserTest {
 
   private ByteArrayOutputStream outputStream;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     // the lexer driver prints status on stdout. Redirect to ByteOutputStream.
     outputStream = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outputStream));
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     outputStream.close();
   }

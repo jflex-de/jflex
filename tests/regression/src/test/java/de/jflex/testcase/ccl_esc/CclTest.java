@@ -9,7 +9,7 @@ package de.jflex.testcase.ccl_esc;
 import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * bug-test for [".."] style character escapes (<a

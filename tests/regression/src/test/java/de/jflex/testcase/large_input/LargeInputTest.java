@@ -9,7 +9,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.io.CharSource;
 import java.io.Reader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests that the scanner can parse a very large input.

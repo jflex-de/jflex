@@ -8,7 +8,7 @@ package de.jflex.testcase.ctorarg;
 
 import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
 import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests that the lex spec has an option to add arguments to constructor and yylex. See feature

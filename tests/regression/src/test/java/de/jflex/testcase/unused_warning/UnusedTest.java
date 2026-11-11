@@ -9,19 +9,12 @@
 // test: no-unused
 package de.jflex.testcase.unused_warning;
 
-import de.jflex.testing.testsuite.JFlexTestRunner;
+import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /** Test for the {@code --warn-unused} option. */
-@RunWith(JFlexTestRunner.class)
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/unused_warning/unused.flex",
     sysout = "src/test/java/de/jflex/testcase/unused_warning/expected_unused_sysout.txt",
     warnUnused = true)
-public class UnusedTest {
-
-  @Test
-  public void ok() {}
-}
+public class UnusedTest implements JFlexTest {}

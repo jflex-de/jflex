@@ -11,7 +11,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.io.CharSource;
 import de.jflex.ucd.NamedCodepointRange;
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Test {@link SimpleDerivedCorePropertiesParser}. */
 public class SimpleDerivedCorePropertiesParserTest {

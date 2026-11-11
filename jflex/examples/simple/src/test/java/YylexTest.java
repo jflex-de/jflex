@@ -16,9 +16,9 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * This is an integration test.
@@ -31,14 +31,14 @@ public class YylexTest {
 
   private ByteArrayOutputStream outputStream;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     // the Yylex prints status on stdout. Redirect to ByteOutputStream.
     outputStream = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outputStream));
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     outputStream.close();
   }

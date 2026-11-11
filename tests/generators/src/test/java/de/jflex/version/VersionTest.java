@@ -7,7 +7,7 @@ package de.jflex.version;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableSortedSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Test for {@link Version}. */
 public class VersionTest {

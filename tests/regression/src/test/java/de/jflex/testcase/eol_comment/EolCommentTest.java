@@ -7,7 +7,7 @@
 package de.jflex.testcase.eol_comment;
 
 import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * bug <a href="https://github.com/jflex-de/jflex/issues/61">#61 comment in jflex file</a>.

@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 
 public abstract class AbstractGoldenTest {
 
@@ -26,7 +26,7 @@ public abstract class AbstractGoldenTest {
     capture = SystemOutCapture.start(new PrintStream(output));
   }
 
-  @After
+  @AfterEach
   public void checkOuputEntirelyGenerated() throws IOException {
     if (output == null) {
       // possible if there was no input, and we have a "scanner compiles" test.

@@ -9,7 +9,7 @@ import static com.google.common.truth.Truth.assertThat;
 import de.jflex.ucd.UcdFileType;
 import de.jflex.ucd.UcdVersion;
 import java.io.File;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class UcdVersionsTest {
 

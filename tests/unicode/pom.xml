@@ -80,8 +80,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -161,7 +161,7 @@
       </plugin>
       <plugin>
         <!-- Scanners that tests compile against. This must be the list of specs, not their
-             directories: the specs that JFlexTestRunner reads, some of which fail on purpose,
+             directories: the specs that JFlexTestExtension reads, some of which fail on purpose,
              have no place here. -->
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
@@ -319,9 +319,9 @@
                parent pom. -->
           <properties>
             <configurationParameters>
-              junit.vintage.execution.parallel.enabled=true
-              junit.vintage.execution.parallel.classes=true
-              junit.vintage.execution.parallel.methods=true
+              junit.jupiter.execution.parallel.enabled=true
+              junit.jupiter.execution.parallel.mode.default=concurrent
+              junit.jupiter.execution.parallel.mode.classes.default=concurrent
             </configurationParameters>
           </properties>
           <workingDirectory>${work.dir}</workingDirectory>

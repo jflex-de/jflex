@@ -8,7 +8,7 @@ package de.jflex.testcase.ccl_neg;
 import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Test character class syntax. */
 public class CCLNegTest {

@@ -12,7 +12,7 @@ import static de.jflex.ucd.SurrogateUtils.containsSurrogate;
 import static de.jflex.ucd.SurrogateUtils.isSurrogateProperty;
 import static de.jflex.ucd.SurrogateUtils.removeSurrogates;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Test for {@link SurrogateUtils}. */
 public class SurrogateUtilsTest {

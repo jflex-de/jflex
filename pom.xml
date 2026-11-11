@@ -104,6 +104,10 @@
     <maven.api.version>3.9.16</maven.api.version>
     <!-- minimum Maven version for building JFlex itself (required by current Maven plugins) -->
     <maven.build.version>3.9.16</maven.build.version>
+    <!-- Extra JVM options for tests; modules set this in profiles for specific JDKs. -->
+    <surefire.jdk.args />
+    <!-- Mockito 4 is the last Mockito that runs on Java 8. -->
+    <mockito.version>4.11.0</mockito.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- activates reproducible builds, will be replaced by release:prepare -->
     <project.build.outputTimestamp>2023-01-01T00:00:00Z</project.build.outputTimestamp>
@@ -137,6 +141,14 @@
         <groupId>com.google.truth</groupId>
         <artifactId>truth</artifactId>
         <version>1.4.5</version>
+        <exclusions>
+          <!-- Truth only needs JUnit 4 for its Expect rule. Keep it off the classpath, so that
+               tests cannot use the JUnit 4 API by accident. -->
+          <exclusion>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>commons-io</groupId>
@@ -184,22 +196,30 @@
         <version>3.5.1</version>
       </dependency>
       <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.13.2</version>
+        <!-- JUnit 5 is the last JUnit that runs on Java 8. -->
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.14.4</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>net.jqwik</groupId>
+        <artifactId>jqwik</artifactId>
+        <version>1.9.3</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>4.11.0</version>
+        <version>${mockito.version}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
-        <!-- transitive dependency of junit-quickcheck via ognl. The POM of the version it pulls in
-             (3.20.0-GA) produces a warning. Use a more recent (compatible) version instead. -->
-        <groupId>org.javassist</groupId>
-        <artifactId>javassist</artifactId>
-        <version>3.30.2-GA</version>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-junit-jupiter</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -327,18 +347,24 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.6.0</version>
           <configuration>
-            <!-- One JVM, test classes on as many threads as there are cores. Surefire on
-                 JUnit 4 seems to ignore "parallel" settings. -->
+            <!-- One JVM, test classes on as many threads as there are cores, the tests of a class
+                 one after the other. -->
             <forkCount>1</forkCount>
             <reuseForks>true</reuseForks>
             <properties>
               <configurationParameters>
-                junit.vintage.execution.parallel.enabled=true
-                junit.vintage.execution.parallel.classes=true
+                junit.jupiter.execution.parallel.enabled=true
+                junit.jupiter.execution.parallel.mode.default=same_thread
+                junit.jupiter.execution.parallel.mode.classes.default=concurrent
               </configurationParameters>
             </properties>
+            <!-- Report display names, e.g. "Generate Lexer" or the name of a .test case, instead
+                 of the name of the method that makes these tests and an index. -->
+            <statelessTestsetReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5Xml30StatelessReporter">
+              <usePhrasedTestCaseMethodName>true</usePhrasedTestCaseMethodName>
+            </statelessTestsetReporter>
             <!-- JFlex messages are localised and the test goldens are English. -->
-            <argLine>-Xmx1024m -Duser.language=en -Duser.country=US</argLine>
+            <argLine>-Xmx1024m -Duser.language=en -Duser.country=US ${surefire.jdk.args}</argLine>
           </configuration>
         </plugin>
       </plugins>

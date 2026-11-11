@@ -7,9 +7,9 @@ package jflex.maven.plugin.jflex;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.common.base.Predicate;
 import java.io.ByteArrayOutputStream;
@@ -25,47 +25,32 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.apache.maven.plugin.testing.MojoRule;
-import org.apache.maven.plugin.testing.resources.TestResources;
-import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
-import org.apache.maven.project.MavenProject;
-import org.junit.Rule;
-import org.junit.Test;
+import org.apache.maven.api.plugin.testing.InjectMojo;
+import org.apache.maven.api.plugin.testing.MojoExtension;
+import org.apache.maven.api.plugin.testing.MojoTest;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Régis Décamps (decamps@users.sf.net)
  */
+@MojoTest
 public class JFlexMojoTest {
 
-  @Rule public MojoRule mojoRule = new MojoRule();
-  @Rule public TestResources testResources = new TestResources();
+  /** The test projects. Their {@code plugin-config.xml} has the configuration of the mojo. */
+  private static final String PROJECTS = "src/test/projects/";
 
-  /**
-   * Configures an instance of the jflex mojo for the specified test case.
-   *
-   * @param testCase The name of the test case (i.e. its directory name).
-   * @return The configured mojo.
-   */
-  private JFlexMojo newMojo(String testCase) throws Exception {
-    File unitBaseDir = testResources.getBasedir(testCase);
-    File testPom = new File(unitBaseDir, "plugin-config.xml");
-    JFlexMojo mojo = new JFlexMojo();
-    mojoRule.configureMojo(mojo, "jflex-maven-plugin", testPom);
-    if (mojoRule.getVariableValueFromObject(mojo, "project") == null) {
-      mojoRule.setVariableValueToObject(mojo, "project", new MavenProjectStub());
-    }
+  private static final String CONFIG = "/plugin-config.xml";
+
+  /** Executes the mojo without the generated files of a previous run. */
+  private static void executeClean(JFlexMojo mojo) throws Exception {
     deleteRecursively(outputDirectory(mojo));
-    return mojo;
+    mojo.execute();
   }
 
-  /** The absolute output directory of the mojo as in {@code JFlexMojo#execute}. */
-  private File outputDirectory(JFlexMojo mojo) throws Exception {
-    File outDir = (File) mojoRule.getVariableValueFromObject(mojo, "outputDirectory");
-    if (outDir.isAbsolute()) {
-      return outDir;
-    }
-    MavenProject project = (MavenProject) mojoRule.getVariableValueFromObject(mojo, "project");
-    return new File(project.getBasedir().getAbsolutePath(), outDir.getPath());
+  /** The output directory of the mojo. It is relative to the plugin directory. */
+  private static File outputDirectory(JFlexMojo mojo) throws Exception {
+    File outDir = MojoExtension.getVariableValueFromObject(mojo, "outputDirectory");
+    return outDir.isAbsolute() ? outDir : new File(MojoExtension.getBasedir(), outDir.getPath());
   }
 
   /**
@@ -83,21 +68,11 @@ public class JFlexMojoTest {
     }
   }
 
-  @Test
-  public void testTestResources() throws IOException {
-    String actualResDir = testResources.getBasedir("single-file-test").getAbsolutePath();
-    String expectedSuffix =
-        "/jflex-maven-plugin/target/test-projects/JFlexMojoTest_testTestResources_single-file-test";
-    assertWithMessage(actualResDir + " ends with " + expectedSuffix)
-        .that(actualResDir.endsWith(expectedSuffix))
-        .isTrue();
-  }
-
   /** Tests configuration with a single input file. */
   @Test
-  public void testSingleFile() throws Exception {
-    JFlexMojo mojo = newMojo("single-file-test");
-    mojo.execute();
+  @InjectMojo(goal = "generate", pom = PROJECTS + "single-file-test" + CONFIG)
+  public void testSingleFile(JFlexMojo mojo) throws Exception {
+    executeClean(mojo);
 
     File produced = getExpectedOutputFile(mojo);
     assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
@@ -116,9 +91,9 @@ public class JFlexMojoTest {
 
   /** Tests configuration with a single input directory. */
   @Test
-  public void testSingleDir() throws Exception {
-    JFlexMojo mojo = newMojo("single-dir-test");
-    mojo.execute();
+  @InjectMojo(goal = "generate", pom = PROJECTS + "single-dir-test" + CONFIG)
+  public void testSingleDir(JFlexMojo mojo) throws Exception {
+    executeClean(mojo);
 
     File produced = getExpectedOutputFile(mojo);
     assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
@@ -126,9 +101,9 @@ public class JFlexMojoTest {
 
   /** Tests configuration with a single input directory containing sub directories. */
   @Test
-  public void testRecursion() throws Exception {
-    JFlexMojo mojo = newMojo("recursion-test");
-    mojo.execute();
+  @InjectMojo(goal = "generate", pom = PROJECTS + "recursion-test" + CONFIG)
+  public void testRecursion(JFlexMojo mojo) throws Exception {
+    executeClean(mojo);
 
     File produced = getExpectedOutputFile(mojo);
     assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
@@ -136,14 +111,14 @@ public class JFlexMojoTest {
 
   /** A {@code %suppress all} in one spec does not suppress warnings in the next spec. */
   @Test
-  public void testSuppressDoesNotLeak() throws Exception {
-    JFlexMojo mojo = newMojo("suppress-leak-test");
+  @InjectMojo(goal = "generate", pom = PROJECTS + "suppress-leak-test" + CONFIG)
+  public void testSuppressDoesNotLeak(JFlexMojo mojo) throws Exception {
     // The mojo prints JFlex messages to the System.out of the time it runs.
     ByteArrayOutputStream output = new ByteArrayOutputStream();
     PrintStream savedOut = System.out;
     System.setOut(new PrintStream(output, true));
     try {
-      mojo.execute();
+      executeClean(mojo);
     } finally {
       System.setOut(savedOut);
     }
@@ -151,16 +126,19 @@ public class JFlexMojoTest {
     String log = output.toString();
     // one warning, for warn.flex; none for suppress-all.flex (the Maven log mentions both files)
     String msg = "JFlex and Maven output:\n" + log;
-    assertEquals(msg, 2, log.split("never be matched", -1).length);
-    assertTrue(msg, log.contains("Warning in file \"") && log.contains("warn.flex\""));
-    assertFalse(msg, log.contains("suppress-all.flex\""));
+    assertEquals(2, log.split("never be matched", -1).length, msg);
+    assertTrue(log.contains("Warning in file \"") && log.contains("warn.flex\""), msg);
+    assertFalse(log.contains("suppress-all.flex\""), msg);
   }
 
   /** Two mojos executing at the same time like in a parallel reactor build. */
   @Test
-  public void testConcurrentExecutions() throws Exception {
-    JFlexMojo first = newMojo("single-file-test");
-    JFlexMojo second = newMojo("single-dir-test");
+  public void testConcurrentExecutions(
+      @InjectMojo(goal = "generate", pom = PROJECTS + "single-file-test" + CONFIG) JFlexMojo first,
+      @InjectMojo(goal = "generate", pom = PROJECTS + "single-dir-test" + CONFIG) JFlexMojo second)
+      throws Exception {
+    deleteRecursively(outputDirectory(first));
+    deleteRecursively(outputDirectory(second));
     CountDownLatch start = new CountDownLatch(2);
     ExecutorService executor = Executors.newFixedThreadPool(2);
     try {
@@ -206,8 +184,7 @@ public class JFlexMojoTest {
    * @param mojo The jflex mojo under test.
    * @return The expected path to the output file from jflex.
    */
-  private File getExpectedOutputFile(JFlexMojo mojo) throws Exception {
-    File outDir = (File) mojoRule.getVariableValueFromObject(mojo, "outputDirectory");
-    return new File(outDir, "/org/jamwiki/parser/" + "JAMWikiPreProcessor.java");
+  private static File getExpectedOutputFile(JFlexMojo mojo) throws Exception {
+    return new File(outputDirectory(mojo), "org/jamwiki/parser/JAMWikiPreProcessor.java");
   }
 }

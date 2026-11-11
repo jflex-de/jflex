@@ -9,7 +9,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.File;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Tests {@code \UXXXXXX} six-digit hexadecimal character escape syntax. */
 public class SixdigitunicodeescapeTest {

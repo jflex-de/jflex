@@ -8,7 +8,6 @@
       <plugin>
         <artifactId>jflex-maven-plugin</artifactId>
         <configuration>
-          <project implementation="org.apache.maven.plugin.testing.stubs.MavenProjectStub"/>
           <outputDirectory>target/projects/suppress-leak-test/target/generated-sources/jflex</outputDirectory>
           <lexDefinitions>
             <lexDefinition>src/test/projects/suppress-leak-test/src/main/jflex/suppress-all.flex</lexDefinition>

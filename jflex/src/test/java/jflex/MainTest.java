@@ -5,9 +5,9 @@
 
 package jflex;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,14 +18,13 @@ import java.util.Arrays;
 import java.util.List;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 /** Tests for {@link Main}. */
 public class MainTest {
 
-  @Rule public TemporaryFolder tmp = new TemporaryFolder();
+  @TempDir File tmp;
 
   /**
    * Writes a spec with a rule that can never be matched, which is a configurable warning.
@@ -35,7 +34,7 @@ public class MainTest {
    * @return the path of the spec
    */
   private String writeSpec(String name, String directive) throws Exception {
-    File spec = tmp.newFile(name + ".flex");
+    File spec = new File(tmp, name + ".flex");
     String text =
         "%%\n%class "
             + name
@@ -61,10 +60,10 @@ public class MainTest {
     String spec = writeSpec("NeverMatch", "");
 
     List<String> argv = new ArrayList<>(Arrays.asList(options));
-    argv.addAll(Arrays.asList("-d", tmp.getRoot().getPath(), spec));
+    argv.addAll(Arrays.asList("-d", tmp.getPath(), spec));
     String output = generate(argv.toArray(new String[0]));
 
-    assertTrue("NeverMatch.java generated", new File(tmp.getRoot(), "NeverMatch.java").isFile());
+    assertTrue(new File(tmp, "NeverMatch.java").isFile(), "NeverMatch.java generated");
     return output;
   }
 
@@ -76,14 +75,14 @@ public class MainTest {
   @Test
   public void generate_neverMatch_warns() throws Exception {
     String output = generateNeverMatch();
-    assertTrue(output, output.contains("never be matched"));
+    assertTrue(output.contains("never be matched"), output);
   }
 
   /** The warning options from the command line apply. */
   @Test
   public void generate_noWarnNeverMatch_suppressesWarning() throws Exception {
     String output = generateNeverMatch("--no-warn-never-match");
-    assertFalse(output, output.contains("never be matched"));
+    assertFalse(output.contains("never be matched"), output);
   }
 
   /** A {@code %suppress} in one spec does not apply to the next spec on the command line. */
@@ -92,10 +91,10 @@ public class MainTest {
     String suppressAll = writeSpec("SuppressAll", "%suppress all");
     String plain = writeSpec("Plain", "");
 
-    String output = generate("-d", tmp.getRoot().getPath(), suppressAll, plain);
+    String output = generate("-d", tmp.getPath(), suppressAll, plain);
 
-    assertFalse(output, warnsFor(output, suppressAll));
-    assertTrue(output, warnsFor(output, plain));
+    assertFalse(warnsFor(output, suppressAll), output);
+    assertTrue(warnsFor(output, plain), output);
   }
 
   /** A {@code %warn} in one spec does not undo the command line for the next spec. */
@@ -104,11 +103,10 @@ public class MainTest {
     String warnAll = writeSpec("WarnAll", "%warn all");
     String plain = writeSpec("Plain", "");
 
-    String output =
-        generate("--no-warn-never-match", "-d", tmp.getRoot().getPath(), warnAll, plain);
+    String output = generate("--no-warn-never-match", "-d", tmp.getPath(), warnAll, plain);
 
-    assertTrue(output, warnsFor(output, warnAll));
-    assertFalse(output, warnsFor(output, plain));
+    assertTrue(warnsFor(output, warnAll), output);
+    assertFalse(warnsFor(output, plain), output);
   }
 
   /** An invalid command line option is reported in output before the exception. */
@@ -116,25 +114,19 @@ public class MainTest {
   public void generate_unknownWarningOption_reportsError() throws Exception {
     String spec = writeSpec("Unused", "");
     ByteArrayOutputStream output = new ByteArrayOutputStream();
-    try {
-      Main.generate(new String[] {"--no-warn-no-such-warning", spec}, output);
-      fail("expected GeneratorException");
-    } catch (GeneratorException e) {
-      assertTrue(output.toString(), output.toString().contains("\"no-such-warning\" unknown"));
-    }
+    assertThrows(
+        GeneratorException.class,
+        () -> Main.generate(new String[] {"--no-warn-no-such-warning", spec}, output));
+    assertTrue(output.toString().contains("\"no-such-warning\" unknown"), output.toString());
   }
 
   /** An unknown command line option is reported with a single prefix. */
   @Test
   public void generate_unknownOption_reportsError() throws Exception {
     ByteArrayOutputStream output = new ByteArrayOutputStream();
-    try {
-      Main.generate(new String[] {"--no-such-option"}, output);
-      fail("expected SilentExit");
-    } catch (SilentExit e) {
-      assertTrue(output.toString(), output.toString().contains("Error: unknown option"));
-      assertFalse(output.toString(), output.toString().contains("Error: Error"));
-    }
+    assertThrows(SilentExit.class, () -> Main.generate(new String[] {"--no-such-option"}, output));
+    assertTrue(output.toString().contains("Error: unknown option"), output.toString());
+    assertFalse(output.toString().contains("Error: Error"), output.toString());
   }
 
   /** An invalid directive in the spec is reported in output before the exception. */
@@ -142,11 +134,9 @@ public class MainTest {
   public void generate_unknownWarningDirective_reportsError() throws Exception {
     String spec = writeSpec("BadSuppress", "%suppress no-such-warning");
     ByteArrayOutputStream output = new ByteArrayOutputStream();
-    try {
-      Main.generate(new String[] {"-d", tmp.getRoot().getPath(), spec}, output);
-      fail("expected GeneratorException");
-    } catch (GeneratorException e) {
-      assertTrue(output.toString(), output.toString().contains("\"no-such-warning\" unknown"));
-    }
+    assertThrows(
+        GeneratorException.class,
+        () -> Main.generate(new String[] {"-d", tmp.getPath(), spec}, output));
+    assertTrue(output.toString().contains("\"no-such-warning\" unknown"), output.toString());
   }
 }

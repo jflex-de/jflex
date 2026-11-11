@@ -6,17 +6,16 @@ package de.jflex.testcase.apipirivate;
 
 import static com.google.common.truth.Truth.assertWithMessage;
 import static java.util.stream.Collectors.joining;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.google.common.collect.ImmutableList;
-import de.jflex.testing.testsuite.JFlexTestRunner;
+import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
 import de.jflex.util.javac.CompilerException;
 import de.jflex.util.javac.JavacUtils;
 import java.io.File;
 import java.util.stream.Stream;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test that JFlex can generate private classes.
@@ -24,9 +23,8 @@ import org.junit.runner.RunWith;
  * <p>See feature request <a href="https://github.com/jflex-de/jflex/issues/141">#141 Generate
  * cleaner interfaces</a>, {@code %apiprivate} option.
  */
-@RunWith(JFlexTestRunner.class)
 @TestSpec(lex = "src/test/java/de/jflex/testcase/apipirivate/private.flex")
-public class ApiPrivateTest {
+public class ApiPrivateTest implements JFlexTest {
 
   @Test
   public void compile() throws CompilerException {

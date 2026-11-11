@@ -5,13 +5,14 @@
 package de.jflex.ucd;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import de.jflex.version.Version;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Test for {@link UcdReleases}. Needs the UCD downloads, so this only runs in Maven. */
 public class UcdReleasesTest {
@@ -65,8 +66,8 @@ public class UcdReleasesTest {
             "emoji-data.txt");
   }
 
-  @Test(expected = NullPointerException.class)
-  public void ucdFiles_unknownVersion() throws IOException {
-    fileNames(new Version(99, 0));
+  @Test
+  public void ucdFiles_unknownVersion() {
+    assertThrows(NullPointerException.class, () -> fileNames(new Version(99, 0)));
   }
 }

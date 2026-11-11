@@ -14,7 +14,7 @@ import de.jflex.util.scanner.ScannerFactory;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Tests <code>\\u{X+}, \\u{X+( X+)*}</code> hexadecimal codepoint escape syntax. */
 public class UnicodeCodePointEscapesTest {

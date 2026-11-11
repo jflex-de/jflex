@@ -11,7 +11,7 @@ import de.jflex.util.scanner.ScannerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test demonstrating a fix for issue <a href="https://github.com/jflex-de/jflex/issues/538">#538 A

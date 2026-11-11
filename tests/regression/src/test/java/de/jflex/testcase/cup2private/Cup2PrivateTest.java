@@ -9,7 +9,7 @@ package de.jflex.testcase.cup2private;
 import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Regression test against <a href="https://github.com/jflex-de/jflex/issues/125">#125 %apiprivate
