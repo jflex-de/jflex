@@ -26,7 +26,6 @@ public class SixdigitunicodeescapeTest {
     SixDigitUnicodeEscape scanner = scannerFactory.createScannerForFile(inputFile);
     scanner.yylex();
     assertThat(scanner.output())
-        // TODO(regisd) Replace the string comparison by value object.
         .containsExactly(
             "0000..0000; inverse matched",
             "0001..0001; matched",
