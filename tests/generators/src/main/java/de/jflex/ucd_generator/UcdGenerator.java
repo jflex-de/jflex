@@ -56,11 +56,10 @@ public class UcdGenerator {
     }
   }
 
-  /** Emits {@code Unicode_X_Y.java} for a give version. */
+  /** Emits {@code Unicode_X_Y.java} for a given version. */
   static void emitUnicodeVersionXY(UcdVersion ucdVersion, File outputDir)
       throws IOException, UcdScannerException {
     String unicodeClassName = ucdVersion.version().unicodeClassName();
-    System.out.println(String.format("Emitting %s [WIP]", unicodeClassName));
     UnicodeData unicodeData = scanUnicodeVersion(ucdVersion);
     File outputFile = new File(outputDir, unicodeClassName + ".java");
     UnicodeVersionEmitter emitter =
