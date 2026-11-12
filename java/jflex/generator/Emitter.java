@@ -645,7 +645,6 @@ public final class Emitter {
   }
 
   private void emitAttributes() {
-    // TODO(lsf): refactor to use CountEmitter.emitCountValueString
     println("  /**");
     println("   * ZZ_ATTRIBUTE[aState] contains the attributes of state {@code aState}");
     println("   */");
@@ -653,26 +652,13 @@ public final class Emitter {
     CountEmitter e = new CountEmitter("Attribute");
     e.emitInit();
 
-    int count = 1;
-    int value = 0;
-    if (dfa.isFinal(0)) value = FINAL;
-    if (!isTransition[0]) value |= NOLOOK;
-
-    for (int i = 1; i < dfa.numStates(); i++) {
-      int attribute = 0;
-      if (dfa.isFinal(i)) attribute = FINAL;
-      if (!isTransition[i]) attribute |= NOLOOK;
-
-      if (value == attribute) {
-        count++;
-      } else {
-        e.emit(count, value);
-        count = 1;
-        value = attribute;
-      }
+    int[] attributes = new int[dfa.numStates()];
+    for (int i = 0; i < attributes.length; i++) {
+      if (dfa.isFinal(i)) attributes[i] = FINAL;
+      if (!isTransition[i]) attributes[i] |= NOLOOK;
     }
 
-    e.emit(count, value);
+    e.emitCountValueString(attributes);
     e.emitUnpack();
 
     println(e.toString());
@@ -1032,8 +1018,6 @@ public final class Emitter {
   /** emitActionTable. */
   private void emitActionTable() {
     int lastAction = 1;
-    int count = 0;
-    int value = 0;
 
     println("  /**");
     println("   * Translates DFA states to action switch labels.");
@@ -1041,8 +1025,8 @@ public final class Emitter {
     CountEmitter e = new CountEmitter("Action");
     e.emitInit();
 
-    for (int i = 0; i < dfa.numStates(); i++) {
-      int newVal = 0;
+    int[] actions = new int[dfa.numStates()];
+    for (int i = 0; i < actions.length; i++) {
       if (dfa.isFinal(i)) {
         Action action = dfa.action(i);
         if (action.isEmittable()) {
@@ -1051,21 +1035,12 @@ public final class Emitter {
             stored = lastAction++;
             actionTable.put(action, stored);
           }
-          newVal = stored;
+          actions[i] = stored;
         }
-      }
-
-      if (value == newVal) {
-        count++;
-      } else {
-        if (count > 0) e.emit(count, value);
-        count = 1;
-        value = newVal;
       }
     }
 
-    if (count > 0) e.emit(count, value);
-
+    e.emitCountValueString(actions);
     e.emitUnpack();
     println(e.toString());
   }
