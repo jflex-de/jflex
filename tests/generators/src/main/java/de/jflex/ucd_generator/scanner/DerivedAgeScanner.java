@@ -11,14 +11,10 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodepointRange;
-import de.jflex.ucd.SurrogateUtils;
-import de.jflex.ucd_generator.ucd.CodepointRangeSet;
-import de.jflex.ucd_generator.ucd.MutableCodepointRange;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.version.Version;
 import java.io.Reader;
 import java.util.List;
-import java.util.Set;
 
 /** Scanner for the {@code DerivedAge.txt} ucd file, that populates the UnicodeData intervals. */
 class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
@@ -75,35 +71,6 @@ class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
       List<Version> prevVersions = versions.subList(0, i); // toIndex is exclusive
       includeVersionsOnVersion(version, prevVersions, ageRangesPerVersion);
     }
-
-    // Version up to 3.1.x use the UNIDATA DerivedAge
-    // addUnassignedAge(ageRangesPerVersion);
-  }
-
-  /**
-   * Gives the Unassigned Age property value to the absolute complement of the highest version's
-   * range set.
-   */
-  // TODO(regisd) Remove dead code
-  // The jflex-unicode-maven-plugin used to do this but this not necessary with ucd_generator?
-  @SuppressWarnings("unused")
-  private void addUnassignedAge(HashMultimap<Version, CodepointRange> ageRangesPerVersion) {
-    Version lastVersion =
-        ImmutableList.sortedCopyOf(Version.EXACT_VERSION_COMPARATOR, ageRangesPerVersion.keySet())
-            .reverse()
-            .get(0);
-    // TODO(regisd) Assert that lastVersion == unicodeData.version()
-    Set<CodepointRange> highestVersionRanges = ageRangesPerVersion.get(lastVersion);
-    CodepointRangeSet unassigned =
-        CodepointRangeSet.builder()
-            .add(MutableCodepointRange.create(0, unicodeData.maximumCodePoint()))
-            .substractAll(highestVersionRanges)
-            .substract(SurrogateUtils.SURROGATE_RANGE)
-            .build();
-    for (CodepointRange range : unassigned.ranges()) {
-      unicodeData.addEnumPropertyInterval(
-          propertyName, defaultPropertyValue, range.start(), range.end());
-    }
   }
 
   private void includeVersionsOnVersion(
@@ -112,7 +79,6 @@ class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
       HashMultimap<Version, CodepointRange> ageRangesPerVersion) {
     for (Version v : versionsToInclude) {
       for (CodepointRange range : ageRangesPerVersion.get(v)) {
-        ageRangesPerVersion.put(v, range);
         unicodeData.addEnumPropertyInterval(
             propertyName, version.toString(), range.start(), range.end());
       }
