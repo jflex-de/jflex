@@ -42,14 +42,17 @@ To install JFlex on Windows, follow these three steps:
             +--test\                 (unit tests)
 ```
 
-2.  Edit the file **`bin\jflex.bat`** (in the example it’s
-    `C:\jflex-$VERSION\bin\jflex.bat`) such that
+2.  Set the following environment variables:
 
-    -   **`JAVA_HOME`** contains the directory where your Java JDK is
-        installed (for instance `C:\java`) and
+    -   **`JFLEX_HOME`** to the directory that contains JFlex (in the
+        example: `C:\jflex-$VERSION`). Alternatively, you can edit the
+        default for `JFLEX_HOME` in the file **`bin\jflex.bat`** (in the
+        example `C:\jflex-$VERSION\bin\jflex.bat`).
 
-    -   **`JFLEX_HOME`** the directory that contains JFlex (in the
-        example: `C:\jflex-$VERSION`)
+    -   **`JAVA_HOME`** to the directory where your Java JDK is
+        installed (for instance `C:\java`). This is optional: if
+        `JAVA_HOME` is not set, the start script uses the `java` command
+        from your path.
 
 3.  Include the `bin\` directory of JFlex in your path. (the one that
     contains the start script, in the example: `C:\jflex-$VERSION\bin`).
@@ -73,8 +76,9 @@ To install JFlex on a Mac or Unix system, follow these two steps:
 
     `ln -s /usr/share/jflex-$VERSION/bin/jflex /usr/bin/jflex`
 
-    If the Java interpreter is not in your binary path, you need to
-    supply its location in the script `bin/jflex`.
+    The script uses the Java interpreter in `$JAVA_HOME/bin/java` if
+    the environment variable `JAVA_HOME` is set, and otherwise the
+    `java` command from your binary path.
 
 You can verify the integrity of the downloaded file with the SHA1 checksum
 available on the [JFlex download page](http://jflex.de/download.html). If you

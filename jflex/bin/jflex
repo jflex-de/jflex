@@ -5,8 +5,8 @@
 #
 #     JFlex start script
 #
-# if Java is not in your binary path, you need to supply its
-# location in this script. The script automatically finds
+# Uses the java of JAVA_HOME if that is set, otherwise the one
+# in your binary path. The script automatically finds
 # JFLEX_HOME when called directly, via binary path, or symbolic
 # link.
 #
@@ -17,9 +17,13 @@
 #
 # configurables:
 
-# path to the java interpreter
-# TODO: Use JAVA_HOME
-JAVA=java
+# path to the java interpreter: $JAVA_HOME/bin/java if set, otherwise
+# java in the binary path
+if [ -n "$JAVA_HOME" ] && [ -x "$JAVA_HOME/bin/java" ]; then
+    JAVA="$JAVA_HOME/bin/java"
+else
+    JAVA=java
+fi
 
 # Version of JFlex to execute
 JFLEX_VERSION=1.10.0-SNAPSHOT
@@ -48,4 +52,4 @@ JFLEX_HOME=${PRG}/..
 
 # --------------------------------------------------------------------
 
-$JAVA -Xmx128m -jar "$JFLEX_HOME"/lib/jflex-full-${JFLEX_VERSION}.jar $@
+"$JAVA" -Xmx128m -jar "$JFLEX_HOME"/lib/jflex-full-${JFLEX_VERSION}.jar "$@"
