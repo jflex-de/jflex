@@ -9,7 +9,7 @@ The Maven modules in this directory are end-to-end tests for JFlex that are not 
 
 - `framework`: test support that the test modules depend on: `@TestSpec`, `JFlexTest`,
   `JFlexTestExtension` and the golden tests, the runner of the `.test` cases
-  (`AbstractTestsuiteTest`, `TestLoader.flex`), assertions, and javac and scanner helpers.
+  (`AbstractTestsuiteTest`, `TestLoader.flex`), and javac and scanner helpers.
 - `generators`: generators that read the Unicode Character Database (UCD): of the Unicode
   tables in `jflex/src/main/java/jflex/core/unicode`, of the Unicode tests, and of the Unicode
   `.test` cases, with the UCD parsers they share.

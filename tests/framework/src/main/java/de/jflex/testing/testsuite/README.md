@@ -23,6 +23,6 @@ Supported:
 - generating the lexer
 - passing options such as `--jlex` or `-q` to jflex
 - verifying that the generated lexer compiles
-- verifying that the generated lexer compiles with extra source files
-- checking that the generation fails
+- checking that the generation fails, with the expected exception and cause
+- checking the number of states of the minimized DFA
 - comparing the output logs with a golden file
