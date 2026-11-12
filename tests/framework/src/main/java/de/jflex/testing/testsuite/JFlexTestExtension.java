@@ -7,6 +7,7 @@ package de.jflex.testing.testsuite;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.jflex.testing.QuietOutputExtension;
 import de.jflex.testing.diff.DiffOutputStream;
@@ -21,6 +22,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -29,6 +31,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import jflex.core.unicode.CharClasses;
 import jflex.generator.LexGenerator;
 import jflex.logging.Out;
 import jflex.option.Options;
@@ -248,7 +251,31 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
           lexGenerator.minimizedDfaStatesCount(),
           "Number of minimized states in the DFA");
     }
+    checkCharClasses(spec, lexGenerator.charClasses());
     return lexerJavaFileName;
+  }
+
+  /**
+   * Checks the character classes against the spec. That the classes are a partition of all
+   * characters is checked for every spec.
+   */
+  private static void checkCharClasses(TestSpec spec, CharClasses charClasses) {
+    assertTrue(
+        charClasses.invariants(),
+        "Character classes must be disjoint and cover all characters:\n" + charClasses);
+    if (spec.charClassesCount() > 0) {
+      assertEquals(
+          spec.charClassesCount(),
+          charClasses.getNumClasses(),
+          "Number of character classes in:\n" + charClasses);
+    }
+    if (spec.charClasses().length > 0) {
+      List<String> actual = new ArrayList<>();
+      for (int i = 0; i < charClasses.getNumClasses(); i++) {
+        actual.add(charClasses.toString(i));
+      }
+      assertEquals(Arrays.asList(spec.charClasses()), actual, "Character classes");
+    }
   }
 
   /** Returns the absolute paths of the {@code .java} files in {@code dir}. */
