@@ -23,6 +23,8 @@
   jflex-maven-plugin, etc
 - JFlex and the jflex-maven-plugin are now thread safe and can run multiple
   instances concurrently.
+- `%unicode 3.2` now accepts the short property name `blk` for `Block`, e.g.
+  `\p{blk=Greek}`, as in Unicode 4.0 and later.
 
 ## [JFlex 1.9.1](https://github.com/jflex-de/jflex/milestone/21?closed=1) (Mar 11, 2023)
 
