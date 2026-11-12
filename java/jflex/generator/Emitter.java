@@ -451,7 +451,6 @@ public final class Emitter {
 
   private void emitClassName() {
     if (!scanner.noSuppressWarnings()) {
-      // TODO(#222) Actually fix the fall-through violations
       println("@SuppressWarnings(\"fallthrough\")");
     }
     if (scanner.isPublic()) print("public ");
