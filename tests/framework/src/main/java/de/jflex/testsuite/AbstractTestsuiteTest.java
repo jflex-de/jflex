@@ -56,7 +56,8 @@ import org.junit.jupiter.params.provider.MethodSource;
  *       src/test/cases}. Paths in JFlex messages are relative to it. The working directory by
  *       default.
  *   <li>{@code jflex.testsuite.generated.dir}: optional directory with the generated cases, in the
- *       same layout. Paths in JFlex messages are relative to it too.
+ *       same layout. Paths in JFlex messages are relative to it too. A {@code common-input-file}
+ *       that the module directory does not have is taken from the same place in this directory.
  *   <li>{@code jflex.testsuite.out}: where generated scanners go.
  *   <li>{@code jflex.testsuite.cases}: optional comma-separated list of case directories to run,
  *       e.g. {@code dot,unicode-scripts}. All by default.
@@ -144,7 +145,7 @@ public abstract class AbstractTestsuiteTest {
           spec,
           outDir,
           className,
-          new File(dir, spec.commonInputFile),
+          commonInputFile(dir, spec.commonInputFile),
           new File(dir, spec.name + ".output"));
     } else {
       // A case without input files only checks that the scanner compiles.
@@ -156,6 +157,25 @@ public abstract class AbstractTestsuiteTest {
         runScanner(spec, outDir, className, input, expected);
       }
     }
+  }
+
+  /**
+   * The common input file of a case in {@code dir}. Inputs may be generated: if the suite directory
+   * does not have the input, then take the file at the same sub path in the generated directory.
+   */
+  private static File commonInputFile(File dir, String path) {
+    File input = new File(dir, path);
+    if (!input.exists()
+        && GENERATED_SUITE_DIR != null
+        && dir.toPath().startsWith(SUITE_DIR.toPath())) {
+      File generatedDir =
+          GENERATED_SUITE_DIR
+              .toPath()
+              .resolve(SUITE_DIR.toPath().relativize(dir.toPath()))
+              .toFile();
+      return new File(generatedDir, path);
+    }
+    return input;
   }
 
   private static SuiteCase load(File testFile) throws IOException, LoadException {

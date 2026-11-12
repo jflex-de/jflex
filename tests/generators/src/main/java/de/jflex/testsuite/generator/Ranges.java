@@ -14,7 +14,7 @@ final class Ranges {
   static final int MAX_CODE_POINT = 0x10FFFF;
 
   /**
-   * The last code point in {@code All.Unicode.BMP.characters.input}, the input of the cases for
+   * The last code point in {@link UnicodeCasesGenerator#BMP_INPUT}, the input of the cases for
    * Unicode versions before 3.0.
    */
   static final int MAX_BMP_CODE_POINT = 0xFFFD;

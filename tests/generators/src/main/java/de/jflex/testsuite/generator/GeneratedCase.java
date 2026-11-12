@@ -102,7 +102,7 @@ final class GeneratedCase {
     Path dir = casesDir.resolve(caseDir);
     Files.createDirectories(dir);
     boolean bmp = isBmp(version);
-    String input = bmp ? "All.Unicode.BMP.characters.input" : "All.Unicode.characters.input";
+    String input = bmp ? UnicodeCasesGenerator.BMP_INPUT : UnicodeCasesGenerator.ALL_INPUT;
     String test =
         "name: "
             + name
