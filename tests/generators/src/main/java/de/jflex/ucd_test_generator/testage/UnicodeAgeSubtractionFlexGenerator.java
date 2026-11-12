@@ -4,10 +4,10 @@
  */
 package de.jflex.ucd_test_generator.testage;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd_test_generator.base.AbstractGenerator;
 import de.jflex.ucd_test_generator.base.UnicodeVersion;
 import de.jflex.version.Version;
+import java.util.List;
 
 class UnicodeAgeSubtractionFlexGenerator
     extends AbstractGenerator<UnicodeAgeSubtractionTemplateVars> {
@@ -20,7 +20,7 @@ class UnicodeAgeSubtractionFlexGenerator
   protected UnicodeAgeSubtractionTemplateVars createTemplateVars() {
     UnicodeAgeSubtractionTemplateVars vars = new UnicodeAgeSubtractionTemplateVars();
     vars.className = UnicodeAgeFlexGenerators.className(unicodeVersion, "subtraction");
-    ImmutableList<Version> ages = olderAges(unicodeVersion.version());
+    List<Version> ages = olderAges(unicodeVersion.version());
     StringBuilder rules = new StringBuilder();
     for (int i = 1; i < ages.size(); i++) {
       if (rules.length() > 0) {

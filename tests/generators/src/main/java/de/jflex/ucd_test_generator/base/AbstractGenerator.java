@@ -4,10 +4,8 @@
  */
 package de.jflex.ucd_test_generator.base;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
 import static de.jflex.ucd_test_generator.base.JavaResources.readResource;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.template.Template;
 import de.jflex.ucd.UcdReleases;
 import de.jflex.util.javac.JavaPackageUtils;
@@ -21,14 +19,18 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
 
   /** The Unicode versions of {@link UcdReleases}, without their update numbers, oldest first. */
-  public static final ImmutableList<Version> KNOWN_VERSIONS =
-      UcdReleases.versions().stream()
-          .map(v -> new Version(v.getMajor(), v.getMinor()))
-          .collect(toImmutableList());
+  public static final List<Version> KNOWN_VERSIONS =
+      Collections.unmodifiableList(
+          UcdReleases.versions().stream()
+              .map(v -> new Version(v.getMajor(), v.getMinor()))
+              .collect(Collectors.toList()));
 
   protected final String templateName;
   protected final UnicodeVersion unicodeVersion;
@@ -38,10 +40,10 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
     this.unicodeVersion = unicodeVersion;
   }
 
-  public static ImmutableList<Version> olderAges(Version version) {
+  public static List<Version> olderAges(Version version) {
     return KNOWN_VERSIONS.stream()
         .filter(v -> Version.EXACT_VERSION_COMPARATOR.compare(v, version) <= 0)
-        .collect(toImmutableList());
+        .collect(Collectors.toList());
   }
 
   /** Returns the generated file. */
