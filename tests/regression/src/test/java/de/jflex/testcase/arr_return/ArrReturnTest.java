@@ -17,5 +17,7 @@ import de.jflex.testing.testsuite.annotations.TestSpec;
       "{ ['b'] }",
       "{ ['l'] }",
       "{ ['u'] }"
-    })
+    },
+    sameCharClass = {"az\uD83D\uDE00", "bb"},
+    distinctCharClasses = {"blua"})
 public class ArrReturnTest implements JFlexTest {}
