@@ -131,6 +131,10 @@ public class DiffOutputStream extends OutputStream {
       return;
     }
     try {
+      if (count > 0) {
+        assertThatWrittenWasExpected(in.readLine());
+        count = 0;
+      }
       assertWithMessage("All expected content has been output").that(remainingContent()).isEmpty();
     } finally {
       closeWithoutCheck();
