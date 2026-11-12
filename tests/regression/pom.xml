@@ -97,6 +97,8 @@
         <version>${project.version}</version>
         <configuration>
           <outputDirectory>${generated.scanners.dir}</outputDirectory>
+          <!-- Generate without warnings here. Tests that check warnings generate again themselves. -->
+          <suppressAllWarnings>true</suppressAllWarnings>
         </configuration>
         <executions>
           <execution>
