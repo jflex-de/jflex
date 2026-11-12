@@ -14,9 +14,6 @@ package jflex.core;
  * @author Gerwin Klein
  * @version JFlex 1.10.0-SNAPSHOT
  */
-// TODO Move all regexp related code to jflex.regexp
-// This class lives in package jflex.core, because the reference to jflex.core.RegExp would
-// introduce a cyclic module dependency in jflex.exceptions.
 public class RegExpException extends RuntimeException {
 
   /** Required by serialisation interface */
