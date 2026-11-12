@@ -27,4 +27,6 @@ Supported:
 - checking the number of states of the minimized DFA
 - checking the number of character classes, and the classes themselves
   (`charClassesCount`, `charClasses`)
+- checking that given characters are in the same or in different character
+  classes (`sameCharClass`, `distinctCharClasses`)
 - comparing the output logs with a golden file

@@ -6,6 +6,7 @@ package de.jflex.testing.testsuite;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -275,6 +276,32 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
         actual.add(charClasses.toString(i));
       }
       assertEquals(Arrays.asList(spec.charClasses()), actual, "Character classes");
+    }
+    for (String group : spec.sameCharClass()) {
+      int[] codePoints = group.codePoints().toArray();
+      for (int codePoint : codePoints) {
+        assertEquals(
+            charClasses.getClassCode(codePoints[0]),
+            charClasses.getClassCode(codePoint),
+            String.format(
+                "sameCharClass \"%s\": U+%04X and U+%04X must be in the same character class"
+                    + " of:%n%s",
+                group, codePoints[0], codePoint, charClasses));
+      }
+    }
+    for (String group : spec.distinctCharClasses()) {
+      int[] codePoints = group.codePoints().toArray();
+      for (int i = 0; i < codePoints.length; i++) {
+        for (int j = i + 1; j < codePoints.length; j++) {
+          assertNotEquals(
+              charClasses.getClassCode(codePoints[i]),
+              charClasses.getClassCode(codePoints[j]),
+              String.format(
+                  "distinctCharClasses \"%s\": U+%04X and U+%04X must be in different character"
+                      + " classes of:%n%s",
+                  group, codePoints[i], codePoints[j], charClasses));
+        }
+      }
     }
   }
 

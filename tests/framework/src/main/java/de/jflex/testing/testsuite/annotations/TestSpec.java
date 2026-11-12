@@ -64,6 +64,21 @@ public @interface TestSpec {
    */
   String[] charClasses() default {};
 
+  /**
+   * Groups of characters (code pointst) hat must be in the same character class. For instance,
+   * <code>
+   * {"az", "09"}</code> means that {@code a} and {@code z} are in the same class, and {@code 0} and
+   * {@code 9}. For specs where {@link #charClasses()} would be unreadable.
+   */
+  String[] sameCharClass() default {};
+
+  /**
+   * Groups of characters that the scanner must distinguish: the characters (code points) of one
+   * string must be in pairwise different character classes, for instance {@code {"a_0"}} must all
+   * be in different classes.
+   */
+  String[] distinctCharClasses() default {};
+
   /** Runs JFlex generation with the {@code -q} option. */
   boolean quiet() default false;
 
