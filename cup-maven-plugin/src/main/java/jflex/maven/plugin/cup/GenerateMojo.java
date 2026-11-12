@@ -30,9 +30,6 @@ public class GenerateMojo extends AbstractMojo {
 
   private static final String DEFAULT_JAVA_PACKAGE = "";
 
-  // TODO(regisd) Use java convention for class name.
-  // Investigate whether we can change the default class names to more conventional
-  // names such as "Parser" and "Symbols".
   /** Default class name of the parser. Note that CUP uses a lower-case class name. */
   static final String DEFAULT_PARSER_NAME = "parser";
 

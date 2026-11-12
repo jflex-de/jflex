@@ -60,7 +60,6 @@ class SpecInfo {
    * @return Name of the java file.
    */
   String getOutputFilename() {
-    // TODO(regisd) Use PackageUtil
     String packageDir = packageName.replace('.', File.separatorChar);
     if (packageDir.length() > 0) {
       packageDir += File.separatorChar;
