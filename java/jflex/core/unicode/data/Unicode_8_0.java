@@ -5,10 +5,8 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-// TODO(regisd) Move in same package
 package jflex.core.unicode.data;
 
-// TODO(regisd) Restrict to package visibility
 public class Unicode_8_0 {
 
   // Only holds constants.
