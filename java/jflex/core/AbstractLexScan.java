@@ -290,7 +290,6 @@ public abstract class AbstractLexScan implements ILexScan {
     return eofThrow;
   }
 
-  // TODO(regisd) Return ImmutableList instead
   public List<String> lexThrow() {
     return lexThrow;
   }
