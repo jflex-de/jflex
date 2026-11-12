@@ -13,7 +13,7 @@ package jflex.examples.minijava;
 import java_cup.runtime.*;
 
 
-/** Parser for a lamguages inspired by Java. */
+/** Parser for a language inspired by Java. */
 
 // Keywords
 terminal ABSTRACT; // "abstract"
@@ -46,7 +46,9 @@ non terminal ops;
 // Our simplified grammar
 non terminal goal;
 
-// TODO
+// This grammar is a stub: it exists for CUP to generate the sym class with the
+// terminal constants used in minijava.flex. For a full Java grammar, see the
+// cup-java example.
 start with goal;
 
 goal ::=	name | literal | type | ops | ABSTRACT | BREAK
@@ -61,7 +63,7 @@ literal ::=	INTEGER_LITERAL
 type	::=	primitive_type
 	;
 primitive_type ::=
-	|	BOOLEAN
+		BOOLEAN
 	;
 
 // 19.5) Names
