@@ -33,6 +33,12 @@ public @interface TestSpec {
    */
   Class<?> generatorThrowableCause() default NoExceptionThrown.class;
 
+  /**
+   * Skeleton file for the {@code --skel} option, relative to the working directory like {@link
+   * #lex()}. Defaults to the built-in skeleton.
+   */
+  String skeleton() default "";
+
   /** Runs JFlex generation with the {@code --dump} option. */
   boolean dump() default false;
 
