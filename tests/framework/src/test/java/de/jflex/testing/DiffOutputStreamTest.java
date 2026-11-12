@@ -69,6 +69,37 @@ public class DiffOutputStreamTest {
   }
 
   @Test
+  public void close_lastLineWithoutNewline_equal() throws Exception {
+    try (DiffOutputStream differ = new DiffOutputStream(new StringReader("Hello\nworld!"))) {
+      differ.write("Hello\nworld!".getBytes("UTF-8"));
+    }
+  }
+
+  @Test
+  public void close_lastLineWithoutNewline_differs() throws Exception {
+    assertThrows(
+        AssertionError.class,
+        () -> {
+          try (DiffOutputStream differ = new DiffOutputStream(new StringReader("Hello\nworld!"))) {
+            differ.write("Hello\nmoon!".getBytes("UTF-8"));
+          }
+        },
+        DiffOutputStream.class + " throws an exception when the last line differs");
+  }
+
+  @Test
+  public void close_lastLineWithoutNewline_notExpected() throws Exception {
+    assertThrows(
+        AssertionError.class,
+        () -> {
+          try (DiffOutputStream differ = new DiffOutputStream(new StringReader("Hello\n"))) {
+            differ.write("Hello\nworld!".getBytes("UTF-8"));
+          }
+        },
+        DiffOutputStream.class + " throws an exception for an extra last line");
+  }
+
+  @Test
   public void close_twice_hasNoEffect() throws Exception {
     try (DiffOutputStream differ = new DiffOutputStream(new TrackedReader(""))) {
       differ.close();
