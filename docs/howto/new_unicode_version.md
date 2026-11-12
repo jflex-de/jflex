@@ -67,13 +67,13 @@ Verify and commit the changes.
 Add a test case in
 [tests/unicode/src/test/java/de/jflex/testcase/unicode](/tests/unicode/src/test/java/de/jflex/testcase/unicode).
 
-1. Extend `KNOWN_VERSIONS` in
-   [AbstractGenerator.java](/tests/generators/src/main/java/de/jflex/ucd_test_generator/base/AbstractGenerator.java).
-2. Run the script which runs all the generators:
+1. Run the script which runs all the generators:
+
    ```sh
    scripts/gen-unicode-tests.sh
    ```
-3. Verify and commit the changes.
+
+2. Verify and commit the changes.
 
 The Unicode `.test` cases of [tests/unicode](/tests/unicode) are generated from the UCD for
 every version in `UcdReleases`, so they need no change. The implementations of the UAX #14 and

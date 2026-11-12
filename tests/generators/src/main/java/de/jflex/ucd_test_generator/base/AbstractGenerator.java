@@ -9,6 +9,7 @@ import static de.jflex.ucd_test_generator.base.JavaResources.readResource;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.template.Template;
+import de.jflex.ucd.UcdReleases;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.version.Version;
 import java.io.IOException;
@@ -23,31 +24,11 @@ import java.nio.file.Paths;
 
 public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
 
-  // TODO(regisd) Add This in UnicodeProperties
+  /** The Unicode versions of {@link UcdReleases}, without their update numbers, oldest first. */
   public static final ImmutableList<Version> KNOWN_VERSIONS =
-      ImmutableList.of(
-          new Version(1, 1),
-          new Version(2, 0),
-          new Version(2, 1),
-          new Version(3, 0),
-          new Version(3, 1),
-          new Version(3, 2),
-          new Version(4, 0),
-          new Version(4, 1),
-          new Version(5, 0),
-          new Version(5, 1),
-          new Version(5, 2),
-          new Version(6, 0),
-          new Version(6, 1),
-          new Version(6, 2),
-          new Version(6, 3),
-          new Version(7, 0),
-          new Version(8, 0),
-          new Version(9, 0),
-          new Version(10, 0),
-          new Version(11, 0),
-          new Version(12, 0),
-          new Version(12, 1));
+      UcdReleases.versions().stream()
+          .map(v -> new Version(v.getMajor(), v.getMinor()))
+          .collect(toImmutableList());
 
   protected final String templateName;
   protected final UnicodeVersion unicodeVersion;
