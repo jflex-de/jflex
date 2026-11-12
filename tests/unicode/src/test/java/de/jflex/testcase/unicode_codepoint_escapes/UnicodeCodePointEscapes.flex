@@ -17,7 +17,6 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %type int
 
 %init{
-  // TODO(regisd) Introduced enum
   super(0x10FFFF, String.class);
 %init}
 

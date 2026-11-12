@@ -5,22 +5,16 @@
  */
 package de.jflex.testcase.unicode_codepoint_escapes;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
 import de.jflex.ucd.NamedCodepointRange;
-import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.util.scanner.ScannerFactory;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 /** Tests <code>\\u{X+}, \\u{X+( X+)*}</code> hexadecimal codepoint escape syntax. */
 public class UnicodeCodePointEscapesTest {
-
-  private static final Path CLASS_PATH =
-      Paths.get("src/test/java")
-          .resolve(JavaPackageUtils.getPathForClass(UnicodeCodePointEscapesTest.class));
 
   /** Creates a scanner conforming to the {@code UnicodeCodePointEscapes.flex} specification. */
   private final ScannerFactory<UnicodeCodePointEscapes> scannerFactory =
@@ -50,8 +44,8 @@ public class UnicodeCodePointEscapesTest {
     UnicodeCodePointEscapes scanner =
         scannerFactory.createScannerWithContent(Dataset.ALL.content());
     scanner.yylex();
-    assertThat(scanner.blocks())
-        .containsExactly(
+    assertEquals(
+        Arrays.asList(
             NamedCodepointRange.create("inverse matched", 0x0000, 0x0000),
             NamedCodepointRange.create("matched", 0x0001, 0x0003),
             NamedCodepointRange.create("inverse matched", 0x0004, 0x000F),
@@ -64,6 +58,7 @@ public class UnicodeCodePointEscapesTest {
             NamedCodepointRange.create("inverse matched", 0xE000, 0xFFFE),
             NamedCodepointRange.create("matched", 0xFFFF, 0x10001),
             NamedCodepointRange.create("inverse matched", 0x10002, 0x10FFFE),
-            NamedCodepointRange.create("matched", 0x10FFFF, 0x10FFFF));
+            NamedCodepointRange.create("matched", 0x10FFFF, 0x10FFFF)),
+        scanner.blocks());
   }
 }
