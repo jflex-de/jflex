@@ -4,6 +4,9 @@
  */
 package de.jflex.testsuite.generator;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import de.jflex.ucd.AllCodePoints;
 import de.jflex.ucd.UcdFileType;
 import de.jflex.ucd.UcdReleases;
 import de.jflex.ucd.UcdVersion;
@@ -27,10 +30,17 @@ import java.util.stream.Stream;
  * JFlex or the code that builds its tables.
  *
  * <p>Arguments: the directory with the UCD downloads of {@code tests/unicode/pom.xml}; the unicode
- * test module, for the shared resources and the UAX specs; and the output directory, which gets the
- * same layout: {@code src/test/cases} and {@code src/test/resources}.
+ * test module, for the shared resources and the UAX specs, and the output directory, which has the
+ * same layout: {@code src/test/cases} and {@code src/test/resources}. The latter is also the target
+ * for the two input files of the cases.
  */
 public final class UnicodeCasesGenerator {
+  /** The input with all code points up to {@link Ranges#MAX_BMP_CODE_POINT}. */
+  static final String BMP_INPUT = "All.Unicode.BMP.characters.input";
+
+  /** The input with all code points. */
+  static final String ALL_INPUT = "All.Unicode.characters.input";
+
   private final Path ucdDir;
   private final Path suiteDir;
   private final Path casesDir;
@@ -52,7 +62,7 @@ public final class UnicodeCasesGenerator {
     this.casesDir = outDir.resolve("src").resolve("test").resolve("cases");
   }
 
-  /** Generates the cases of all versions and copies the resources they use. */
+  /** Generates the cases of all versions and their inputs, and copies the resources they use. */
   private int generate() throws Exception {
     Path resources = suiteDir.resolve("src").resolve("test").resolve("resources");
     Path resourcesOut = casesDir.resolveSibling("resources");
@@ -65,11 +75,17 @@ public final class UnicodeCasesGenerator {
         }
       }
     }
+    writeInput(resourcesOut.resolve(BMP_INPUT), Ranges.MAX_BMP_CODE_POINT);
+    writeInput(resourcesOut.resolve(ALL_INPUT), Ranges.MAX_CODE_POINT);
     int count = 0;
     for (int n : Parallel.map(UcdReleases.versions(), this::generate)) {
       count += n;
     }
     return count;
+  }
+
+  private static void writeInput(Path file, int lastCodePoint) throws IOException {
+    Files.write(file, AllCodePoints.upTo(lastCodePoint).getBytes(UTF_8));
   }
 
   private int generate(Version version) throws IOException {

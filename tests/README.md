@@ -48,7 +48,8 @@ the copy step.
   directory.
 - `<name>.output`, or `<name>-*.input` and `<name>-*.output`: the scanner's input and
   expected output.
-- `src/test/resources` (`unicode`): input files and Java code shared by the specs.
+- `src/test/resources` (`unicode`): Java code shared by the specs. The shared input files with
+  all code points are generated into `target/generated-testsuite/src/test/resources`.
 - `src/test/uax/<dir>/` (`unicode`): the specs and `.test` files of the hand-written
   implementations of the UAX #14 and UAX #29 segmentation rules, one per Unicode version.
   Their inputs are the `*BreakTest.txt` files of the UCD, and the goldens are the expected

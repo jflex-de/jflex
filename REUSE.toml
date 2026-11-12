@@ -27,7 +27,6 @@ path = [
   "tests/unicode/src/test/cases/**/**.flex",
   "tests/unicode/src/test/uax/**/**.test",
   "tests/unicode/src/test/uax/**/**.flex",
-  "tests/unicode/src/test/resources/**.input",
   "tests/regression/src/test/java/de/jflex/testcase/**/**.input",
   "tests/regression/src/test/java/de/jflex/testcase/**/**.output",
   "tests/regression/src/test/java/de/jflex/testcase/**/**.out",

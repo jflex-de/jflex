@@ -11,7 +11,6 @@ import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.util.scanner.ScannerFactory;
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
@@ -49,8 +48,7 @@ public class UnicodeCodePointEscapesTest {
   @Test
   public void test() throws Exception {
     UnicodeCodePointEscapes scanner =
-        scannerFactory.createScannerForFile(
-            new File("src/test/resources/" + Dataset.ALL.dataFile()));
+        scannerFactory.createScannerWithContent(Dataset.ALL.content());
     scanner.yylex();
     assertThat(scanner.blocks())
         .containsExactly(

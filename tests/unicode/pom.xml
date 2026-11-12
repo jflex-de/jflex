@@ -300,13 +300,6 @@
                     <exclude>**/*.java</exclude>
                   </excludes>
                 </resource>
-                <resource>
-                  <directory>${project.basedir}/src/test/resources</directory>
-                  <targetPath>src/test/resources</targetPath>
-                  <includes>
-                    <include>*.input</include>
-                  </includes>
-                </resource>
               </resources>
             </configuration>
           </execution>

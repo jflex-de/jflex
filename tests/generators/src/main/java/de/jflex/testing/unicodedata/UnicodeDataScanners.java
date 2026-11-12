@@ -8,11 +8,11 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.ucd.AllCodePoints;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd.Versions;
 import de.jflex.util.scanner.ScannerFactory;
 import de.jflex.version.Version;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,13 +21,11 @@ import java.util.stream.Stream;
 /** Utility class to verify the Age property of UnicodeProperties. */
 public class UnicodeDataScanners {
 
-  public static final File TEST_RESOURCES_DIR = new File("src/test/resources");
-
   private UnicodeDataScanners() {}
 
   public static <T extends AbstractEnumeratedPropertyDefinedScanner<?>> T scanAllCodepoints(
       ScannerFactory<T> scannerFactory, int eof, Dataset dataset) throws IOException {
-    T scanner = scannerFactory.createScannerForFile(new File(TEST_RESOURCES_DIR, dataset.dataFile));
+    T scanner = scannerFactory.createScannerWithContent(dataset.content());
     while (scanner.yylex() != eof) {}
     return scanner;
   }
@@ -52,28 +50,28 @@ public class UnicodeDataScanners {
     }
   }
 
-  // TODO(regisd) The files can most likely be replaced by in-memory providers.
+  /** The input of a scanner under test: all code points up to a last one. */
   public enum Dataset {
-    BMP("All.Unicode.BMP.characters.input", 0xFFFD),
-    ALL("All.Unicode.characters.input", 0x10FFFF),
+    BMP(0xFFFD),
+    ALL(0x10FFFF),
     ;
 
-    private final String dataFile;
     private final int lastCodePoint;
+    private String content;
 
-    Dataset(String filename, int lastCodePoint) {
-      this.dataFile = filename;
+    Dataset(int lastCodePoint) {
       this.lastCodePoint = lastCodePoint;
     }
 
-    public String dataFile() {
-      return dataFile;
+    /** Returns all code points up to {@link #lastCodePoint()} in order, except surrogates. */
+    public synchronized String content() {
+      if (content == null) {
+        content = AllCodePoints.upTo(lastCodePoint);
+      }
+      return content;
     }
 
-    /**
-     * Returns the last code point in the data file. The file has all code points up to it, except
-     * the surrogates.
-     */
+    /** Returns the last code point of {@link #content()}. */
     public int lastCodePoint() {
       return lastCodePoint;
     }

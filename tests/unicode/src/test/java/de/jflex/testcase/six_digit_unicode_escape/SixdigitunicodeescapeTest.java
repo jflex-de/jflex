@@ -7,8 +7,8 @@ package de.jflex.testcase.six_digit_unicode_escape;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
 import de.jflex.util.scanner.ScannerFactory;
-import java.io.File;
 import org.junit.jupiter.api.Test;
 
 /** Tests {@code \UXXXXXX} six-digit hexadecimal character escape syntax. */
@@ -22,8 +22,7 @@ public class SixdigitunicodeescapeTest {
   @Test
   public void unicodeParsed() throws Exception {
 
-    File inputFile = new File("src/test/resources/All.Unicode.characters.input");
-    SixDigitUnicodeEscape scanner = scannerFactory.createScannerForFile(inputFile);
+    SixDigitUnicodeEscape scanner = scannerFactory.createScannerWithContent(Dataset.ALL.content());
     scanner.yylex();
     assertThat(scanner.output())
         .containsExactly(
