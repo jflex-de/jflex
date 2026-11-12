@@ -226,6 +226,9 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
     Options options = new Options();
     options.setJLex(spec.jlexCompat());
     options.setDump(spec.dump());
+    if (!spec.skeleton().isEmpty()) {
+      options.setSkeleton(new File(spec.skeleton()));
+    }
     // verbose is default -- verbose_provided simulates the behaviour of an explicit -v on the
     // command line
     if (spec.verbose_provided()) {

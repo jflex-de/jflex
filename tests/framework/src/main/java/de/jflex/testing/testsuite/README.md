@@ -22,6 +22,7 @@ Supported:
 
 - generating the lexer
 - passing options such as `--jlex` or `-q` to jflex
+- using a custom skeleton file (`skeleton`)
 - verifying that the generated lexer compiles
 - checking that the generation fails, with the expected exception and cause
 - checking the number of states of the minimized DFA
