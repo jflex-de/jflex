@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.maven.api.plugin.testing.InjectMojo;
 import org.apache.maven.api.plugin.testing.MojoExtension;
+import org.apache.maven.api.plugin.testing.MojoParameter;
 import org.apache.maven.api.plugin.testing.MojoTest;
 import org.junit.jupiter.api.Test;
 
@@ -41,10 +42,35 @@ public class JFlexMojoTest {
 
   private static final String CONFIG = "/plugin-config.xml";
 
+  /** The warning parameters of the mojo, with a part of the warning message to match. */
+  private static final String[][] WARNINGS = {
+    {"unusedWarning", "has been declared but never used"},
+    {"neverMatchWarning", "Rule can never be matched"},
+    {"emptyMatchWarning", "Expression matches the empty string"},
+    {"ctorDebugWarning", "Emitting default constructor without parameters"},
+    {"notAtBolWarning", "is not at the beginning of the line"},
+    {"cupsymAfterCupWarning", "%cupsym should be used before %cup"},
+    {"unicodeTooLongWarning", "Unicode escape sequence is too long"},
+  };
+
   /** Executes the mojo without the generated files of a previous run. */
   private static void executeClean(JFlexMojo mojo) throws Exception {
     deleteRecursively(outputDirectory(mojo));
     mojo.execute();
+  }
+
+  /** Executes the mojo like {@link #executeClean} and returns what it printed. */
+  private static String executeCleanAndCapture(JFlexMojo mojo) throws Exception {
+    // The mojo prints JFlex messages to the System.out of the time it runs.
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    PrintStream savedOut = System.out;
+    System.setOut(new PrintStream(output, true));
+    try {
+      executeClean(mojo);
+    } finally {
+      System.setOut(savedOut);
+    }
+    return output.toString();
   }
 
   /** The output directory of the mojo. It is relative to the plugin directory. */
@@ -113,22 +139,56 @@ public class JFlexMojoTest {
   @Test
   @InjectMojo(goal = "generate", pom = PROJECTS + "suppress-leak-test" + CONFIG)
   public void testSuppressDoesNotLeak(JFlexMojo mojo) throws Exception {
-    // The mojo prints JFlex messages to the System.out of the time it runs.
-    ByteArrayOutputStream output = new ByteArrayOutputStream();
-    PrintStream savedOut = System.out;
-    System.setOut(new PrintStream(output, true));
-    try {
-      executeClean(mojo);
-    } finally {
-      System.setOut(savedOut);
-    }
-
-    String log = output.toString();
+    String log = executeCleanAndCapture(mojo);
     // one warning, for warn.flex; none for suppress-all.flex (the Maven log mentions both files)
     String msg = "JFlex and Maven output:\n" + log;
     assertEquals(2, log.split("never be matched", -1).length, msg);
     assertTrue(log.contains("Warning in file \"") && log.contains("warn.flex\""), msg);
     assertFalse(log.contains("suppress-all.flex\""), msg);
+  }
+
+  /** All warnings are on by default. */
+  @Test
+  @InjectMojo(goal = "generate", pom = PROJECTS + "warnings-test" + CONFIG)
+  public void testWarningsOnByDefault(JFlexMojo mojo) throws Exception {
+    String log = executeCleanAndCapture(mojo);
+
+    for (String[] warning : WARNINGS) {
+      assertTrue(log.contains(warning[1]), warning[0] + " on by default. Output:\n" + log);
+    }
+  }
+
+  /** Each warning parameter only switches off its own warning. */
+  @Test
+  @InjectMojo(goal = "generate", pom = PROJECTS + "warnings-test" + CONFIG)
+  public void testSingleWarningOff(JFlexMojo mojo) throws Exception {
+    for (String[] off : WARNINGS) {
+      MojoExtension.setVariableValueToObject(mojo, off[0], false);
+      String log = executeCleanAndCapture(mojo);
+      MojoExtension.setVariableValueToObject(mojo, off[0], true);
+
+      for (String[] warning : WARNINGS) {
+        assertEquals(
+            warning != off,
+            log.contains(warning[1]),
+            warning[0] + " with " + off[0] + " off. Output:\n" + log);
+      }
+    }
+  }
+
+  /**
+   * {@code suppressAllWarnings} switches off all warnings, no matter what the single parameters
+   * are.
+   */
+  @Test
+  @InjectMojo(goal = "generate", pom = PROJECTS + "warnings-test" + CONFIG)
+  @MojoParameter(name = "suppressAllWarnings", value = "true")
+  @MojoParameter(name = "neverMatchWarning", value = "true")
+  public void testSuppressAllWarnings(JFlexMojo mojo) throws Exception {
+    String log = executeCleanAndCapture(mojo);
+
+    assertFalse(log.contains("Warning"), "Output:\n" + log);
+    assertTrue(new File(outputDirectory(mojo), "Warnings.java").isFile());
   }
 
   /** Two mojos executing at the same time like in a parallel reactor build. */

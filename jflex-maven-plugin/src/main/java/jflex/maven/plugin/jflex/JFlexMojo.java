@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import jflex.generator.LexGenerator;
+import jflex.l10n.ErrorMessages;
 import jflex.option.Options;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -72,6 +73,42 @@ public class JFlexMojo extends AbstractMojo {
   /** Whether a warning will be logged when there are unused macros. */
   @Parameter(defaultValue = "true")
   private boolean unusedWarning;
+
+  /** Whether a warning will be logged when a rule can never be matched. */
+  @Parameter(defaultValue = "true")
+  private boolean neverMatchWarning = true; // NOPMD
+
+  /** Whether a warning will be logged when an expression matches the empty string. */
+  @Parameter(defaultValue = "true")
+  private boolean emptyMatchWarning = true; // NOPMD
+
+  /**
+   * Whether a warning will be logged when JFlex emits an additional default constructor for {@code
+   * %debug} or {@code %standalone} in a scanner with {@code %ctorarg}.
+   */
+  @Parameter(defaultValue = "true")
+  private boolean ctorDebugWarning = true; // NOPMD
+
+  /**
+   * Whether a warning will be logged when a {@code %}-option is not at the beginning of the line.
+   */
+  @Parameter(defaultValue = "true")
+  private boolean notAtBolWarning = true; // NOPMD
+
+  /** Whether a warning will be logged when {@code %cupsym} is used after {@code %cup}. */
+  @Parameter(defaultValue = "true")
+  private boolean cupsymAfterCupWarning = true; // NOPMD
+
+  /** Whether a warning will be logged when a Unicode escape sequence is too long. */
+  @Parameter(defaultValue = "true")
+  private boolean unicodeTooLongWarning = true; // NOPMD
+
+  /**
+   * Whether to suppress all warnings that can be switched off. Takes precedence over the single
+   * warning parameters such as {@code unusedWarning}.
+   */
+  @Parameter(defaultValue = "false")
+  private boolean suppressAllWarnings;
 
   /** Whether to dump full debug information. */
   @Parameter(defaultValue = "false")
@@ -223,6 +260,15 @@ public class JFlexMojo extends AbstractMojo {
       options.setDump(dump);
       options.setVerbose(verbose);
       options.setUnusedWarning(unusedWarning);
+      setWarning(options, ErrorMessages.NEVER_MATCH, neverMatchWarning);
+      setWarning(options, ErrorMessages.EMPTY_MATCH, emptyMatchWarning);
+      setWarning(options, ErrorMessages.CTOR_DEBUG, ctorDebugWarning);
+      setWarning(options, ErrorMessages.NOT_AT_BOL, notAtBolWarning);
+      setWarning(options, ErrorMessages.CUPSYM_AFTER_CUP, cupsymAfterCupWarning);
+      setWarning(options, ErrorMessages.UNICODE_TOO_LONG, unicodeTooLongWarning);
+      if (suppressAllWarnings) {
+        options.suppressAllWarnings();
+      }
       options.setDot(dot);
       options.setLegacyDot(legacyDot);
       if (skeleton != null) {
@@ -245,6 +291,15 @@ public class JFlexMojo extends AbstractMojo {
       getLog().info("  generated " + generatedFile);
     } catch (Exception e) {
       throw new MojoExecutionException(e.getMessage(), e);
+    }
+  }
+
+  /** Enables or suppresses a warning. */
+  private static void setWarning(Options options, ErrorMessages warning, boolean enabled) {
+    if (enabled) {
+      options.enable(warning);
+    } else {
+      options.suppress(warning);
     }
   }
 
