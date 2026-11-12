@@ -1171,7 +1171,8 @@ public final class Emitter {
 
       println("            { " + action.content);
       println("            }");
-      println("          // fall through");
+      // "$FALL-THROUGH$" is for Eclipse, "fall through" is for IntelliJ
+      println("          //$FALL-THROUGH$ fall through");
       println("          case " + (i++) + ": break;");
     }
   }
@@ -1205,7 +1206,9 @@ public final class Emitter {
             println(" }\");");
           }
           println("              " + action.content);
-          println("            }  // fall though");
+          println("            }");
+          // "$FALL-THROUGH$" is for Eclipse, "fall through" is for IntelliJ
+          println("            //$FALL-THROUGH$ fall through");
           println("            case " + (++last) + ": break;");
         }
       }
