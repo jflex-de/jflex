@@ -74,7 +74,6 @@ public class CaselessTestGenerator {
       maybeAddMapping(codePoint, strLowerCaseMapping);
       maybeAddMapping(codePoint, strUpperCaseMapping);
       maybeAddMapping(codePoint, strTitleCaseMapping);
-      // TODO(regisd)
     }
 
     private void maybeAddMapping(int codepoint, String strMapping) {
