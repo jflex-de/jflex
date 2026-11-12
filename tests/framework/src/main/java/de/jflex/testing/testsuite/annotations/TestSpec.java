@@ -50,6 +50,20 @@ public @interface TestSpec {
    */
   int minimizedDfaStatesCount() default 0;
 
+  /** The expected number of character classes. 0 skips the assertion. */
+  int charClassesCount() default 0;
+
+  /**
+   * The expected character classes, one string per class in the format of the {@code --dump}
+   * output, for instance <code>{"{ [0-'`']['b'-1114111] }", "{ ['a'] }"}</code>. The classes are in
+   * canonical order: sorted by their first interval, so the class of character 0 is first. Empty
+   * skips the assertion.
+   *
+   * <p>Only usable for specs with few classes. Use {@link #charClassesCount()} for large Unicode
+   * sets.
+   */
+  String[] charClasses() default {};
+
   /** Runs JFlex generation with the {@code -q} option. */
   boolean quiet() default false;
 

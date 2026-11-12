@@ -15,6 +15,7 @@ import java.util.Set;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
 import jflex.core.NFA;
+import jflex.core.unicode.CharClasses;
 import jflex.dfa.DFA;
 import jflex.dfa.DfaFactory;
 import jflex.exceptions.GeneratorException;
@@ -39,6 +40,7 @@ public class LexGenerator {
   private final Options options;
   private final Out out;
   private DFA dfa;
+  private CharClasses charClasses;
 
   private final Timer totalTime = new Timer();
 
@@ -109,6 +111,7 @@ public class LexGenerator {
       LexParse parser = new LexParse(scanner);
 
       NFA nfa = (NFA) parser.parse().value;
+      charClasses = parser.getCharClasses();
 
       out.checkErrors();
 
@@ -191,6 +194,23 @@ public class LexGenerator {
     checkNotNull(dfa, "DFA doesn't exist. Call generate() first.");
     checkState(dfa.isMinimized(), "DFA is not minimized. Call minimize() first.");
     return dfa.numStates();
+  }
+
+  /**
+   * Returns the character classes of the generated scanner: the partition of the input characters
+   * into sets that the scanner does not distinguish, in canonical order.
+   *
+   * @return a copy of the partition
+   */
+  public CharClasses charClasses() {
+    checkNotNull(charClasses, "Character classes don't exist. Call generate() first.");
+    return CharClasses.copyOf(charClasses);
+  }
+
+  /** Returns the number of character classes of the generated scanner. */
+  public int charClassesCount() {
+    checkNotNull(charClasses, "Character classes don't exist. Call generate() first.");
+    return charClasses.getNumClasses();
   }
 
   private static Object checkNotNull(Object object, String msg) {

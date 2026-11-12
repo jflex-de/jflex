@@ -10,5 +10,12 @@ import de.jflex.testing.testsuite.annotations.TestSpec;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/arr_return/arr.flex",
     sysout = "src/test/java/de/jflex/testcase/arr_return/arr-flex.output",
-    minimizedDfaStatesCount = 5)
+    minimizedDfaStatesCount = 5,
+    charClassesCount = 4,
+    charClasses = {
+      "{ [0-'a']['c'-'k']['m'-'t']['v'-1114111] }",
+      "{ ['b'] }",
+      "{ ['l'] }",
+      "{ ['u'] }"
+    })
 public class ArrReturnTest implements JFlexTest {}

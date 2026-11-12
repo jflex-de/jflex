@@ -7,6 +7,7 @@ package jflex.generator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -20,6 +21,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import jflex.core.unicode.CharClasses;
 import jflex.logging.Out;
 import jflex.option.Options;
 import org.junit.jupiter.api.Test;
@@ -43,6 +45,27 @@ public class LexGeneratorTest {
     Out out = new Out(options, new ByteArrayOutputStream());
     String generated = new LexGenerator(spec, options, out).generate();
     return new String(Files.readAllBytes(new File(generated).toPath()), StandardCharsets.UTF_8);
+  }
+
+  /** The character classes of a spec are available after generation, in canonical order. */
+  @Test
+  public void charClasses() throws Exception {
+    Options options = new Options();
+    options.setDir(tmp);
+    LexGenerator generator =
+        new LexGenerator(
+            writeSpec("Ccl", "%unicode"), options, new Out(options, new ByteArrayOutputStream()));
+    assertThrows(NullPointerException.class, generator::charClassesCount);
+
+    generator.generate();
+
+    assertEquals(2, generator.charClassesCount());
+    CharClasses classes = generator.charClasses();
+    assertTrue(classes.invariants());
+    assertEquals("{ [0-'`']['b'-1114111] }", classes.toString(0));
+    assertEquals("{ ['a'] }", classes.toString(1));
+    assertEquals(1, classes.getClassCode('a'));
+    assertEquals(0, classes.getClassCode('b'));
   }
 
   /** {@code %apiprivate} in one spec does not make the API of the next spec private. */
