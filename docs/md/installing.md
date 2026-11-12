@@ -44,8 +44,8 @@ To install JFlex on Windows, follow these three steps:
 
 2.  Set the following environment variables:
 
-    -   **`JFLEX_HOME`** to the directory that contains JFlex (in the
-        example: `C:\jflex-$VERSION`). Alternatively, you can edit the
+    -   **`JFLEX_HOME`** to the JFlex directory (in the example:
+        `C:\jflex-$VERSION`). Alternatively, you can edit the
         default for `JFLEX_HOME` in the file **`bin\jflex.bat`** (in the
         example `C:\jflex-$VERSION\bin\jflex.bat`).
 
@@ -98,9 +98,8 @@ You run JFlex with:
 
 `jflex <options> <inputfiles>`
 
-It is also possible to skip the start script in `bin/` and include the
-file `lib/jflex-$VERSION.jar` in your `CLASSPATH` environment
-variable instead.
+You can also skip the start script in `bin/` and instead include
+`lib/jflex-$VERSION.jar` in your `CLASSPATH` environment variable.
 
 Then you run JFlex with:
 

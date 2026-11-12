@@ -97,8 +97,8 @@ example:
          destdir="build/generated/"
      />
 
-JFlex generates the scanner for `src/parser/Scanner.flex` and
-saves the result to `build/generated/parser/`, providing `Scanner.flex`
+JFlex generates the scanner for the input `src/parser/Scanner.flex` and
+saves the result to `build/generated/parser/`, provided `Scanner.flex`
 is declared to be in package `parser`.
 
      <jflex
