@@ -5,4 +5,5 @@
 
 # File diff
 
-An optimized `OutputStream` to compare expected output with expected content.
+`DiffOutputStream` is an `OutputStream` that compares output line by line with
+the expected content of a golden file. The output is not saved or echoed.

@@ -5,11 +5,11 @@
 
 # UCD Generator
 
-This program parses the fileset of a Unicode Character Definition,
+This program parses the file set of a Unicode Character Database (UCD) version,
 and generates
 
-* a `UnicodeProperties_X_Y` java class per version
-* one `UnivodeProperties.java` for all version
+* a `Unicode_x_y` Java class per version
+* one `UnicodeProperties.java` for all versions
 
 ## Where are the Unicode.org resources defined
 
@@ -32,15 +32,15 @@ The other data files should be provided.
 
     java -cp <classpath> de.jflex.ucd_generator.Main --version=5.0.0 $(ls /tmp/ucd_5_0/*.txt /tmp/ucd_5_0/auxiliary/*.txt) --out=/tmp/ucd5_java
 
-## Software architecture.
+## Software architecture
 
-* `Main` is only responsible for parsing the cli arguments
+* `Main` is only responsible for parsing the CLI arguments
   and generating `UcdVersions`
 * The model `UcdVersions` is a map of version → File for each type, and is light in memory.
   * The types are defined in a simple enum `UcdFileType`.
 * The different Unicode.org files are parsed by `UcdScanner`.
-  * using JFlex (the flex files have been copied with little modifications form the jflex-unicode-maven-plugin)
-  * The business logic of the scanners is in an class, so that the class can easily be edited in IDE
+  * using JFlex (the flex files have been copied with little modifications from the jflex-unicode-maven-plugin)
+  * The business logic of the scanners is in an abstract Java class, so that it can easily be edited in an IDE
 * While parsing, the `UnicodeData` model is updated.
   * I've tried to use immutable objects when possible, but that wasn't always possible
 * `UcdGenerator` fills in templates with `de.jflex.template`
