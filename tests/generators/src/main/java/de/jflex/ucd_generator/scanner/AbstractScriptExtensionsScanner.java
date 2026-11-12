@@ -60,11 +60,18 @@ abstract class AbstractScriptExtensionsScanner {
       CodepointRangeSet.Builder intervalsBuilder =
           scriptIntervals.computeIfAbsent(script, k -> CodepointRangeSet.builder());
       for (CodepointRange range : unicodeData.getPropertyValueIntervals(script)) {
-        for (int ch = range.start(); ch <= range.end(); ++ch) {
-          if (!scriptExtensionsCodePoint[ch]) {
-            // TODO(regisd) This is very frequent an inefficient
-            intervalsBuilder.add(MutableCodepointRange.create(ch, ch));
+        // Add the maximal runs of code points that have no script extension.
+        int ch = range.start();
+        while (ch <= range.end()) {
+          if (scriptExtensionsCodePoint[ch]) {
+            ch++;
+            continue;
           }
+          int runStart = ch;
+          while (ch <= range.end() && !scriptExtensionsCodePoint[ch]) {
+            ch++;
+          }
+          intervalsBuilder.add(MutableCodepointRange.create(runStart, ch - 1));
         }
       }
     }
