@@ -9,9 +9,12 @@ Suite of tools to create the tests in `tests/unicode/src/test/java/de/jflex/test
 
 ## Generate all tests
 
-1. Extend `KNOWN_VERSIONS` in [base/AbstractGenerator.java](base/AbstractGenerator.java). The UCD
-   releases of the new version go into [UcdReleases.java](../../ucd/UcdReleases.java).
+1. For a new Unicode version, add the version and its UCD releases to
+   [UcdReleases.java](../../ucd/UcdReleases.java). The tests are generated for every version in
+   it.
+
 2. Run the script, which needs `google-java-format`
-   ```shell script
+
+   ```sh
    scripts/gen-unicode-tests.sh
    ```
