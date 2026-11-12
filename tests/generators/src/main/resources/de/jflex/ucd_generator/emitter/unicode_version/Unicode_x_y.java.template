@@ -5,10 +5,8 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-// TODO(regisd) Move in same package
 package ${packageName}.data;
 
-// TODO(regisd) Restrict to package visibility
 public class ${className} {
 
   // Only holds constants.
