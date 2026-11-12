@@ -17,9 +17,21 @@ package de.jflex.testcase.look;
 
 %unicode
 
+%{
+  /** Line of the current match, counted from 0. */
+  public int line() {
+    return yyline;
+  }
+
+  /** Column of the current match, counted from 0. */
+  public int column() {
+    return yycolumn;
+  }
+%}
+
 %%
 
-"ab"/"cde"  { System.out.println(yytext()); return 2; }
-"abcd"/"f"  { System.out.println(yytext()); return 7; }
+"ab"/"cde"  { return 2; }
+"abcd"/"f"  { return 7; }
 
-[^]         { }
+[^]         { return 0; }
