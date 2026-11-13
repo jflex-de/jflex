@@ -11,8 +11,11 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import jflex.core.Action;
@@ -240,6 +243,320 @@ public class DFA {
       }
     }
     return true;
+  }
+
+  /**
+   * Returns a copy of this DFA with the states in canonical order.
+   *
+   * <p>The algorithm is a breadth-first traversal of the DFA, relying on char class inputs already
+   * being canonical (they always are). Note that the canonical DFA only records reachable states.
+   *
+   * @return a DFA with the reachable states of this DFA in canonical order.
+   * @see #isIsomorphicTo(DFA)
+   */
+  public DFA canonical() {
+    // Only necessary for DFAs without any transitions, but these are currently not fully excluded.
+    int n = numStates;
+    for (int entry : entryState) {
+      n = Math.max(n, entry + 1);
+    }
+
+    // number[] maps states to canonical numbers, -1 if it has not been reached (yet)
+    int[] number = new int[n];
+    Arrays.fill(number, -1);
+    // order[] maps canonical numbers to original states. Also used as the search queue.
+    int[] order = new int[n];
+    int reached = 0;
+
+    for (int entry : entryState) {
+      if (number[entry] < 0) {
+        number[entry] = reached;
+        order[reached++] = entry;
+      }
+    }
+    // invariant: reached is the number of states s with number[s] >= 0, therefore reached <= n
+    // variant: n - i
+    for (int i = 0; i < reached; i++) {
+      for (int input = 0; input < numInput; input++) {
+        int target = table[order[i]][input];
+        if (target >= 0 && number[target] < 0) {
+          number[target] = reached;
+          order[reached++] = target;
+        }
+      }
+    }
+
+    DFA result = new DFA(entryState.length, numInput, numLexStates);
+    result.ensureStateCapacity(reached);
+    result.numStates = reached;
+    for (int i = 0; i < reached; i++) {
+      int state = order[i];
+      for (int input = 0; input < numInput; input++) {
+        int target = table[state][input];
+        result.table[i][input] = target >= 0 ? number[target] : NO_TARGET;
+      }
+      result.isFinal[i] = isFinal[state];
+      result.setAction(i, action[state]);
+    }
+    for (int i = 0; i < entryState.length; i++) {
+      result.entryState[i] = number[entryState[i]];
+    }
+    // renaming states and removing unreachable states leaves minimal DFAs minimal
+    result.minimized = minimized;
+    return result;
+  }
+
+  /**
+   * Return True iff there is a bijection between the reachable states of both DFAs, such that
+   * corresponding states have corresponding transitions. Corresponding states must either both be
+   * final with equivalent actions (see {@link Action#isEquiv(Action)}), or both not final. Entry
+   * states must correspond in order. Inputs are assumed to always be in canonical order.
+   *
+   * <p>For minimized DFAs over the same inputs this is the case iff both accept the same language
+   * with the same actions and if there are no reachable dead states, see {@link #hasDeadStates()}.
+   *
+   * @param other the DFA to compare with.
+   * @return true iff the reachable parts of both DFAs are isomorphic.
+   * @see #canonical()
+   */
+  public boolean isIsomorphicTo(DFA other) {
+    DFA a = canonical();
+    DFA b = other.canonical();
+
+    if (a.numInput != b.numInput
+        || a.numLexStates != b.numLexStates
+        || a.numStates != b.numStates
+        || !Arrays.equals(a.entryState, b.entryState)) {
+      return false;
+    }
+    for (int i = 0; i < a.numStates; i++) {
+      if (a.isFinal[i] != b.isFinal[i]) {
+        return false;
+      }
+      // as in minimize(), the action only counts for final states
+      if (a.isFinal[i] && !Objects.equals(a.action[i], b.action[i])) {
+        return false;
+      }
+      for (int input = 0; input < a.numInput; input++) {
+        if (a.table[i][input] != b.table[i][input]) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Returns whether this DFA has a dead state. A dead state is a non-final state that is reached by
+   * a transition and that has no transitive transitions to a final state.
+   *
+   * <p>This funciton is used to check that the NFA/DFA constructions in JFlex do not produce dead
+   * states.
+   *
+   * <p>The entry state of a lexical state without rules is not a dead state, because no transition
+   * leads to it.
+   *
+   * @return true iff a reachable transition leads to a state that cannot reach a final state.
+   * @see #isIsomorphicTo(DFA)
+   */
+  public boolean hasDeadStates() {
+    // only the reachable states
+    DFA dfa = canonical();
+    int n = dfa.numStates;
+
+    // inverse of the transition table: the states with a transition to state t are
+    // pred[predStart[t]] .. pred[predStart[t+1]-1]
+    int[] predStart = new int[n + 1];
+    for (int s = 0; s < n; s++) {
+      for (int input = 0; input < numInput; input++) {
+        int t = dfa.table[s][input];
+        if (t >= 0) predStart[t + 1]++;
+      }
+    }
+    for (int t = 0; t < n; t++) {
+      predStart[t + 1] += predStart[t];
+    }
+    int[] pred = new int[predStart[n]];
+    int[] next = Arrays.copyOf(predStart, n);
+    for (int s = 0; s < n; s++) {
+      for (int input = 0; input < numInput; input++) {
+        int t = dfa.table[s][input];
+        if (t >= 0) pred[next[t]++] = s;
+      }
+    }
+
+    // live[s] iff a final state can be reached from s. Search backwards from final states.
+    boolean[] live = new boolean[n];
+    // stack of live states where predecessors have not been marked live yet
+    int[] unexpanded = new int[n];
+    int numUnexpanded = 0;
+    for (int s = 0; s < n; s++) {
+      if (dfa.isFinal[s]) {
+        live[s] = true;
+        unexpanded[numUnexpanded++] = s;
+      }
+    }
+    while (numUnexpanded > 0) {
+      int t = unexpanded[--numUnexpanded];
+      for (int i = predStart[t]; i < predStart[t + 1]; i++) {
+        int s = pred[i];
+        if (!live[s]) {
+          live[s] = true;
+          unexpanded[numUnexpanded++] = s;
+        }
+      }
+    }
+
+    for (int s = 0; s < n; s++) {
+      for (int input = 0; input < numInput; input++) {
+        int t = dfa.table[s][input];
+        if (t >= 0 && !live[t]) return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Returns the lines of a textual representation of {@link #canonical()}. Two DFAs have the same
+   * lines iff they are isomorphic in the sense of {@link #isIsomorphicTo(DFA)}.
+   *
+   * <p>For instance:
+   *
+   * <pre>
+   * states 3, inputs 3, lexical states 1
+   * entry: 0 0
+   * 0: 0-1 -&gt; 1; 2 -&gt; 2
+   * 1 [a0]:
+   * 2 [a1]: 1 -&gt; 2
+   * a0: return a[i];
+   * a1 FIXED_LOOK len 1: return 2;
+   * </pre>
+   *
+   * <p>Format:
+   *
+   * <ul>
+   *   <li>First line: number of reachable states, inputs and lexical states.
+   *   <li>{@code entry:} entry states in the order of {@link #entryState(int)}.
+   *   <li>One line per state with transitions {@code inputs -> target}, where consecutive inputs
+   *       with the same target are one range. Final states are marked with the action in brackets.
+   *   <li>One line per action, numbered in the order of the states that use them. Equivalent
+   *       actions have the same number. Actions of lookahead expressions have {@link
+   *       jflex.core.Action.Kind}, length {@code len} and {@code entry} of the forward DFA when not
+   *       0. The code of the action is the rest of the line. Backslash, LF and CR escaped as {@code
+   *       \\}, {@code \n} and {@code \r}, so that all actions are one line.
+   * </ul>
+   *
+   * @return the lines of the canonical representation, without line terminators.
+   */
+  public List<String> canonicalLines() {
+    DFA dfa = canonical();
+    List<String> lines = new ArrayList<>();
+
+    lines.add(
+        "states "
+            + dfa.numStates
+            + ", inputs "
+            + dfa.numInput
+            + ", lexical states "
+            + dfa.numLexStates);
+
+    StringBuilder line = new StringBuilder("entry:");
+    for (int entry : dfa.entryState) {
+      line.append(' ').append(entry);
+    }
+    lines.add(line.toString());
+
+    // equivalent actions are equal as map keys, see Action.equals
+    Map<Action, Integer> actionNumbers = new LinkedHashMap<>();
+
+    for (int i = 0; i < dfa.numStates; i++) {
+      line = new StringBuilder().append(i);
+      if (dfa.isFinal[i]) {
+        Action a = dfa.action[i];
+        if (a == null) {
+          line.append(" [final]");
+        } else {
+          Integer number = actionNumbers.get(a);
+          if (number == null) {
+            number = actionNumbers.size();
+            actionNumbers.put(a, number);
+          }
+          line.append(" [a").append(number).append(']');
+        }
+      }
+      line.append(':');
+
+      String separator = " ";
+      int input = 0;
+      while (input < dfa.numInput) {
+        int target = dfa.table[i][input];
+        int last = input;
+        while (last + 1 < dfa.numInput && dfa.table[i][last + 1] == target) {
+          last++;
+        }
+        if (target >= 0) {
+          line.append(separator).append(input);
+          if (last > input) {
+            line.append('-').append(last);
+          }
+          line.append(" -> ").append(target);
+          separator = "; ";
+        }
+        input = last + 1;
+      }
+      lines.add(line.toString());
+    }
+
+    for (Map.Entry<Action, Integer> entry : actionNumbers.entrySet()) {
+      Action a = entry.getKey();
+      line = new StringBuilder("a").append(entry.getValue());
+      // Like in Action.isEquiv()
+      if (a.lookAhead() != Action.Kind.NORMAL || a.getLookLength() != 0 || a.getEntryState() != 0) {
+        line.append(' ').append(a.lookAhead());
+      }
+      if (a.getLookLength() != 0) {
+        line.append(" len ").append(a.getLookLength());
+      }
+      if (a.getEntryState() != 0) {
+        line.append(" entry ").append(a.getEntryState());
+      }
+      line.append(':');
+      if (!a.content.isEmpty()) {
+        line.append(' ');
+        for (int i = 0; i < a.content.length(); i++) {
+          char c = a.content.charAt(i);
+          switch (c) {
+            case '\\':
+              line.append("\\\\");
+              break;
+            case '\n':
+              line.append("\\n");
+              break;
+            case '\r':
+              line.append("\\r");
+              break;
+            default:
+              line.append(c);
+          }
+        }
+      }
+      lines.add(line.toString());
+    }
+
+    return lines;
+  }
+
+  /**
+   * Returns {@link #canonicalLines()} as one string.
+   *
+   * @return the canonical representation of this DFA, with lines terminated by {@link Out#NL}.
+   */
+  public String toCanonicalString() {
+    StringBuilder result = new StringBuilder();
+    for (String line : canonicalLines()) {
+      result.append(line).append(Out.NL);
+    }
+    return result.toString();
   }
 
   /**
