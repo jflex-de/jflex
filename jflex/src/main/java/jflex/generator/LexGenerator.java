@@ -197,19 +197,31 @@ public class LexGenerator {
   }
 
   /**
+   * Returns the canonical minimized DFA of the generated scanner. See {@link DFA#canonical()}. The
+   * inputs are the numbers of the {@link #charClasses()}.
+   *
+   * @return a copy of the DFA
+   */
+  public DFA minimizedDfa() {
+    checkNotNull(dfa, "DFA does not exist. Call generate() first.");
+    checkState(dfa.isMinimized(), "DFA is not minimized. Call minimize() first.");
+    return dfa.canonical();
+  }
+
+  /**
    * Returns the character classes of the generated scanner: the partition of the input characters
    * into sets that the scanner does not distinguish, in canonical order.
    *
    * @return a copy of the partition
    */
   public CharClasses charClasses() {
-    checkNotNull(charClasses, "Character classes don't exist. Call generate() first.");
+    checkNotNull(charClasses, "Character classes do not exist. Call generate() first.");
     return CharClasses.copyOf(charClasses);
   }
 
   /** Returns the number of character classes of the generated scanner. */
   public int charClassesCount() {
-    checkNotNull(charClasses, "Character classes don't exist. Call generate() first.");
+    checkNotNull(charClasses, "Character classes do not exist. Call generate() first.");
     return charClasses.getNumClasses();
   }
 

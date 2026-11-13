@@ -22,6 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import jflex.core.unicode.CharClasses;
+import jflex.dfa.DFA;
 import jflex.logging.Out;
 import jflex.option.Options;
 import org.junit.jupiter.api.Test;
@@ -66,6 +67,32 @@ public class LexGeneratorTest {
     assertEquals("{ ['a'] }", classes.toString(1));
     assertEquals(1, classes.getClassCode('a'));
     assertEquals(0, classes.getClassCode('b'));
+  }
+
+  /** The minimized canonical DFA of a spec is available after generation. */
+  @Test
+  public void minimizedDfa() throws Exception {
+    Options options = new Options();
+    options.setDir(tmp);
+    LexGenerator generator =
+        new LexGenerator(
+            writeSpec("Dfa", "%unicode"), options, new Out(options, new ByteArrayOutputStream()));
+    assertThrows(NullPointerException.class, generator::minimizedDfa);
+
+    generator.generate();
+
+    DFA dfa = generator.minimizedDfa();
+    assertTrue(dfa.isMinimized());
+    assertEquals(generator.minimizedDfaStatesCount(), dfa.numStates());
+    assertEquals(generator.charClassesCount(), dfa.numInput());
+    assertEquals(
+        Arrays.asList(
+            "states 2, inputs 2, lexical states 1",
+            "entry: 0 0",
+            "0: 1 -> 1",
+            "1 [a0]:",
+            "a0: return 1;"),
+        dfa.canonicalLines());
   }
 
   /** {@code %apiprivate} in one spec does not make the API of the next spec private. */
