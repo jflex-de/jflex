@@ -5,4 +5,5 @@
 jflex.chars.IntervalGen
 jflex.core.unicode.CharClassesGen
 jflex.core.unicode.IntCharSetGen
+jflex.dfa.DfaGen
 jflex.state.StateSetGen
