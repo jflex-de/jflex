@@ -5,6 +5,7 @@
 package de.jflex.testing.testsuite;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -33,6 +34,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import jflex.core.unicode.CharClasses;
+import jflex.dfa.DFA;
 import jflex.generator.LexGenerator;
 import jflex.logging.Out;
 import jflex.option.Options;
@@ -255,8 +257,38 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
           lexGenerator.minimizedDfaStatesCount(),
           "Number of minimized states in the DFA");
     }
+    checkMinimizedDfa(spec, lexGenerator);
     checkCharClasses(spec, lexGenerator.charClasses());
     return lexerJavaFileName;
+  }
+
+  /**
+   * Checks the minimized DFA against the canonical minimized DFA spec. Also assert that there are
+   * no unreachable and no dead states.
+   */
+  private static void checkMinimizedDfa(TestSpec spec, LexGenerator lexGenerator) {
+    DFA dfa = lexGenerator.minimizedDfa();
+    assertEquals(
+        lexGenerator.minimizedDfaStatesCount(),
+        dfa.numStates(),
+        "Number of states of the minimized DFA that can be reached from an entry state");
+    assertFalse(
+        dfa.hasDeadStates(),
+        "The minimized DFA has a transition to a state from which no final state can be reached");
+    if (spec.minimizedDfa().length > 0) {
+      if (spec.charClasses().length == 0
+          && spec.sameCharClass().length == 0
+          && spec.distinctCharClasses().length == 0) {
+        throw new IllegalStateException(
+            "@TestSpec(minimizedDfa) needs charClasses, or sameCharClass and distinctCharClasses:"
+                + " the inputs of the DFA are the numbers of the character classes");
+      }
+      // as one string each, so that a failure shows the DFAs line by line
+      assertEquals(
+          String.join("\n", spec.minimizedDfa()),
+          String.join("\n", dfa.canonicalLines()),
+          "Minimized DFA");
+    }
   }
 
   /**
