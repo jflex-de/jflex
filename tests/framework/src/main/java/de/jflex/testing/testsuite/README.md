@@ -26,6 +26,8 @@ Supported:
 - verifying that the generated lexer compiles
 - checking that the generation fails, with the expected exception and cause
 - checking the number of states of the minimized DFA
+  (`minimizedDfaStatesCount`), and checking the canonical minimized DFA if
+  provided (`minimizedDfa`)
 - checking the number of character classes, and the classes themselves
   (`charClassesCount`, `charClasses`)
 - checking that given characters are in the same or in different character

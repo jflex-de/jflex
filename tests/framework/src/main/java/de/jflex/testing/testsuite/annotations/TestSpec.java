@@ -56,6 +56,28 @@ public @interface TestSpec {
    */
   int minimizedDfaStatesCount() default 0;
 
+  /**
+   * The expected minimized DFA up to the numbers of its states: the lines of {@code
+   * jflex.dfa.DFA#canonicalLines()}, which describes the format. For instance
+   *
+   * <pre>{@code
+   * minimizedDfa = {
+   *   "states 2, inputs 2, lexical states 1",
+   *   "entry: 0 0",
+   *   "0: 1 -> 1",
+   *   "1 [a0]:",
+   *   "a0: return 1;"
+   * }
+   * }</pre>
+   *
+   * <p>The inputs of the DFA are the numbers of the character classes, so this needs {@link
+   * #charClasses()}, or {@link #sameCharClass()} and {@link #distinctCharClasses()}. Empty skips
+   * the assertion.
+   *
+   * <p>Only usable for specs with few states. Use {@link #minimizedDfaStatesCount()} otherwise.
+   */
+  String[] minimizedDfa() default {};
+
   /** The expected number of character classes. 0 skips the assertion. */
   int charClassesCount() default 0;
 
