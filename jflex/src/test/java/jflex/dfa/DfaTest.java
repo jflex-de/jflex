@@ -25,6 +25,28 @@ public class DfaTest {
     assertEquals(dfa1, dfa2);
   }
 
+  @Test
+  public void copy() {
+    DFA dfa = example();
+    DFA copy = dfa.copy();
+
+    assertEquals(dfa, copy);
+    assertEquals(dfa.numStates(), copy.numStates());
+    assertEquals(dfa.toString(), copy.toString());
+    assertEquals(dfa.canonicalLines(), copy.canonicalLines());
+
+    // the copy is independent of the original
+    copy.addTransition(0, 0, 3);
+    copy.setEntryState(1, 0);
+    copy.setFinal(3, true);
+    copy.setAction(3, new Action("return 3;", 3));
+    assertEquals(DFA.NO_TARGET, dfa.table(0, 0));
+    assertEquals(2, dfa.entryState(1));
+    assertFalse(dfa.isFinal(3));
+    assertEquals(example().canonicalLines(), dfa.canonicalLines());
+    assertFalse(dfa.isIsomorphicTo(copy));
+  }
+
   /**
    * A DFA for one lexical state over three inputs. Entry state is state 2. State 3 is unreachable.
    */

@@ -246,6 +246,28 @@ public class DFA {
   }
 
   /**
+   * Returns a copy of this DFA with the same states, transitions and entry states. Changes to the
+   * copy, such as {@link #minimize()}, do not change this DFA. The {@link Action} objects are
+   * shared.
+   *
+   * @return a copy of this DFA.
+   */
+  public DFA copy() {
+    DFA result = new DFA(entryState.length, numInput, numLexStates, numStates);
+    result.table = new int[table.length][];
+    for (int i = 0; i < table.length; i++) {
+      result.table[i] = table[i].clone();
+    }
+    result.isFinal = isFinal.clone();
+    result.action = action.clone();
+    result.entryState = entryState.clone();
+    result.usedActions.putAll(usedActions);
+    result.lookaheadUsed = lookaheadUsed;
+    result.minimized = minimized;
+    return result;
+  }
+
+  /**
    * Returns a copy of this DFA with the states in canonical order.
    *
    * <p>The algorithm is a breadth-first traversal of the DFA, relying on char class inputs already
