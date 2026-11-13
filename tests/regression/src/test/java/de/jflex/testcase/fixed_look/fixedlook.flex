@@ -10,19 +10,39 @@ package de.jflex.testcase.fixed_look;
 %public
 %class Fixedlook
 %integer
-%debug
 
 %line
 %column
 
 %unicode
 
+%{
+  /** Set by the test class. */
+  public boolean pushback;
+
+  /** Action of the lookahead rules, optionally with pushing back one character. */
+  private int look(int rule) {
+    if (pushback) {
+      yypushback(1);
+    }
+    return rule;
+  }
+
+  public int line() {
+    return yyline;
+  }
+
+  public int column() {
+    return yycolumn;
+  }
+%}
+
 %%
 
-"ab"+/"cde"  { System.out.println(yytext()); return 2; }
-"abcd"+/"f"  { System.out.println(yytext()); return 7; }
-"a"+ / "aa"  { System.out.println(yytext()); return 1; }
-"bb" / "b"+  { System.out.println(yytext()); return 3; }
-"ab"/"cde"+  { System.out.println(yytext()); return 4; }
+"ab"+/"cde"  { return look(2); }
+"abcd"+/"f"  { return look(7); }
+"a"+ / "aa"  { return look(1); }
+"bb" / "b"+  { return look(3); }
+"ab"/"cde"+  { return look(4); }
 
-[^]         { }
+[^]         { return 0; }

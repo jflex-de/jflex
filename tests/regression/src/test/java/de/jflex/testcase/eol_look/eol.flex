@@ -10,21 +10,30 @@ package de.jflex.testcase.eol_look;
 %public
 %class Eol
 %integer
-%debug
 
 %line
 %column
 
 %unicode
 
+%{
+  public int line() {
+    return yyline;
+  }
+
+  public int column() {
+    return yycolumn;
+  }
+%}
+
 %%
 
 // should produce only three copies of the action
-"aa"|"a" / "x"|"xy"|"zzz"|"zy"    { /* normal */ }
+"aa"|"a" / "x"|"xy"|"zzz"|"zy"    { /* normal */ return 1; }
 
-"bb"|"z" $   { /* eol */ }
-"bb"$        { /* should produce nevermatch warning *}
+"bb"|"z" $   { /* eol */ return 2; }
+"bb"$        { /* should produce nevermatch warning */ return 3; }
 
-"c" { /* blah */ }
+"c" { /* blah */ return 4; }
 
-[^]         { }
+[^]         { return 0; }

@@ -1,0 +1,4 @@
+
+Warning in file "src/test/java/de/jflex/testcase/eol_look/eol.flex" (line 35): 
+Rule can never be matched:
+"bb"$        { /* should produce nevermatch warning */ return 3; }
