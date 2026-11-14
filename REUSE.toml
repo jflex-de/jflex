@@ -32,6 +32,7 @@ path = [
   "tests/regression/src/test/java/de/jflex/testcase/**/**.out",
   "tests/regression/src/test/java/de/jflex/testcase/**/**.txt",
   "tests/regression/src/test/java/de/jflex/testcase/caseless_jlex/caseless.sysout",
+  "tests/regression/src/test/java/de/jflex/testcase/dot_newline/dotnewline.sysout",
   "tests/regression/src/test/java/de/jflex/testcase/eol_look/eol.sysout",
   "tests/regression/src/test/java/de/jflex/testcase/include/inp2",
   "tests/regression/src/test/java/de/jflex/testcase/include/inp3",

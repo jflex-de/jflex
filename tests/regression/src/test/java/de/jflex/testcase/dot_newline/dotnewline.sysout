@@ -1,0 +1,4 @@
+
+Warning in file "src/test/java/de/jflex/testcase/dot_newline/dotnewline.flex" (line 39): 
+Rule can never be matched:
+[^] { /* should never get here: every char is matched by dot (.), (\R) or the surrogates */ return 0; }

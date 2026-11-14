@@ -1,0 +1,4 @@
+
+Error in file "src/test/java/de/jflex/testcase/ccl_macros/ccl_macros_neg_string.flex" (line 23): 
+Expression inside [..] must expand to a character class.
+[{M}] { return 1; }

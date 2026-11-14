@@ -11,7 +11,8 @@ import jflex.exceptions.GeneratorException;
 
 /**
  * Test for issues <a href="https://github.com/jflex-de/jflex/issues/888">#888</a> and <a
- * href="https://github.com/jflex-de/jflex/issues/939">#939</a>.
+ * href="https://github.com/jflex-de/jflex/issues/939">#939</a>. A macro inside a character class
+ * that is a character ({@code M = a}) must be detected as error.
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/ccl_macros/ccl_macros_neg.flex",

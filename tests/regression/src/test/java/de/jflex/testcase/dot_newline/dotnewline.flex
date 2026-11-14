@@ -4,81 +4,36 @@
  */
 
 package de.jflex.testcase.dot_newline;
-import java.util.List;
-import java.util.ArrayList;
 
 %%
 
 %{
-  private List<Interval> dotIntervals = new ArrayList<Interval>();
-  private List<Interval> newlineIntervals = new ArrayList<Interval>();
-%} 
+  /** Line of the current match, counted from 0. */
+  public int line() {
+    return yyline;
+  }
+
+  /** Column of the current match, counted from 0. */
+  public int column() {
+    return yycolumn;
+  }
+%}
 
 %public
 %class Dotnewline
 %integer
-%standalone
 %line
 %column
 %unicode
 
 %%
 
-.   { if (1 == yytext().length()) {
-        int ch = (int)yytext().charAt(0); 
-        if (dotIntervals.size() == 0) {
-          Interval interval = new Interval(ch, ch);
-          dotIntervals.add(interval);
-        } else {
-           Interval lastInterval = dotIntervals.get(dotIntervals.size() - 1);
-           if (ch == lastInterval.end + 1) {
-             lastInterval.end = ch;
-           } else {
-             Interval interval = new Interval(ch, ch);
-             dotIntervals.add(interval);
-           }
-        }
-      } else {
-        System.out.print("--.--");
-        for (int i = 0 ; i < yytext().length() ; ++i) {
-          System.out.format("\\u%04X", (int)yytext().charAt(i));
-        }
-        System.out.println("--");
-      }
-    }
-    
-\R  { if (1 == yytext().length()) {
-        int ch = (int)yytext().charAt(0); 
-        if (newlineIntervals.size() == 0) {
-          Interval interval = new Interval(ch, ch);
-          newlineIntervals.add(interval);
-        } else {
-          Interval lastInterval = newlineIntervals.get(newlineIntervals.size() - 1);
-          if (ch == lastInterval.end + 1) {
-            lastInterval.end = ch;
-          } else {
-            Interval interval = new Interval(ch, ch);
-            newlineIntervals.add(interval);
-          }
-        }
-      } else {
-        System.out.print("--\\R--");
-        for (int i = 0 ; i < yytext().length() ; ++i) {
-          System.out.format("\\u%04X", (int)yytext().charAt(i));
-        }
-        System.out.println("--");
-      }
-    }
+.   { return 1; }
 
-<<EOF>> { for (Interval interval : dotIntervals) {
-            System.out.format("--.--[\\u%04X-\\u%04X]--\n", interval.start, interval.end);
-          }
-          for (Interval interval : newlineIntervals) {
-            System.out.format("--\\R--[\\u%04X-\\u%04X]--\n", interval.start, interval.end);
-          }
-          return -1;
-        }
+\R  { return 2; }
 
-[\uD800-\uDFFF] { System.out.format("Matched unpaired surrogate char \\u%04X\n", (int)yytext().charAt(0)); } 
+<<EOF>> { return YYEOF; }
 
-[^] { System.out.format("Should never get here - char \\u%04X is matched by neither dot (.) nor (\\R)\n", (int)yytext().charAt(0)); }
+[\uD800-\uDFFF] { /* unpaired surrogate */ return 3; }
+
+[^] { /* should never get here: every char is matched by dot (.), (\R) or the surrogates */ return 0; }

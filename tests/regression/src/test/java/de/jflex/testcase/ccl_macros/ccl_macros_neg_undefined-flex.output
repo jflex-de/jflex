@@ -1,0 +1,5 @@
+
+Error in file "src/test/java/de/jflex/testcase/ccl_macros/ccl_macros_neg_undefined.flex" (line 23): 
+Macro has not been declared.
+[{M}{UNDEFINED}] { return 1; }
+    ^

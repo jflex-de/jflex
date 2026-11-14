@@ -15,14 +15,10 @@
 %class CclNeg
 %int
 
-// these are not a char classes, so should fail if included in char classes
-M1 = a
-M2 = "a"
-M3 = [a] | [b]
+// a character is not a char class, so should fail if included in a char class
+M = a
 
 %%
 
-[{M1}] { return 1; }
-[{M2}] { return 2; }
-[{M3}] { return 3; }
+[{M}] { return 1; }
 [^] { return 0; }

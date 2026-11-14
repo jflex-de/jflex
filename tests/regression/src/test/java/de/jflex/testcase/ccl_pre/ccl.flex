@@ -12,11 +12,25 @@ Identifier = [\@]* [:jletter:] [:jletterdigit:]*
 %public
 %class Ccl
 
-%debug
 %int
+
+%line
+%column
+
+%{
+  /** Line of the current match, counted from 0. */
+  public int line() {
+    return yyline;
+  }
+
+  /** Column of the current match, counted from 0. */
+  public int column() {
+    return yycolumn;
+  }
+%}
 
 %%
 
-{Identifier}  { System.out.println("matched identifier ["+yytext()+"]"); }
+{Identifier}  { return 1; }
 
-. { System.out.println("Fallback ["+yytext()+"]"); }
+. { return 0; }
