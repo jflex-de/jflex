@@ -23,6 +23,9 @@ logi "Test *** ${TEST_SUITE}"
 
 # CI then runs _in parallel_ (but we do it in sequence on dev machine)
 
+if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "license" ]]; then
+  "$BASEDIR"/scripts/test-license.sh
+fi
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "java-format" ]]; then
   "$BASEDIR"/scripts/test-java-format.sh
 fi
