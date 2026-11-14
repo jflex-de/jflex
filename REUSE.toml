@@ -42,6 +42,8 @@ path = [
   "tests/regression/src/test/java/de/jflex/testcase/include2/nested2",
   "tests/regression/src/test/java/de/jflex/testcase/include2/nested3",
   "tests/regression/src/test/java/de/jflex/testcase/include2/skeleton.nested",
+  "tests/regression/src/test/java/de/jflex/testcase/include_in_rules/IncludeInRules.sysout",
+  "tests/regression/src/test/java/de/jflex/testcase/include_in_rules/IncludeInRulesOrder.sysout",
   "tests/regression/src/test/java/de/jflex/testcase/line_cont/line-flex.sysout",
   "tests/regression/src/test/java/de/jflex/testcase/macro_exp/macro2.sysout",
   "tests/regression/src/test/java/de/jflex/testcase/macro_exp/macro_cycle.sysout",

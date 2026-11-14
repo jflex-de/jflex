@@ -1,0 +1,11 @@
+Reading "src/test/java/de/jflex/testcase/include_in_rules/IncludeInRules.flex"
+Including "src/test/java/de/jflex/testcase/include_in_rules/extra-jflex-rules.inc.jflex"
+Constructing NFA : 21 states in NFA
+Converting NFA to DFA : 
+...........
+
+Warning in file "src/test/java/de/jflex/testcase/include_in_rules/IncludeInRules.flex" (line 23): 
+Rule can never be matched:
+"def" { /* never matches */ return 4; }
+13 states before minimization, 11 states in minimized DFA
+Writing code to "src/test/java/de/jflex/testcase/include_in_rules/IncludeInRulesScanner.java"

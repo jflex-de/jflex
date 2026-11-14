@@ -1,0 +1,8 @@
+
+Warning in file "src/test/java/de/jflex/testcase/include_in_rules/order-rules.inc.jflex" (line 6): 
+Rule can never be matched:
+"abc" { /* never matches */ return 2; }
+
+Warning in file "src/test/java/de/jflex/testcase/include_in_rules/IncludeInRulesOrder.flex" (line 21): 
+Rule can never be matched:
+"def" { /* never matches */ return 4; }

@@ -12,14 +12,16 @@ package de.jflex.testcase.include_in_rules;
 %class IncludeInRulesScanner
 %type int
 
-%debug 
+%debug
+
+LETTER = [a-z]
 
 %%
 
-"abc" { }
+"abc" { return 1; }
 %include extra-jflex-rules.inc.jflex
-"def" { }
+"def" { /* never matches */ return 4; }
 
-[^] { }
+[^] { return 0; }
 
 <<EOF>> { return -1; }
