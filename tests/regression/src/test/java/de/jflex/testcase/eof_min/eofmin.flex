@@ -7,8 +7,7 @@ package de.jflex.testcase.eof_min;
 %%
 
 %unicode
-%standalone
-%debug
+%int
 
 %public
 %class Eofmin

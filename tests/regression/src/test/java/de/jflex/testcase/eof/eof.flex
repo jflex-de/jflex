@@ -13,8 +13,13 @@ import java.io.*;
 %class Eof
 %type String
 
+%{
+  /** Store end-of-file output for later test access. */
+  public final java.util.List<String> events = new java.util.ArrayList<>();
+%}
+
 %eof{
-  System.out.println("EOF");
+  events.add("EOF");
 
   // should never throw, but the compiler won't know
   if (System.out == null) {
@@ -28,7 +33,7 @@ import java.io.*;
 
 %%
 
-.+  { /* ignore */ }
-\n  { /* that too */ }
+.+  { return "line"; }
+\n  { return "newline"; }
 
-<<EOF>> { System.out.println("<<EOF>>"); return ""; }
+<<EOF>> { events.add("<<EOF>>"); return ""; }

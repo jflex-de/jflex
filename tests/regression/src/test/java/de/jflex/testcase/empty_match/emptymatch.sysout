@@ -1,0 +1,4 @@
+
+Warning in file "src/test/java/de/jflex/testcase/empty_match/emptymatch.flex" (line 32): 
+Expression matches the empty string, which may lead to non-termination.
+    ""               { yybegin(B); return 3; }
