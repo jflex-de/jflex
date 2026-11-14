@@ -11,6 +11,11 @@ package de.jflex.testcase.generics;
 
 %type T
 
+%{
+  /** Returned by the rule below. Set by the test class. */
+  T token;
+%}
+
 %%
 
-[^] { /* something */ }
+[^] { return token; }

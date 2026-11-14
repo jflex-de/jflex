@@ -18,4 +18,4 @@ import java.util.HashMap;
 
 %%
 
-[a-zA-Z] { /* print everything else */ }
+[a-zA-Z] { /* print everything else */ return 1; }

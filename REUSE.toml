@@ -36,6 +36,7 @@ path = [
   "tests/regression/src/test/java/de/jflex/testcase/empty_match/emptymatch.sysout",
   "tests/regression/src/test/java/de/jflex/testcase/eol_look/eol.sysout",
   "tests/regression/src/test/java/de/jflex/testcase/genlook/genlook.sysout",
+  "tests/regression/src/test/java/de/jflex/testcase/generics/generics4.sysout",
   "tests/regression/src/test/java/de/jflex/testcase/include/inp2",
   "tests/regression/src/test/java/de/jflex/testcase/include/inp3",
   "tests/regression/src/test/java/de/jflex/testcase/include/skeleton.nested",
