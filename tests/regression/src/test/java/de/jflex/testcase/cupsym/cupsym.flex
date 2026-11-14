@@ -16,4 +16,6 @@ package de.jflex.testcase.cupsym;
 
 %%
 
+[a-z]+ { return new java_cup.runtime.Symbol(sym2.WORD, yytext()); }
+
 [^] { /* do nothing */ }

@@ -17,4 +17,4 @@ import java.util.Map;
 
 %%
 
-[^] { /* something */ }
+[^] { return new Vector<A>(); }
