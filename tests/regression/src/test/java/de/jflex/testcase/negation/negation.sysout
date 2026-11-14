@@ -1,0 +1,8 @@
+
+Warning in file "src/test/java/de/jflex/testcase/negation/negation.flex" (line 33): 
+Expression matches the empty string, which may lead to non-termination.
+([^]* [^a]) | !([^]* [^a])  { /* all */ return 1; }
+
+Warning in file "src/test/java/de/jflex/testcase/negation/negation.flex" (line 34): 
+Rule can never be matched:
+aba   { /* should not match */ return 2; }

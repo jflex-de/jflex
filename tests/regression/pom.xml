@@ -151,7 +151,9 @@
                 <lexDefinition>src/test/java/de/jflex/testcase/look/look.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/look_macro/lookmacro.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/macro_exp/macro.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/macro_exp/macro_prec.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/negation/negation.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/negation/negation2.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/sevenbit/sevenbit.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/spoon_feed_reader/SpoonFeedReader.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/token_limit/limit_success.flex</lexDefinition>

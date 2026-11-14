@@ -5,34 +5,39 @@
 
 package de.jflex.testcase.macro_exp;
 // file contributed by Stephen Ostermiller
-import java.io.*;
 %%
 %class Macro
-%type String
+%integer
+
+%line
+%column
+
 %{
-	public static void main(String[] args) throws IOException {
-		(new Macro(new StringReader("# #/ #/* comment */ #-- comment"))).yylex();
-	}
+  /** Line of the current match, counted from 0. */
+  public int line() {
+    return yyline;
+  }
+
+  /** Column of the current match, counted from 0. */
+  public int column() {
+    return yycolumn;
+  }
 %}
 operatorChar=([\+\-\*\/\<\>\=\~\!\@\#\%\^\&\|\`\?\$])
 illegalOperator=(({operatorChar}*("--"|"/*"){operatorChar}*)|({operatorChar}+[\-\/]))
 operator=(!(!({operatorChar}+)|{illegalOperator}))
 %%
-<YYINITIAL> (("/*"~"*/")|("--"[^\n]*)) {
-	System.out.println("Comment: " + yytext());
-}
+<YYINITIAL> (("/*"~"*/")|("--"[^\n]*)) { return 1; }
 /* Separates the operators from the comments but
- * operators are only one character each 
+ * operators are only one character each
 <YYINITIAL> ({operatorChar}) {
 	System.out.println("Operator: " + yytext());
 } */
-/* Operarators are a better length but 
+/* Operarators are a better length but
  * comments are not found.
 <YYINITIAL> ({operatorChar}+) {
 	System.out.println("Operator: " + yytext());
 } */
 /* I get a macro error.*/
-<YYINITIAL> ({operator}) {
-	System.out.println("Operator: " + yytext());
-}
-<YYINITIAL> [^] {}
+<YYINITIAL> ({operator}) { return 2; }
+<YYINITIAL> [^] { return 0; }

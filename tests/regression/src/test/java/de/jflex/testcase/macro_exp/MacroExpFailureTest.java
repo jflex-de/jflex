@@ -15,6 +15,9 @@ import jflex.exceptions.MacroException;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/macro_exp/macro2.flex",
+    // the message names the undefined macro and the macro that uses it
+    sysout = "src/test/java/de/jflex/testcase/macro_exp/macro2.sysout",
+    quiet = true,
     generatorThrows = GeneratorException.class,
     generatorThrowableCause = MacroException.class)
 public class MacroExpFailureTest implements JFlexTest {}
