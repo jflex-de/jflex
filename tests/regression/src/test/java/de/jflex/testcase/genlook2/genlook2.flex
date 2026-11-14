@@ -10,7 +10,8 @@ package de.jflex.testcase.genlook2;
 %public
 %class Genlook2
 %integer
-%debug
+
+%char
 
 %unicode
 
@@ -18,10 +19,17 @@ package de.jflex.testcase.genlook2;
 
 %states YYINITIAL
 
+%{
+  /** Offset of the current match from the start of input, counted from 0. */
+  public long offset() {
+    return yychar;
+  }
+%}
+
 %%
 
-<YYINITIAL> {    
-  "a"+/"b"+    { /* match should never contain a 'b', which is lookahead only */ }
+<YYINITIAL> {
+  "a"+/"b"+    { /* match should never contain a 'b', which is lookahead only */ return 1; }
 
-  [^]          { /* no lookahead */ }
+  [^]          { /* no lookahead */ return 0; }
 }

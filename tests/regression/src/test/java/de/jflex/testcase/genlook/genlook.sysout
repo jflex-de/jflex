@@ -1,0 +1,4 @@
+
+Warning in file "src/test/java/de/jflex/testcase/genlook/genlook.flex" (line 42): 
+Expression matches the empty string, which may lead to non-termination.
+  "c"?             { yybegin(END); /* should not fire, "c" or EOF should always precede */ return 4; }

@@ -10,7 +10,6 @@ package de.jflex.testcase.genlook;
 %public
 %class Genlook
 %integer
-%debug
 
 %line
 %column
@@ -19,22 +18,32 @@ package de.jflex.testcase.genlook;
 
 %states YYINITIAL, END
 
+%{
+  public int line() {
+    return yyline;
+  }
+
+  public int column() {
+    return yycolumn;
+  }
+%}
+
 %%
 
-<YYINITIAL> {    
+<YYINITIAL> {
   /* normal case */
-  "aa"|"a"/"a"+    { /* normal */ }
+  "aa"|"a"/"a"+    { /* normal */ return 1; }
 
   /* lookahead may be empty */
-  "bb"|"b"/"b"*    { /* empty-look */ }
+  "bb"|"b"/"b"*    { /* empty-look */ return 2; }
 
-  "c"              { /* blah */ }
+  "c"              { /* blah */ return 3; }
 
-  "c"?             { yybegin(END); /* should not fire, "c" or EOF should always precede */ }
+  "c"?             { yybegin(END); /* should not fire, "c" or EOF should always precede */ return 4; }
 
-  [^]              { }
+  [^]              { return 0; }
 }
 
 <END> {
-  [^]              { /* END, should never be matched */ }
+  [^]              { /* END, should never be matched */ return 5; }
 }
