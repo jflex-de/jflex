@@ -161,7 +161,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>scanner-caseless_jlex-caseless</id>
+            <id>scanner-jlex</id>
             <phase>generate-test-sources</phase>
             <goals>
               <goal>generate</goal>
@@ -170,6 +170,7 @@
               <jlex>true</jlex>
               <lexDefinitions>
                 <lexDefinition>src/test/java/de/jflex/testcase/caseless_jlex/caseless.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/dot_jlex/dotjlex.flex</lexDefinition>
               </lexDefinitions>
             </configuration>
           </execution>
