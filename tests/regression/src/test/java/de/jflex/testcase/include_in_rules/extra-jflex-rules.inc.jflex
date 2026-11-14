@@ -3,4 +3,5 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-"xyz" { }
+"xyz"          { return 2; }
+"de"{LETTER}   { return 3; }

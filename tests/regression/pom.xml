@@ -145,6 +145,7 @@
                 <lexDefinition>src/test/java/de/jflex/testcase/genlook/genlook.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/genlook2/genlook2.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/include_in_rules/IncludeInRules.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/include_in_rules/IncludeInRulesOrder.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/initthrow_eol/initthrow.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/large_input/large_input.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/large_table/large.flex</lexDefinition>
