@@ -32,6 +32,9 @@
 - fix `yycolumn` counting when a match ends with `\r` and the next match starts
   with `\n`. The `\n` is now one column after the `\r` instead of column 0.
   (#1186)
+- fix refilling the scan buffer when a surrogate character or `\r` is at the
+  end of the buffer (#1090). If you are using your own skeleton file it is
+  recommended to apply the diff from skeleton.default for this fix.
 
 ## [JFlex 1.9.1](https://github.com/jflex-de/jflex/milestone/21?closed=1) (Mar 11, 2023)
 
