@@ -12,7 +12,6 @@ import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
 import java.io.IOException;
 import java.io.StringReader;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -51,25 +50,11 @@ public class CountTest implements JFlexTest {
 
   private void assertToken(String text, int line, int column, long offset) throws IOException {
     String at = "at line " + line + ", column " + column + ", char " + offset;
-    assertTokenWithoutColumn(text, line, offset, at);
-    assertEquals(column, scanner.column(), "column " + at);
-  }
-
-  /**
-   * Checks that the next token is the {@code \n} of a line break {@code \r\n}. It is in the line
-   * that it ends. Its column is not checked here because it is wrong, see {@link
-   * #columnOfLfAfterCr()}.
-   */
-  private void assertLfAfterCr(int line, long offset) throws IOException {
-    assertTokenWithoutColumn("\n", line, offset, "at line " + line + ", char " + offset);
-  }
-
-  private void assertTokenWithoutColumn(String text, int line, long offset, String at)
-      throws IOException {
     assertEquals(1, scanner.yylex(), "rule " + at);
     assertEquals(text, scanner.yytext(), "text " + at);
     assertEquals(text.length(), scanner.yylength(), "length " + at);
     assertEquals(line, scanner.line(), "line " + at);
+    assertEquals(column, scanner.column(), "column " + at);
     assertEquals(offset, scanner.offset(), "char " + at);
   }
 
@@ -174,30 +159,12 @@ public class CountTest implements JFlexTest {
     assertEof(2, 0, 6);
   }
 
-  /** {@code \r\n} is one line break, and both characters are in the line that they end. */
+  /**
+   * {@code \r\n} is one line break, and both characters are in the line that they end. Check that
+   * {@code \n} is always one column after {@code \r}, also when {@code \r} is a separate match.
+   */
   @Test
   public void crLf() throws Exception {
-    scan("ab\r\ncd\r\n");
-    assertToken("ab", 0, 0, 0);
-    assertToken("\r", 0, 2, 2);
-    assertLfAfterCr(0, 3);
-    assertToken("cd", 1, 0, 4);
-    assertToken("\r", 1, 2, 6);
-    assertLfAfterCr(1, 7);
-    assertEof(2, 0, 8);
-  }
-
-  /**
-   * The {@code \n} of {@code \r\n} is one column after the {@code \r}, when it is a match of its
-   * own.
-   */
-  @Disabled(
-      "TODO: JFlex bug. When a match ends with \\r"
-          + " and the next match starts with \\n"
-          + ", yycolumn of the second match is 0 in the line of the \\r"
-          + ".")
-  @Test
-  public void columnOfLfAfterCr() throws Exception {
     scan("ab\r\ncd\r\n");
     assertToken("ab", 0, 0, 0);
     assertToken("\r", 0, 2, 2);
@@ -225,7 +192,7 @@ public class CountTest implements JFlexTest {
     scan("\r\r\n\n");
     assertToken("\r", 0, 0, 0);
     assertToken("\r", 1, 0, 1);
-    assertLfAfterCr(1, 2);
+    assertToken("\n", 1, 1, 2);
     assertToken("\n", 2, 0, 3);
     assertEof(3, 0, 4);
   }
@@ -297,7 +264,7 @@ public class CountTest implements JFlexTest {
       }
       assertEquals(BUFFER_SIZE - 4 + padding, column);
       assertToken("\r", 0, column, column);
-      assertLfAfterCr(0, column + 1);
+      assertToken("\n", 0, column + 1, column + 1);
       assertToken("xyz", 1, 0, column + 2);
       assertToken("\n", 1, 3, column + 5);
       assertToken("q", 2, 0, column + 6);

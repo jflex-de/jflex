@@ -12,7 +12,6 @@ import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
 import java.io.IOException;
 import java.io.StringReader;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -237,41 +236,17 @@ public class EolTest implements JFlexTest {
 
   /**
    * Before {@code \r\n} the lookahead has length 2. Both characters are scanned again, one by one.
-   * The {@code \n} is still in the line that it ends together with {@code \r}. Check {@link
-   * #columnOfLfAfterCr()} for the column, which might be a bug.
    */
   @Test
   public void endOfLineCrLf() throws Exception {
     scan("z\r\nbb\r\nz");
     assertToken(EOL, "z", 0, 0);
     assertToken(OTHER, "\r", 0, 1);
-    assertLfInLine(0);
+    assertToken(OTHER, "\n", 0, 2);
     assertToken(EOL, "bb", 1, 0);
     assertToken(OTHER, "\r", 1, 2);
-    assertLfInLine(1);
+    assertToken(OTHER, "\n", 1, 3);
     assertToken(OTHER, "z", 2, 0);
-    assertEof();
-  }
-
-  /** Checks the next token to be a {@code \n} in the given line, without its column. */
-  private void assertLfInLine(int line) throws IOException {
-    assertEquals(OTHER, scanner.yylex(), "rule of \\n in line " + line);
-    assertEquals("\n", scanner.yytext());
-    assertEquals(1, scanner.yylength());
-    assertEquals(line, scanner.line());
-  }
-
-  /**
-   * The column of a {@code \n} that is matched on its own after a {@code \r}. Line counting looks
-   * ahead for the {@code \n}, but the column is already at 0.
-   */
-  @Disabled("TODO suspected bug: yycolumn of a \\n matched on its own after \\r is 0, not 2")
-  @Test
-  public void columnOfLfAfterCr() throws Exception {
-    scan("z\r\n");
-    assertToken(EOL, "z", 0, 0);
-    assertToken(OTHER, "\r", 0, 1);
-    assertToken(OTHER, "\n", 0, 2);
     assertEof();
   }
 

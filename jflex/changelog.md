@@ -29,6 +29,9 @@
   `\p{blk=Greek}`, as in Unicode 4.0 and later.
 - The start scripts `bin/jflex` and `bin\jflex.bat` now use `JAVA_HOME` if set
   for running `java`.
+- fix `yycolumn` counting when a match ends with `\r` and the next match starts
+  with `\n`. The `\n` is now one column after the `\r` instead of column 0.
+  (#1186)
 
 ## [JFlex 1.9.1](https://github.com/jflex-de/jflex/milestone/21?closed=1) (Mar 11, 2023)
 

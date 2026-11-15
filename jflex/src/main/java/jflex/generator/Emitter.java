@@ -837,7 +837,12 @@ public final class Emitter {
       println("          break;");
       println("        case '\\r':");
       if (scanner.lineCount()) println("          yyline++;");
-      if (scanner.columnCount()) println("          yycolumn = 0;");
+      if (scanner.columnCount()) {
+        println("          if (zzCurrentPosL + 1 < zzMarkedPosL)");
+        println("            yycolumn = 0;");
+        println("          else");
+        println("            yycolumn++;");
+      }
       println("          zzR = true;");
       println("          break;");
       println("        case '\\n':");
@@ -855,28 +860,27 @@ public final class Emitter {
       println("      }");
       println();
 
-      if (scanner.lineCount()) {
-        println("      if (zzR) {");
-        println("        // peek one character ahead if it is");
-        println("        // (if we have counted one line too much)");
-        println("        boolean zzPeek;");
-        println("        if (zzMarkedPosL < zzEndReadL)");
-        println("          zzPeek = zzBufferL[zzMarkedPosL] == '\\n';");
-        println("        else if (zzAtEOF)");
-        println("          zzPeek = false;");
-        println("        else {");
-        println("          boolean eof = zzRefill();");
-        println("          zzEndReadL = zzEndRead;");
-        println("          zzMarkedPosL = zzMarkedPos;");
-        println("          zzBufferL = zzBuffer;");
-        println("          if (eof)");
-        println("            zzPeek = false;");
-        println("          else");
-        println("            zzPeek = zzBufferL[zzMarkedPosL] == '\\n';");
-        println("        }");
-        println("        if (zzPeek) yyline--;");
-        println("      }");
-      }
+      println("      if (zzR) {");
+      println("        // if we are at \\r, peek one character ahead if it is \\n");
+      println("        // (in that case the line break is not complete yet)");
+      println("        boolean zzPeek;");
+      println("        if (zzMarkedPosL < zzEndReadL)");
+      println("          zzPeek = zzBufferL[zzMarkedPosL] == '\\n';");
+      println("        else if (zzAtEOF)");
+      println("          zzPeek = false;");
+      println("        else {");
+      println("          boolean eof = zzRefill();");
+      println("          zzEndReadL = zzEndRead;");
+      println("          zzMarkedPosL = zzMarkedPos;");
+      println("          zzBufferL = zzBuffer;");
+      println("          if (eof)");
+      println("            zzPeek = false;");
+      println("          else");
+      println("            zzPeek = zzBufferL[zzMarkedPosL] == '\\n';");
+      println("        }");
+      if (scanner.lineCount()) println("        if (zzPeek) yyline--;");
+      if (scanner.columnCount()) println("        if (!zzPeek) yycolumn = 0;");
+      println("      }");
     }
 
     if (scanner.bolUsed()) {

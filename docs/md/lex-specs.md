@@ -33,7 +33,7 @@ Options and declarations
 ------------------------
 
 The second part of the lexical specification contains options and directives
-to customise the generated lexer, declarations of 
+to customise the generated lexer, declarations of
 [lexical states](#StateDecl) and [macro definitions](#MacroDefs).
 
 Each JFlex directive must sit at the beginning of a line and starts with the
@@ -476,9 +476,12 @@ interested in how to interface your generated scanner with Byacc/J.
 
 -   `%char`
 
-    Turns character counting on. The `long` member variable `yychar`
-    contains the number of characters (starting with 0) from the
-    beginning of input to the beginning of the current token.
+    Turns character counting on. The `long` member variable `yychar` contains
+    the number of characters (starting with 0) from the beginning of input to
+    the beginning of the current token. For consistency with Java strings, it
+    counts Java `char`s (UTF-16 code units), as opposed to Unicode code points.
+    Unicode characters outside the Basic Multilingual Plane, which use two up
+    Java `char`s, count as two.
 
 -   `%line`
 
@@ -491,6 +494,8 @@ interested in how to interface your generated scanner with Byacc/J.
     Turns column counting on. The `int` member variable `yycolumn`
     contains the number of characters (starting with 0) from the
     beginning of the current line to the beginning of the current token.
+    Like `yychar`, it counts Java `char`s (UTF-16 code units), not
+    Unicode code points.
 
 
 ### Warnings
@@ -611,43 +616,43 @@ EBNF grammar (terminal symbols are enclosed in ’quotes’):
 
     LexicalRules ::= (Include|Rule)+
     Include      ::= '%include' (' '|'\t'|'\b')+ File
-    Rule         ::= [StateList] ['^'] RegExp [LookAhead] Action 
+    Rule         ::= [StateList] ['^'] RegExp [LookAhead] Action
                    | [StateList] '<<EOF>>' Action
-                   | StateGroup 
-    StateGroup   ::= StateList '{' Rule+ '}' 
-    StateList    ::= '<' Identifier (',' Identifier)* '>' 
+                   | StateGroup
+    StateGroup   ::= StateList '{' Rule+ '}'
+    StateList    ::= '<' Identifier (',' Identifier)* '>'
     LookAhead    ::= '$' | '/' RegExp
     Action       ::= '{' JavaCode '}' | '|'
 
-    RegExp       ::= RegExp '|' RegExp 
-                   | RegExp RegExp 
+    RegExp       ::= RegExp '|' RegExp
+                   | RegExp RegExp
                    | '(' RegExp ')'
                    | ('!'|'~') RegExp
                    | RegExp ('*'|'+'|'?')
-                   | RegExp "{" Number ["," Number] "}" 
+                   | RegExp "{" Number ["," Number] "}"
                    | CharClass
-                   | PredefinedClass 
-                   | MacroUsage 
-                   | '"' StringCharacter+ '"' 
-                   | Character 
+                   | PredefinedClass
+                   | MacroUsage
+                   | '"' StringCharacter+ '"'
+                   | Character
 
     CharClass    ::= '[' ['^'] CharClassContent* ']'
-                   | '[' ['^'] CharClassContent+ 
+                   | '[' ['^'] CharClassContent+
                          CharClassOperator CharClassContent+ ']'
-                     
+
     CharClassContent    ::= CharClass | Character |
-                            Character'-'Character | 
+                            Character'-'Character |
                             MacroUsage | PredefinedClass
 
     CharClassOperator   ::= '||' | '&&' | '--' | '~~'
 
     MacroUsage          ::= '{' Identifier '}'
 
-    PredefinedClass     ::= '[:jletter:]' 
-                          | '[:jletterdigit:]' 
-                          | '[:letter:]' 
+    PredefinedClass     ::= '[:jletter:]'
+                          | '[:jletterdigit:]'
+                          | '[:letter:]'
                           | '[:digit:]'
-                          | '[:uppercase:]' 
+                          | '[:uppercase:]'
                           | '[:lowercase:]'
                           | '\d' | '\D'
                           | '\s' | '\S'
@@ -655,9 +660,9 @@ EBNF grammar (terminal symbols are enclosed in ’quotes’):
                           | '\p{' UnicodePropertySpec '}'
                           | '\P{' UnicodePropertySpec '}'
                           | '\R'
-                          | '.'          
-                                
-    UnicodePropertySpec ::= BinaryProperty | 
+                          | '.'
+
+    UnicodePropertySpec ::= BinaryProperty |
                             EnumeratedProperty (':' | '=') PropertyValue
 
     BinaryProperty      ::= Identifier
@@ -700,7 +705,7 @@ The grammar uses the following terminal symbols:
         (denoting an ASCII escape sequence);
 
     -   a `\u` followed by four hexadecimal digits `[a-fA-F0-9]`,
-        denoting a unicode escape sequence. Note that these are 
+        denoting a unicode escape sequence. Note that these are
         precisely four digits, i.e. `\u12345` is the character
         `\u1234` followed by the character `5`.
 
@@ -783,14 +788,14 @@ A regular expression that consists solely of
         `[a-ln-z]`.
 
     -   Symmetric difference (`~~`): the union of two classes minus
-        their intersection. For instance 
+        their intersection. For instance
 
-            [\p{Letter}~~\p{ASCII}] 
+            [\p{Letter}~~\p{ASCII}]
 
-        is equivalent to 
-        
+        is equivalent to
+
             [[\p{Letter}||\p{ASCII}]--[\p{Letter}&&\p{ASCII}]]
-        
+
         the set of characters that are present in either `\p{Letter}` or in
         `\p{ASCII}`, but not in both.
 
@@ -838,7 +843,7 @@ A regular expression that consists solely of
 
     -   \label{unipropsyntax}
         <!-- FIXME: inline refs don't link properly in pdf -->
-        <a name="unipropsyntax"></a>Unicode Properties 
+        <a name="unipropsyntax"></a>Unicode Properties
         are character classes specified by each
         version of the Unicode Standard. JFlex supports a subset of all
         defined Properties for each supported Unicode version. To see
