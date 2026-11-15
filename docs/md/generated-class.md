@@ -165,9 +165,9 @@ Currently, the API consists of the following methods and member fields:
     Unicode surrogate characters, and as a result expressions such as
     `[^]` (any character) and `\p{...}` (characters having a Unicode
     property) can match more than one `char`.
-    
+
 -   `yyatEOF()`
-    
+
     returns whether the scanner has reached the end of the reader it reads
     from, which often corresponds to the end of file.
 
@@ -179,10 +179,12 @@ Currently, the API consists of the following methods and member fields:
 -   `long yychar`
 
     contains the current character count in the input (starting with 0,
-    only active with the `charCounting` directive)
-
+    only active with the `charCounting` directive). Counts Java `char`s
+    (UTF-16 code units, not Unicode code points).
 -   `int yycolumn`
 
+
     contains the current column of the current line (starting with 0,
-    only active with the `columnCounting` directive)
+    only active with the `columnCounting` directive). Counts Java `char`s
+    (UTF-16 code units, not Unicode code points).
 
