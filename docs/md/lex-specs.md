@@ -175,10 +175,12 @@ generated scanner class.
 
     Limiting the token size introduces an error case: when the scanner
     encounters a token that does not fit into the maximum buffer size, it will
-    throw a `java.io.EOFException`. Tokens smaller than the maximum buffer
-    size are guaranteed to match. Not that the longest-match rule applies, that
-    is `a*` will lead to an `EOFException` on input that contains a too-long
-    `a` sequence, even if the smaller match could be possible.
+    throw a `java.io.EOFException`. Tokens that are at least two Java `char`s
+    smaller than the maximum buffer size are guaranteed to match. The two
+    `char`s are needed for a potential look-ahead of one Unicode character.
+    Note that the longest-match rule applies, that is `a*` will lead to an
+    `EOFException` on input that contains a too-long `a` sequence, even if the
+    smaller match could be possible.
 
     The limit is inteded to be used for applications that require a memory
     limit on parsing untrusted input.
