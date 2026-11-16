@@ -62,7 +62,7 @@ public class SpecCharRangeTest {
   }
 
   /** The scanner phase rejects escape sequences above the maximum code point. */
-  static Stream<Arguments> rejected() {
+  static Stream<Arguments> rejectedByScanner() {
     return Stream.of(
         spec("unicode2_escape", "%unicode 2.0", "\\u{10400}"),
         spec("unicode2_escape6", "%unicode 2.0", "\\U010400"),
@@ -72,7 +72,7 @@ public class SpecCharRangeTest {
   }
 
   /** Specs that the parser rejects, once the character set of the spec is known. */
-  static Stream<Arguments> notYetRejected() {
+  static Stream<Arguments> rejectedByParser() {
     return Stream.of(
         // --- %7bit, as character input
         spec("7bit_char", "%7bit", E_ACUTE),
@@ -102,7 +102,7 @@ public class SpecCharRangeTest {
         spec("8bit_escapeFirstOutside", "%8bit", "\\u0100"),
         spec("8bit_escapeInClassRange", "%8bit", "[\\x00-\\u0100]"),
         spec("full_char", "%full", A_MACRON),
-        // --- a Unicode version with  maximum code point U+FFFF, as character input
+        // --- a Unicode version with maximum code point U+FFFF, as character input
         spec("unicode2_char", "%unicode 2.0", DESERET),
         spec("unicode2_string", "%unicode 2.0", "\"" + DESERET + "k\""),
         spec("unicode2_class", "%unicode 2.0", "[k" + DESERET + "]"),
@@ -168,17 +168,10 @@ public class SpecCharRangeTest {
   }
 
   @ParameterizedTest(name = "{0}")
-  @MethodSource("rejected")
+  @MethodSource({"rejectedByScanner", "rejectedByParser"})
   public void outsideOfCharSet(String name, boolean jlex, String directives, String regExp)
       throws Exception {
-    assertRejected(name, jlex, directives, regExp);
-  }
-
-  @ParameterizedTest(name = "{0}")
-  @MethodSource("notYetRejected")
-  public void outsideOfCharSet_notYetRejected(
-      String name, boolean jlex, String directives, String regExp) throws Exception {
-    assertRejected(name, jlex, directives, regExp);
+    assertRejected(jlex, directives, regExp);
   }
 
   @ParameterizedTest(name = "{0}")
@@ -186,15 +179,14 @@ public class SpecCharRangeTest {
   public void insideOfCharSet(String name, boolean jlex, String directives, String regExp)
       throws Exception {
     ByteArrayOutputStream output = new ByteArrayOutputStream();
-    String generated = generator(name, jlex, directives, regExp, output).generate();
+    String generated = generator(jlex, directives, regExp, output).generate();
     assertTrue(new File(generated).isFile(), describe(directives, regExp, output));
   }
 
   /** Checks that we report an error with the right error type. */
-  private void assertRejected(String name, boolean jlex, String directives, String regExp)
-      throws Exception {
+  private void assertRejected(boolean jlex, String directives, String regExp) throws Exception {
     ByteArrayOutputStream output = new ByteArrayOutputStream();
-    LexGenerator generator = generator(name, jlex, directives, regExp, output);
+    LexGenerator generator = generator(jlex, directives, regExp, output);
     GeneratorException e =
         assertThrows(
             GeneratorException.class,
@@ -217,12 +209,9 @@ public class SpecCharRangeTest {
 
   /** Writes a spec for a test case and returns the generator for it. */
   private LexGenerator generator(
-      String name, boolean jlex, String directives, String regExp, ByteArrayOutputStream output)
+      boolean jlex, String directives, String regExp, ByteArrayOutputStream output)
       throws Exception {
-    // one directory per case: some names differ only in case
-    File dir = new File(tmp, name);
-    assertTrue(dir.mkdir());
-    File spec = new File(dir, "spec.flex");
+    File spec = new File(tmp, "spec.flex");
     Files.write(
         spec.toPath(),
         Arrays.asList(
@@ -236,7 +225,7 @@ public class SpecCharRangeTest {
             regExp + "  { return 1; }"),
         StandardCharsets.UTF_8);
     Options options = new Options();
-    options.setDir(dir);
+    options.setDir(tmp);
     options.setEncoding(StandardCharsets.UTF_8);
     options.setJLex(jlex);
     options.setVerbose(false);

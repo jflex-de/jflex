@@ -111,10 +111,6 @@ public class CclPreTest implements JFlexTest {
     return isExcludedFromDot(c) ? NO_MATCH : FALLBACK;
   }
 
-  private static boolean isHighSurrogate(int c) {
-    return Character.MIN_HIGH_SURROGATE <= c && c <= Character.MAX_HIGH_SURROGATE;
-  }
-
   private static String hex(int c) {
     return String.format("U+%04X", c);
   }
@@ -141,10 +137,6 @@ public class CclPreTest implements JFlexTest {
   public void jletter_isJavaIdentifierStart() throws Exception {
     scan("");
     for (int c = 0; c <= Character.MAX_CODE_POINT; c++) {
-      // skip unpaired high surrogates. They are not valid code points.
-      if (isHighSurrogate(c)) {
-        continue;
-      }
       scanner.yyreset(new StringReader(new String(Character.toChars(c))));
       assertSingleCodePoint(c);
     }
@@ -156,10 +148,6 @@ public class CclPreTest implements JFlexTest {
     scan("");
     for (int cp = 0; cp <= Character.MAX_CODE_POINT; cp++) {
       final int c = cp;
-      // skip unpaired high surrogates. They are not valid code points.
-      if (isHighSurrogate(c)) {
-        continue;
-      }
       int charCount = Character.charCount(c);
       scanner.yyreset(new StringReader("a" + new String(Character.toChars(c))));
       assertEquals(IDENTIFIER, scanner.yylex(), () -> "rule for a + " + hex(c));
