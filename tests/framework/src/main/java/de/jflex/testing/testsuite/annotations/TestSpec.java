@@ -113,6 +113,27 @@ public @interface TestSpec {
   /** Explicitly run JFlex with the {@code -v} option (even though verbose mode is default). */
   boolean verbose_provided() default false;
 
-  /** Golden file for JFlex's log (System.out stream). */
+  /**
+   * Golden file for JFlex's log (System.out stream). At most one of {@code sysout}, {@link
+   * #output()} and {@link #noOutput()} can be set.
+   */
   String sysout() default "";
+
+  /**
+   * The expected lines of JFlex's log (System.out stream), for instance
+   *
+   * <pre>{@code
+   * output = {"", "Warning: Emitting default constructor without parameters."}
+   * }</pre>
+   *
+   * <p>JFlex prints an empty line before each warning. Use {@link #noOutput()} to assert that JFlex
+   * prints nothing.
+   */
+  String[] output() default {};
+
+  /**
+   * Asserts that JFlex prints nothing. Together with {@link #quiet()} this is the check that the
+   * spec has no warnings.
+   */
+  boolean noOutput() default false;
 }

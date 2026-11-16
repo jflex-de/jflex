@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/eof_min/eofmin.flex",
     // no warnings
-    sysout = "src/test/java/de/jflex/testcase/eof_min/eofmin.sysout",
+    noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 3,
     minimizedDfa = {

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/no_warn/no_warn2.flex",
     quiet = true,
-    sysout = "src/test/java/de/jflex/testcase/no_warn/no_warn2_sysout.txt")
+    noOutput = true)
 public class NoWarnTest2 implements JFlexTest {
 
   /** Tests that the scanner was successfully generated and can be instantiated. */

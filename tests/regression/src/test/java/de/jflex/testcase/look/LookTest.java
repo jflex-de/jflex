@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/look/look.flex",
     // no warnings
-    sysout = "src/test/java/de/jflex/testcase/look/look.sysout",
+    noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 8,
     // The DFA inputs are the character classes below.

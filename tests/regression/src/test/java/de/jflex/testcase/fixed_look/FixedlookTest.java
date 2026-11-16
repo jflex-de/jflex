@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/fixed_look/fixedlook.flex",
     // no warnings
-    sysout = "src/test/java/de/jflex/testcase/fixed_look/fixedlook.sysout",
+    noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 25,
     charClassesCount = 7,

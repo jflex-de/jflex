@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/macro_exp/macro_prec.flex",
     // no warnings
-    sysout = "src/test/java/de/jflex/testcase/macro_exp/macro_prec.sysout",
+    noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 17,
     distinctCharClasses = {"abcdeghpquvxy<>[f"},

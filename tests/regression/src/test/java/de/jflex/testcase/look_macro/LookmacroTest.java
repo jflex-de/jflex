@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/look_macro/lookmacro.flex",
     // no warnings
-    sysout = "src/test/java/de/jflex/testcase/look_macro/lookmacro.sysout",
+    noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 21,
     charClassesCount = 15,
