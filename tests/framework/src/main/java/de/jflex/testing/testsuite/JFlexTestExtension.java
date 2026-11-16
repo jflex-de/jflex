@@ -146,7 +146,8 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
    * @param jflexOutput for JFlex output that is not otherwise captured
    * @return the generated file, or null if the spec expects JFlex to fail
    */
-  private static String generateLexer(TestSpec spec, ByteArrayOutputStream jflexOutput) {
+  private static String generateLexer(TestSpec spec, ByteArrayOutputStream jflexOutput)
+      throws IOException {
     int outputOptions =
         (spec.sysout().isEmpty() ? 0 : 1)
             + (spec.output().length == 0 ? 0 : 1)
@@ -163,13 +164,13 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
       } else {
         generateLexerWithExpectedException(spec, diffSysOut, jflexOutput);
       }
-      diffSysOut.ifPresent(
-          s ->
-              assertEquals("", s.remainingContent(), "Expected content not printed to System.out"));
+      if (diffSysOut.isPresent()) {
+        diffSysOut.get().close();
+      }
       checkInlineOutput(spec, jflexOutput);
       return lexerJavaFileName;
     } finally {
-      // The content was checked above, so close without further checks.
+      // Either the content was checked above, or a failure is already on its way.
       diffSysOut.ifPresent(DiffOutputStream::closeWithoutCheck);
     }
   }
@@ -178,6 +179,9 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
       TestSpec spec, Optional<DiffOutputStream> diffSysOut, OutputStream jflexOutput) {
     try {
       invokeJflex(spec, diffSysOut, jflexOutput);
+    } catch (AssertionError e) {
+      // Not an exception of the generator, e.g. System.out differs: report the failure itself.
+      throw e;
     } catch (Throwable e) {
       assertInstanceOf(
           spec.generatorThrows(),
@@ -235,7 +239,7 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
                 Files.newBufferedReader(sysoutFile.toPath(), StandardCharsets.UTF_8));
         diffSysOut.setComparisonFailureHandler(
             failure -> {
-              throw new Error("System.out differs: " + spec.sysout(), failure);
+              throw new AssertionError("System.out differs: " + spec.sysout(), failure);
             });
         return Optional.of(diffSysOut);
       } catch (IOException e) {
