@@ -7,7 +7,6 @@ package de.jflex.testing.testsuite.golden;
 import com.google.common.io.Files;
 import de.jflex.testing.SystemOutCapture;
 import de.jflex.testing.diff.DiffOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
@@ -20,13 +19,13 @@ public abstract class AbstractGoldenTest {
   /** Capture System.out to isolate concurrent thread output. */
   private SystemOutCapture capture;
 
-  protected void compareSystemOutWith(GoldenInOutFilePair golden) throws FileNotFoundException {
-    if (capture != null) {
-      capture.close();
-    }
+  protected void compareSystemOutWith(GoldenInOutFilePair golden) throws IOException {
+    // Check the output of a previous comparison in the same test before replacing it.
+    checkOuputEntirelyGenerated();
     // in-memory output comparison
     output = new DiffOutputStream(Files.newReader(golden.outputFile, StandardCharsets.UTF_8));
-    capture = SystemOutCapture.start(new PrintStream(output));
+    // The golden file is UTF-8, so print in UTF-8 independently of the platform charset.
+    capture = SystemOutCapture.start(new PrintStream(output, true, "UTF-8"));
   }
 
   @AfterEach
