@@ -338,7 +338,7 @@ public class CharClasses {
       union.add(i);
     }
 
-    return IntCharSet.allChars().equals(union);
+    return IntCharSet.ofCharacterRange(0, maxCharUsed).equals(union);
   }
 
   /**
