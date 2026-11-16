@@ -71,7 +71,7 @@ public class CharClassesQuickcheck {
 
     Assume.that(!set.contains(c));
 
-    classes.makeClass(set, false);
+    classes.makeClass(set);
     assertTrue(classes.invariants());
 
     int[] classCodes = classes.getClassCodes(set, false);
@@ -85,7 +85,7 @@ public class CharClassesQuickcheck {
   public void addSetParts(
       @ForAll CharClasses classes, @ForAll @IntRange(max = CharClasses.maxChar) IntCharSet set) {
 
-    classes.makeClass(set, false);
+    classes.makeClass(set);
 
     int[] classCodes = classes.getClassCodes(set, false);
     IntCharSet allParts = new IntCharSet();
@@ -99,7 +99,7 @@ public class CharClassesQuickcheck {
   public void addSetComplement(
       @ForAll CharClasses classes, @ForAll @IntRange(max = CharClasses.maxChar) IntCharSet set) {
 
-    classes.makeClass(set, false);
+    classes.makeClass(set);
 
     int[] notCodes = classes.getClassCodes(set, true);
     IntCharSet others = new IntCharSet();

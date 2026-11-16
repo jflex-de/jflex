@@ -43,7 +43,7 @@ public class CharClassesGen implements ArbitraryProvider {
                   // TODO(lsf): make maxChar and UnicodeProperties configurable. Without
                   // UnicodeProperties, there are no caseless classes.
                   CharClasses result = new CharClasses(CharClasses.maxChar, () -> null);
-                  classes.forEach(c -> result.makeClass(c, false));
+                  classes.forEach(c -> result.makeClass(c));
                   return result;
                 }));
   }

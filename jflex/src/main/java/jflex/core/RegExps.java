@@ -325,17 +325,24 @@ public class RegExps {
   /**
    * Replace all predefined character classes with primitive IntCharSet classes.
    *
+   * <p>With {@code caseless} in JLex mode ({@code jlex}), this makes all character classes
+   * caseless.
+   *
    * <p>Assumes normalised expressions.
    */
   public void expandPreClasses(
-      Map<Integer, IntCharSet> preclassCache, CharClasses charClasses, boolean caseless) {
+      Map<Integer, IntCharSet> preclassCache,
+      CharClasses charClasses,
+      boolean caseless,
+      boolean jlex) {
     List<RegExp> newRegExps = new ArrayList<RegExp>();
     List<RegExp> newLook = new ArrayList<RegExp>();
 
     for (RegExp r : regExps)
-      newRegExps.add(r == null ? r : r.expandPreClasses(preclassCache, charClasses, caseless));
+      newRegExps.add(
+          r == null ? r : r.expandPreClasses(preclassCache, charClasses, caseless, jlex));
     for (RegExp r : look)
-      newLook.add(r == null ? r : r.expandPreClasses(preclassCache, charClasses, caseless));
+      newLook.add(r == null ? r : r.expandPreClasses(preclassCache, charClasses, caseless, jlex));
 
     this.regExps = newRegExps;
     this.look = newLook;
@@ -358,8 +365,8 @@ public class RegExps {
    *
    * <p>Assumes normalised expressions.
    */
-  public void makeCCLs(CharClasses classes, boolean caseless, boolean jlex) {
-    for (RegExp r : regExps) if (r != null) r.makeCCLs(classes, caseless, jlex);
-    for (RegExp r : look) if (r != null) r.makeCCLs(classes, caseless, jlex);
+  public void makeCCLs(CharClasses classes, boolean caseless) {
+    for (RegExp r : regExps) if (r != null) r.makeCCLs(classes, caseless);
+    for (RegExp r : look) if (r != null) r.makeCCLs(classes, caseless);
   }
 }

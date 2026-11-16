@@ -12,7 +12,6 @@ import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
 import java.io.IOException;
 import java.io.StringReader;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -33,17 +32,17 @@ import org.junit.jupiter.api.Test;
     jlexCompat = true,
     minimizedDfaStatesCount = 10,
     minimizedDfa = {
-      "states 10, inputs 13, lexical states 1",
+      "states 10, inputs 14, lexical states 1",
       "entry: 0 0",
-      "0: 0 -> 1; 1 -> 2; 2 -> 3; 3 -> 4; 4 -> 5; 5-9 -> 6; 10 -> 7; 11 -> 8",
+      "0: 0 -> 1; 1 -> 2; 2 -> 3; 3 -> 4; 4 -> 5; 5-9 -> 6; 10 -> 7; 11 -> 1; 12 -> 8",
       "1 [a0]:",
       "2 [a1]:",
       "3 [a1]: 1 -> 2",
-      "4 [a0]: 0-12 -> 9",
+      "4 [a0]: 0-10 -> 9; 12-13 -> 9",
       "5 [a2]: 4-9 -> 6",
       "6 [a3]: 4-9 -> 6",
       "7 [a4]: 10 -> 7",
-      "8 [a5]: 11 -> 8",
+      "8 [a5]: 12 -> 8",
       "9 [a6]:",
       "a0: return State.OTHER;",
       "a1: return State.NEW_LINE;",
@@ -53,10 +52,10 @@ import org.junit.jupiter.api.Test;
       "a5: return State.CYRILLIC;",
       "a6: return State.NOT_DELTA;"
     },
-    charClassesCount = 13,
+    charClassesCount = 14,
     charClasses = {
-      "{ [0-9][11-12][14-'\"']['$'-'@']['['-'`']['{'-191][215][223][255-303][306-382][384-1044]"
-          + "[1048-1076][1080-8489][8492-55295][57344-1114111] }",
+      "{ [0-9][11-12][14-'\"']['$'-'@']['['-'`']['{'-191][215][223][255-303][306-382][384-915]"
+          + "[917-947][949-1044][1048-1076][1080-8489][8492-55295][57344-1114111] }",
       "{ [10] }",
       "{ [13] }",
       "{ ['#'] }",
@@ -68,6 +67,7 @@ import org.junit.jupiter.api.Test;
       "{ ['L']['l'] }",
       "{ ['O']['o'] }",
       "{ [192-214][216-222][224-254][8491] }",
+      "{ [916][948] }",
       "{ [1045-1047][1077-1079] }",
       "{ [55296-57343] }"
     })
@@ -306,10 +306,6 @@ public class CaselessJlexTest implements JFlexTest {
    * With caseless classes, {@code [^U+03B4]} is the negation of small and capital delta (δ and Δ),
    * and matches neither of them.
    */
-  @Disabled(
-      "JFlex bug: with --jlex and %ignorecase a negated class matches the characters that it"
-          + " excludes, if they have another case. The class is negated first, and the case"
-          + " variants of the result are added after that.")
   @Test
   public void negatedClass_excludesBothCases() throws Exception {
     scan("#δ#Δ");

@@ -35,6 +35,8 @@
 - fix refilling the scan buffer when a surrogate character or `\r` is at the
   end of the buffer (#1090). If you are using your own skeleton file it is
   recommended to apply the diff from skeleton.default for this fix.
+- fix negated character classes with `%ignorecase` in JLex mode (`--jlex`).
+  The class `[^a]` in `--lex` `%ignorecase` now matches neither `a` nor `A`.
 
 ## [JFlex 1.9.1](https://github.com/jflex-de/jflex/milestone/21?closed=1) (Mar 11, 2023)
 

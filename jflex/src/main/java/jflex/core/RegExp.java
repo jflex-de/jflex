@@ -420,12 +420,17 @@ public class RegExp {
   /**
    * Expand pre-defined character classes into primitive IntCharSet classes.
    *
+   * <p>With {@code caseless} in JLex mode, all character classes are caseless.
+   *
    * @param cache memoized pre-defined character class expansions
    * @param cl character class partitions
+   * @param caseless true if the spec is caseless ({@code %ignorecase})
+   * @param jlex true in JLex compatibility mode
    * @return the expanded regular expression
    */
   @SuppressWarnings("unchecked")
-  public RegExp expandPreClasses(Map<Integer, IntCharSet> cache, CharClasses cl, boolean caseless) {
+  public RegExp expandPreClasses(
+      Map<Integer, IntCharSet> cache, CharClasses cl, boolean caseless, boolean jlex) {
     RegExp1 unary;
     RegExp2 binary;
     RegExp content;
@@ -436,8 +441,8 @@ public class RegExp {
         binary = (RegExp2) this;
         return new RegExp2(
             type,
-            binary.r1.expandPreClasses(cache, cl, caseless),
-            binary.r2.expandPreClasses(cache, cl, caseless));
+            binary.r1.expandPreClasses(cache, cl, caseless, jlex),
+            binary.r2.expandPreClasses(cache, cl, caseless, jlex));
 
       case sym.STAR:
       case sym.PLUS:
@@ -446,7 +451,7 @@ public class RegExp {
       case sym.TILDE:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        return new RegExp1(type, content.expandPreClasses(cache, cl, caseless));
+        return new RegExp1(type, content.expandPreClasses(cache, cl, caseless, jlex));
 
       case sym.CCLASS:
       case sym.CCLASSNOT:
@@ -455,7 +460,7 @@ public class RegExp {
           List<RegExp> contents = (List<RegExp>) unary.content;
           List<RegExp> newContents = new ArrayList<RegExp>(contents.size());
           for (RegExp r : contents) {
-            RegExp n = r.expandPreClasses(cache, cl, caseless);
+            RegExp n = r.expandPreClasses(cache, cl, caseless, jlex);
             newContents.add(n);
           }
           return new RegExp1(type, newContents);
@@ -464,14 +469,18 @@ public class RegExp {
       case sym.CCLASSOP:
         unary = (RegExp1) this;
         binary = (RegExp2) unary.content;
-        RegExp l = binary.r1.expandPreClasses(cache, cl, caseless);
-        RegExp r = binary.r2.expandPreClasses(cache, cl, caseless);
+        RegExp l = binary.r1.expandPreClasses(cache, cl, caseless, jlex);
+        RegExp r = binary.r2.expandPreClasses(cache, cl, caseless, jlex);
         return new RegExp1(type, new RegExp2(binary.type, l, r));
 
       case sym.PRECLASS:
         {
           unary = (RegExp1) this;
-          IntCharSet set = getPreClass(cache, cl, (Integer) unary.content);
+          int preClass = (Integer) unary.content;
+          IntCharSet set =
+              caseless && jlex
+                  ? getCaselessPreClass(cache, cl, preClass)
+                  : getPreClass(cache, cl, preClass);
           return new RegExp1(sym.PRIMCLASS, set);
         }
 
@@ -485,17 +494,64 @@ public class RegExp {
           return new RegExp1(sym.PRIMCLASS, set);
         }
 
+      case sym.PRIMCLASS:
+        {
+          unary = (RegExp1) this;
+          IntCharSet set = (IntCharSet) unary.content;
+          if (caseless && jlex) {
+            set = set.getCaseless(cl.getUnicodeProperties());
+          }
+          return new RegExp1(type, set);
+        }
+
       case sym.STRING:
       case sym.STRING_I:
       case sym.CHAR:
       case sym.CHAR_I:
-      case sym.PRIMCLASS:
         unary = (RegExp1) this;
         return new RegExp1(type, unary.content);
 
       default:
         throw new RegExpException(this);
     }
+  }
+
+  /**
+   * Returns the caseless version of a pre-defined character class, for caseless classes in JLex
+   * mode.
+   *
+   * <p>The negated classes {@code \D}, {@code \S} and {@code \W} are created as the negation of the
+   * caseless {@code \d}, {@code \s} and {@code \w}. Adding case variants to the negated class
+   * instead would add characters that the non-caseless class excludes.
+   *
+   * @param preclassCache memoized pre-defined character class expansions
+   * @param charClasses character class partitions
+   * @param type the type of the predefined character class
+   * @return a new IntCharSet with the caseless version of the class
+   */
+  private static IntCharSet getCaselessPreClass(
+      Map<Integer, IntCharSet> preclassCache, CharClasses charClasses, int type) {
+    UnicodeProperties unicodeProperties = charClasses.getUnicodeProperties();
+    int negated;
+    switch (type) {
+      case sym.DIGITCLASSNOT:
+        negated = sym.DIGITCLASS;
+        break;
+
+      case sym.WHITESPACECLASSNOT:
+        negated = sym.WHITESPACECLASS;
+        break;
+
+      case sym.WORDCLASSNOT:
+        negated = sym.WORDCLASS;
+        break;
+
+      default:
+        return getPreClass(preclassCache, charClasses, type).getCaseless(unicodeProperties);
+    }
+    IntCharSet result = IntCharSet.ofCharacterRange(0, unicodeProperties.getMaximumCodePoint());
+    result.sub(getPreClass(preclassCache, charClasses, negated).getCaseless(unicodeProperties));
+    return result;
   }
 
   /**
@@ -682,9 +738,10 @@ public class RegExp {
   /**
    * Make character class partitions based on the classes mentioned in this regexp.
    *
-   * <p>Assumption: regexp is normalised.
+   * <p>Assumption: regexp is normalised. Caseless character classes (JLex mode) already contain
+   * their case variants, see {@link #expandPreClasses}.
    */
-  public final void makeCCLs(CharClasses c, boolean caseless, boolean jlex) {
+  public final void makeCCLs(CharClasses c, boolean caseless) {
     RegExp1 unary;
     RegExp2 binary;
     RegExp content;
@@ -693,8 +750,8 @@ public class RegExp {
       case sym.BAR:
       case sym.CONCAT:
         binary = (RegExp2) this;
-        binary.r1.makeCCLs(c, caseless, jlex);
-        binary.r2.makeCCLs(c, caseless, jlex);
+        binary.r1.makeCCLs(c, caseless);
+        binary.r2.makeCCLs(c, caseless);
         return;
 
       case sym.STAR:
@@ -704,7 +761,7 @@ public class RegExp {
       case sym.TILDE:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        content.makeCCLs(c, caseless, jlex);
+        content.makeCCLs(c, caseless);
         return;
 
       case sym.CHAR:
@@ -722,7 +779,7 @@ public class RegExp {
       case sym.PRIMCLASS:
         unary = (RegExp1) this;
         IntCharSet set = (IntCharSet) unary.content;
-        c.makeClass(set, jlex && caseless);
+        c.makeClass(set);
         return;
 
       default:

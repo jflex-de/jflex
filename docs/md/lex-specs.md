@@ -472,6 +472,8 @@ interested in how to interface your generated scanner with Byacc/J.
     uppercase and which lowercase letters, is defined by the Unicode
     standard. In JLex compatibility mode (`--jlex` switch on the command
     line), `%caseless` and `%ignorecase` also affect character classes.
+    There, `[a]` matches `a` and `A`, and the negated class `[^a]`
+    matches neither `a` nor `A`.
 
 
 ### Line, character and column counting
