@@ -12,7 +12,6 @@ import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
 import java.io.IOException;
 import java.io.StringReader;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -299,10 +298,6 @@ public class DotnewlineTest implements JFlexTest {
   }
 
   /** An unpaired high surrogate as the last char of the input is like one anywhere else. */
-  @Disabled(
-      "JFlex bug: when the input ends with a high surrogate, zzRefill() reports the end of input"
-          + " although it has read characters. yylex() returns YYEOF even though there are more"
-          + " tokens, the next call to yylex() returns those tokens.")
   @Test
   public void highSurrogateAtEndOfInput() throws Exception {
     scan("a\uD800");
