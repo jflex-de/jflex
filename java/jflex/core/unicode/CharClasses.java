@@ -153,15 +153,12 @@ public class CharClasses {
    * characters that are not elements of {@code set}.
    *
    * @param set the set of characters to distinguish from the rest
-   * @param caseless if true upper/lower/title case are considered equivalent
    */
-  public void makeClass(IntCharSet set, boolean caseless) {
+  public void makeClass(IntCharSet set) {
     set = IntCharSet.copyOf(set); // avoid destructively updating the original
 
-    if (caseless) set = set.getCaseless(unicodeProps);
-
     if (DEBUG) {
-      Out.trace("makeClass(" + set + ", " + caseless + ")");
+      Out.trace("makeClass(" + set + ")");
       dump();
     }
 
@@ -265,7 +262,8 @@ public class CharClasses {
    * @param singleChar character.
    */
   public void makeClass(int singleChar, boolean caseless) {
-    makeClass(IntCharSet.ofCharacter(singleChar), caseless);
+    IntCharSet set = IntCharSet.ofCharacter(singleChar);
+    makeClass(caseless ? set.getCaseless(unicodeProps) : set);
   }
 
   /**

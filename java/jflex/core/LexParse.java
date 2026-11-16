@@ -859,9 +859,10 @@ class CUP$LexParse$actions {
                        scanner.initCharClasses(AbstractLexScan.CharSetSize.UNICODE);
                      }
                      charClasses = scanner.charClasses;
-                     regExps.expandPreClasses(preclassCache, charClasses, scanner.caseless);
+                     regExps.expandPreClasses(preclassCache, charClasses, scanner.caseless,
+                                              scanner.options().jlex());
                      regExps.normaliseCCLs(scanner.file);
-                     regExps.makeCCLs(charClasses, scanner.caseless, scanner.options().jlex());
+                     regExps.makeCCLs(charClasses, scanner.caseless);
 
                      SemCheck.check(regExps, scanner.file, out);
 
