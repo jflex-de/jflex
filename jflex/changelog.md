@@ -37,6 +37,11 @@
   recommended to apply the diff from skeleton.default for this fix.
 - fix negated character classes with `%ignorecase` in JLex mode (`--jlex`).
   The class `[^a]` in `--lex` `%ignorecase` now matches neither `a` nor `A`.
+- characters in regular expressions that are outside the character set of the
+  spec (`%7bit`, `%8bit`, or the maximum code point of the `%unicode` version)
+  are now explicitly reported as errors.
+- fix a generator crash for `[^]` with `%ignorecase` in JLex mode (`--jlex`)
+  and Unicode versions before 3.0.
 
 ## [JFlex 1.9.1](https://github.com/jflex-de/jflex/milestone/21?closed=1) (Mar 11, 2023)
 

@@ -33,6 +33,7 @@ action code {:
   Timer       t           = new Timer();
   EOFActions  eofActions  = new EOFActions();
   Map<Integer,IntCharSet> preclassCache = new HashMap<Integer,IntCharSet>();
+  SpecCharCheck specChars = new SpecCharCheck();
 
   void fatalError(ErrorMessages message, int line, int col) {
     syntaxError(message, line, col);
@@ -274,6 +275,11 @@ specification ::=  USERCODE
                        scanner.initCharClasses(AbstractLexScan.CharSetSize.UNICODE);
                      }
                      charClasses = scanner.charClasses;
+
+                     // characters outside the character set must not reach the char classes
+                     specChars.check(charClasses.getMaxCharCode(), out);
+                     out.checkErrors();
+
                      regExps.expandPreClasses(preclassCache, charClasses, scanner.caseless,
                                               scanner.options().jlex());
                      regExps.normaliseCCLs(scanner.file);
@@ -494,6 +500,7 @@ regexp        ::=  regexp:r STAR
                    :}
                 |  STRING:str
                    {:
+                     specChars.addString(scanner.file, strleft, strright, str);
                      RESULT = new RegExp1(scanner.caseless ? sym.STRING_I : sym.STRING, str);
                    :}
                 |  POINT
@@ -517,6 +524,7 @@ regexp        ::=  regexp:r STAR
                    {: RESULT = makeNL(); :}
                 |  CHAR:c
                    {:
+                     specChars.addChar(scanner.file, cleft, cright, c);
                      if ( scanner.caseless ) {
                        RESULT = new RegExp1(sym.CHAR_I, c);
                      }
@@ -587,12 +595,18 @@ classcontentelem ::= CHAR:c1 DASH CHAR:c2
                          syntaxError(ErrorMessages.IMPOSSIBLE_CHARCLASS_RANGE, c1left, c1right);
                          c2 = c1; // avoid violating Interval invariant; error is logged.
                        }
+                       specChars.addChar(scanner.file, c1left, c1right, c1);
+                       specChars.addChar(scanner.file, c2left, c2right, c2);
                        RESULT = primClass(c1, c2);
                      :}
                    | CHAR:c
-                     {: RESULT = primClass(c); :}
+                     {:
+                       specChars.addChar(scanner.file, cleft, cright, c);
+                       RESULT = primClass(c);
+                     :}
                    | STRING:s
                      {:
+                        specChars.addString(scanner.file, sleft, sright, s);
                         IntCharSet set = new IntCharSet();
                         for (int i = 0; i < s.length(); ) {
                           int ch = s.codePointAt(i);
