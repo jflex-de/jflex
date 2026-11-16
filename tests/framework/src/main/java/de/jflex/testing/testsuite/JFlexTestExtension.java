@@ -20,6 +20,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -30,7 +32,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import jflex.core.unicode.CharClasses;
@@ -63,7 +64,7 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
     Throwable generateFailure;
     Throwable compileFailure;
 
-    /** JFlex printed if not already otherwise captured. */
+    /** What JFlex printed. */
     final ByteArrayOutputStream jflexOutput = new ByteArrayOutputStream();
 
     boolean failed() {
@@ -143,7 +144,7 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
   /**
    * Runs JFlex on the spec and checks its output and exceptions against the spec.
    *
-   * @param jflexOutput for JFlex output that is not otherwise captured
+   * @param jflexOutput where JFlex prints to
    * @return the generated file, or null if the spec expects JFlex to fail
    */
   private static String generateLexer(TestSpec spec, ByteArrayOutputStream jflexOutput)
@@ -156,31 +157,22 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
       throw new IllegalStateException(
           "@TestSpec: at most one of sysout, output and noOutput can be set");
     }
-    Optional<DiffOutputStream> diffSysOut = injectDiffSysOut(spec);
-    try {
-      String lexerJavaFileName = null;
-      if (spec.generatorThrows() == NoExceptionThrown.class) {
-        lexerJavaFileName = invokeJflex(spec, diffSysOut, jflexOutput);
-      } else {
-        generateLexerWithExpectedException(spec, diffSysOut, jflexOutput);
-      }
-      if (diffSysOut.isPresent()) {
-        diffSysOut.get().close();
-      }
-      checkInlineOutput(spec, jflexOutput);
-      return lexerJavaFileName;
-    } finally {
-      // Either the content was checked above, or a failure is already on its way.
-      diffSysOut.ifPresent(DiffOutputStream::closeWithoutCheck);
+    String lexerJavaFileName = null;
+    if (spec.generatorThrows() == NoExceptionThrown.class) {
+      lexerJavaFileName = invokeJflex(spec, jflexOutput);
+    } else {
+      generateLexerWithExpectedException(spec, jflexOutput);
     }
+    checkOutput(spec, jflexOutput);
+    return lexerJavaFileName;
   }
 
-  private static void generateLexerWithExpectedException(
-      TestSpec spec, Optional<DiffOutputStream> diffSysOut, OutputStream jflexOutput) {
+  private static void generateLexerWithExpectedException(TestSpec spec, OutputStream jflexOutput) {
     try {
-      invokeJflex(spec, diffSysOut, jflexOutput);
+      invokeJflex(spec, jflexOutput);
     } catch (AssertionError e) {
-      // Not an exception of the generator, e.g. System.out differs: report the failure itself.
+      // Not an exception of the generator, e.g. a failed check of the DFA: report the failure
+      // itself.
       throw e;
     } catch (Throwable e) {
       assertInstanceOf(
@@ -208,55 +200,55 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
   }
 
   /**
-   * Compares what JFlex printed with {@code output} or {@code noOutput} of the spec, if one of them
-   * is set. Without a {@code sysout} file, JFlex prints to {@code jflexOutput}.
+   * Compares what JFlex printed with the golden {@code sysout} file, the {@code output} or the
+   * {@code noOutput} of the spec, if one of them is set.
    *
-   * <p>Compares the complete output, so that a failure shows all of it.
+   * <p>Compares after the generator has run and not while it prints, so that the complete output of
+   * JFlex is available when the comparison fails.
    */
-  private static void checkInlineOutput(TestSpec spec, ByteArrayOutputStream jflexOutput) {
-    String actual =
-        new String(jflexOutput.toByteArray(), Charset.defaultCharset()).replace(Out.NL, "\n");
-    if (spec.noOutput()) {
-      assertEquals("", actual, "@TestSpec(noOutput): JFlex must not print anything");
-    } else if (spec.output().length > 0) {
-      assertEquals(
-          String.join("\n", spec.output()) + "\n",
-          actual,
-          "@TestSpec(output): the output of JFlex");
-    }
-  }
-
-  /**
-   * Returns a stream that compares what JFlex prints with the golden {@code sysout} file of the
-   * spec, or empty if the spec has none.
-   */
-  private static Optional<DiffOutputStream> injectDiffSysOut(TestSpec spec) {
+  private static void checkOutput(TestSpec spec, ByteArrayOutputStream jflexOutput)
+      throws IOException {
+    Reader expected;
+    String message;
     if (!spec.sysout().isEmpty()) {
       File sysoutFile = new File(spec.sysout());
       try {
-        DiffOutputStream diffSysOut =
-            new DiffOutputStream(
-                Files.newBufferedReader(sysoutFile.toPath(), StandardCharsets.UTF_8));
-        diffSysOut.setComparisonFailureHandler(
-            failure -> {
-              throw new AssertionError("System.out differs: " + spec.sysout(), failure);
-            });
-        return Optional.of(diffSysOut);
+        expected = Files.newBufferedReader(sysoutFile.toPath(), StandardCharsets.UTF_8);
       } catch (IOException e) {
         throw new AssertionError(
             "Cannot read the golden sysout: " + sysoutFile.getAbsolutePath(), e);
       }
+      message = "System.out differs: " + spec.sysout();
+    } else if (spec.output().length > 0) {
+      // JFlex ends its lines with the line separator of the platform.
+      expected = new StringReader(String.join(Out.NL, spec.output()) + Out.NL);
+      message = "@TestSpec(output): the output of JFlex differs";
+    } else if (spec.noOutput()) {
+      expected = new StringReader("");
+      message = "@TestSpec(noOutput): JFlex must not print anything";
+    } else {
+      return;
     }
-    return Optional.empty();
+    DiffOutputStream diff = new DiffOutputStream(expected);
+    diff.setComparisonFailureHandler(
+        failure -> {
+          throw new AssertionError(message, failure);
+        });
+    try {
+      jflexOutput.writeTo(diff);
+      diff.close();
+    } finally {
+      // Either the content was checked above, or a failure is already on its way.
+      diff.closeWithoutCheck();
+    }
   }
 
   /**
    * Runs JFlex on the spec of the test.
    *
-   * @param sysout where JFlex prints to, {@code jflexOutput} if empty
+   * @param jflexOutput where JFlex prints to
    */
-  private static String invokeJflex(
-      TestSpec spec, Optional<DiffOutputStream> sysout, OutputStream jflexOutput) {
+  private static String invokeJflex(TestSpec spec, OutputStream jflexOutput) {
     Options options = new Options();
     options.setJLex(spec.jlexCompat());
     options.setDump(spec.dump());
@@ -279,7 +271,7 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
     options.setUnusedWarning(spec.warnUnused());
     File lexFile = new File(spec.lex());
     Set<File> existingJavaFiles = javaFilesIn(lexFile.getAbsoluteFile().getParentFile());
-    Out out = new Out(options, sysout.isPresent() ? sysout.get() : jflexOutput);
+    Out out = new Out(options, jflexOutput);
     LexGenerator lexGenerator = new LexGenerator(lexFile, options, out);
     String lexerJavaFileName = Objects.requireNonNull(lexGenerator.generate());
     checkNoCollision(existingJavaFiles, new File(lexerJavaFileName));
