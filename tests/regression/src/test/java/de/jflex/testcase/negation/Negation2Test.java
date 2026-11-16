@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/negation/negation2.flex",
     // no warnings
-    sysout = "src/test/java/de/jflex/testcase/negation/negation2.sysout",
+    noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 27,
     // one class for each of the 16 characters in the spec, and one for all others

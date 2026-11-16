@@ -32,7 +32,10 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/generics/generics4.flex",
     // warning about the second constructor
-    sysout = "src/test/java/de/jflex/testcase/generics/generics4.sysout",
+    output = {
+      "",
+      "Warning: Emitting default constructor without parameters and init code for debug/standalone."
+    },
     quiet = true,
     minimizedDfaStatesCount = 3,
     minimizedDfa = {

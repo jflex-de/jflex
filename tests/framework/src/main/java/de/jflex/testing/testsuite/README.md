@@ -32,4 +32,6 @@ Supported:
   (`charClassesCount`, `charClasses`)
 - checking that given characters are in the same or in different character
   classes (`sameCharClass`, `distinctCharClasses`)
-- comparing the output logs with a golden file
+- comparing the output log of JFlex with a golden file (`sysout`), with the expected
+  lines inline (`output`), or checking that JFlex prints nothing (`noOutput`).
+  `quiet = true, noOutput = true` checks that a spec has no warnings.

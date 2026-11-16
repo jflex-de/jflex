@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
     lex = "src/test/java/de/jflex/testcase/include2/include2.flex",
     skeleton = "src/test/java/de/jflex/testcase/include2/skeleton.nested",
     // no warnings
-    sysout = "src/test/java/de/jflex/testcase/include2/include2.sysout",
+    noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 25,
     charClassesCount = 20,

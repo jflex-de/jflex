@@ -146,7 +146,15 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
    * @param jflexOutput for JFlex output that is not otherwise captured
    * @return the generated file, or null if the spec expects JFlex to fail
    */
-  private static String generateLexer(TestSpec spec, OutputStream jflexOutput) {
+  private static String generateLexer(TestSpec spec, ByteArrayOutputStream jflexOutput) {
+    int outputOptions =
+        (spec.sysout().isEmpty() ? 0 : 1)
+            + (spec.output().length == 0 ? 0 : 1)
+            + (spec.noOutput() ? 1 : 0);
+    if (outputOptions > 1) {
+      throw new IllegalStateException(
+          "@TestSpec: at most one of sysout, output and noOutput can be set");
+    }
     Optional<DiffOutputStream> diffSysOut = injectDiffSysOut(spec);
     try {
       String lexerJavaFileName = null;
@@ -158,6 +166,7 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
       diffSysOut.ifPresent(
           s ->
               assertEquals("", s.remainingContent(), "Expected content not printed to System.out"));
+      checkInlineOutput(spec, jflexOutput);
       return lexerJavaFileName;
     } finally {
       // The content was checked above, so close without further checks.
@@ -192,6 +201,25 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
         "@TestSpec indicates that the jflex generation throws a "
             + spec.generatorThrows().getSimpleName()
             + " but nothing was thrown");
+  }
+
+  /**
+   * Compares what JFlex printed with {@code output} or {@code noOutput} of the spec, if one of them
+   * is set. Without a {@code sysout} file, JFlex prints to {@code jflexOutput}.
+   *
+   * <p>Compares the complete output, so that a failure shows all of it.
+   */
+  private static void checkInlineOutput(TestSpec spec, ByteArrayOutputStream jflexOutput) {
+    String actual =
+        new String(jflexOutput.toByteArray(), Charset.defaultCharset()).replace(Out.NL, "\n");
+    if (spec.noOutput()) {
+      assertEquals("", actual, "@TestSpec(noOutput): JFlex must not print anything");
+    } else if (spec.output().length > 0) {
+      assertEquals(
+          String.join("\n", spec.output()) + "\n",
+          actual,
+          "@TestSpec(output): the output of JFlex");
+    }
   }
 
   /**

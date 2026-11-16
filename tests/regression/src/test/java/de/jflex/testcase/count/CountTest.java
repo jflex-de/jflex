@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/count/count.flex",
     // no warnings
-    sysout = "src/test/java/de/jflex/testcase/count/count.sysout",
+    noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 4,
     minimizedDfa = {

@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/ccl_pre/ccl.flex",
     // no warnings
-    sysout = "src/test/java/de/jflex/testcase/ccl_pre/ccl.sysout",
+    noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 5,
     minimizedDfa = {

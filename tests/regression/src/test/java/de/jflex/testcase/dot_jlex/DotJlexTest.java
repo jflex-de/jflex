@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/dot_jlex/dotjlex.flex",
     // no warnings
-    sysout = "src/test/java/de/jflex/testcase/dot_jlex/dotjlex.sysout",
+    noOutput = true,
     quiet = true,
     jlexCompat = true,
     minimizedDfaStatesCount = 4,
