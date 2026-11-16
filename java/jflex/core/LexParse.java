@@ -687,6 +687,7 @@ class CUP$LexParse$actions {
   Timer       t           = new Timer();
   EOFActions  eofActions  = new EOFActions();
   Map<Integer,IntCharSet> preclassCache = new HashMap<Integer,IntCharSet>();
+  SpecCharCheck specChars = new SpecCharCheck();
 
   void fatalError(ErrorMessages message, int line, int col) {
     syntaxError(message, line, col);
@@ -859,6 +860,11 @@ class CUP$LexParse$actions {
                        scanner.initCharClasses(AbstractLexScan.CharSetSize.UNICODE);
                      }
                      charClasses = scanner.charClasses;
+
+                     // characters outside the character set must not reach the char classes
+                     specChars.check(charClasses.getMaxCharCode(), out);
+                     out.checkErrors();
+
                      regExps.expandPreClasses(preclassCache, charClasses, scanner.caseless,
                                               scanner.options().jlex());
                      regExps.normaliseCCLs(scanner.file);
@@ -1587,6 +1593,7 @@ class CUP$LexParse$actions {
 		int strright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
 		String str = (String)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
+                     specChars.addString(scanner.file, strleft, strright, str);
                      RESULT = new RegExp1(scanner.caseless ? sym.STRING_I : sym.STRING, str);
                    
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("regexp",7, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
@@ -1634,6 +1641,7 @@ class CUP$LexParse$actions {
 		int cright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
 		Integer c = (Integer)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
+                     specChars.addChar(scanner.file, cleft, cright, c);
                      if ( scanner.caseless ) {
                        RESULT = new RegExp1(sym.CHAR_I, c);
                      }
@@ -1848,6 +1856,8 @@ class CUP$LexParse$actions {
                          syntaxError(ErrorMessages.IMPOSSIBLE_CHARCLASS_RANGE, c1left, c1right);
                          c2 = c1; // avoid violating Interval invariant; error is logged.
                        }
+                       specChars.addChar(scanner.file, c1left, c1right, c1);
+                       specChars.addChar(scanner.file, c2left, c2right, c2);
                        RESULT = primClass(c1, c2);
                      
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("classcontentelem",11, ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-2)), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
@@ -1861,7 +1871,10 @@ class CUP$LexParse$actions {
 		int cleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
 		Integer c = (Integer)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
-		 RESULT = primClass(c); 
+		
+                       specChars.addChar(scanner.file, cleft, cright, c);
+                       RESULT = primClass(c);
+                     
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("classcontentelem",11, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -1874,6 +1887,7 @@ class CUP$LexParse$actions {
 		int sright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
 		String s = (String)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
+                        specChars.addString(scanner.file, sleft, sright, s);
                         IntCharSet set = new IntCharSet();
                         for (int i = 0; i < s.length(); ) {
                           int ch = s.codePointAt(i);
