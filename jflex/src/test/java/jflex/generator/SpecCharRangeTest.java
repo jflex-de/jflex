@@ -19,7 +19,6 @@ import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -62,7 +61,7 @@ public class SpecCharRangeTest {
     return Arguments.of(name, true, directives, regExp);
   }
 
-  /** Specs that JFlex currently rejects. */
+  /** The scanner phase rejects escape sequences above the maximum code point. */
   static Stream<Arguments> rejected() {
     return Stream.of(
         spec("unicode2_escape", "%unicode 2.0", "\\u{10400}"),
@@ -72,13 +71,12 @@ public class SpecCharRangeTest {
         spec("unicode2_caseless_escape", "%unicode 2.0\n%ignorecase", "\\u{10400}"));
   }
 
-  /** Specs that JFlex should reject, but currently does not. */
+  /** Specs that the parser rejects, once the character set of the spec is known. */
   static Stream<Arguments> notYetRejected() {
     return Stream.of(
         // --- %7bit, as character input
         spec("7bit_char", "%7bit", E_ACUTE),
         spec("7bit_string", "%7bit", "\"" + E_ACUTE + "a\""),
-        // makes the scanner match the empty string currently
         spec("7bit_stringEnd", "%7bit", "\"caf" + E_ACUTE + "\""),
         spec("7bit_class", "%7bit", "[a" + E_ACUTE + "]"),
         spec("7bit_classRange", "%7bit", "[a-" + E_ACUTE + "]"),
@@ -111,7 +109,6 @@ public class SpecCharRangeTest {
         spec("unicode2_classRange", "%unicode 2.0", "[" + DESERET + "-" + DESERET_2 + "]"),
         spec("unicode1_1_char", "%unicode 1.1", DESERET),
         spec("unicode2_1_char", "%unicode 2.1", DESERET),
-        // currently fails with ArrayIndexOutOfBoundsException
         spec("unicode2_caseless_char", "%unicode 2.0\n%ignorecase", DESERET),
         spec("unicode2_caseless_string", "%unicode 2.0\n%ignorecase", "\"" + DESERET + "k\""),
         jlexSpec("unicode2_caseless_jlex_char", "%unicode 2.0\n%ignorecase", DESERET),
@@ -177,9 +174,6 @@ public class SpecCharRangeTest {
     assertRejected(name, jlex, directives, regExp);
   }
 
-  @Disabled(
-      "JFlex bug: a character in a regular expression that is outside of the character set of the"
-          + " spec is not reported as an error.")
   @ParameterizedTest(name = "{0}")
   @MethodSource("notYetRejected")
   public void outsideOfCharSet_notYetRejected(
