@@ -4,7 +4,6 @@
  */
 package jflex.core;
 
-import java.io.File;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 
@@ -25,10 +24,9 @@ public final class SemCheck {
    * <p>Currently checks for empty expressions only.
    *
    * @param rs the reg exps to be checked
-   * @param f the spec file containing the rules
    * @param out the output of this generator run
    */
-  public static void check(RegExps rs, File f, Out out) {
+  public static void check(RegExps rs, Out out) {
     int num = rs.getNum();
     for (int i = 0; i < num; i++) {
       RegExp r = rs.getRegExp(i);
@@ -40,13 +38,13 @@ public final class SemCheck {
           if (a == null) {
             out.error(ErrorMessages.EMPTY_MATCH_LOOK);
           } else {
-            out.error(f, ErrorMessages.EMPTY_MATCH_LOOK, a.priority - 1, -1);
+            out.error(a.file, ErrorMessages.EMPTY_MATCH_LOOK, a.line - 1, -1);
           }
         } else {
           if (a == null) {
             out.warning(ErrorMessages.EMPTY_MATCH);
           } else {
-            out.warning(f, ErrorMessages.EMPTY_MATCH, a.priority - 1, -1);
+            out.warning(a.file, ErrorMessages.EMPTY_MATCH, a.line - 1, -1);
           }
         }
       }

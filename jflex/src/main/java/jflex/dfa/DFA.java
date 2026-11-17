@@ -635,7 +635,7 @@ public class DFA {
 
     for (Action a : scanner.actions())
       if (!Objects.equals(a, usedActions.get(a)) && !eofActions.isEOFAction(a))
-        scanner.out().warning(scanner.file(), ErrorMessages.NEVER_MATCH, a.priority - 1, -1);
+        scanner.out().warning(a.file, ErrorMessages.NEVER_MATCH, a.line - 1, -1);
   }
 
   /**

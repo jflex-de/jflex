@@ -12,20 +12,16 @@ import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
 import java.io.IOException;
 import java.io.StringReader;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test for the order of rules across a {@code %include} in the rules section. The rules of the
- * included file are at the position of the {@code %include}. If more than one rule matches the
- * longest text, the first rule in that order should take precedence.
+ * Test for the precedence of rules across a {@code %include} in the rules section.
  *
  * <p>The spec includes {@code order-rules.inc.jflex} between its rules {@code "abc"} and {@code
  * "def"}. The included rule {@code [ad][be]{LETTER}} overlaps both. The included rule {@code "abc"}
  * can never match, and neither can {@code "def"}. Check for warning and correct line number
  * reporting.
  */
-@Disabled("TODO: JFlex bug. With %include, rule priority is the line number in the included file")
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/include_in_rules/IncludeInRulesOrder.flex",
     // never-match warnings for the included "abc" and for "def"
