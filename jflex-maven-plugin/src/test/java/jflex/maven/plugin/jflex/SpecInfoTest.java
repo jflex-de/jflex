@@ -5,7 +5,7 @@
  */
 package jflex.maven.plugin.jflex;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import org.junit.jupiter.api.Test;
@@ -14,12 +14,12 @@ public class SpecInfoTest {
   @Test
   public void testGetOutputFilename() {
     SpecInfo clazz = new SpecInfo("Bar", "org.foo");
-    assertThat(new File(clazz.getOutputFilename())).isEqualTo(new File("org/foo/Bar.java"));
+    assertEquals(new File("org/foo/Bar.java"), new File(clazz.getOutputFilename()));
   }
 
   @Test
   public void testGetOutputFilename_defaultPackage() {
     SpecInfo clazz = new SpecInfo("Bar", null);
-    assertThat(new File(clazz.getOutputFilename())).isEqualTo(new File("Bar.java"));
+    assertEquals(new File("Bar.java"), new File(clazz.getOutputFilename()));
   }
 }

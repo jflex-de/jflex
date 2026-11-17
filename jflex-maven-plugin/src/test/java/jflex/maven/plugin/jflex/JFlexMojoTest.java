@@ -5,13 +5,10 @@
  */
 package jflex.maven.plugin.jflex;
 
-import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertWithMessage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.google.common.base.Predicate;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +20,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.maven.api.plugin.testing.InjectMojo;
@@ -101,7 +99,7 @@ public class JFlexMojoTest {
     executeClean(mojo);
 
     File produced = getExpectedOutputFile(mojo);
-    assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
+    assertTrue(produced.isFile(), "produced file is a file: " + produced);
 
     long size = produced.length();
     /*
@@ -110,9 +108,7 @@ public class JFlexMojoTest {
      * Windows platform ("\r\n") than on a Unix platform ("\n").
      */
     boolean correctSize = (size > 26624) && (size < 36696);
-    assertWithMessage("size of produced file between 26k and 36k. Actual is " + size)
-        .that(correctSize)
-        .isTrue();
+    assertTrue(correctSize, "size of produced file between 26k and 36k. Actual is " + size);
   }
 
   /** Tests configuration with a single input directory. */
@@ -122,7 +118,7 @@ public class JFlexMojoTest {
     executeClean(mojo);
 
     File produced = getExpectedOutputFile(mojo);
-    assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
+    assertTrue(produced.isFile(), "produced file is a file: " + produced);
   }
 
   /** Tests configuration with a single input directory containing sub directories. */
@@ -132,7 +128,7 @@ public class JFlexMojoTest {
     executeClean(mojo);
 
     File produced = getExpectedOutputFile(mojo);
-    assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
+    assertTrue(produced.isFile(), "produced file is a file: " + produced);
   }
 
   /** A {@code %suppress all} in one spec does not suppress warnings in the next spec. */
@@ -212,12 +208,8 @@ public class JFlexMojoTest {
 
     File firstProduced = getExpectedOutputFile(first);
     File secondProduced = getExpectedOutputFile(second);
-    assertWithMessage("produced file is a file: " + firstProduced)
-        .that(firstProduced.isFile())
-        .isTrue();
-    assertWithMessage("produced file is a file: " + secondProduced)
-        .that(secondProduced.isFile())
-        .isTrue();
+    assertTrue(firstProduced.isFile(), "produced file is a file: " + firstProduced);
+    assertTrue(secondProduced.isFile(), "produced file is a file: " + secondProduced);
     assertFalse(firstProduced.equals(secondProduced));
   }
 
@@ -243,10 +235,10 @@ public class JFlexMojoTest {
   @Test
   public void extensionPredicate() {
     Predicate<File> predicate = new JFlexMojo.ExtensionPredicate("bar", "baz");
-    assertThat(predicate.apply(new File("/tmp/foo.bar"))).isTrue();
-    assertThat(predicate.apply(new File("/tmp/foo.baz"))).isTrue();
-    assertThat(predicate.apply(new File("/tmp/foo.bar.too"))).isFalse();
-    assertThat(predicate.apply(new File("/tmp/foo.blahblahbar"))).isFalse();
+    assertTrue(predicate.test(new File("/tmp/foo.bar")));
+    assertTrue(predicate.test(new File("/tmp/foo.baz")));
+    assertFalse(predicate.test(new File("/tmp/foo.bar.too")));
+    assertFalse(predicate.test(new File("/tmp/foo.blahblahbar")));
   }
 
   /**
