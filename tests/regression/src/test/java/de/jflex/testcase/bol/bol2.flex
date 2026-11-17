@@ -10,7 +10,6 @@ package de.jflex.testcase.bol;
 %public
 %class Bol2Scanner
 %type State
-%debug
 
 %unicode
 

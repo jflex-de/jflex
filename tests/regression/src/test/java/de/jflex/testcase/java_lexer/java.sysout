@@ -1,0 +1,5 @@
+
+Warning in file "src/test/java/de/jflex/testcase/java_lexer/java.flex" (line 314): 
+".|\n" does not match all characters, because "." excludes all Unicode newline chars - use "[^]" instead
+.|\n                             { throw new RuntimeException("Illegal character \""+yytext()+
+^
