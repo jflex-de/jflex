@@ -11,20 +11,16 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import jflex.base.Build;
 import jflex.base.IntPair;
 import jflex.chars.Interval;
 import jflex.core.unicode.CharClasses;
 import jflex.core.unicode.IntCharSet;
-import jflex.exceptions.GeneratorException;
 import jflex.logging.Out;
 import jflex.option.Options;
-import jflex.state.StateSet;
-import jflex.state.StateSetEnumerator;
 
 /**
  * Non-deterministic finite automata representation in JFlex.
@@ -37,16 +33,26 @@ import jflex.state.StateSetEnumerator;
 public final class NFA {
 
   /**
-   * table[current_state][next_char] is the set of states that can be reached from current_state
-   * with an input next_char
+   * {@code transitions[state][0..numTransitions[state]-1]} are the transitions of {@code state} on
+   * inputs, each one as {@code (input << 32) | target}, see {@link #input(long)} and {@link
+   * #target(long)}. In no particular order, and the same transition can be there more than once.
+   * {@code null} if the state never had a transition.
+   *
+   * <p>Most states have very few transitions, and the NFA can have a lot of states: a table of all
+   * states and inputs, or a bit set of target states per transition, is far too large.
    */
-  private StateSet[][] table;
+  private long[][] transitions;
+
+  private int[] numTransitions;
 
   /**
-   * epsilon[current_state] is the set of states that can be reached from current_state via epsilon
-   * edges
+   * {@code epsilon[state][0..numEpsilon[state]-1]} are the states that can be reached from {@code
+   * state} via one epsilon edge. In no particular order, and the same state can be there more than
+   * once. {@code null} if the state never had an epsilon edge.
    */
-  private StateSet[] epsilon;
+  private int[][] epsilon;
+
+  private int[] numEpsilon;
 
   /** isFinal[state] == true <=> state is a final state of the NFA */
   private boolean[] isFinal;
@@ -69,19 +75,12 @@ public final class NFA {
    */
   private int numLexStates;
 
-  /** estimated size of the NFA (before actual construction) */
-  private final int estSize;
-
   private CharClasses classes;
 
   private LexScan scanner;
   private final Options options;
   private final Out out;
   private RegExps regExps;
-
-  // will be reused by several methods (avoids excessive object creation)
-  private final StateSetEnumerator states = new StateSetEnumerator();
-  private final StateSet tempStateSet = new StateSet();
 
   /**
    * Constructor for NFA.
@@ -93,12 +92,13 @@ public final class NFA {
     this.options = options;
     this.out = out;
     this.numInput = numInput;
-    this.estSize = estSize;
     numStates = 0;
-    epsilon = new StateSet[estSize];
+    epsilon = new int[estSize][];
+    numEpsilon = new int[estSize];
     action = new Action[estSize];
     isFinal = new boolean[estSize];
-    table = new StateSet[estSize][numInput];
+    transitions = new long[estSize][];
+    numTransitions = new int[estSize];
   }
 
   /**
@@ -132,8 +132,53 @@ public final class NFA {
     numStates = new_num;
   }
 
-  public StateSet epsilon(int i) {
-    return epsilon[i];
+  /** Returns the input of a transition in {@link #transitions(int)}. */
+  public static int input(long transition) {
+    return (int) (transition >>> 32);
+  }
+
+  /** Returns the target state of a transition in {@link #transitions(int)}. */
+  public static int target(long transition) {
+    return (int) transition;
+  }
+
+  /**
+   * Returns the number of transitions on inputs of the state, where transitions that were added
+   * more than once count more than once.
+   */
+  public int numTransitions(int state) {
+    return numTransitions[state];
+  }
+
+  /**
+   * Returns the transitions on inputs of the state.
+   *
+   * @return an array where the first {@link #numTransitions(int)} elements are the transitions,
+   *     with {@link #input(long)} and {@link #target(long)}. They are in no particular order, and
+   *     the same transition can be there more than once. The array must not be changed, and is only
+   *     valid until the NFA changes. Can be null if there are no transitions.
+   */
+  public long[] transitions(int state) {
+    return transitions[state];
+  }
+
+  /**
+   * Returns the number of epsilon edges of the state, where edges that were added more than once
+   * count more than once.
+   */
+  public int numEpsilon(int state) {
+    return numEpsilon[state];
+  }
+
+  /**
+   * Returns the states that can be reached from the state via one epsilon edge.
+   *
+   * @return an array where the first {@link #numEpsilon(int)} elements are the states. They are in
+   *     no particular order, and the same state can be there more than once. The array must not be
+   *     changed, and is only valid until the NFA changes. Can be null if there are no edges.
+   */
+  public int[] epsilon(int state) {
+    return epsilon[state];
   }
 
   public int numEntryStates() {
@@ -152,17 +197,14 @@ public final class NFA {
     return numStates;
   }
 
-  /** Returns the set of states that can be reached from currentState with an input nextChar. */
-  public StateSet reachableStates(int currentState, int nextChar) {
-    return table[currentState][nextChar];
+  /** Returns true iff the state is a final state of the NFA. */
+  public boolean isFinal(int state) {
+    return isFinal[state];
   }
 
-  public StateSetEnumerator states() {
-    return states;
-  }
-
-  public StateSet tempStateSet() {
-    return tempStateSet;
+  /** Returns the action of the state, null if it has none. */
+  public Action action(int state) {
+    return action[state];
   }
 
   /**
@@ -296,20 +338,12 @@ public final class NFA {
 
     int newStatesLength = Math.max(oldLength * 2, newNumStates);
 
-    boolean[] newFinal = new boolean[newStatesLength];
-    Action[] newAction = new Action[newStatesLength];
-    StateSet[][] newTable = new StateSet[newStatesLength][numInput];
-    StateSet[] newEpsilon = new StateSet[newStatesLength];
-
-    System.arraycopy(isFinal, 0, newFinal, 0, numStates);
-    System.arraycopy(action, 0, newAction, 0, numStates);
-    System.arraycopy(epsilon, 0, newEpsilon, 0, numStates);
-    System.arraycopy(table, 0, newTable, 0, numStates);
-
-    isFinal = newFinal;
-    action = newAction;
-    epsilon = newEpsilon;
-    table = newTable;
+    isFinal = Arrays.copyOf(isFinal, newStatesLength);
+    action = Arrays.copyOf(action, newStatesLength);
+    epsilon = Arrays.copyOf(epsilon, newStatesLength);
+    numEpsilon = Arrays.copyOf(numEpsilon, newStatesLength);
+    transitions = Arrays.copyOf(transitions, newStatesLength);
+    numTransitions = Arrays.copyOf(numTransitions, newStatesLength);
   }
 
   public void addTransition(int start, int input, int dest) {
@@ -325,8 +359,15 @@ public final class NFA {
 
     if (maxS > numStates) numStates = maxS;
 
-    if (table[start][input] != null) table[start][input].addState(dest);
-    else table[start][input] = new StateSet(estSize, dest);
+    long[] t = transitions[start];
+    int n = numTransitions[start];
+    if (t == null) {
+      t = transitions[start] = new long[1];
+    } else if (n == t.length) {
+      t = transitions[start] = Arrays.copyOf(t, 2 * n);
+    }
+    t[n] = ((long) input << 32) | dest;
+    numTransitions[start] = n + 1;
   }
 
   public void addEpsilonTransition(int start, int dest) {
@@ -334,114 +375,43 @@ public final class NFA {
     ensureCapacity(max);
     if (max > numStates) numStates = max;
 
-    if (epsilon[start] != null) epsilon[start].addState(dest);
-    else epsilon[start] = new StateSet(estSize, dest);
-  }
-
-  /**
-   * Returns {@code true}, iff the specified set of states contains a final state.
-   *
-   * @param set the set of states that is tested for final states.
-   */
-  public boolean containsFinal(StateSet set) {
-    states.reset(set);
-
-    while (states.hasMoreElements()) if (isFinal[states.nextElement()]) return true;
-
-    return false;
-  }
-
-  /**
-   * Returns the action with highest priority in the specified set of states.
-   *
-   * @param set the set of states for which to determine the action
-   */
-  public Action getAction(StateSet set) {
-
-    states.reset(set);
-
-    Action maxAction = null;
-
-    Out.debug("Determining action of : " + set);
-
-    while (states.hasMoreElements()) {
-
-      Action currentAction = action[states.nextElement()];
-
-      if (currentAction != null) {
-        if (maxAction == null) maxAction = currentAction;
-        else maxAction = maxAction.getHigherPriority(currentAction);
-      }
+    int[] e = epsilon[start];
+    int n = numEpsilon[start];
+    if (e == null) {
+      e = epsilon[start] = new int[2];
+    } else if (n == e.length) {
+      e = epsilon[start] = Arrays.copyOf(e, 2 * n);
     }
-
-    return maxAction;
+    e[n] = dest;
+    numEpsilon[start] = n + 1;
   }
 
-  /**
-   * Calculates the epsilon closure for a specified set of states.
-   *
-   * <p>The epsilon closure for set a is the set of states that can be reached by epsilon edges from
-   * a.
-   *
-   * @param startState the start state for the set of states to calculate the epsilon closure for
-   * @return the epsilon closure of the specified set of states in this NFA
-   */
-  private StateSet closure(int startState) {
-
-    // Out.debug("Calculating closure of "+set);
-
-    StateSet notvisited = tempStateSet;
-    StateSet closure = new StateSet(numStates, startState);
-
-    notvisited.clear();
-    notvisited.addState(startState);
-
-    while (notvisited.containsElements()) {
-      // Out.debug("closure is now "+closure);
-      // Out.debug("notvisited is "+notvisited);
-      int state = notvisited.getAndRemoveElement();
-      // Out.debug("removed element "+state+" of "+notvisited);
-      // Out.debug("epsilon[states] = "+epsilon[state]);
-      notvisited.add(closure.complement(epsilon[state]));
-      closure.add(epsilon[state]);
-    }
-
-    // Out.debug("Closure is : "+closure);
-
-    return closure;
+  /** Returns the distinct transitions on inputs of the state, by input and then by target. */
+  private long[] sortedTransitions(int state) {
+    return sortedDistinct(
+        numTransitions[state] == 0
+            ? new long[0]
+            : Arrays.copyOf(transitions[state], numTransitions[state]));
   }
 
-  public void epsilonFill() {
-    for (int i = 0; i < numStates; i++) {
-      epsilon[i] = closure(i);
-    }
-  }
-
-  /**
-   * Calculates the set of states that can be reached from another set of states {@code start} with
-   * an specified input character {@code input}
-   *
-   * @param start the set of states to start from
-   * @param input the input character for which to search the next states
-   * @return the set of states that are reached from {@code start</code> via <code>input}
-   */
-  private StateSet DFAEdge(StateSet start, int input) {
-    // Out.debug(String.format("Calculating DFAEdge for state set "+start+" and input U+04X"),
-    // input);
-
-    tempStateSet.clear();
-
-    states.reset(start);
-    while (states.hasMoreElements()) tempStateSet.add(table[states.nextElement()][input]);
-
-    StateSet result = new StateSet(tempStateSet);
-
-    states.reset(tempStateSet);
-    while (states.hasMoreElements()) result.add(epsilon[states.nextElement()]);
-
-    // Out.debug("DFAEdge is : "+result);
-
+  /** Returns the distinct states with an epsilon edge from the state, in ascending order. */
+  private int[] sortedEpsilon(int state) {
+    long[] sorted = new long[numEpsilon[state]];
+    for (int i = 0; i < sorted.length; i++) sorted[i] = epsilon[state][i];
+    sorted = sortedDistinct(sorted);
+    int[] result = new int[sorted.length];
+    for (int i = 0; i < result.length; i++) result[i] = (int) sorted[i];
     return result;
+  }
+
+  /** Sorts the array and returns it without duplicates. */
+  private static long[] sortedDistinct(long[] values) {
+    Arrays.sort(values);
+    int n = 0;
+    for (int i = 0; i < values.length; i++) {
+      if (i == 0 || values[i] != values[i - 1]) values[n++] = values[i];
+    }
+    return n == values.length ? values : Arrays.copyOf(values, n);
   }
 
   public void dumpTable() {
@@ -465,18 +435,26 @@ public final class NFA {
       }
       result.append(" ").append(i).append(Out.NL);
 
-      for (int input = 0; input < numInput; input++) {
-        if (table[i][input] != null && table[i][input].containsElements())
-          result
-              .append("  with ")
-              .append(input)
-              .append(" in ")
-              .append(table[i][input])
-              .append(Out.NL);
+      long[] sorted = sortedTransitions(i);
+      for (int from = 0; from < sorted.length; ) {
+        // all targets of one input
+        int input = input(sorted[from]);
+        result.append("  with ").append(input).append(" in {").append(target(sorted[from++]));
+        while (from < sorted.length && input(sorted[from]) == input) {
+          result.append(", ").append(target(sorted[from++]));
+        }
+        result.append("}").append(Out.NL);
       }
 
-      if (epsilon[i] != null && epsilon[i].containsElements())
-        result.append("  with epsilon in ").append(epsilon[i]).append(Out.NL);
+      if (numEpsilon[i] > 0) {
+        result.append("  with epsilon in {");
+        String separator = "";
+        for (int s : sortedEpsilon(i)) {
+          result.append(separator).append(s);
+          separator = ", ";
+        }
+        result.append("}").append(Out.NL);
+      }
     }
 
     return result.toString();
@@ -511,22 +489,16 @@ public final class NFA {
     }
 
     for (int i = 0; i < numStates; i++) {
-      for (int input = 0; input < numInput; input++) {
-        if (table[i][input] != null) {
-          for (int s : table[i][input]) {
-            result.append(i).append(" -> ").append(s);
-            result
-                .append(" [label=\"")
-                .append(classes.toString(input))
-                .append("\"]")
-                .append(Out.NL);
-          }
-        }
+      for (long transition : sortedTransitions(i)) {
+        result.append(i).append(" -> ").append(target(transition));
+        result
+            .append(" [label=\"")
+            .append(classes.toString(input(transition)))
+            .append("\"]")
+            .append(Out.NL);
       }
-      if (epsilon[i] != null) {
-        for (int s : epsilon[i]) {
-          result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(Out.NL);
-        }
+      for (int s : sortedEpsilon(i)) {
+        result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(Out.NL);
       }
     }
 
@@ -598,68 +570,40 @@ public final class NFA {
 
     int dfaStart = nfa.end() + 1;
 
-    epsilonFill();
+    // The DFA of the positive regexp. Only what is reachable from nfa.start() matters, and the
+    // states of the DFA are added to this NFA when the DFA is complete: the subset construction
+    // needs an NFA that does not change.
 
-    Map<StateSet, Integer> dfaStates = new HashMap<>(numStates);
-    List<StateSet> dfaList = new ArrayList<>(numStates);
+    // dfaTable.get(s)[input] is the DFA state after s with input, -1 if there is none
+    List<int[]> dfaTable = new ArrayList<>();
+    // dfaFinal.get(s) iff the DFA state s contains nfa.end()
+    List<Boolean> dfaFinal = new ArrayList<>();
 
-    int numDFAStates = 0;
-    int currentDFAState = 0;
+    SubsetConstruction construction =
+        new SubsetConstruction(
+            this,
+            new SubsetConstruction.Target() {
+              @Override
+              public void state(int state, int[] nfaStates) {
+                if (state > 0 && options.dump()) out.print("+");
 
-    StateSet currentState, newState;
+                int[] row = new int[numInput];
+                Arrays.fill(row, -1);
+                dfaTable.add(row);
+                dfaFinal.add(Arrays.binarySearch(nfaStates, nfa.end()) >= 0);
+              }
 
-    newState = epsilon[nfa.start()];
-    dfaStates.put(newState, numDFAStates);
-    dfaList.add(newState);
+              @Override
+              public void transition(int from, int input, int to) {
+                dfaTable.get(from)[input] = to;
+              }
+            },
+            nfa.end());
+    construction.addEntryState(nfa.start());
+    construction.run();
 
-    if (Build.DEBUG) {
-      Out.debug(
-          "pos DFA start state is :"
-              + Out.NL
-              + dfaStates
-              + Out.NL
-              + Out.NL
-              + "ordered :"
-              + Out.NL
-              + dfaList);
-    }
-
-    while (currentDFAState <= numDFAStates) {
-
-      currentState = dfaList.get(currentDFAState);
-
-      for (int input = 0; input < numInput; input++) {
-        newState = DFAEdge(currentState, input);
-
-        if (newState.containsElements()) {
-
-          // Out.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is
-          // "+newState);
-
-          // Out.debug("Looking for state set "+newState);
-          Integer nextDFAState = dfaStates.get(newState);
-
-          if (nextDFAState != null) {
-            // Out.debug("FOUND!");
-            addTransition(dfaStart + currentDFAState, input, dfaStart + nextDFAState);
-          } else {
-            if (options.dump()) {
-              out.print("+");
-              // Out.debug("NOT FOUND!");
-              // Out.debug("Table was "+dfaStates);
-            }
-            numDFAStates++;
-
-            dfaStates.put(newState, numDFAStates);
-            dfaList.add(newState);
-
-            addTransition(dfaStart + currentDFAState, input, dfaStart + numDFAStates);
-          }
-        }
-      }
-
-      currentDFAState++;
-    }
+    // the number of the last DFA state
+    int numDFAStates = dfaTable.size() - 1;
 
     // We have a dfa accepting the positive regexp.
 
@@ -679,17 +623,17 @@ public final class NFA {
     addEpsilonTransition(error, end);
 
     for (int s = 0; s <= numDFAStates; s++) {
-      currentState = dfaList.get(s);
-
-      currentDFAState = dfaStart + s;
+      int currentDFAState = dfaStart + s;
 
       // if it was not a final state, it is now in the complement
-      if (!currentState.hasElement(nfa.end())) addEpsilonTransition(currentDFAState, end);
+      if (!dfaFinal.get(s)) addEpsilonTransition(currentDFAState, end);
 
       // all inputs not present (formerly leading to an implicit error)
       // now lead to an explicit (final) state accepting everything.
-      for (int i = 0; i < numInput; i++)
-        if (table[currentDFAState][i] == null) addTransition(currentDFAState, i, error);
+      int[] row = dfaTable.get(s);
+      for (int i = 0; i < numInput; i++) {
+        addTransition(currentDFAState, i, row[i] >= 0 ? dfaStart + row[i] : error);
+      }
     }
 
     // eliminate transitions that cannot reach final states
@@ -723,72 +667,92 @@ public final class NFA {
       Out.debug("removeDead (" + start + "," + end + ") " + Out.NL + this);
     }
 
-    StateSet notvisited = tempStateSet;
-    StateSet reachable = new StateSet(numStates, start);
+    // All states in question are in [start,end], state s has the index s - start below.
+    int n = end - start + 1;
 
-    notvisited.clear();
-    notvisited.addState(start);
+    // the states that are reachable from start, and a stack of those among them that have not been
+    // expanded yet
+    boolean[] reachable = new boolean[n];
+    int[] stack = new int[n];
+    int top = 0;
 
-    while (notvisited.containsElements()) {
-      int state = notvisited.getAndRemoveElement();
-      notvisited.add(reachable.complement(epsilon[state]));
-      reachable.add(epsilon[state]);
-      for (int i = 0; i < numInput; i++) {
-        notvisited.add(reachable.complement(table[state][i]));
-        reachable.add(table[state][i]);
-      }
-    }
+    reachable[0] = true;
+    stack[top++] = start;
 
-    if (Build.DEBUG) {
-      Out.debug("reachable states " + reachable);
-    }
+    // The edges between reachable states in reverse: the states with an edge to state t are
+    // pred[predStart[t-start]] .. pred[predStart[t-start+1]-1]. First count them, then fill.
+    int[] predStart = new int[n + 1];
 
-    StateSet live = new StateSet(numStates, end);
-    boolean changed = true;
-
-    // compute all live states
-    while (changed) {
-      changed = false;
-      Out.debug("live: " + live);
-      StateSet complement = live.complement(reachable);
-      if (complement == null) throw new GeneratorException(new NullPointerException(), true);
-      for (int s : complement) {
-        for (int i = 0; i < numInput; i++) {
-          if (table[s][i] != null) {
-            for (int state : table[s][i]) {
-              if (live.hasElement(state)) {
-                changed = true;
-                live.addState(s);
-              }
-            }
-          }
-        }
-        if (epsilon[s] != null) {
-          for (int state : epsilon[s]) {
-            if (live.hasElement(state)) {
-              changed = true;
-              live.addState(s);
-            }
-          }
+    while (top > 0) {
+      int state = stack[--top];
+      for (int i = 0; i < numTransitions[state] + numEpsilon[state]; i++) {
+        int t = successor(state, i);
+        predStart[t - start + 1]++;
+        if (!reachable[t - start]) {
+          reachable[t - start] = true;
+          stack[top++] = t;
         }
       }
     }
 
-    if (Build.DEBUG) {
-      Out.debug("live states: " + live);
+    for (int i = 0; i < n; i++) predStart[i + 1] += predStart[i];
+    int[] pred = new int[predStart[n]];
+    int[] next = Arrays.copyOf(predStart, n);
+    for (int state = start; state <= end; state++) {
+      if (!reachable[state - start]) continue;
+      for (int i = 0; i < numTransitions[state] + numEpsilon[state]; i++) {
+        pred[next[successor(state, i) - start]++] = state;
+      }
     }
 
-    // now remove all transitions to non-live states (unless everything is live)
-    if (!reachable.equals(live)) {
-      for (int s : reachable) {
-        for (int i = 0; i < numInput; i++) if (table[s][i] != null) table[s][i].intersect(live);
-        if (epsilon[s] != null) epsilon[s].intersect(live);
+    // the states that can reach end: search backwards from end
+    boolean[] live = new boolean[n];
+    if (reachable[end - start]) {
+      live[end - start] = true;
+      stack[top++] = end;
+    }
+    while (top > 0) {
+      int t = stack[--top] - start;
+      for (int i = predStart[t]; i < predStart[t + 1]; i++) {
+        int state = pred[i];
+        if (!live[state - start]) {
+          live[state - start] = true;
+          stack[top++] = state;
+        }
       }
+    }
+
+    // now remove all transitions to non-live states
+    for (int state = start; state <= end; state++) {
+      if (!reachable[state - start]) continue;
+
+      long[] t = transitions[state];
+      int kept = 0;
+      for (int i = 0; i < numTransitions[state]; i++) {
+        if (live[target(t[i]) - start]) t[kept++] = t[i];
+      }
+      numTransitions[state] = kept;
+
+      int[] e = epsilon[state];
+      kept = 0;
+      for (int i = 0; i < numEpsilon[state]; i++) {
+        if (live[e[i] - start]) e[kept++] = e[i];
+      }
+      numEpsilon[state] = kept;
     }
 
     if (Build.DEBUG) {
       Out.debug("Removed dead states " + Out.NL + this);
     }
+  }
+
+  /**
+   * Returns the target of the i-th edge of the state, where the transitions on inputs come first
+   * and the epsilon edges after them.
+   */
+  private int successor(int state, int i) {
+    int n = numTransitions[state];
+    return i < n ? target(transitions[state][i]) : epsilon[state][i - n];
   }
 
   /**

@@ -127,8 +127,9 @@ public class DFA {
     Action[] newAction = new Action[newLength];
     int[][] newTable = new int[newLength][numInput];
 
-    System.arraycopy(isFinal, 0, newFinal, 0, numStates);
-    System.arraycopy(action, 0, newAction, 0, numStates);
+    // not only numStates: states can be final or have an action before they have a transition
+    System.arraycopy(isFinal, 0, newFinal, 0, oldLength);
+    System.arraycopy(action, 0, newAction, 0, oldLength);
     System.arraycopy(table, 0, newTable, 0, oldLength);
 
     int i, j;
@@ -152,6 +153,7 @@ public class DFA {
    * @param stateAction a {@link Action} object.
    */
   public void setAction(int state, Action stateAction) {
+    ensureStateCapacity(state + 1);
     action[state] = stateAction;
     if (stateAction != null) {
       usedActions.put(stateAction, stateAction);
@@ -167,6 +169,7 @@ public class DFA {
    * @param isFinalState a boolean.
    */
   public void setFinal(int state, boolean isFinalState) {
+    ensureStateCapacity(state + 1);
     isFinal[state] = isFinalState;
     minimized = false;
   }
