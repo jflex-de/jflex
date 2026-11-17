@@ -5,6 +5,7 @@
 
 package jflex.core;
 
+import java.io.File;
 import java.util.Objects;
 import jflex.exceptions.GeneratorException;
 import jflex.logging.Out;
@@ -12,7 +13,8 @@ import jflex.logging.Out;
 /**
  * Encapsulates an action in the specification.
  *
- * <p>It stores the Java code as String together with a priority (line number in the specification).
+ * <p>It stores the Java code as String together with a priority (the nth action in the spec has
+ * priority n), and the file and line number of the action for messages.
  *
  * @author Gerwin Klein
  * @version JFlex 1.10.0-SNAPSHOT
@@ -32,8 +34,20 @@ public final class Action {
   /** The Java code this Action represents */
   public final String content;
 
-  /** The priority (i.e. line number in the specification) of this Action. */
+  /**
+   * The priority of this Action. The nth action in the spec (including from include files) has
+   * priority n.
+   */
   public final int priority;
+
+  /** The file this Action is in, and {@code null} if it is not from a file, for error reporting. */
+  public final File file;
+
+  /**
+   * The line number of this Action in {@link #file}, counted from 1, for error reporting. It is -1
+   * if the action is not from a file.
+   */
+  public final int line;
 
   /**
    * Which kind of action this is. (normal, {@code a/b} with fixed length a, fixed length b, etc)
@@ -47,13 +61,39 @@ public final class Action {
   private int entryState;
 
   /**
-   * Creates a new Action object with specified content and line number.
+   * Creates a new Action object for a default fall-back rule. It has the lowest priority ({@code
+   * Integer.MAX_VALUE}).
    *
    * @param content java code
-   * @param priority line number
+   */
+  public Action(String content) {
+    this(content, Integer.MAX_VALUE);
+  }
+
+  /**
+   * Creates a new Action object that is not from a specification file. It has no file ({@code
+   * null}) and line number -1.
+   *
+   * @param content java code
+   * @param priority the priority, smaller is higher
    */
   public Action(String content, int priority) {
+    this(content, null, -1, priority);
+  }
+
+  /**
+   * Creates a new Action object with specified content, position in the specification for error
+   * reporting, and priority.
+   *
+   * @param content java code
+   * @param file the file the action is in
+   * @param line the line number of the action in that file, counted from 1
+   * @param priority the position of the action in the order of the rules, smaller is higher
+   */
+  public Action(String content, File file, int line, int priority) {
     this.content = content.trim();
+    this.file = file;
+    this.line = line;
     this.priority = priority;
   }
 
@@ -68,6 +108,8 @@ public final class Action {
   public Action(Kind kind) {
     if (kind != Kind.FORWARD_ACTION && kind != Kind.BACKWARD_ACTION) throw new GeneratorException();
     this.content = "";
+    this.file = null;
+    this.line = -1;
     this.priority = Integer.MAX_VALUE;
     this.kind = kind;
   }
@@ -202,7 +244,7 @@ public final class Action {
    * @return a {@link Action} object.
    */
   public Action copyChoice(int length) {
-    Action a = new Action(this.content, this.priority);
+    Action a = new Action(this.content, this.file, this.line, this.priority);
     a.setLookAction(Kind.FINITE_CHOICE, length);
     return a;
   }

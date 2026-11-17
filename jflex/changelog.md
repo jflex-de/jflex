@@ -42,6 +42,7 @@
   are now explicitly reported as errors.
 - fix a generator crash for `[^]` with `%ignorecase` in JLex mode (`--jlex`)
   and Unicode versions before 3.0.
+- fix the priority of rules from `%include` files (#1183)
 
 ## [JFlex 1.9.1](https://github.com/jflex-de/jflex/milestone/21?closed=1) (Mar 11, 2023)
 
