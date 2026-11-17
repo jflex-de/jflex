@@ -5,12 +5,14 @@
 
 package jflex.maven.plugin.cup;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.endsWith;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
 import java.io.File;
+import java.util.Optional;
 import org.apache.maven.model.Model;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
@@ -46,20 +48,20 @@ public class GenerateMojoTest {
 
   @Test
   public void optionalJavaPackage() {
-    assertThat(mojo.optionalJavaPackage("package foo.bar;")).hasValue("foo.bar");
+    assertEquals(Optional.of("foo.bar"), mojo.optionalJavaPackage("package foo.bar;"));
   }
 
   @Test
   public void optionalJavaPackage_spaces() {
-    assertThat(mojo.optionalJavaPackage("package   foo.bar   ;")).hasValue("foo.bar");
+    assertEquals(Optional.of("foo.bar"), mojo.optionalJavaPackage("package   foo.bar   ;"));
   }
 
   @Test
   public void optionalJavaPackage_noPackage() {
-    // assertWithMessage("Only lines starting with `package are valid package declarations")
-    assertThat(mojo.optionalJavaPackage("hello world foo.bar;")).isAbsent();
-    // assertWithMessage("Only lines ending with `;` are valid package declarations")
-    assertThat(mojo.optionalJavaPackage("package foo.bar")).isAbsent();
+    // Only lines starting with `package` are valid package declarations.
+    assertFalse(mojo.optionalJavaPackage("hello world foo.bar;").isPresent());
+    // Only lines ending with `;` are valid package declarations.
+    assertFalse(mojo.optionalJavaPackage("package foo.bar").isPresent());
   }
 
   /** Test the correct invocation of the CUP command-line interface. */
