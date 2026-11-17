@@ -7,8 +7,7 @@ package de.jflex.testcase.buffer;
 
 import static java.util.stream.Collectors.joining;
 
-import com.google.common.io.CharSource;
-import java.io.IOException;
+import java.io.StringReader;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
@@ -26,10 +25,6 @@ public class BufferTest {
   }
 
   private static EatAllScanner createScanner(String content) {
-    try {
-      return new EatAllScanner(CharSource.wrap(content).openStream());
-    } catch (IOException impossible) {
-      throw new RuntimeException(impossible);
-    }
+    return new EatAllScanner(new StringReader(content));
   }
 }

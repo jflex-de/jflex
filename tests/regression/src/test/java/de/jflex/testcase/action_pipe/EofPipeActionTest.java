@@ -4,7 +4,7 @@
  */
 package de.jflex.testcase.action_pipe;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.util.scanner.ScannerFactory;
 import org.junit.jupiter.api.Test;
@@ -21,10 +21,10 @@ public class EofPipeActionTest {
   @Test
   public void tokenAtEOF() throws java.io.IOException {
     EofPipeAction scanner = scannerFactory.createScannerWithContent("ident\n\ntest");
-    assertThat(scanner.yylex()).isEqualTo(1);
-    assertThat(scanner.yylex()).isEqualTo(0);
-    assertThat(scanner.yylex()).isEqualTo(0);
-    assertThat(scanner.yylex()).isEqualTo(1);
-    assertThat(scanner.yylex()).isEqualTo(0);
+    assertEquals(1, scanner.yylex());
+    assertEquals(0, scanner.yylex());
+    assertEquals(0, scanner.yylex());
+    assertEquals(1, scanner.yylex());
+    assertEquals(0, scanner.yylex());
   }
 }

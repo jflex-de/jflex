@@ -5,11 +5,10 @@
 
 package de.jflex.testcase.caseless_jflex;
 
-import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.google.common.io.CharSource;
 import java.io.IOException;
+import java.io.StringReader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,78 +23,78 @@ public class CaselessJflexTest {
 
   @AfterEach
   public void endOfFile() throws Exception {
-    assertThat(scanner.yylex()).isEqualTo(State.END_OF_FILE);
+    assertEquals(State.END_OF_FILE, scanner.yylex());
   }
 
   @Test
   public void a() throws Exception {
     scanner = createScanner("a");
-    assertThat(scanner.yylex()).isEqualTo(State.A);
+    assertEquals(State.A, scanner.yylex());
   }
 
   @Test
   public void a_upper() throws Exception {
     scanner = createScanner("A");
-    assertWithMessage("'A' matches 'a' in caseless mode").that(scanner.yylex()).isEqualTo(State.A);
+    assertEquals(State.A, scanner.yylex(), "'A' matches 'a' in caseless mode");
   }
 
   @Test
   public void hello() throws Exception {
     // [a-z]+ has higher priority than "hello" in the rules
     scanner = createScanner("hello");
-    assertThat(scanner.yylex()).isEqualTo(State.WORD);
+    assertEquals(State.WORD, scanner.yylex());
   }
 
   @Test
   public void hello_mixedCase() throws Exception {
     // [a-z]+ has higher priority than the "hello" rule, but doesn't match "HelLo"
     scanner = createScanner("HelLo");
-    assertWithMessage("'HelLo' matches 'hello' in caseless mode")
-        .that(scanner.yylex())
-        .isEqualTo(State.HELLO);
+    assertEquals(State.HELLO, scanner.yylex(), "'HelLo' matches 'hello' in caseless mode");
   }
 
   @Test
   public void hello_within() throws Exception {
     scanner = createScanner("blubHELLObla");
-    assertThat(scanner.yylex()).isEqualTo(State.WORD);
-    assertThat(scanner.yylex()).isEqualTo(State.HELLO);
-    assertThat(scanner.yylex()).isEqualTo(State.WORD);
+    assertEquals(State.WORD, scanner.yylex());
+    assertEquals(State.HELLO, scanner.yylex());
+    assertEquals(State.WORD, scanner.yylex());
   }
 
   @Test
   public void hello_withinMixedCase() throws Exception {
     scanner = createScanner("sdfahelLobla");
-    assertThat(scanner.yylex()).isEqualTo(State.WORD); // sdfa
-    assertWithMessage("'helLo' is mixed case and doesn't match 'hello' in JFlex mode")
-        .that(scanner.yylex())
-        .isEqualTo(State.OTHER); // helLo
-    assertThat(scanner.yylex()).isEqualTo(State.WORD); // bla
+    assertEquals(State.WORD, scanner.yylex()); // sdfa
+    assertEquals(
+        State.OTHER,
+        scanner.yylex(),
+        "'helLo' is mixed case and doesn't match 'hello' in JFlex mode"); // helLo
+    assertEquals(State.WORD, scanner.yylex()); // bla
   }
 
   @Test
   public void hello_newline() throws Exception {
     scanner = createScanner("HELLO\n;");
-    assertThat(scanner.yylex()).isEqualTo(State.HELLO);
-    assertThat(scanner.yylex()).isEqualTo(State.NEW_LINE);
-    assertThat(scanner.yylex()).isEqualTo(State.OTHER);
+    assertEquals(State.HELLO, scanner.yylex());
+    assertEquals(State.NEW_LINE, scanner.yylex());
+    assertEquals(State.OTHER, scanner.yylex());
   }
 
   @Test
   public void other() throws Exception {
     scanner = createScanner("asd123hello;qwe");
-    assertWithMessage("'asd' is word").that(scanner.yylex()).isEqualTo(State.WORD);
-    assertWithMessage("'1' is other").that(scanner.yylex()).isEqualTo(State.OTHER); // 1
-    assertWithMessage("'2' is other").that(scanner.yylex()).isEqualTo(State.OTHER); // 2
-    assertWithMessage("'3' is other").that(scanner.yylex()).isEqualTo(State.OTHER); // 3
-    assertWithMessage("'hello' is concatenated and doesn't create a HELLO qqtoken in that case")
-        .that(scanner.yylex())
-        .isEqualTo(State.WORD);
-    assertWithMessage("';' is other").that(scanner.yylex()).isEqualTo(State.OTHER);
-    assertThat(scanner.yylex()).isEqualTo(State.WORD); // qwe
+    assertEquals(State.WORD, scanner.yylex(), "'asd' is word");
+    assertEquals(State.OTHER, scanner.yylex(), "'1' is other"); // 1
+    assertEquals(State.OTHER, scanner.yylex(), "'2' is other"); // 2
+    assertEquals(State.OTHER, scanner.yylex(), "'3' is other"); // 3
+    assertEquals(
+        State.WORD,
+        scanner.yylex(),
+        "'hello' is concatenated and doesn't create a HELLO qqtoken in that case");
+    assertEquals(State.OTHER, scanner.yylex(), "';' is other");
+    assertEquals(State.WORD, scanner.yylex()); // qwe
   }
 
   private static CaselessScanner createScanner(String input) throws IOException {
-    return new CaselessScanner(CharSource.wrap(input).openStream());
+    return new CaselessScanner(new StringReader(input));
   }
 }

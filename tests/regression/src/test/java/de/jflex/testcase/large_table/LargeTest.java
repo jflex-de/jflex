@@ -5,7 +5,7 @@
 
 package de.jflex.testcase.large_table;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.util.scanner.ScannerFactory;
 import org.junit.jupiter.api.Test;
@@ -19,10 +19,10 @@ public class LargeTest {
     // ((a|b)*b.{10}){3}
     Large scanner =
         scannerFactory.createScannerWithContent("xababbbbbbbbbbbabbbbbbbbbbbbababbbbbbbbbbbazaz");
-    assertThat(scanner.yylex()).isEqualTo(0);
-    assertThat(scanner.yytext()).isEqualTo("x");
-    assertThat(scanner.yylex()).isEqualTo(1);
-    assertThat(scanner.yytext()).isEqualTo("ababbbbbbbbbbbabbbbbbbbbbbbababbbbbbbbbbbazaz");
-    assertThat(scanner.yylex()).isEqualTo(-1);
+    assertEquals(0, scanner.yylex());
+    assertEquals("x", scanner.yytext());
+    assertEquals(1, scanner.yylex());
+    assertEquals("ababbbbbbbbbbbabbbbbbbbbbbbababbbbbbbbbbbazaz", scanner.yytext());
+    assertEquals(-1, scanner.yylex());
   }
 }

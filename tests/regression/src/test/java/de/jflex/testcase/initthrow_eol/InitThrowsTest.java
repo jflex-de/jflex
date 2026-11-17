@@ -9,9 +9,9 @@ package de.jflex.testcase.initthrow_eol;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.google.common.io.CharSource;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -23,7 +23,7 @@ public class InitThrowsTest {
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test
   public void canInstantiateScanner() throws Exception {
-    new Initthrow(CharSource.wrap("").openStream());
+    new Initthrow(new StringReader(""));
   }
 
   /**
@@ -32,7 +32,7 @@ public class InitThrowsTest {
    */
   @Test
   public void canInstantiateScanner_throwsInInit() throws Exception {
-    Reader reader = CharSource.wrap("").openStream();
+    Reader reader = new StringReader("");
     reader.close();
     assertThrows(IOException.class, () -> new Initthrow(reader));
   }

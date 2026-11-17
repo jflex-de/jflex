@@ -5,10 +5,11 @@
 
 package de.jflex.testcase.large_input;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.google.common.io.CharSource;
+import java.io.BufferedReader;
 import java.io.Reader;
+import java.io.StringReader;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -30,11 +31,11 @@ public class LargeInputTest {
     LargeInputScanner scanner = createScanner(largeContentReader);
     // Pretend we move close to MAX_INT
     scanner.fakeRead(Integer.MAX_VALUE - 2 * content.length());
-    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
-    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
-    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
-    assertThat(scanner.yylex()).isEqualTo(State.AFTER_2GB);
-    assertThat(scanner.yylex()).isEqualTo(State.END_OF_FILE);
+    assertEquals(State.BEFORE_2GB, scanner.yylex());
+    assertEquals(State.BEFORE_2GB, scanner.yylex());
+    assertEquals(State.BEFORE_2GB, scanner.yylex());
+    assertEquals(State.AFTER_2GB, scanner.yylex());
+    assertEquals(State.END_OF_FILE, scanner.yylex());
   }
 
   @Test
@@ -42,20 +43,20 @@ public class LargeInputTest {
     long size = 50;
     Reader largeContentReader = new RepeatContentReader(size, "hello foo\n");
     LargeInputScanner scanner = createScanner(largeContentReader);
-    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
-    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
-    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
-    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
-    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
-    assertThat(scanner.yylex()).isEqualTo(State.END_OF_FILE);
+    assertEquals(State.BEFORE_2GB, scanner.yylex());
+    assertEquals(State.BEFORE_2GB, scanner.yylex());
+    assertEquals(State.BEFORE_2GB, scanner.yylex());
+    assertEquals(State.BEFORE_2GB, scanner.yylex());
+    assertEquals(State.BEFORE_2GB, scanner.yylex());
+    assertEquals(State.END_OF_FILE, scanner.yylex());
   }
 
   @Test
   public void consumeUnterminatedLine() throws Exception {
-    LargeInputScanner scanner = createScanner(CharSource.wrap("Hello\nworld").openBufferedStream());
-    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
-    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
-    assertThat(scanner.yylex()).isEqualTo(State.END_OF_FILE);
+    LargeInputScanner scanner = createScanner(new BufferedReader(new StringReader("Hello\nworld")));
+    assertEquals(State.BEFORE_2GB, scanner.yylex());
+    assertEquals(State.BEFORE_2GB, scanner.yylex());
+    assertEquals(State.END_OF_FILE, scanner.yylex());
   }
 
   private static LargeInputScanner createScanner(Reader reader) {

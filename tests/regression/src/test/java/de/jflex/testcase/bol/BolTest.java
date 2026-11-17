@@ -5,10 +5,10 @@
 
 package de.jflex.testcase.bol;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.google.common.io.CharSource;
 import java.io.IOException;
+import java.io.StringReader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,123 +29,123 @@ public class BolTest {
   @AfterEach
   public void end() throws Exception {
     if (scanner != null) {
-      assertThat(scanner.yylex()).isEqualTo(State.END_OF_FILE);
+      assertEquals(State.END_OF_FILE, scanner.yylex());
     }
     if (scanner2 != null) {
-      assertThat(scanner2.yylex()).isEqualTo(State.END_OF_FILE);
+      assertEquals(State.END_OF_FILE, scanner2.yylex());
     }
   }
 
   @Test
   public void initial() throws Exception {
     scanner = createScanner("");
-    assertThat(scanner.state).isEqualTo(State.INITIAL);
+    assertEquals(State.INITIAL, scanner.state);
   }
 
   @Test
   public void bolAndEol() throws Exception {
     scanner = createScanner("hello\n");
-    assertThat(scanner.yylex()).isEqualTo(State.HELLO_AT_BOL_AND_EOL);
-    assertThat(scanner.yylex()).isEqualTo(State.LINE_FEED);
+    assertEquals(State.HELLO_AT_BOL_AND_EOL, scanner.yylex());
+    assertEquals(State.LINE_FEED, scanner.yylex());
   }
 
   @Test
   public void bolAndEol2() throws Exception {
     scanner = createScanner("hello\r\n");
-    assertThat(scanner.yylex()).isEqualTo(State.HELLO_AT_BOL_AND_EOL);
-    assertThat(scanner.yylex()).isEqualTo(State.OTHER);
-    assertThat(scanner.yylex()).isEqualTo(State.LINE_FEED);
+    assertEquals(State.HELLO_AT_BOL_AND_EOL, scanner.yylex());
+    assertEquals(State.OTHER, scanner.yylex());
+    assertEquals(State.LINE_FEED, scanner.yylex());
   }
 
   @Test
   public void bolAndEol3() throws Exception {
     scanner = createScanner("\nhello\r\n");
-    assertThat(scanner.yylex()).isEqualTo(State.LINE_FEED);
-    assertThat(scanner.yylex()).isEqualTo(State.HELLO_AT_BOL_AND_EOL);
-    assertThat(scanner.yylex()).isEqualTo(State.OTHER);
-    assertThat(scanner.yylex()).isEqualTo(State.LINE_FEED);
+    assertEquals(State.LINE_FEED, scanner.yylex());
+    assertEquals(State.HELLO_AT_BOL_AND_EOL, scanner.yylex());
+    assertEquals(State.OTHER, scanner.yylex());
+    assertEquals(State.LINE_FEED, scanner.yylex());
   }
 
   @Test
   public void bolAndEof() throws Exception {
     // EOF does not count as EOL. Should it?
     scanner = createScanner("hello");
-    assertThat(scanner.yylex()).isEqualTo(State.HELLO_AT_BOL);
+    assertEquals(State.HELLO_AT_BOL, scanner.yylex());
   }
 
   @Test
   public void eol() throws Exception {
     scanner = createScanner("  hello\n");
-    assertThat(scanner.yylex()).isEqualTo(State.SPACE);
-    assertThat(scanner.yylex()).isEqualTo(State.SPACE);
-    assertThat(scanner.yylex()).isEqualTo(State.HELLO_AT_EOL);
-    assertThat(scanner.yylex()).isEqualTo(State.LINE_FEED);
+    assertEquals(State.SPACE, scanner.yylex());
+    assertEquals(State.SPACE, scanner.yylex());
+    assertEquals(State.HELLO_AT_EOL, scanner.yylex());
+    assertEquals(State.LINE_FEED, scanner.yylex());
   }
 
   @Test
   public void hello() throws Exception {
     scanner = createScanner("  hello  \n");
-    assertThat(scanner.yylex()).isEqualTo(State.SPACE);
-    assertThat(scanner.yylex()).isEqualTo(State.SPACE);
-    assertThat(scanner.yylex()).isEqualTo(State.HELLO_SIMPLY);
-    assertThat(scanner.yylex()).isEqualTo(State.SPACE);
-    assertThat(scanner.yylex()).isEqualTo(State.SPACE);
-    assertThat(scanner.yylex()).isEqualTo(State.LINE_FEED);
+    assertEquals(State.SPACE, scanner.yylex());
+    assertEquals(State.SPACE, scanner.yylex());
+    assertEquals(State.HELLO_SIMPLY, scanner.yylex());
+    assertEquals(State.SPACE, scanner.yylex());
+    assertEquals(State.SPACE, scanner.yylex());
+    assertEquals(State.LINE_FEED, scanner.yylex());
   }
 
   @Test
   public void bol() throws Exception {
     scanner = createScanner("hello \n");
-    assertThat(scanner.yylex()).isEqualTo(State.HELLO_AT_BOL);
-    assertThat(scanner.yylex()).isEqualTo(State.SPACE);
-    assertThat(scanner.yylex()).isEqualTo(State.LINE_FEED);
+    assertEquals(State.HELLO_AT_BOL, scanner.yylex());
+    assertEquals(State.SPACE, scanner.yylex());
+    assertEquals(State.LINE_FEED, scanner.yylex());
   }
 
   @Test
   public void space() throws Exception {
     scanner = createScanner(" \n");
-    assertThat(scanner.yylex()).isEqualTo(State.SPACE);
-    assertThat(scanner.yylex()).isEqualTo(State.LINE_FEED);
+    assertEquals(State.SPACE, scanner.yylex());
+    assertEquals(State.LINE_FEED, scanner.yylex());
   }
 
   @Test
   public void other() throws Exception {
     scanner = createScanner("abc\n");
-    assertThat(scanner.yylex()).isEqualTo(State.OTHER);
-    assertThat(scanner.yylex()).isEqualTo(State.OTHER);
-    assertThat(scanner.yylex()).isEqualTo(State.OTHER);
-    assertThat(scanner.yylex()).isEqualTo(State.LINE_FEED);
+    assertEquals(State.OTHER, scanner.yylex());
+    assertEquals(State.OTHER, scanner.yylex());
+    assertEquals(State.OTHER, scanner.yylex());
+    assertEquals(State.LINE_FEED, scanner.yylex());
   }
 
   @Test
   public void bolNoNLCCL() throws Exception {
     scanner2 = createScanner2("hello");
-    assertThat(scanner2.yylex()).isEqualTo(State.HELLO_AT_BOL);
+    assertEquals(State.HELLO_AT_BOL, scanner2.yylex());
   }
 
   @Test
   public void bolNoNLCCL2() throws Exception {
     scanner2 = createScanner2("hello\n");
-    assertThat(scanner2.yylex()).isEqualTo(State.HELLO_AT_BOL);
-    assertThat(scanner2.yylex()).isEqualTo(State.OTHER);
+    assertEquals(State.HELLO_AT_BOL, scanner2.yylex());
+    assertEquals(State.OTHER, scanner2.yylex());
   }
 
   @Test
   public void noBolNoNLCCL() throws Exception {
     scanner2 = createScanner2("\n  hello  ");
-    assertThat(scanner2.yylex()).isEqualTo(State.OTHER);
-    assertThat(scanner2.yylex()).isEqualTo(State.OTHER);
-    assertThat(scanner2.yylex()).isEqualTo(State.OTHER);
-    assertThat(scanner2.yylex()).isEqualTo(State.HELLO_SIMPLY);
-    assertThat(scanner2.yylex()).isEqualTo(State.OTHER);
-    assertThat(scanner2.yylex()).isEqualTo(State.OTHER);
+    assertEquals(State.OTHER, scanner2.yylex());
+    assertEquals(State.OTHER, scanner2.yylex());
+    assertEquals(State.OTHER, scanner2.yylex());
+    assertEquals(State.HELLO_SIMPLY, scanner2.yylex());
+    assertEquals(State.OTHER, scanner2.yylex());
+    assertEquals(State.OTHER, scanner2.yylex());
   }
 
   private static BolScanner createScanner(final String content) throws IOException {
-    return new BolScanner(CharSource.wrap(content).openStream());
+    return new BolScanner(new StringReader(content));
   }
 
   private static Bol2Scanner createScanner2(final String content) throws IOException {
-    return new Bol2Scanner(CharSource.wrap(content).openStream());
+    return new Bol2Scanner(new StringReader(content));
   }
 }

@@ -6,7 +6,7 @@
 
 package de.jflex.testcase.cup2private;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.util.scanner.ScannerFactory;
 import org.junit.jupiter.api.Test;
@@ -27,10 +27,10 @@ public class Cup2PrivateTest {
   @Test
   public void readNextTerminal_isVisible() throws Exception {
     Cup2PrivateScanner scanner = scannerFactory.createScannerWithContent("Just checking cup2 !");
-    assertThat(scanner.readNextTerminal().getSymbol()).isEqualTo(Token.WORD);
-    assertThat(scanner.readNextTerminal().getSymbol()).isEqualTo(Token.WORD);
-    assertThat(scanner.readNextTerminal().getSymbol()).isEqualTo(Token.WORD);
-    assertThat(scanner.readNextTerminal().getSymbol()).isEqualTo(Token.OTHER);
-    assertThat(scanner.readNextTerminal().getSymbol()).isEqualTo(Token.EOF);
+    assertEquals(Token.WORD, scanner.readNextTerminal().getSymbol());
+    assertEquals(Token.WORD, scanner.readNextTerminal().getSymbol());
+    assertEquals(Token.WORD, scanner.readNextTerminal().getSymbol());
+    assertEquals(Token.OTHER, scanner.readNextTerminal().getSymbol());
+    assertEquals(Token.EOF, scanner.readNextTerminal().getSymbol());
   }
 }
