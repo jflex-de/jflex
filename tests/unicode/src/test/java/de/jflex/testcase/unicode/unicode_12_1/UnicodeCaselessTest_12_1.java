@@ -4,7 +4,7 @@
  */
 package de.jflex.testcase.unicode.unicode_12_1;
 
-import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
 import de.jflex.testing.unicodedata.SimpleGoldenCaselessParser;
@@ -39,11 +39,13 @@ public class UnicodeCaselessTest_12_1 {
             int inputCodepoint = Integer.parseInt(inputChar, 16);
             int expected = Integer.parseInt(expectedEquivalence, 16);
             Integer actualEquivalence = scanner.getPropertyValue(inputCodepoint);
-            assertWithMessage(
-                    "Character 0x%s (=%s) matches caselessly 0x%s (=%s)",
-                    inputChar, inputCodepoint, expectedEquivalence, expected)
-                .that(actualEquivalence)
-                .isEqualTo(expected);
+            assertEquals(
+                expected,
+                actualEquivalence,
+                () ->
+                    String.format(
+                        "Character 0x%s (=%s) matches caselessly 0x%s (=%s)",
+                        inputChar, inputCodepoint, expectedEquivalence, expected));
           }
         };
     String goldenFile = "unicode_12_1/UnicodeCaseless_12_1.output";

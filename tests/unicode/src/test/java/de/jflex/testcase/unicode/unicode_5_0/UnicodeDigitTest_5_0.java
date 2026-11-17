@@ -4,9 +4,8 @@
  */
 package de.jflex.testcase.unicode.unicode_5_0;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
 import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
@@ -17,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class UnicodeDigitTest_5_0 {
 
   private static final Path packageDirectory = Paths.get("src/test/java/de/jflex/testcase/unicode");
 
-  private static ImmutableList<NamedCodepointRange<Boolean>> expected;
+  private static List<NamedCodepointRange<Boolean>> expected;
 
   @BeforeAll
   public static void golden() throws Exception {
@@ -45,7 +45,7 @@ public class UnicodeDigitTest_5_0 {
             ScannerFactory.of(UnicodeDigit_digit_5_0::new),
             UnicodeDigit_digit_5_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
-    assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
+    assertEquals(expected, scanner.blocks());
   }
 
   /**
@@ -59,7 +59,7 @@ public class UnicodeDigitTest_5_0 {
             ScannerFactory.of(UnicodeDigit_upperD_5_0::new),
             UnicodeDigit_upperD_5_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
-    assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
+    assertEquals(expected, scanner.blocks());
   }
 
   /**
@@ -73,11 +73,11 @@ public class UnicodeDigitTest_5_0 {
             ScannerFactory.of(UnicodeDigit_lowerD_5_0::new),
             UnicodeDigit_lowerD_5_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
-    assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
+    assertEquals(expected, scanner.blocks());
   }
 
-  private static ImmutableList<NamedCodepointRange<Boolean>> readGolden() throws IOException {
-    ImmutableList.Builder<NamedCodepointRange<Boolean>> expected = ImmutableList.builder();
+  private static List<NamedCodepointRange<Boolean>> readGolden() throws IOException {
+    List<NamedCodepointRange<Boolean>> expected = new ArrayList<>();
     PatternHandler goldenHandler =
         new PatternHandler() {
           @Override
@@ -94,6 +94,6 @@ public class UnicodeDigitTest_5_0 {
       SimpleIntervalsParser parser = new SimpleIntervalsParser(goldenReader, goldenHandler);
       parser.parse();
     }
-    return expected.build();
+    return expected;
   }
 }

@@ -91,8 +91,6 @@
   </mailingLists>
 
   <properties>
-    <!-- Only used by the tests/ modules; the jflex module itself has no annotation processors. -->
-    <auto-value.version>1.11.1</auto-value.version>
     <cup.version>11b-20160615-3</cup.version>
     <github.global.server>github</github.global.server>
     <jflex.jdk.version>1.8</jflex.jdk.version>
@@ -126,30 +124,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>com.google.auto.value</groupId>
-        <artifactId>auto-value-annotations</artifactId>
-        <version>${auto-value.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-        <version>33.7.2-jre</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.truth</groupId>
-        <artifactId>truth</artifactId>
-        <version>1.4.5</version>
-        <exclusions>
-          <!-- Truth only needs JUnit 4 for its Expect rule. Keep it off the classpath, so that
-               tests cannot use the JUnit 4 API by accident. -->
-          <exclusion>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>

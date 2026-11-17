@@ -40,7 +40,7 @@ class UnicodeAgeTestGenerator extends AbstractGenerator<UnicodeAgeTestTemplateVa
       }
       assertions.append(
           String.format(
-              "    assertThat(properties.getPropertyValues()).contains(\"age=%s\");", age));
+              "    assertTrue(properties.getPropertyValues().contains(\"age=%s\"));", age));
       String scanner = vars.scannerPrefix + "_" + age.underscoreVersion();
       tests.append(
           String.format(

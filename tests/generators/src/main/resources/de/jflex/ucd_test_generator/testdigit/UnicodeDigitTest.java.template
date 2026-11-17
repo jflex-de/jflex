@@ -4,9 +4,8 @@
  */
 package de.jflex.testcase.unicode.unicode_${underscoreVersion};
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
 import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
@@ -17,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class UnicodeDigitTest_${underscoreVersion} {
 
   private static final Path packageDirectory = Paths.get("src/test/java/de/jflex/testcase/unicode");
 
-  private static ImmutableList<NamedCodepointRange<Boolean>> expected;
+  private static List<NamedCodepointRange<Boolean>> expected;
 
   @BeforeAll
   public static void golden() throws Exception {
@@ -45,7 +45,7 @@ public class UnicodeDigitTest_${underscoreVersion} {
             ScannerFactory.of(UnicodeDigit_digit_${underscoreVersion}::new),
             UnicodeDigit_digit_${underscoreVersion}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
-    assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
+    assertEquals(expected, scanner.blocks());
   }
 
   /**
@@ -59,7 +59,7 @@ public class UnicodeDigitTest_${underscoreVersion} {
             ScannerFactory.of(UnicodeDigit_upperD_${underscoreVersion}::new),
             UnicodeDigit_upperD_${underscoreVersion}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
-    assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
+    assertEquals(expected, scanner.blocks());
   }
 
   /**
@@ -73,11 +73,11 @@ public class UnicodeDigitTest_${underscoreVersion} {
             ScannerFactory.of(UnicodeDigit_lowerD_${underscoreVersion}::new),
             UnicodeDigit_lowerD_${underscoreVersion}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
-    assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
+    assertEquals(expected, scanner.blocks());
   }
 
-  private static ImmutableList<NamedCodepointRange<Boolean>> readGolden() throws IOException {
-    ImmutableList.Builder<NamedCodepointRange<Boolean>> expected = ImmutableList.builder();
+  private static List<NamedCodepointRange<Boolean>> readGolden() throws IOException {
+    List<NamedCodepointRange<Boolean>> expected = new ArrayList<>();
     PatternHandler goldenHandler = new PatternHandler() {
       @Override
       public void onRegexMatch(List<String> regexpGroups) {
@@ -93,6 +93,6 @@ public class UnicodeDigitTest_${underscoreVersion} {
       SimpleIntervalsParser parser = new SimpleIntervalsParser(goldenReader, goldenHandler);
       parser.parse();
     }
-    return expected.build();
+    return expected;
   }
 }

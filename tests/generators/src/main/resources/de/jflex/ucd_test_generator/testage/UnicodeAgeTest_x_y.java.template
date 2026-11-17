@@ -4,8 +4,8 @@
  */
 package ${javaPackage};
 
-import static com.google.common.truth.Truth.assertThat;
 import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
