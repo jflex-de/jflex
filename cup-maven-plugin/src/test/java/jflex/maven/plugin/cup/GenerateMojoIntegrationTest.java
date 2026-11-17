@@ -5,7 +5,7 @@
 
 package jflex.maven.plugin.cup;
 
-import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import org.apache.maven.api.plugin.testing.Basedir;
@@ -25,26 +25,21 @@ public class GenerateMojoIntegrationTest {
     mojo.execute();
     MavenProject mavenTestProject = mojo.mavenProject;
     File outputDir = new File(mavenTestProject.getBasedir(), "/target/generated-sources/cup");
-    assertWithMessage("The target `cup` directory exists in the target directory")
-        .that(outputDir.exists())
-        .isTrue();
+    assertTrue(outputDir.exists(), "The target `cup` directory exists in the target directory");
     File generatedJavaPath = new File(outputDir, "/de/jflex/testing");
-    assertWithMessage(
-            "The target `cup` directory contains the path inferred from the package"
-                + " declaration in the cup file")
-        .that(generatedJavaPath.exists())
-        .isTrue();
+    assertTrue(
+        generatedJavaPath.exists(),
+        "The target `cup` directory contains the path inferred from the package"
+            + " declaration in the cup file");
     File generatedParseFile = new File(generatedJavaPath, "MyParser.java");
-    assertWithMessage(
-            "The java path in the target `cup` directory contains the generated parser, "
-                + "using the name defined in the sample-project pom.xml")
-        .that(generatedParseFile.exists())
-        .isTrue();
+    assertTrue(
+        generatedParseFile.exists(),
+        "The java path in the target `cup` directory contains the generated parser, "
+            + "using the name defined in the sample-project pom.xml");
     File generatedSymbolsFile = new File(generatedJavaPath, "MySymbols.java");
-    assertWithMessage(
-            "The java path in the target `cup` directory contains the generated sym, "
-                + "using the name defined in the sample-project pom.xml")
-        .that(generatedSymbolsFile.exists())
-        .isTrue();
+    assertTrue(
+        generatedSymbolsFile.exists(),
+        "The java path in the target `cup` directory contains the generated sym, "
+            + "using the name defined in the sample-project pom.xml");
   }
 }

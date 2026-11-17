@@ -5,12 +5,11 @@
 
 package jflex.maven.plugin.cup;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -78,7 +77,7 @@ public class GenerateMojo extends AbstractMojo {
     this.cupInvoker = new CliCupInvoker(getLog());
   }
 
-  @VisibleForTesting
+  // Visible for testing.
   GenerateMojo(CliCupInvoker cupInvoker, Log logger) {
     log = new Logger(logger);
     this.cupInvoker = cupInvoker;
@@ -99,7 +98,7 @@ public class GenerateMojo extends AbstractMojo {
   /**
    * @param cupFile CUP definition file
    */
-  @VisibleForTesting
+  // Visible for testing.
   void generateParser(File cupFile) throws IOException, MojoExecutionException {
     String javaPackage = findJavaPackage(cupFile);
 
@@ -171,7 +170,7 @@ public class GenerateMojo extends AbstractMojo {
     return DEFAULT_JAVA_PACKAGE;
   }
 
-  @VisibleForTesting
+  // Visible for testing.
   Optional<String> optionalJavaPackage(String line) {
     if (line.startsWith(PACKAGE_DEFINITION)) {
       int endOfLine = line.indexOf(";");
@@ -181,7 +180,7 @@ public class GenerateMojo extends AbstractMojo {
         return Optional.of(javaPackage);
       }
     }
-    return Optional.absent();
+    return Optional.empty();
   }
 
   /**

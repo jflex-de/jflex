@@ -5,9 +5,8 @@
 
 package jflex.maven.plugin.cup;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import com.google.common.collect.ImmutableList;
 import java.io.File;
 import org.junit.jupiter.api.Test;
 
@@ -16,26 +15,25 @@ public class CliCupInvokerTest {
 
   @Test
   public void buildArgv() throws Exception {
-    assertThat(
-            ImmutableList.copyOf(
-                CliCupInvoker.buildArgv(
-                    "foo.bar",
-                    new File("/outputDirectory"),
-                    "Parser",
-                    "Symbols", /* interface */
-                    true,
-                    "/a/b/c/def.cup")))
-        .containsExactly(
-            "-package",
+    assertArrayEquals(
+        new String[] {
+          "-package",
+          "foo.bar",
+          "-destdir",
+          "/outputDirectory",
+          "-parser",
+          "Parser",
+          "-symbols",
+          "Symbols",
+          "-interface",
+          "/a/b/c/def.cup"
+        },
+        CliCupInvoker.buildArgv(
             "foo.bar",
-            "-destdir",
-            "/outputDirectory",
-            "-parser",
+            new File("/outputDirectory"),
             "Parser",
-            "-symbols",
-            "Symbols",
-            "-interface",
-            "/a/b/c/def.cup")
-        .inOrder();
+            "Symbols", /* interface */
+            true,
+            "/a/b/c/def.cup"));
   }
 }

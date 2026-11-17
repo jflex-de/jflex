@@ -5,11 +5,6 @@
 
 package jflex.maven.plugin.cup;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
 import java.io.File;
 import java.util.ArrayList;
 import java_cup.Main;
@@ -55,11 +50,11 @@ class CliCupInvoker {
             symClassName,
             symbolInterface,
             cupFileName);
-    log.debug("cup " + Joiner.on(' ').join(args));
+    log.debug("cup " + String.join(" ", args));
     Main.main(args);
   }
 
-  @VisibleForTesting
+  // Visible for testing.
   static String[] buildArgv(
       String javaPackage,
       File outputDirectory,
@@ -70,7 +65,7 @@ class CliCupInvoker {
     // It's a builder but it's easier to read the IllegalArgumentException if each arg is added on
     // its own line.
     ArgBuilder args = new ArgBuilder();
-    if (!Strings.isNullOrEmpty(javaPackage)) {
+    if (!isNullOrEmpty(javaPackage)) {
       args.addOption("package", javaPackage);
     }
     args.addOption("destdir", outputDirectory.getAbsolutePath());
@@ -84,6 +79,16 @@ class CliCupInvoker {
     return args.buildArray();
   }
 
+  private static boolean isNullOrEmpty(String s) {
+    return s == null || s.isEmpty();
+  }
+
+  private static void checkArgument(boolean condition, String message) {
+    if (!condition) {
+      throw new IllegalArgumentException(message);
+    }
+  }
+
   private static class ArgBuilder {
 
     private final ArrayList<String> args = new ArrayList<>();
@@ -94,15 +99,15 @@ class CliCupInvoker {
     }
 
     ArgBuilder addOption(String optionName) {
-      checkArgument(!Strings.isNullOrEmpty(optionName), "Option name cannot be empty");
+      checkArgument(!isNullOrEmpty(optionName), "Option name cannot be empty");
       args.add("-" + optionName);
       return this;
     }
 
     ArgBuilder addOption(String optionName, String optionValue) {
-      checkArgument(!Strings.isNullOrEmpty(optionName), "Option name cannot be empty");
+      checkArgument(!isNullOrEmpty(optionName), "Option name cannot be empty");
       checkArgument(
-          !Strings.isNullOrEmpty(optionValue),
+          !isNullOrEmpty(optionValue),
           String.format("Value for option -%s should not be empty", optionName));
       args.add("-" + optionName);
       args.add(optionValue);
