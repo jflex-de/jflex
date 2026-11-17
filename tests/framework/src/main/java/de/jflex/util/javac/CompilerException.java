@@ -4,9 +4,7 @@
  */
 package de.jflex.util.javac;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -29,12 +27,12 @@ public class CompilerException extends Exception {
 
   public CompilerException(Throwable e) {
     super("javac exception: " + e.getMessage(), e);
-    this.diagnostics = ImmutableList.of();
+    this.diagnostics = Collections.emptyList();
   }
 
   public CompilerException(String message) {
     super("javac exception: " + message);
-    this.diagnostics = ImmutableList.of();
+    this.diagnostics = Collections.emptyList();
   }
 
   @Override
@@ -47,11 +45,13 @@ public class CompilerException extends Exception {
                         "javac error: %s, line %d in file %s",
                         d.getMessage(Locale.ENGLISH), d.getLineNumber(), d.getSource().getName()))
             .collect(Collectors.toList());
-    return Joiner.on('\n').join(diagnosticMessages);
+    return String.join("\n", diagnosticMessages);
   }
 
   private static String diagnosticCode(List<Diagnostic<? extends JavaFileObject>> diagnostics) {
-    Preconditions.checkArgument(!diagnostics.isEmpty(), "Empty diagnostic");
+    if (diagnostics.isEmpty()) {
+      throw new IllegalArgumentException("Empty diagnostic");
+    }
     Diagnostic<? extends JavaFileObject> firstDiagnostic = diagnostics.get(0);
     return firstDiagnostic.getCode();
   }

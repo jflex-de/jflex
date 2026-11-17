@@ -4,7 +4,7 @@
  */
 package de.jflex.util.javac;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ public class JavaPackageUtilsTest {
 
   @Test
   public void getPathForPackage() throws Exception {
-    assertThat(JavaPackageUtils.getPathForPackage(getClass().getPackage()))
-        .isEqualTo("de/jflex/util/javac");
+    assertEquals(
+        "de/jflex/util/javac", JavaPackageUtils.getPathForPackage(getClass().getPackage()));
   }
 }

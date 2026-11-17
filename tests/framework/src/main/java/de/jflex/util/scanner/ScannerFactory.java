@@ -4,13 +4,14 @@
  */
 package de.jflex.util.scanner;
 
-import com.google.common.io.CharSource;
-import com.google.common.io.Files;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Function;
 
@@ -27,11 +28,13 @@ public class ScannerFactory<T> {
   }
 
   public T createScannerForFile(File inputFile) throws FileNotFoundException {
-    return defaultConstructor.apply(Files.newReader(inputFile, StandardCharsets.UTF_8));
+    return defaultConstructor.apply(
+        new BufferedReader(
+            new InputStreamReader(new FileInputStream(inputFile), StandardCharsets.UTF_8)));
   }
 
   public T createScannerWithContent(String content) throws IOException {
-    return defaultConstructor.apply(CharSource.wrap(content).openStream());
+    return defaultConstructor.apply(new StringReader(content));
   }
 
   public T createForReader(Reader reader) {

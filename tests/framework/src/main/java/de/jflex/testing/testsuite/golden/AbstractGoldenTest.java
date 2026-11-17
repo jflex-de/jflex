@@ -4,12 +4,12 @@
  */
 package de.jflex.testing.testsuite.golden;
 
-import com.google.common.io.Files;
 import de.jflex.testing.SystemOutCapture;
 import de.jflex.testing.diff.DiffOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import org.junit.jupiter.api.AfterEach;
 
 public abstract class AbstractGoldenTest {
@@ -23,7 +23,9 @@ public abstract class AbstractGoldenTest {
     // Check the output of a previous comparison in the same test before replacing it.
     checkOuputEntirelyGenerated();
     // in-memory output comparison
-    output = new DiffOutputStream(Files.newReader(golden.outputFile, StandardCharsets.UTF_8));
+    output =
+        new DiffOutputStream(
+            Files.newBufferedReader(golden.outputFile.toPath(), StandardCharsets.UTF_8));
     // The golden file is UTF-8, so print in UTF-8 independently of the platform charset.
     capture = SystemOutCapture.start(new PrintStream(output, true, "UTF-8"));
   }
