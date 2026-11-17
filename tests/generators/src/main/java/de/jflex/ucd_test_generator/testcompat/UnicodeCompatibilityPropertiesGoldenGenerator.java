@@ -5,13 +5,15 @@
 
 package de.jflex.ucd_test_generator.testcompat;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.Versions;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.ucd_test_generator.base.AbstractRangesGoldenGenerator;
 import de.jflex.ucd_test_generator.base.UnicodeRangesGoldenTemplateVars;
 import de.jflex.ucd_test_generator.base.UnicodeVersion;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class UnicodeCompatibilityPropertiesGoldenGenerator extends AbstractRangesGoldenGenerator {
 
@@ -42,9 +44,8 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator extends AbstractRange
     return vars.className + ".output";
   }
 
-  private static ImmutableList<CodepointRange> joinContiguousIntervals(
-      ImmutableList<CodepointRange> ranges) {
-    ImmutableList.Builder<CodepointRange> builder = new ImmutableList.Builder<>();
+  private static List<CodepointRange> joinContiguousIntervals(List<CodepointRange> ranges) {
+    List<CodepointRange> builder = new ArrayList<>();
     CodepointRange prev = ranges.get(0);
     for (int i = 1; i < ranges.size(); i++) {
       CodepointRange r = ranges.get(i);
@@ -56,6 +57,6 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator extends AbstractRange
       }
     }
     builder.add(ranges.get(ranges.size() - 1));
-    return builder.build();
+    return Collections.unmodifiableList(builder);
   }
 }

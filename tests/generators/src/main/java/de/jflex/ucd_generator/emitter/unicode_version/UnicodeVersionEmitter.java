@@ -7,10 +7,6 @@ package de.jflex.ucd_generator.emitter.unicode_version;
 import static de.jflex.ucd_generator.util.JavaStrings.escapedUTF16Char;
 import static java.util.stream.Collectors.joining;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSortedMap;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Maps.EntryTransformer;
 import de.jflex.template.Template;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.UcdVersion;
@@ -21,9 +17,12 @@ import de.jflex.ucd_generator.util.JavaStrings;
 import de.jflex.util.javac.JavaPackageUtils;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.SortedSet;
 
 /** Emitter for a {@code Unicode_x_y.java}. */
@@ -57,9 +56,9 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.packageName = getTargetPackage();
     unicodeVersionVars.className = ucdVersion.version().unicodeClassName();
     unicodeVersionVars.maxCodePointHex = String.format("%x", unicodeData.maximumCodePoint());
-    ImmutableSortedMap<String, CodepointRangeSet> intervals = unicodeData.intervals();
+    SortedMap<String, CodepointRangeSet> intervals = unicodeData.intervals();
     unicodeVersionVars.propertyValues =
-        ImmutableList.copyOf(intervals.keySet()).stream()
+        intervals.keySet().stream()
             .map(v -> String.format("\"%s\"", v))
             .collect(joining(",\n    "));
     unicodeVersionVars.intervals = String.join(",\n    ", intervalsToCodesource(intervals));
@@ -79,31 +78,23 @@ public class UnicodeVersionEmitter extends UcdEmitter {
   }
 
   private Collection<String> intervalsToCodesource(Map<String, CodepointRangeSet> intervals) {
-    EntryTransformer<String, CodepointRangeSet, String> function =
-        new EntryTransformer<String, CodepointRangeSet, String>() {
+    List<String> result = new ArrayList<>();
+    for (Map.Entry<String, CodepointRangeSet> entry : intervals.entrySet()) {
+      String codeComment =
+          String.format(
+              "// Unicode %s property value: {%s}\n",
+              ucdVersion.version().toMajorMinorString(), entry.getKey());
+      String value =
+          entry.getValue().ranges().stream()
+              .map(UnicodeVersionEmitter::intervalToCodesource)
+              .collect(joining("\n        + "));
+      result.add(codeComment + "    " + value);
+    }
+    return result;
+  }
 
-          @Override
-          public String transformEntry(String propertyValue, CodepointRangeSet rangeSet) {
-            String codeComment =
-                String.format(
-                    "// Unicode %s property value: {%s}\n",
-                    ucdVersion.version().toMajorMinorString(), propertyValue);
-            String value =
-                rangeSet.ranges().stream()
-                    .map(this::intervalToCodesource)
-                    .collect(joining("\n        + "));
-            return codeComment + "    " + value;
-          }
-
-          private String intervalToCodesource(CodepointRange interval) {
-            return "\""
-                + escapedUTF16Char(interval.start())
-                + escapedUTF16Char(interval.end())
-                + "\"";
-          }
-        };
-
-    return Maps.transformEntries(intervals, function).values();
+  private static String intervalToCodesource(CodepointRange interval) {
+    return "\"" + escapedUTF16Char(interval.start()) + escapedUTF16Char(interval.end()) + "\"";
   }
 
   private static String partitionToCodesource(

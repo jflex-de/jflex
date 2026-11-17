@@ -6,7 +6,6 @@
  */
 package de.jflex.ucd_generator.scanner;
 
-import com.google.common.base.Preconditions;
 import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd.Versions;
 import de.jflex.ucd_generator.ucd.UnicodeData;
@@ -38,7 +37,9 @@ abstract class AbstractUnicodeDataScanner {
   }
 
   public void handleEntry() {
-    Preconditions.checkArgument(codePoint >= 0, "Negative codepoint: " + codePoint);
+    if (codePoint < 0) {
+      throw new IllegalArgumentException("Negative codepoint: " + codePoint);
+    }
     unicodeData.addCaselessMatches(codePoint, uppercaseMapping, lowercaseMapping, titlecaseMapping);
 
     // UnicodeData-1.1.5.txt does not list the end point for the Unified Han

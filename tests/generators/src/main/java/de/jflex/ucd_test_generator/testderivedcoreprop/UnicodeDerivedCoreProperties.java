@@ -7,10 +7,10 @@
 
 package de.jflex.ucd_test_generator.testderivedcoreprop;
 
-import com.google.common.collect.ImmutableList;
+import java.util.Arrays;
+import java.util.List;
 
 public class UnicodeDerivedCoreProperties {
 
-  public static final ImmutableList<String> DERIVED_CORE_PROPERTIES =
-      ImmutableList.of("Alphabetic");
+  public static final List<String> DERIVED_CORE_PROPERTIES = Arrays.asList("Alphabetic");
 }

@@ -4,15 +4,15 @@
  */
 package de.jflex.ucd_test_generator.testcaseless;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd_test_generator.base.AbstractGenerator;
 import de.jflex.ucd_test_generator.base.UnicodeVersion;
 import de.jflex.ucd_test_generator.testcaseless.CaselessTestGenerator.Equivalences;
+import java.util.List;
 
 public class UnicodeCaselessFlexGenerator
     extends AbstractGenerator<UnicodeCaselessFlexTemplateVars> {
 
-  private final ImmutableList<Integer> caselessCodepoints;
+  private final List<Integer> caselessCodepoints;
 
   UnicodeCaselessFlexGenerator(UnicodeVersion unicodeVersion, Equivalences<Integer> equivalences) {
     super("UnicodeCaseless.flex", unicodeVersion);

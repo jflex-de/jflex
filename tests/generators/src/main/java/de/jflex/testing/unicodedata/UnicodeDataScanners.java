@@ -4,10 +4,8 @@
  */
 package de.jflex.testing.unicodedata;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.AllCodePoints;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd.Versions;
@@ -16,6 +14,8 @@ import de.jflex.version.Version;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /** Utility class to verify the Age property of UnicodeProperties. */
@@ -34,11 +34,15 @@ public class UnicodeDataScanners {
       ScannerFactory<T> scannerFactory, int eof, Dataset dataset, Path expectedFile)
       throws IOException {
     T scanner = scanAllCodepoints(scannerFactory, eof, dataset);
-    ImmutableList<String> blocks =
-        scanner.blocks().stream().map(NamedCodepointRange::toString).collect(toImmutableList());
+    List<String> blocks =
+        scanner.blocks().stream()
+            .map(NamedCodepointRange::toString)
+            .sorted()
+            .collect(Collectors.toList());
     try (Stream<String> expectedOutput = Files.lines(expectedFile)) {
-      ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
-      assertThat(blocks).containsExactlyElementsIn(expected);
+      // Same elements, in any order.
+      List<String> expected = expectedOutput.sorted().collect(Collectors.toList());
+      assertEquals(expected, blocks);
     }
   }
 

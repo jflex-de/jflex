@@ -4,11 +4,12 @@
  */
 package de.jflex.ucd_generator.ucd;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.ucd.UcdFileType;
 import de.jflex.ucd.UcdVersion;
 import java.io.File;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 public class UcdVersionsTest {
@@ -25,51 +26,48 @@ public class UcdVersionsTest {
 
   @Test
   public void expandVersion_majorUpdate() throws Exception {
-    assertThat(UcdVersions.expandVersion("1.0.2")).containsExactly("1", "1.0", "1.0.2");
+    assertEquals(Arrays.asList("1", "1.0", "1.0.2"), UcdVersions.expandVersion("1.0.2"));
   }
 
   @Test
   public void expandVersion_majorMinorUpdate() throws Exception {
-    assertThat(UcdVersions.expandVersion("1.2.3")).containsExactly("1.2", "1.2.3");
+    assertEquals(Arrays.asList("1.2", "1.2.3"), UcdVersions.expandVersion("1.2.3"));
   }
 
   @Test
   public void expandVersion_majorOnly() throws Exception {
-    assertThat(UcdVersions.expandVersion("1")).containsExactly("1");
+    assertEquals(Arrays.asList("1"), UcdVersions.expandVersion("1"));
   }
 
   @Test
   public void expandAllVersions() throws Exception {
     UcdVersions ucdVersions = UcdVersions.builder().put("1.2.3", UCD1).put("1.3.5", UCD2).build();
-    assertThat(ucdVersions.expandAllVersions())
-        .containsExactly("1.2", "1.2.3", "1.3", "1.3.5")
-        .inOrder();
+    assertEquals(Arrays.asList("1.2", "1.2.3", "1.3", "1.3.5"), ucdVersions.expandAllVersions());
   }
 
   @Test
   public void expandAllVersions_withMajor() throws Exception {
     UcdVersions ucdVersions = UcdVersions.builder().put("1.0.3", UCD1).put("1.3.5", UCD2).build();
-    assertThat(ucdVersions.expandAllVersions())
-        .containsExactly("1", "1.0", "1.0.3", "1.3", "1.3.5")
-        .inOrder();
+    assertEquals(
+        Arrays.asList("1", "1.0", "1.0.3", "1.3", "1.3.5"), ucdVersions.expandAllVersions());
   }
 
   @Test
   public void expandAllVersions_unnaturalOrder() {
     UcdVersions ucdVersions =
         UcdVersions.builder().put("1.2.3", UCD1).put("2.4.6", UCD1).put("10.0.0", UCD1).build();
-    assertThat(ucdVersions.expandAllVersions())
-        .containsExactly("1.2", "1.2.3", "2.4", "2.4.6", "10", "10.0", "10.0.0")
-        .inOrder();
+    assertEquals(
+        Arrays.asList("1.2", "1.2.3", "2.4", "2.4.6", "10", "10.0", "10.0.0"),
+        ucdVersions.expandAllVersions());
   }
 
   @Test
   public void getClassNameForVersion() throws Exception {
-    assertThat(UcdVersions.getClassNameForVersion("4.2")).isEqualTo("Unicode_4_2");
+    assertEquals("Unicode_4_2", UcdVersions.getClassNameForVersion("4.2"));
   }
 
   @Test
   public void getClassNameForVersion_majorOnly() throws Exception {
-    assertThat(UcdVersions.getClassNameForVersion("5")).isEqualTo("Unicode_5");
+    assertEquals("Unicode_5", UcdVersions.getClassNameForVersion("5"));
   }
 }

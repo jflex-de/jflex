@@ -4,30 +4,44 @@
  */
 package de.jflex.ucd;
 
-import com.google.auto.value.AutoValue;
-import com.google.common.collect.ImmutableMap;
 import de.jflex.version.Version;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /** Describes a single Unicode version. */
-@AutoValue
-public abstract class UcdVersion {
+public final class UcdVersion {
 
-  public abstract Version version();
+  private final Version version;
+  private final Map<UcdFileType, File> files;
 
-  public abstract ImmutableMap<UcdFileType, File> files();
+  private UcdVersion(Version version, Map<UcdFileType, File> files) {
+    this.version = version;
+    this.files = Collections.unmodifiableMap(new LinkedHashMap<>(files));
+  }
+
+  public Version version() {
+    return version;
+  }
+
+  /** The files of this version, in the order in which they were added. */
+  public Map<UcdFileType, File> files() {
+    return files;
+  }
 
   public File getFile(UcdFileType type) {
     return files().get(type);
   }
 
   public static Builder builder(String version) {
-    return new AutoValue_UcdVersion.Builder().setVersion(version);
+    return new Builder().setVersion(version);
   }
 
   public static Builder builder(Version version) {
-    return new AutoValue_UcdVersion.Builder().setVersion(version);
+    return new Builder().setVersion(version);
   }
 
   public static UcdVersion findUcdFiles(Version version, Iterable<String> argv)
@@ -57,30 +71,65 @@ public abstract class UcdVersion {
     throw new FileNotFoundException(arg);
   }
 
-  public abstract Builder toBuilder();
+  public Builder toBuilder() {
+    Builder builder = builder(version);
+    builder.files.putAll(files);
+    return builder;
+  }
 
   @Override
-  public final String toString() {
+  public boolean equals(Object o) {
+    if (o == this) {
+      return true;
+    }
+    if (!(o instanceof UcdVersion)) {
+      return false;
+    }
+    UcdVersion other = (UcdVersion) o;
+    return version.equals(other.version) && files.equals(other.files);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(version, files);
+  }
+
+  @Override
+  public String toString() {
     return version().toString();
   }
 
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setVersion(Version version);
+  public static final class Builder {
+    private Version version;
+    private final Map<UcdFileType, File> files = new LinkedHashMap<>();
+
+    private Builder() {}
+
+    public Builder setVersion(Version version) {
+      this.version = Objects.requireNonNull(version, "version");
+      return this;
+    }
 
     public Builder setVersion(String version) {
       return setVersion(new Version(version));
     }
 
-    abstract ImmutableMap.Builder<UcdFileType, File> filesBuilder();
-
+    /** Adds a file. A second file of the same type is an error. */
     public Builder putFile(UcdFileType unicodeFileType, File file) {
-      filesBuilder().put(unicodeFileType, file);
+      Objects.requireNonNull(unicodeFileType, "unicodeFileType");
+      Objects.requireNonNull(file, "file");
+      if (files.put(unicodeFileType, file) != null) {
+        throw new IllegalArgumentException("Multiple files of type " + unicodeFileType);
+      }
       return this;
     }
 
-    public abstract Version version();
+    public Version version() {
+      return version;
+    }
 
-    public abstract UcdVersion build();
+    public UcdVersion build() {
+      return new UcdVersion(version, files);
+    }
   }
 }

@@ -6,36 +6,37 @@ package de.jflex.ucd_generator.ucd;
 
 import static java.lang.Math.min;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSortedMap;
 import de.jflex.ucd.UcdVersion;
 import de.jflex.version.Version;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /** A set of {@link UcdVersion}s. */
 public class UcdVersions {
 
   // version –> Map<UcdFileType, File>
-  private final ImmutableSortedMap<Version, UcdVersion> versions;
+  private final SortedMap<Version, UcdVersion> versions;
 
-  private UcdVersions(ImmutableSortedMap<Version, UcdVersion> versions) {
+  private UcdVersions(SortedMap<Version, UcdVersion> versions) {
     this.versions = versions;
   }
 
-  public ImmutableSet<Version> versionSet() {
-    return versions.keySet();
+  public Set<Version> versionSet() {
+    return Collections.unmodifiableSet(versions.keySet());
   }
 
   public List<String> versionsAsList() {
-    ImmutableList.Builder<String> versionList = ImmutableList.builder();
+    List<String> versionList = new ArrayList<>();
     for (Version v : versions.keySet()) {
       versionList.add(v.toString());
     }
-    return versionList.build();
+    return Collections.unmodifiableList(versionList);
   }
 
   public UcdVersion get(Version version) {
@@ -47,13 +48,13 @@ public class UcdVersions {
   }
 
   public static String getClassNameForVersion(String version) {
-    List<String> v = Splitter.on('.').splitToList(version);
-    return "Unicode_" + Joiner.on('_').join(v.subList(0, min(2, v.size())));
+    List<String> v = Arrays.asList(version.split("\\.", -1));
+    return "Unicode_" + String.join("_", v.subList(0, min(2, v.size())));
   }
 
   /** Expands the version {@code x.y.z} into {@code x}, {@code x.y}, {@code x.y.z}. */
-  public static ImmutableList<String> expandVersion(Version version) {
-    ImmutableList.Builder<String> expandedVersions = ImmutableList.builder();
+  public static List<String> expandVersion(Version version) {
+    List<String> expandedVersions = new ArrayList<>();
     // Add the major version x if it is a x.0.z version
     if (version.minor == -1 || (version.minor == 0 && version.patch != -1)) {
       expandedVersions.add(String.valueOf(version.major));
@@ -64,10 +65,10 @@ public class UcdVersions {
     if (version.minor != -1 && version.patch != -1) {
       expandedVersions.add(version.major + "." + version.minor + "." + version.patch);
     }
-    return expandedVersions.build();
+    return Collections.unmodifiableList(expandedVersions);
   }
 
-  public static ImmutableList<String> expandVersion(String version) {
+  public static List<String> expandVersion(String version) {
     return expandVersion(new Version(version));
   }
 
@@ -77,11 +78,11 @@ public class UcdVersions {
    * @return the set of all versionSet, in decreasing order.
    */
   public List<String> expandAllVersions() {
-    ImmutableList.Builder<String> expandedVersions = ImmutableList.builder();
+    List<String> expandedVersions = new ArrayList<>();
     for (Version v : versionSet()) {
       expandedVersions.addAll(expandVersion(v));
     }
-    return expandedVersions.build();
+    return Collections.unmodifiableList(expandedVersions);
   }
 
   public Builder toBuilder() {
@@ -90,7 +91,7 @@ public class UcdVersions {
 
   @Override
   public String toString() {
-    return "[" + Joiner.on(", ").join(versionsAsList()) + "]";
+    return "[" + String.join(", ", versionsAsList()) + "]";
   }
 
   public static Builder builder() {
@@ -98,16 +99,20 @@ public class UcdVersions {
   }
 
   public static class Builder {
-    ImmutableSortedMap.Builder<Version, UcdVersion> versions =
-        ImmutableSortedMap.orderedBy(Version.EXACT_VERSION_COMPARATOR);
+    private final SortedMap<Version, UcdVersion> versions =
+        new TreeMap<>(Version.EXACT_VERSION_COMPARATOR);
 
     public Builder putAll(Map<Version, UcdVersion> versions) {
-      this.versions.putAll(versions);
+      for (Map.Entry<Version, UcdVersion> entry : versions.entrySet()) {
+        put(entry.getKey(), entry.getValue());
+      }
       return this;
     }
 
     private Builder put(Version version, UcdVersion ucdFiles) {
-      versions.put(version, ucdFiles);
+      if (versions.put(version, ucdFiles) != null) {
+        throw new IllegalArgumentException("Multiple entries with same key: " + version);
+      }
       return this;
     }
 
@@ -116,7 +121,7 @@ public class UcdVersions {
     }
 
     public UcdVersions build() {
-      return new UcdVersions(versions.build());
+      return new UcdVersions(Collections.unmodifiableSortedMap(new TreeMap<>(versions)));
     }
   }
 }

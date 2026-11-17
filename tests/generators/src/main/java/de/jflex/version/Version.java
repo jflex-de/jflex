@@ -7,10 +7,10 @@
  */
 package de.jflex.version;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Splitter;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class Version {
 
@@ -23,7 +23,7 @@ public class Version {
   public final int patch;
 
   public Version(String version) {
-    List<String> parts = Splitter.on(".").splitToList(version);
+    List<String> parts = Arrays.asList(version.split("\\.", -1));
     this.major = Integer.parseInt(parts.get(0));
     this.minor = parts.size() > 1 ? Integer.parseInt(parts.get(1)) : -1;
     this.patch = parts.size() > 2 ? Integer.parseInt(parts.get(2)) : -1;
@@ -50,7 +50,7 @@ public class Version {
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(this.major, this.minor, this.patch);
+    return Objects.hash(this.major, this.minor, this.patch);
   }
 
   @Override

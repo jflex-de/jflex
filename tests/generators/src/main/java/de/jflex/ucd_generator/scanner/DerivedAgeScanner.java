@@ -7,14 +7,18 @@
  */
 package de.jflex.ucd_generator.scanner;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.version.Version;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /** Scanner for the {@code DerivedAge.txt} ucd file, that populates the UnicodeData intervals. */
 class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
@@ -62,9 +66,9 @@ class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
   }
 
   void includeOlderVersions() {
-    HashMultimap<Version, CodepointRange> ageRangesPerVersion = clusterCodePointRangesPerVersion();
-    ImmutableList<Version> versions =
-        ImmutableList.sortedCopyOf(Version.EXACT_VERSION_COMPARATOR, ageRangesPerVersion.keySet());
+    Map<Version, Set<CodepointRange>> ageRangesPerVersion = clusterCodePointRangesPerVersion();
+    List<Version> versions = new ArrayList<>(ageRangesPerVersion.keySet());
+    versions.sort(Version.EXACT_VERSION_COMPARATOR);
     // starting from 1, as  the first  version is a no-op
     for (int i = 1; i < versions.size(); i++) {
       Version version = versions.get(i);
@@ -76,20 +80,21 @@ class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
   private void includeVersionsOnVersion(
       Version version,
       List<Version> versionsToInclude,
-      HashMultimap<Version, CodepointRange> ageRangesPerVersion) {
+      Map<Version, Set<CodepointRange>> ageRangesPerVersion) {
     for (Version v : versionsToInclude) {
-      for (CodepointRange range : ageRangesPerVersion.get(v)) {
+      for (CodepointRange range : ageRangesPerVersion.getOrDefault(v, Collections.emptySet())) {
         unicodeData.addEnumPropertyInterval(
             propertyName, version.toString(), range.start(), range.end());
       }
     }
   }
 
-  HashMultimap<Version, CodepointRange> clusterCodePointRangesPerVersion() {
-    HashMultimap<Version, CodepointRange> ageRangesPerVersion =
-        HashMultimap.create(/* expectedKeys= */ 25, /* expectedValuesPerKey= */ 128);
+  Map<Version, Set<CodepointRange>> clusterCodePointRangesPerVersion() {
+    Map<Version, Set<CodepointRange>> ageRangesPerVersion = new HashMap<>();
     for (NamedCodepointRange<String> interval : intervals) {
-      ageRangesPerVersion.put(new Version(interval.name()), interval.range());
+      ageRangesPerVersion
+          .computeIfAbsent(new Version(interval.name()), k -> new HashSet<>())
+          .add(interval.range());
     }
     return ageRangesPerVersion;
   }

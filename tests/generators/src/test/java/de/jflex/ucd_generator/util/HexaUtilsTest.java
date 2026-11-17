@@ -4,7 +4,8 @@
  */
 package de.jflex.ucd_generator.util;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -13,12 +14,12 @@ import org.junit.jupiter.api.Test;
 public class HexaUtilsTest {
   @Test
   public void intFromHexa_int() {
-    assertThat(HexaUtils.intFromHexa("FF")).isEqualTo(255);
+    assertEquals(255, HexaUtils.intFromHexa("FF"));
   }
 
   @Test
   public void intFromHexa_empty() {
-    assertThat(HexaUtils.intFromHexa("")).isNull();
+    assertNull(HexaUtils.intFromHexa(""));
   }
 
   @Test

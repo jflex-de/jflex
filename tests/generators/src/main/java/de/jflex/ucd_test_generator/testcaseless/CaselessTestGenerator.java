@@ -4,7 +4,6 @@
  */
 package de.jflex.ucd_test_generator.testcaseless;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
 import de.jflex.testing.unicodedata.SimpleCaselessParser;
 import de.jflex.ucd.UcdFileType;
@@ -15,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -114,8 +114,10 @@ public class CaselessTestGenerator {
       return equivalences.keySet();
     }
 
-    ImmutableList<T> getSortedKeys(Comparator<T> comparator) {
-      return ImmutableList.sortedCopyOf(comparator, getKeys());
+    List<T> getSortedKeys(Comparator<T> comparator) {
+      List<T> sorted = new ArrayList<>(getKeys());
+      sorted.sort(comparator);
+      return Collections.unmodifiableList(sorted);
     }
 
     /**

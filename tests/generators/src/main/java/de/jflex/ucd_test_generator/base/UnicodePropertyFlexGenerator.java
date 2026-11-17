@@ -4,9 +4,10 @@
  */
 package de.jflex.ucd_test_generator.base;
 
-import com.google.common.collect.ImmutableSortedMap;
+import java.util.Collections;
 import java.util.Map;
 import java.util.NavigableMap;
+import java.util.TreeMap;
 
 /** Generates the flex of the scanners for a all ages of a given Unicode version. */
 public class UnicodePropertyFlexGenerator<T>
@@ -56,13 +57,16 @@ public class UnicodePropertyFlexGenerator<T>
     return new UnicodePropertyFlexGenerator<>(
         version,
         className,
-        ImmutableSortedMap.of(propertyName, "\"" + propertyName + "\""),
+        new TreeMap<>(Collections.singletonMap(propertyName, "\"" + propertyName + "\"")),
         String.class);
   }
 
   public static UnicodePropertyFlexGenerator<Boolean> createPropertyScanner(
       UnicodeVersion version, String className, String propertyName) {
     return new UnicodePropertyFlexGenerator<>(
-        version, className, ImmutableSortedMap.of(propertyName, true), Boolean.class);
+        version,
+        className,
+        new TreeMap<>(Collections.singletonMap(propertyName, true)),
+        Boolean.class);
   }
 }

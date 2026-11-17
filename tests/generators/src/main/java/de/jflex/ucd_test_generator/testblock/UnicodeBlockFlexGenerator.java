@@ -4,34 +4,30 @@
  */
 package de.jflex.ucd_test_generator.testblock;
 
-import static com.google.common.collect.ImmutableSortedMap.toImmutableSortedMap;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd_test_generator.base.UnicodePropertyFlexGenerator;
 import de.jflex.ucd_test_generator.base.UnicodeVersion;
-import java.util.Comparator;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /** Generates the flex of the scanners for a all blocks of a given Unicode version. */
 class UnicodeBlockFlexGenerator {
 
   public static UnicodePropertyFlexGenerator<String> create(
-      UnicodeVersion version, ImmutableList<NamedCodepointRange<String>> blocks) {
+      UnicodeVersion version, List<NamedCodepointRange<String>> blocks) {
     String className = "UnicodeBlocks_" + version.underscoreVersion();
-    ImmutableSortedSet<String> blockNames =
-        ImmutableSortedSet.<String>naturalOrder()
-            .add("No Block")
-            .addAll(blocks.stream().map(NamedCodepointRange::name).iterator())
-            .build();
-    return new UnicodePropertyFlexGenerator<>(
-        version,
-        className,
-        blockNames.stream()
-            .collect(
-                toImmutableSortedMap(
-                    Comparator.naturalOrder(), b -> "Block:" + b, b -> "\"" + b + "\"")),
-        String.class);
+    SortedSet<String> blockNames = new TreeSet<>();
+    blockNames.add("No Block");
+    for (NamedCodepointRange<String> block : blocks) {
+      blockNames.add(block.name());
+    }
+    TreeMap<String, String> properties = new TreeMap<>();
+    for (String b : blockNames) {
+      properties.put("Block:" + b, "\"" + b + "\"");
+    }
+    return new UnicodePropertyFlexGenerator<>(version, className, properties, String.class);
   }
 
   private UnicodeBlockFlexGenerator() {}

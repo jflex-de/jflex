@@ -6,13 +6,14 @@
  */
 package de.jflex.testing.unicodedata;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
-
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodepointRange;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class AbstractEnumeratedPropertyDefinedScanner<T> {
   private final int maxCodePoint;
@@ -23,8 +24,8 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner<T> {
     propertyValues = (T[]) Array.newInstance(clazz, maxCodePoint + 1);
   }
 
-  public ImmutableList<NamedCodepointRange<T>> blocks() {
-    ImmutableList.Builder<NamedCodepointRange<T>> blocks = ImmutableList.builder();
+  public List<NamedCodepointRange<T>> blocks() {
+    List<NamedCodepointRange<T>> blocks = new ArrayList<>();
     T prevPropertyValue = propertyValues[0];
     int begCodePoint = 0;
     for (int codePoint = 1; codePoint <= maxCodePoint; ++codePoint) {
@@ -48,11 +49,11 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner<T> {
     if (null != prevPropertyValue) {
       blocks.add(NamedCodepointRange.create(prevPropertyValue, begCodePoint, maxCodePoint));
     }
-    return blocks.build();
+    return Collections.unmodifiableList(blocks);
   }
 
-  public ImmutableList<CodepointRange> ranges() {
-    return blocks().stream().map(NamedCodepointRange::range).collect(toImmutableList());
+  public List<CodepointRange> ranges() {
+    return blocks().stream().map(NamedCodepointRange::range).collect(Collectors.toList());
   }
 
   protected void setCurCharPropertyValue(String index, int length, T propertyValue) {

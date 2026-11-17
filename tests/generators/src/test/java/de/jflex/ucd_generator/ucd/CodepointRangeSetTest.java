@@ -4,10 +4,11 @@
  */
 package de.jflex.ucd_generator.ucd;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import de.jflex.ucd.CodepointRange;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 /** Test for {@link CodepointRangeSet}. */
@@ -19,9 +20,9 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create(42, 43))
             .add(CodepointRange.create(100, 200))
             .build();
-    assertThat(rangeSet.ranges())
-        .containsExactly(CodepointRange.create(42, 43), CodepointRange.create(100, 200))
-        .inOrder();
+    assertEquals(
+        Arrays.asList(CodepointRange.create(42, 43), CodepointRange.create(100, 200)),
+        rangeSet.ranges());
   }
 
   @Test
@@ -31,7 +32,7 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create(42, 43))
             .add(CodepointRange.create(44, 100))
             .build();
-    assertThat(rangeSet.ranges()).containsExactly(CodepointRange.create(42, 100)).inOrder();
+    assertEquals(Arrays.asList(CodepointRange.create(42, 100)), rangeSet.ranges());
   }
 
   @Test
@@ -42,9 +43,7 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create('\u0020', '\u007e'))
             .add(CodepointRange.create('\u007f', '\u009f'))
             .build();
-    assertThat(rangeSet.ranges())
-        .containsExactly(CodepointRange.create('\000', '\u009f'))
-        .inOrder();
+    assertEquals(Arrays.asList(CodepointRange.create('\000', '\u009f')), rangeSet.ranges());
   }
 
   @Test
@@ -56,12 +55,12 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create(44, 100))
             .add(CodepointRange.create(1000, 2000))
             .build();
-    assertThat(rangeSet.ranges())
-        .containsExactly(
+    assertEquals(
+        Arrays.asList(
             CodepointRange.createPoint(1),
             CodepointRange.create(42, 100),
-            CodepointRange.create(1000, 2000))
-        .inOrder();
+            CodepointRange.create(1000, 2000)),
+        rangeSet.ranges());
   }
 
   @Test
@@ -72,9 +71,7 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create('\u007f', '\u009f'))
             .add(CodepointRange.create('\u0020', '\u007e'))
             .build();
-    assertThat(rangeSet.ranges())
-        .containsExactly(CodepointRange.create('\000', '\u009f'))
-        .inOrder();
+    assertEquals(Arrays.asList(CodepointRange.create('\000', '\u009f')), rangeSet.ranges());
   }
 
   @Test
@@ -85,8 +82,9 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create(100, 200))
             .substract(CodepointRange.create(10, 20))
             .build();
-    assertThat(rangeSet.ranges())
-        .containsExactly(CodepointRange.create(42, 43), CodepointRange.create(100, 200));
+    assertEquals(
+        Arrays.asList(CodepointRange.create(42, 43), CodepointRange.create(100, 200)),
+        rangeSet.ranges());
   }
 
   @Test
@@ -97,11 +95,12 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create(50, 99))
             .substract(CodepointRange.create(79, 80))
             .build();
-    assertThat(rangeSet.ranges())
-        .containsExactly(
+    assertEquals(
+        Arrays.asList(
             CodepointRange.create(42, 43),
             CodepointRange.create(50, 78),
-            CodepointRange.create(81, 99));
+            CodepointRange.create(81, 99)),
+        rangeSet.ranges());
   }
 
   @Test
@@ -114,11 +113,12 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create(70, 99))
             .substract(CodepointRange.create(43, 78))
             .build();
-    assertThat(rangeSet.ranges())
-        .containsExactly(
+    assertEquals(
+        Arrays.asList(
             CodepointRange.create(1, 5),
             CodepointRange.create(10, 42),
-            CodepointRange.create(79, 99));
+            CodepointRange.create(79, 99)),
+        rangeSet.ranges());
   }
 
   @Test
@@ -129,7 +129,7 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create(100, 101))
             .substract(CodepointRange.create(1, 42))
             .build();
-    assertThat(rangeSet.ranges()).containsExactly(CodepointRange.create(100, 101));
+    assertEquals(Arrays.asList(CodepointRange.create(100, 101)), rangeSet.ranges());
   }
 
   @Test
@@ -140,9 +140,9 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create('\u2028', '\u2029'))
             .substract(CodepointRange.create('\t' + 1, '\r'))
             .build();
-    assertThat(rangeSet.ranges())
-        .containsExactly(
-            CodepointRange.createPoint('\t'), CodepointRange.create('\u2028', '\u2029'));
+    assertEquals(
+        Arrays.asList(CodepointRange.createPoint('\t'), CodepointRange.create('\u2028', '\u2029')),
+        rangeSet.ranges());
   }
 
   @Test
@@ -153,9 +153,10 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create('\u2029', '\u202A'))
             .substract(CodepointRange.createPoint('\u1fff'))
             .build();
-    assertThat(rangeSet.ranges())
-        .containsExactly(
-            CodepointRange.create('\u1ff6', '\u1ffe'), CodepointRange.create('\u2029', '\u202A'));
+    assertEquals(
+        Arrays.asList(
+            CodepointRange.create('\u1ff6', '\u1ffe'), CodepointRange.create('\u2029', '\u202A')),
+        rangeSet.ranges());
   }
 
   @Test
@@ -165,7 +166,7 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create('\ud800', '\ufa2d'))
             .substract(CodepointRange.create('\ud800', '\udfff'))
             .build();
-    assertThat(rangeSet.ranges()).containsExactly(CodepointRange.create('\ue000', '\ufa2d'));
+    assertEquals(Arrays.asList(CodepointRange.create('\ue000', '\ufa2d')), rangeSet.ranges());
   }
 
   @Test
@@ -185,7 +186,8 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.createPoint('\u0020'))
             .add(CodepointRange.createPoint('\u0085'))
             .add(CodepointRange.create('\u2000', '\u200a'));
-    assertThat(rangeSetBuilder.intersection(CodepointRange.createPoint('\u0085')))
-        .containsExactly(MutableCodepointRange.createPoint('\u0085'));
+    assertEquals(
+        Arrays.asList(MutableCodepointRange.createPoint('\u0085')),
+        rangeSetBuilder.intersection(CodepointRange.createPoint('\u0085')));
   }
 }

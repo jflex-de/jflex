@@ -46,16 +46,8 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.google.auto.value</groupId>
-      <artifactId>auto-value-annotations</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.google.truth</groupId>
-      <artifactId>truth</artifactId>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -73,18 +65,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <annotationProcessorPaths>
-            <path>
-              <groupId>com.google.auto.value</groupId>
-              <artifactId>auto-value</artifactId>
-              <version>${auto-value.version}</version>
-            </path>
-          </annotationProcessorPaths>
-        </configuration>
-      </plugin>
       <plugin>
         <!-- The UCD file scanners, from src/main/jflex. -->
         <groupId>de.jflex</groupId>

@@ -4,7 +4,6 @@
  */
 package de.jflex.ucd_generator.emitter.unicode_properties;
 
-import com.google.common.base.Joiner;
 import de.jflex.template.Template;
 import de.jflex.ucd_generator.emitter.common.UcdEmitter;
 import de.jflex.ucd_generator.ucd.UcdVersions;
@@ -38,7 +37,7 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
     UnicodePropertiesVars unicodePropertiesVars = new UnicodePropertiesVars();
     unicodePropertiesVars.templateName = TEMPLATE_NAME;
     unicodePropertiesVars.packageName = getTargetPackage();
-    unicodePropertiesVars.versionsAsString = Joiner.on(", ").join(versions.expandAllVersions());
+    unicodePropertiesVars.versionsAsString = String.join(", ", versions.expandAllVersions());
     unicodePropertiesVars.latestVersion = versions.getLastVersion().toMajorMinorString();
     unicodePropertiesVars.versionCases = versionCases();
     return unicodePropertiesVars;
