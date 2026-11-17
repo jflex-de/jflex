@@ -1,0 +1,12 @@
+
+Warning in file "src/test/java/de/jflex/testcase/ccl_esc/ccl.flex" (line 53): 
+Expression matches the empty string, which may lead to non-termination.
+<IN_ATTRIBUTE> ([^\"])* { return Token.VALUE; }
+
+Warning in file "src/test/java/de/jflex/testcase/ccl_esc/ccl.flex" (line 56): 
+Expression matches the empty string, which may lead to non-termination.
+<IN_DATA> ([^<])* { return Token.DATA; }
+
+Warning in file "src/test/java/de/jflex/testcase/ccl_esc/ccl.flex" (line 60): 
+Expression matches the empty string, which may lead to non-termination.
+<IN_CDATA> ([^"]>"]|"]"[^"]"]|[^"]"]">"|"]]"[^">"]|[^"]"]"]>")* { return Token.CDATA; }

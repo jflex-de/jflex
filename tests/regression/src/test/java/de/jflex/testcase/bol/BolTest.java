@@ -7,32 +7,27 @@ package de.jflex.testcase.bol;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.IOException;
 import java.io.StringReader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/** Tests BOL and EOL operators. */
+/**
+ * Tests BOL and EOL operators. {@link Bol2Test} has the tests for a spec without a character class
+ * for line terminators.
+ */
 public class BolTest {
-  // standard BOL and EOL tests
   BolScanner scanner;
-  // test BOL in absence of char class for NL characters
-  Bol2Scanner scanner2;
 
   @BeforeEach
   public void testMustInitializeScanner() {
     scanner = null;
-    scanner2 = null;
   }
 
   @AfterEach
   public void end() throws Exception {
     if (scanner != null) {
       assertEquals(State.END_OF_FILE, scanner.yylex());
-    }
-    if (scanner2 != null) {
-      assertEquals(State.END_OF_FILE, scanner2.yylex());
     }
   }
 
@@ -117,35 +112,7 @@ public class BolTest {
     assertEquals(State.LINE_FEED, scanner.yylex());
   }
 
-  @Test
-  public void bolNoNLCCL() throws Exception {
-    scanner2 = createScanner2("hello");
-    assertEquals(State.HELLO_AT_BOL, scanner2.yylex());
-  }
-
-  @Test
-  public void bolNoNLCCL2() throws Exception {
-    scanner2 = createScanner2("hello\n");
-    assertEquals(State.HELLO_AT_BOL, scanner2.yylex());
-    assertEquals(State.OTHER, scanner2.yylex());
-  }
-
-  @Test
-  public void noBolNoNLCCL() throws Exception {
-    scanner2 = createScanner2("\n  hello  ");
-    assertEquals(State.OTHER, scanner2.yylex());
-    assertEquals(State.OTHER, scanner2.yylex());
-    assertEquals(State.OTHER, scanner2.yylex());
-    assertEquals(State.HELLO_SIMPLY, scanner2.yylex());
-    assertEquals(State.OTHER, scanner2.yylex());
-    assertEquals(State.OTHER, scanner2.yylex());
-  }
-
-  private static BolScanner createScanner(final String content) throws IOException {
+  private static BolScanner createScanner(final String content) {
     return new BolScanner(new StringReader(content));
-  }
-
-  private static Bol2Scanner createScanner2(final String content) throws IOException {
-    return new Bol2Scanner(new StringReader(content));
   }
 }
