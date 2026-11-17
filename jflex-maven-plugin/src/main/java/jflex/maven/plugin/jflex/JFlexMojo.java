@@ -5,20 +5,17 @@
  */
 package jflex.maven.plugin.jflex;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
-
-import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
-import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
 import jflex.generator.LexGenerator;
 import jflex.l10n.ErrorMessages;
 import jflex.option.Options;
@@ -216,15 +213,28 @@ public class JFlexMojo extends AbstractMojo {
     if (lexDefinition.isDirectory()) {
       // recursively process files contained within
       getLog().debug("Processing lexer files found in " + lexDefinition);
-      Iterable<File> files =
-          Iterables.filter(
-              Files.fileTraverser().depthFirstPreOrder(lexDefinition),
-              new ExtensionPredicate("jflex", "jlex", "lex", "flex"));
+      List<File> files = new ArrayList<>();
+      collectFiles(lexDefinition, new ExtensionPredicate("jflex", "jlex", "lex", "flex"), files);
       for (File lexFile : files) {
         parseLexFile(lexFile);
       }
     } else {
       parseLexFile(lexDefinition);
+    }
+  }
+
+  /** Adds the files below {@code dir} that match {@code filter} to {@code result}, depth first. */
+  private static void collectFiles(File dir, Predicate<File> filter, List<File> result) {
+    File[] children = dir.listFiles();
+    if (children == null) {
+      return;
+    }
+    for (File child : children) {
+      if (child.isDirectory()) {
+        collectFiles(child, filter, result);
+      } else if (filter.test(child)) {
+        result.add(child);
+      }
     }
   }
 
@@ -279,7 +289,7 @@ public class JFlexMojo extends AbstractMojo {
       options.setNoMinimize(!minimize); // NOPMD
       options.setNoBackup(!backup); // NOPMD
 
-      if (!isNullOrEmpty(encodingName)) {
+      if (encodingName != null && !encodingName.isEmpty()) {
         options.setEncoding(encodingName);
       }
     } catch (Exception e) {
@@ -364,19 +374,17 @@ public class JFlexMojo extends AbstractMojo {
   }
 
   static class ExtensionPredicate implements Predicate<File> {
-    final ImmutableSet<String> extensions;
-
-    ExtensionPredicate(ImmutableSet<String> extensions) {
-      this.extensions = extensions;
-    }
+    final Set<String> extensions;
 
     ExtensionPredicate(String... extensions) {
-      this(ImmutableSet.copyOf(extensions));
+      this.extensions = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(extensions)));
     }
 
     @Override
-    public boolean apply(File file) {
-      return extensions.contains(Files.getFileExtension(file.getName()));
+    public boolean test(File file) {
+      String name = file.getName();
+      int dot = name.lastIndexOf('.');
+      return extensions.contains(dot < 0 ? "" : name.substring(dot + 1));
     }
   }
 }

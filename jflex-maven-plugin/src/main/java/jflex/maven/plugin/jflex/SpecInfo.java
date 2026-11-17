@@ -5,7 +5,6 @@
  */
 package jflex.maven.plugin.jflex;
 
-import com.google.common.base.Strings;
 import java.io.File;
 import java.util.Collections;
 import java.util.HashSet;
@@ -29,7 +28,7 @@ class SpecInfo {
 
   SpecInfo(String className, String packageName, Set<File> includedFiles) {
     this.className = className;
-    this.packageName = Strings.nullToEmpty(packageName);
+    this.packageName = packageName == null ? "" : packageName;
     this.includedFiles = new HashSet<>(includedFiles);
   }
 

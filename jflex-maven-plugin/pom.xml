@@ -87,10 +87,6 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-    </dependency>
-    <dependency>
       <groupId>de.jflex</groupId>
       <artifactId>jflex</artifactId>
       <version>${project.parent.version}</version>
@@ -119,11 +115,6 @@
     <dependency>
       <groupId>org.apache.maven.plugin-testing</groupId>
       <artifactId>maven-plugin-testing-harness</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.truth</groupId>
-      <artifactId>truth</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
