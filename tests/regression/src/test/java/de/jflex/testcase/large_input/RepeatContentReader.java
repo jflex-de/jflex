@@ -5,7 +5,6 @@
 
 package de.jflex.testcase.large_input;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.Math.min;
 
 import java.io.Reader;
@@ -34,7 +33,9 @@ public class RepeatContentReader extends Reader {
    *     loops and reads the given content from the beginning again.
    */
   RepeatContentReader(long size, String content) {
-    checkArgument(size > 0);
+    if (size <= 0) {
+      throw new IllegalArgumentException("size must be positive: " + size);
+    }
     this.size = size;
     this.content = createInternalContent(size, content);
   }

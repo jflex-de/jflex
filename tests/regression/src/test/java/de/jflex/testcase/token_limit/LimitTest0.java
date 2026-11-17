@@ -5,7 +5,8 @@
 
 package de.jflex.testcase.token_limit;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.EOFException;
@@ -23,27 +24,27 @@ public class LimitTest0 {
   @Test
   public void only_long_token() throws Exception {
     Limit_Success scanner = scannerFactory.createScannerWithContent("aaaaaaaa");
-    assertThat(scanner.yylex()).isEqualTo(0);
-    assertThat(scanner.yylex()).isEqualTo(-1);
+    assertEquals(0, scanner.yylex());
+    assertEquals(-1, scanner.yylex());
   }
 
   @Test
   public void two_long_tokens() throws Exception {
     Limit_Success scanner = scannerFactory.createScannerWithContent("aaaaaaaaaaaaaaaa");
-    assertThat(scanner.yylex()).isEqualTo(0);
-    assertThat(scanner.yylex()).isEqualTo(0);
-    assertThat(scanner.yylex()).isEqualTo(-1);
+    assertEquals(0, scanner.yylex());
+    assertEquals(0, scanner.yylex());
+    assertEquals(-1, scanner.yylex());
   }
 
   @Test
   public void two_long_tokens_separated() throws Exception {
     Limit_Success scanner = scannerFactory.createScannerWithContent("baaaaaaaabbaaaaaaaa");
-    assertThat(scanner.yylex()).isEqualTo(1);
-    assertThat(scanner.yylex()).isEqualTo(0);
-    assertThat(scanner.yylex()).isEqualTo(1);
-    assertThat(scanner.yylex()).isEqualTo(1);
-    assertThat(scanner.yylex()).isEqualTo(0);
-    assertThat(scanner.yylex()).isEqualTo(-1);
+    assertEquals(1, scanner.yylex());
+    assertEquals(0, scanner.yylex());
+    assertEquals(1, scanner.yylex());
+    assertEquals(1, scanner.yylex());
+    assertEquals(0, scanner.yylex());
+    assertEquals(-1, scanner.yylex());
   }
 
   @Test
@@ -51,23 +52,23 @@ public class LimitTest0 {
     Limit_Success scanner = scannerFactory.createScannerWithContent("cccccccccc");
     try {
       scanner.yylex();
-      assertThat(false).isTrue();
+      fail();
     } catch (EOFException e) {
-      assertThat(e.getMessage()).isEqualTo("Scan buffer limit reached [8]");
+      assertEquals("Scan buffer limit reached [8]", e.getMessage());
     }
   }
 
   @Test
   public void too_long_later() throws Exception {
     Limit_Success scanner = scannerFactory.createScannerWithContent("aaaaaaaabbcccccccccc");
-    assertThat(scanner.yylex()).isEqualTo(0);
-    assertThat(scanner.yylex()).isEqualTo(1);
-    assertThat(scanner.yylex()).isEqualTo(1);
+    assertEquals(0, scanner.yylex());
+    assertEquals(1, scanner.yylex());
+    assertEquals(1, scanner.yylex());
     try {
-      assertThat(scanner.yylex()).isEqualTo(3);
-      assertThat(false).isTrue();
+      assertEquals(3, scanner.yylex());
+      fail();
     } catch (EOFException e) {
-      assertThat(e.getMessage()).isEqualTo("Scan buffer limit reached [8]");
+      assertEquals("Scan buffer limit reached [8]", e.getMessage());
     }
   }
 }

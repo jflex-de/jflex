@@ -6,7 +6,7 @@
 
 package de.jflex.testcase.ccl_esc;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.util.scanner.ScannerFactory;
 import org.junit.jupiter.api.Test;
@@ -22,18 +22,18 @@ public class CclTest {
   @Test
   public void tokenOther_a() throws Exception {
     Ccl scanner = scannerFactory.createScannerWithContent("a");
-    assertThat(scanner.yylex()).isEqualTo(Token.OTHER);
+    assertEquals(Token.OTHER, scanner.yylex());
   }
 
   @Test
   public void tokenOther_hello() throws Exception {
     Ccl scanner = scannerFactory.createScannerWithContent("hello");
-    assertThat(scanner.yylex()).isEqualTo(Token.OTHER);
+    assertEquals(Token.OTHER, scanner.yylex());
   }
 
   @Test
   public void tokenAB() throws Exception {
     Ccl scanner = scannerFactory.createScannerWithContent("ab");
-    assertThat(scanner.yylex()).isEqualTo(Token.AB);
+    assertEquals(Token.AB, scanner.yylex());
   }
 }

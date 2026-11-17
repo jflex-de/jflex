@@ -5,8 +5,8 @@
 
 package de.jflex.testcase.ccl_16;
 
-import com.google.common.io.CharSource;
 import java.io.IOException;
+import java.io.StringReader;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -24,6 +24,6 @@ public class Ccl16Test {
   }
 
   private static CclScanner createScanner(String content) throws IOException {
-    return new CclScanner(CharSource.wrap(content).openStream());
+    return new CclScanner(new StringReader(content));
   }
 }

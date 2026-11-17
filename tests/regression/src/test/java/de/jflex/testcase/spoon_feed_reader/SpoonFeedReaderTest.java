@@ -4,13 +4,12 @@
  */
 package de.jflex.testcase.spoon_feed_reader;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.google.common.io.CharSource;
 import de.jflex.util.scanner.ScannerFactory;
-import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -23,13 +22,11 @@ import org.junit.jupiter.api.Test;
  */
 public class SpoonFeedReaderTest {
 
-  private final File testRuntimeDir = new File("src/test/java/de/jflex/testcase/spoon_feed_reader");
-
   /** Using the current {@code skeleton.default}, the scanner should output all input chars. */
   @Test
   public void testFixedSpoonReaderWithSurrogate() throws Exception {
     SpoonFeedReader scanner = ScannerFactory.of(SpoonFeedReader::new).createForReader(reader());
-    assertThat(scanner.yylex()).isEqualTo("12345678𐌀");
+    assertEquals("12345678𐌀", scanner.yylex());
   }
 
   /**
@@ -40,12 +37,12 @@ public class SpoonFeedReaderTest {
   @Test
   public void testFailingSpoonReaderWithSurrogate() throws Exception {
     SpoonFeedReaderF scanner = ScannerFactory.of(SpoonFeedReaderF::new).createForReader(reader());
-    assertThat(scanner.yylex()).isEqualTo("12345678");
+    assertEquals("12345678", scanner.yylex());
   }
 
   private static Reader reader() throws IOException {
     String input = "12345678𐌀";
     int maxChars = 9; // Hard-coded to split surrogate characters in the input "12345678𐌀"
-    return new SpoonFeedMaxCharsReaderWrapper(maxChars, CharSource.wrap(input).openStream());
+    return new SpoonFeedMaxCharsReaderWrapper(maxChars, new StringReader(input));
   }
 }

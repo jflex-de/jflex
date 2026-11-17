@@ -5,7 +5,7 @@
 
 package de.jflex.testcase.ccl_neg;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.util.scanner.ScannerFactory;
 import org.junit.jupiter.api.Test;
@@ -18,12 +18,12 @@ public class CCLNegTest {
     ScannerFactory<CCLNeg> scannerFactory = ScannerFactory.of(CCLNeg::new);
     CCLNeg scanner = scannerFactory.createScannerWithContent("not_space then\n space");
 
-    assertThat(scanner.yylex()).isEqualTo(1); // not space
-    assertThat(scanner.yylex()).isEqualTo(0); // default
-    assertThat(scanner.yylex()).isEqualTo(1); // not space
-    assertThat(scanner.yylex()).isEqualTo(2); // nl
-    assertThat(scanner.yylex()).isEqualTo(0); // default
-    assertThat(scanner.yylex()).isEqualTo(1); // not space
-    assertThat(scanner.yylex()).isEqualTo(-1); // EOF
+    assertEquals(1, scanner.yylex()); // not space
+    assertEquals(0, scanner.yylex()); // default
+    assertEquals(1, scanner.yylex()); // not space
+    assertEquals(2, scanner.yylex()); // nl
+    assertEquals(0, scanner.yylex()); // default
+    assertEquals(1, scanner.yylex()); // not space
+    assertEquals(-1, scanner.yylex()); // EOF
   }
 }

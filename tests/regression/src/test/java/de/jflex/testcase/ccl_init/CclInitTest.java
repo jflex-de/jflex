@@ -5,7 +5,7 @@
 
 package de.jflex.testcase.ccl_init;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.util.scanner.ScannerFactory;
 import org.junit.jupiter.api.Test;
@@ -21,8 +21,8 @@ public class CclInitTest {
   @Test
   public void test_init() throws Exception {
     Ccl scanner = scannerFactory.createScannerWithContent("cab");
-    assertThat(scanner.yylex()).isEqualTo(1);
-    assertThat(scanner.yylex()).isEqualTo(0);
-    assertThat(scanner.yylex()).isEqualTo(-1);
+    assertEquals(1, scanner.yylex());
+    assertEquals(0, scanner.yylex());
+    assertEquals(-1, scanner.yylex());
   }
 }

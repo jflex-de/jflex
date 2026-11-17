@@ -5,7 +5,7 @@
 
 package de.jflex.testcase.unicode_escape_warning;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
@@ -27,19 +27,19 @@ public class WarningsTest implements JFlexTest {
   @Test
   public void run() throws java.io.IOException {
     Warnings scanner = scannerFactory.createScannerWithContent("013245020210ab121201ab0");
-    assertThat(scanner.yylex()).isEqualTo(0);
-    assertThat(scanner.yylex()).isEqualTo(1);
-    assertThat(scanner.yylex()).isEqualTo(3);
-    assertThat(scanner.yylex()).isEqualTo(2);
-    assertThat(scanner.yylex()).isEqualTo(4);
-    assertThat(scanner.yylex()).isEqualTo(5);
-    assertThat(scanner.yylex()).isEqualTo(6);
-    assertThat(scanner.yylex()).isEqualTo(7);
-    assertThat(scanner.yylex()).isEqualTo(8);
-    assertThat(scanner.yylex()).isEqualTo(9);
-    assertThat(scanner.yylex()).isEqualTo(10);
-    assertThat(scanner.yylex()).isEqualTo(11);
-    assertThat(scanner.yylex()).isEqualTo(0);
-    assertThat(scanner.yylex()).isEqualTo(-1);
+    assertEquals(0, scanner.yylex());
+    assertEquals(1, scanner.yylex());
+    assertEquals(3, scanner.yylex());
+    assertEquals(2, scanner.yylex());
+    assertEquals(4, scanner.yylex());
+    assertEquals(5, scanner.yylex());
+    assertEquals(6, scanner.yylex());
+    assertEquals(7, scanner.yylex());
+    assertEquals(8, scanner.yylex());
+    assertEquals(9, scanner.yylex());
+    assertEquals(10, scanner.yylex());
+    assertEquals(11, scanner.yylex());
+    assertEquals(0, scanner.yylex());
+    assertEquals(-1, scanner.yylex());
   }
 }

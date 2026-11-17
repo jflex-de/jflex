@@ -6,13 +6,13 @@
 
 package de.jflex.testcase.eofclose;
 
-import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.google.common.io.CharSource;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import org.junit.jupiter.api.Test;
 
 /** Test for {@code eofclose} directive. */
@@ -36,20 +36,18 @@ public class EofCloseTest {
     ScannerFactory<EofNoClose> scannerFactory = ScannerFactory.of(EofNoClose::new);
     EofNoClose scanner = scannerFactory.createForReader(reader);
     while (scanner.yylex() != EofNoClose.YYEOF) {}
-    assertWithMessage(
-            "The scanner should not close the reader at EOF, making reading further legal,"
-                + " even though there is no more content")
-        .that(reader.read())
-        .isEqualTo(-1);
+    assertEquals(
+        -1,
+        reader.read(),
+        "The scanner should not close the reader at EOF, making reading further legal,"
+            + " even though there is no more content");
   }
 
   private static Reader readContent() throws IOException {
-    CharSource content =
-        CharSource.wrap(
-            "" + //
-                "bla\n" + // bla
-                "blub\n" + // blub
-                "\n");
-    return content.openStream();
+    return new StringReader(
+        "" + //
+            "bla\n" + // bla
+            "blub\n" + // blub
+            "\n");
   }
 }
