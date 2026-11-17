@@ -1142,7 +1142,7 @@ public final class Emitter {
         if (scanner.columnCount()) print("\"col: \"+(yycolumn+1)+\" \"+");
         if (scanner.charCount()) print("\"char: \"+yychar+\" \"+");
         println("\"match: --\"+zzToPrintable(yytext())+\"--\");");
-        print("            System.out.println(\"action [" + action.priority + "] { ");
+        print("            System.out.println(\"action [" + action.line + "] { ");
         print(escapify(action.content));
         println(" }\");");
       }
@@ -1179,7 +1179,7 @@ public final class Emitter {
             if (scanner.columnCount()) print("\"col: \"+(yycolumn+1)+\" \"+");
             if (scanner.charCount()) print("\"char: \"+yychar+\" \"+");
             println("\"match: <<EOF>>\");");
-            print("              System.out.println(\"action [" + action.priority + "] { ");
+            print("              System.out.println(\"action [" + action.line + "] { ");
             print(escapify(action.content));
             println(" }\");");
           }
@@ -1204,7 +1204,7 @@ public final class Emitter {
         if (scanner.columnCount()) print("\"col: \"+(yycolumn+1)+\" \"+");
         if (scanner.charCount()) print("\"char: \"+yychar+\" \"+");
         println("\"match: <<EOF>>\");");
-        print("                System.out.println(\"action [" + defaultAction.priority + "] { ");
+        print("                System.out.println(\"action [" + defaultAction.line + "] { ");
         print(escapify(defaultAction.content));
         println(" }\");");
       }

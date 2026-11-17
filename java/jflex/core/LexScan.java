@@ -2646,7 +2646,7 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
                }
                else {
                  yybegin(REGEXPSTART);
-                 Action a = new Action(actionText.toString(), action_line);
+                 Action a = new Action(actionText.toString(), file, action_line, actions.size() + 1);
                  actions.add(a);
                  return symbol(sym.ACTION, a);
                }

@@ -177,7 +177,7 @@ public final class NFA {
 
     for (int i = 0; i < numLexStates * 2; i++) addEpsilonTransition(i, start);
 
-    action[end] = new Action("System.out.print(yytext());", Integer.MAX_VALUE);
+    action[end] = new Action("System.out.print(yytext());");
     isFinal[end] = true;
   }
 

@@ -870,7 +870,7 @@ class CUP$LexParse$actions {
                      regExps.normaliseCCLs(scanner.file);
                      regExps.makeCCLs(charClasses, scanner.caseless);
 
-                     SemCheck.check(regExps, scanner.file, out);
+                     SemCheck.check(regExps, out);
 
                      regExps.checkActions();
                      regExps.checkLookAheads();

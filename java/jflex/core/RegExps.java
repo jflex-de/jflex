@@ -310,12 +310,13 @@ public class RegExps {
 
     for (int i = 0; i < regExps.size(); i++) {
       Action a = getAction(i);
-      int line = a == null ? -1 : a.priority - 1;
+      File file = a == null ? f : a.file;
+      int line = a == null ? -1 : a.line - 1;
       RegExp r;
       r = regExps.get(i);
-      newRegExps.add(r == null ? r : r.normaliseCCLs(f, line));
+      newRegExps.add(r == null ? r : r.normaliseCCLs(file, line));
       r = look.get(i);
-      newLook.add(r == null ? r : r.normaliseCCLs(f, line));
+      newLook.add(r == null ? r : r.normaliseCCLs(file, line));
     }
 
     this.regExps = newRegExps;
