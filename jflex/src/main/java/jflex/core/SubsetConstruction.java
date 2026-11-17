@@ -183,32 +183,58 @@ public final class SubsetConstruction {
     int[] result = closure[state];
     if (result != null) return result;
 
-    if (nfa.numEpsilon(state) == 0) {
-      result = important(state) ? new int[] {state} : NO_STATES;
-    } else {
-      int size = 0;
-      int top = 0;
-      epoch++;
-      mark[state] = epoch;
-      stack[top++] = state;
-      while (top > 0) {
-        int s = stack[--top];
-        if (important(s)) add(size++, s);
-        int[] eps = nfa.epsilon(s);
-        for (int i = nfa.numEpsilon(s) - 1; i >= 0; i--) {
-          int t = eps[i];
-          if (mark[t] != epoch) {
-            mark[t] = epoch;
-            if (top == stack.length) stack = Arrays.copyOf(stack, 2 * top);
-            stack[top++] = t;
-          }
-        }
+    // A state that is not important and has one epsilon edge has the closure of the state the edge
+    // leads to. Follow such edges, and share the closure: large alternatives have long chains of
+    // such states that end in the same state, and its closure can be large.
+    int last = state;
+    epoch++;
+    while (closure[last] == null && !important(last) && nfa.numEpsilon(last) == 1) {
+      mark[last] = epoch;
+      int next = nfa.epsilon(last)[0];
+      if (mark[next] == epoch) {
+        // a cycle of such states
+        closure[last] = NO_STATES;
+        break;
       }
-      result = Arrays.copyOf(buffer, size);
-      Arrays.sort(result);
+      last = next;
     }
 
-    closure[state] = result;
+    result = closure[last];
+    if (result == null) {
+      result = closure[last] = search(last);
+    }
+    for (int s = state; s != last; s = nfa.epsilon(s)[0]) {
+      closure[s] = result;
+    }
+    return result;
+  }
+
+  /** Computes {@link #closure(int)} with a search over the epsilon edges. */
+  private int[] search(int state) {
+    if (nfa.numEpsilon(state) == 0) {
+      return important(state) ? new int[] {state} : NO_STATES;
+    }
+
+    int size = 0;
+    int top = 0;
+    epoch++;
+    mark[state] = epoch;
+    stack[top++] = state;
+    while (top > 0) {
+      int s = stack[--top];
+      if (important(s)) add(size++, s);
+      int[] eps = nfa.epsilon(s);
+      for (int i = nfa.numEpsilon(s) - 1; i >= 0; i--) {
+        int t = eps[i];
+        if (mark[t] != epoch) {
+          mark[t] = epoch;
+          if (top == stack.length) stack = Arrays.copyOf(stack, 2 * top);
+          stack[top++] = t;
+        }
+      }
+    }
+    int[] result = Arrays.copyOf(buffer, size);
+    Arrays.sort(result);
     return result;
   }
 
