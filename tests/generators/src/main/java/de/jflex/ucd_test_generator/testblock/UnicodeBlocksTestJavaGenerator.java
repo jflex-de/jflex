@@ -4,13 +4,16 @@
  */
 package de.jflex.ucd_test_generator.testblock;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd.Versions;
 import de.jflex.ucd_test_generator.base.UnicodeVersion;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 class UnicodeBlocksTestJavaGenerator
     extends AbstractBlocksGenerator<UnicodeBlocksTestJavaTemplateVars, String> {
@@ -21,7 +24,7 @@ class UnicodeBlocksTestJavaGenerator
   private static final String NO_BLOCK = "No Block";
 
   public UnicodeBlocksTestJavaGenerator(
-      UnicodeVersion unicodeVersion, ImmutableList<NamedCodepointRange<String>> blockNames) {
+      UnicodeVersion unicodeVersion, List<NamedCodepointRange<String>> blockNames) {
     super("UnicodeBlocksTest.java", unicodeVersion, blockNames);
   }
 
@@ -32,7 +35,9 @@ class UnicodeBlocksTestJavaGenerator
     Comparator<NamedCodepointRange> comparator =
         (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
     StringBuilder blockRanges = new StringBuilder();
-    for (NamedCodepointRange b : ImmutableSortedSet.copyOf(comparator, addNoBlock(blocks))) {
+    SortedSet<NamedCodepointRange> sortedBlocks = new TreeSet<>(comparator);
+    sortedBlocks.addAll(addNoBlock(blocks));
+    for (NamedCodepointRange b : sortedBlocks) {
       if (blockRanges.length() > 0) {
         blockRanges.append(",\n");
       }
@@ -50,9 +55,8 @@ class UnicodeBlocksTestJavaGenerator
     return vars.className + ".java";
   }
 
-  private ImmutableList<NamedCodepointRange<String>> addNoBlock(
-      ImmutableList<NamedCodepointRange<String>> blocks) {
-    ImmutableList.Builder<NamedCodepointRange<String>> retval = ImmutableList.builder();
+  private List<NamedCodepointRange<String>> addNoBlock(List<NamedCodepointRange<String>> blocks) {
+    List<NamedCodepointRange<String>> retval = new ArrayList<>();
     retval.add(blocks.get(0));
     for (int i = 1; i < blocks.size(); i++) {
       // end of the prev block
@@ -76,6 +80,6 @@ class UnicodeBlocksTestJavaGenerator
     if (lastBlock.range().end() != maxCodePoint) {
       retval.add(NamedCodepointRange.create(NO_BLOCK, lastBlock.range().end() + 1, maxCodePoint));
     }
-    return retval.build();
+    return Collections.unmodifiableList(retval);
   }
 }

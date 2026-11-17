@@ -8,11 +8,10 @@ package de.jflex.ucd_generator.ucd;
 
 import static de.jflex.ucd_generator.util.HexaUtils.intFromHexa;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +39,7 @@ public class CaselessMatches {
    * Returns the {@link #caselessMatchPartitions} where the key is the first element from the
    * partition.
    */
-  public ImmutableCollection<SortedSet<Integer>> uniqueCaselessMatchPartitions() {
+  public Collection<SortedSet<Integer>> uniqueCaselessMatchPartitions() {
     ArrayList<SortedSet<Integer>> partitions = new ArrayList<>();
     for (Map.Entry<Integer, SortedSet<Integer>> entry : caselessMatchPartitions.entrySet()) {
       if (entry.getKey().equals(entry.getValue().first())) {
@@ -48,7 +47,12 @@ public class CaselessMatches {
       }
     }
     Comparator<SortedSet<Integer>> comparator = Comparator.comparingInt(SortedSet::first);
-    return ImmutableList.sortedCopyOf(comparator, partitions);
+    partitions.sort(comparator);
+    return Collections.unmodifiableList(partitions);
+  }
+
+  private static boolean isNullOrEmpty(String s) {
+    return s == null || s.isEmpty();
   }
 
   /**
@@ -65,9 +69,9 @@ public class CaselessMatches {
    */
   public void addCaselessMatches(
       int codePoint, String uppercaseMapping, String lowercaseMapping, String titlecaseMapping) {
-    if (Strings.isNullOrEmpty(uppercaseMapping)
-        && Strings.isNullOrEmpty(lowercaseMapping)
-        && Strings.isNullOrEmpty(titlecaseMapping)) {
+    if (isNullOrEmpty(uppercaseMapping)
+        && isNullOrEmpty(lowercaseMapping)
+        && isNullOrEmpty(titlecaseMapping)) {
       return;
     }
 

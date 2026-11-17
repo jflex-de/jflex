@@ -7,16 +7,17 @@
  */
 package de.jflex.testing.unicodedata;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.io.CharSource;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,33 +35,33 @@ public class AbstractSimpleParserTest {
     TestingParser parser = createWithContent("foo");
     assertThrows(IllegalArgumentException.class, parser::readNext);
     verify(handler, never()).onRegexMatch(any());
-    assertThat(parser.readNext()).isFalse();
+    assertFalse(parser.readNext());
   }
 
   @Test
   public void testParser_emptyLine() throws Exception {
     TestingParser parser = createWithContent("bar\n\n");
     assertThrows(IllegalArgumentException.class, parser::readNext); // bar\n
-    assertThat(parser.readNext()).isTrue(); // \n [empty line]
-    assertThat(parser.readNext()).isFalse();
+    assertTrue(parser.readNext()); // \n [empty line]
+    assertFalse(parser.readNext());
   }
 
   @Test
   public void testParser_onRegexMatch_macth1() throws Exception {
     TestingParser parser = createWithContent("hellooo");
-    assertThat(parser.readNext()).isTrue();
-    verify(handler).onRegexMatch(ImmutableList.of("hellooo"));
+    assertTrue(parser.readNext());
+    verify(handler).onRegexMatch(Arrays.asList("hellooo"));
   }
 
   @Test
   public void testParser_onRegexMatch_macth2() throws Exception {
     TestingParser parser = createWithContent("hello World");
-    assertThat(parser.readNext()).isTrue();
-    verify(handler).onRegexMatch(ImmutableList.of("hello", " World"));
+    assertTrue(parser.readNext());
+    verify(handler).onRegexMatch(Arrays.asList("hello", " World"));
   }
 
   TestingParser createWithContent(String inputContent) throws IOException {
-    return new TestingParser(CharSource.wrap(inputContent).openStream(), handler);
+    return new TestingParser(new StringReader(inputContent), handler);
   }
 
   static class TestingParser extends AbstractSimpleParser {

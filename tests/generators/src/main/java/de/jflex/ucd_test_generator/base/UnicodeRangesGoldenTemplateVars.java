@@ -5,9 +5,9 @@
 
 package de.jflex.ucd_test_generator.base;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.CodepointRange;
+import java.util.List;
 
 public class UnicodeRangesGoldenTemplateVars extends UnicodeVersionTemplateVars {
-  public ImmutableList<CodepointRange> ranges;
+  public List<CodepointRange> ranges;
 }

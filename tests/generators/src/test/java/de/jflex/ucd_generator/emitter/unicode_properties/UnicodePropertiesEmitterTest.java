@@ -4,13 +4,13 @@
  */
 package de.jflex.ucd_generator.emitter.unicode_properties;
 
-import com.google.common.io.Files;
 import de.jflex.testing.diff.DiffOutputStream;
 import de.jflex.ucd.UcdFileType;
 import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UcdVersions;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import org.junit.jupiter.api.Test;
 
 /** Test for {@link UnicodePropertiesEmitter}. */
@@ -40,7 +40,8 @@ public class UnicodePropertiesEmitterTest {
 
     // In-memory output. Closing checks that all of the golden file was emitted.
     try (DiffOutputStream output =
-        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8))) {
+        new DiffOutputStream(
+            Files.newBufferedReader(goldenFile.toPath(), StandardCharsets.UTF_8))) {
       emitter.emitUnicodeProperties(output);
     }
   }

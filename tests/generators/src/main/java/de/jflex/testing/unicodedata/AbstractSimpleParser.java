@@ -4,8 +4,6 @@
  */
 package de.jflex.testing.unicodedata;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -13,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -54,7 +53,7 @@ public abstract class AbstractSimpleParser {
           IntStream.range(1, /* endExclusive= */ matcher.groupCount() + 1)
               .mapToObj(matcher::group)
               .filter(Objects::nonNull)
-              .collect(toImmutableList());
+              .collect(Collectors.toList());
       handler.onRegexMatch(regexpGroups);
     } else {
       throw new IllegalArgumentException("Line does not match regex: " + "⟪" + line + "⟫");

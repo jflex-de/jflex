@@ -5,9 +5,10 @@
 
 package de.jflex.ucd_test_generator.testcompat;
 
-import com.google.common.collect.ImmutableSortedMap;
 import de.jflex.ucd_test_generator.base.UnicodePropertyFlexGenerator;
 import de.jflex.ucd_test_generator.base.UnicodeVersion;
+import java.util.Collections;
+import java.util.TreeMap;
 
 public class UnicodeCompatFlexGenerators {
 
@@ -16,7 +17,7 @@ public class UnicodeCompatFlexGenerators {
     String className =
         "UnicodeCompatibilityProperties_" + propName + "_" + version.underscoreVersion();
     return new UnicodePropertyFlexGenerator<>(
-        version, className, ImmutableSortedMap.of(propName, true), Boolean.class);
+        version, className, new TreeMap<>(Collections.singletonMap(propName, true)), Boolean.class);
   }
 
   private UnicodeCompatFlexGenerators() {}

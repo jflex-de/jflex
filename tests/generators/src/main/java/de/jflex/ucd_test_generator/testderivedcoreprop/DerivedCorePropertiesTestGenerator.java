@@ -4,9 +4,6 @@
  */
 package de.jflex.ucd_test_generator.testderivedcoreprop;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
-
-import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.SimpleDerivedCorePropertiesParser;
 import de.jflex.ucd.CodePointRanges;
 import de.jflex.ucd.CodepointRange;
@@ -20,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DerivedCorePropertiesTestGenerator {
 
@@ -49,11 +47,11 @@ public class DerivedCorePropertiesTestGenerator {
       UnicodeVersion version, String testName, UcdVersion ucd, String propertyName)
       throws IOException {
     Path derivedCorePropFile = ucd.getFile(UcdFileType.DerivedCoreProperties).toPath();
-    ImmutableList<CodepointRange> derivedCoreProperties =
+    List<CodepointRange> derivedCoreProperties =
         SimpleDerivedCorePropertiesParser.parseProperties(derivedCorePropFile).stream()
             .filter(b -> propertyName.equals(b.name()))
             .map(NamedCodepointRange::range)
-            .collect(toImmutableList());
+            .collect(Collectors.toList());
     derivedCoreProperties = CodePointRanges.merge(derivedCoreProperties);
     return new UnicodeDerivedPropertyGoldenGenerator(version, testName, derivedCoreProperties);
   }

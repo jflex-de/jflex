@@ -9,7 +9,6 @@ package de.jflex.ucd_generator.scanner;
 import static de.jflex.ucd_generator.ucd.PropertyNames.DEFAULT_CATEGORIES;
 import static de.jflex.ucd_generator.ucd.PropertyNames.NORMALIZED_GENERAL_CATEGORY;
 
-import com.google.common.collect.ImmutableSortedMap;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.CodepointRangeSet;
 import de.jflex.ucd_generator.ucd.MutableCodepointRange;
@@ -22,6 +21,8 @@ import java.util.Map;
 import java.util.NavigableMap;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * Scans ScriptExtensions.txt, using previously parsed Scripts(-X.Y.Z).txt values for missing code
@@ -84,18 +85,17 @@ abstract class AbstractScriptExtensionsScanner {
     }
   }
 
-  private ImmutableSortedMap<String, String> getUsedPropertyValueAliases() {
-    ImmutableSortedMap.Builder<String, String> usedPropertyValueAliases =
-        ImmutableSortedMap.naturalOrder();
+  private SortedMap<String, String> getUsedPropertyValueAliases() {
+    SortedMap<String, String> usedPropertyValueAliases = new TreeMap<>();
     for (String binaryProperty : unicodeData.usedBinaryProperties()) {
       for (String nameAlias : unicodeData.getPropertyAliases(binaryProperty)) {
         if (!Objects.equals(nameAlias, binaryProperty)) {
-          usedPropertyValueAliases.put(nameAlias, binaryProperty);
+          putUnique(usedPropertyValueAliases, nameAlias, binaryProperty);
         }
       }
     }
     if (unicodeData.hasUsedEnumeratedProperty(NORMALIZED_GENERAL_CATEGORY)) {
-      usedPropertyValueAliases.put(NORMALIZED_GENERAL_CATEGORY, "lc");
+      putUnique(usedPropertyValueAliases, NORMALIZED_GENERAL_CATEGORY, "lc");
     }
     for (String propName : unicodeData.usedEnumeratedProperties().keySet()) {
       Collection<String> propValues = unicodeData.usedEnumeratedProperties().get(propName);
@@ -106,7 +106,7 @@ abstract class AbstractScriptExtensionsScanner {
         if (DEFAULT_CATEGORIES.contains(propName)) {
           for (String valueAlias : unicodeData.getPropertyValueAliases(propName, propValue)) {
             if (!Objects.equals(valueAlias, propValue)) {
-              usedPropertyValueAliases.put(valueAlias, propValue);
+              putUnique(usedPropertyValueAliases, valueAlias, propValue);
             }
           }
         }
@@ -120,13 +120,20 @@ abstract class AbstractScriptExtensionsScanner {
                 || !(Objects.equals(nameAlias, propName)
                     && Objects.equals(valueAlias, propValue))) {
               String alias = nameAlias + '=' + valueAlias;
-              usedPropertyValueAliases.put(alias, canonicalValue);
+              putUnique(usedPropertyValueAliases, alias, canonicalValue);
             }
           }
         }
       }
     }
-    return usedPropertyValueAliases.build();
+    return usedPropertyValueAliases;
+  }
+
+  /** Like put, but a duplicate key is an error. */
+  private static void putUnique(Map<String, String> map, String key, String value) {
+    if (map.put(key, value) != null) {
+      throw new IllegalArgumentException("Multiple entries with same key: " + key);
+    }
   }
 
   void addScript(String script) {

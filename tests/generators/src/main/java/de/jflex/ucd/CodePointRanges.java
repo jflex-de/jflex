@@ -5,14 +5,15 @@
 
 package de.jflex.ucd;
 
-import com.google.common.collect.ImmutableList;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CodePointRanges {
 
-  public static ImmutableList<CodepointRange> merge(List<CodepointRange> ranges) {
+  public static List<CodepointRange> merge(List<CodepointRange> ranges) {
     ranges = sort(ranges);
-    ImmutableList.Builder<CodepointRange> retval = ImmutableList.builder();
+    List<CodepointRange> retval = new ArrayList<>();
     CodepointRange prev = ranges.get(0);
     for (int i = 1; i < ranges.size(); i++) {
       CodepointRange block = ranges.get(i);
@@ -26,11 +27,13 @@ public class CodePointRanges {
     }
     // add last
     retval.add(prev);
-    return retval.build();
+    return Collections.unmodifiableList(retval);
   }
 
-  public static ImmutableList<CodepointRange> sort(List<CodepointRange> ranges) {
-    return ImmutableList.sortedCopyOf(CodepointRange.COMPARATOR, ranges);
+  public static List<CodepointRange> sort(List<CodepointRange> ranges) {
+    List<CodepointRange> sorted = new ArrayList<>(ranges);
+    sorted.sort(CodepointRange.COMPARATOR);
+    return Collections.unmodifiableList(sorted);
   }
 
   private CodePointRanges() {}

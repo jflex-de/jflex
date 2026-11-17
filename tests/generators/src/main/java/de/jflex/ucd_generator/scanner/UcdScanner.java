@@ -4,13 +4,6 @@
  */
 package de.jflex.ucd_generator.scanner;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
-import com.google.common.collect.Sets.SetView;
-import com.google.common.io.Files;
 import de.jflex.ucd.UcdFileType;
 import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd.Versions;
@@ -20,6 +13,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class UcdScanner {
 
@@ -68,7 +66,8 @@ public class UcdScanner {
     if (file != null) {
       assertFileExists(file);
       PropertyAliasesScanner scanner =
-          new PropertyAliasesScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+          new PropertyAliasesScanner(
+              Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
@@ -79,7 +78,7 @@ public class UcdScanner {
       assertFileExists(file);
       PropertyValueAliasesScanner scanner =
           new PropertyValueAliasesScanner(
-              Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+              Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
@@ -93,11 +92,13 @@ public class UcdScanner {
 
   void scanUnicodeData() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.UnicodeData);
-    checkNotNull(file, "UnicodeData.txt not defined in UCD %s", ucdVersion);
+    Objects.requireNonNull(file, "UnicodeData.txt not defined in UCD " + ucdVersion);
     assertFileExists(file);
     UnicodeDataScanner scanner =
         new UnicodeDataScanner(
-            Files.newReader(file, StandardCharsets.UTF_8), ucdVersion, unicodeData);
+            Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8),
+            ucdVersion,
+            unicodeData);
     scanner.scan();
   }
 
@@ -106,7 +107,8 @@ public class UcdScanner {
       File file = ucdVersion.getFile(UcdFileType.PropList);
       if (file != null) {
         ArchaicPropListScanner scanner =
-            new ArchaicPropListScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+            new ArchaicPropListScanner(
+                Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8), unicodeData);
         scanner.scan();
       }
     } else {
@@ -147,7 +149,8 @@ public class UcdScanner {
     if (file != null) {
       assertFileExists(file);
       ScriptExtensionsScanner scanner =
-          new ScriptExtensionsScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+          new ScriptExtensionsScanner(
+              Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
@@ -157,7 +160,8 @@ public class UcdScanner {
       File file = ucdVersion.getFile(UcdFileType.Blocks);
       if (file != null) {
         ArchaicBlocksScanner scanner =
-            new ArchaicBlocksScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+            new ArchaicBlocksScanner(
+                Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8), unicodeData);
         scanner.scan();
       }
     } else {
@@ -175,7 +179,8 @@ public class UcdScanner {
       if (file != null) {
         assertFileExists(file);
         ArchaicLineBreakScanner scanner =
-            new ArchaicLineBreakScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+            new ArchaicLineBreakScanner(
+                Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8), unicodeData);
         scanner.scan();
       }
     } else {
@@ -214,7 +219,7 @@ public class UcdScanner {
       assertFileExists(file);
       DerivedAgeScanner scanner =
           new DerivedAgeScanner(
-              Files.newReader(file, StandardCharsets.UTF_8),
+              Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8),
               unicodeData,
               "Age",
               unicodeData.maximumCodePoint());
@@ -228,14 +233,16 @@ public class UcdScanner {
       return;
     }
     File file =
-        checkNotNull(
+        Objects.requireNonNull(
             ucdVersion.getFile(UcdFileType.Emoji),
-            "Expected Emoji for version %s but known files are: %s",
-            ucdVersion.version(),
-            ucdVersion.files());
+            "Expected Emoji for version "
+                + ucdVersion.version()
+                + " but known files are: "
+                + ucdVersion.files());
     assertFileExists(file);
     BinaryPropertiesFileScanner scanner =
-        new BinaryPropertiesFileScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+        new BinaryPropertiesFileScanner(
+            Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8), unicodeData);
     scanner.scan();
   }
 
@@ -245,7 +252,7 @@ public class UcdScanner {
       assertFileExists(file);
       BinaryPropertiesFileScanner scanner =
           new BinaryPropertiesFileScanner(
-              Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+              Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
@@ -258,20 +265,16 @@ public class UcdScanner {
       assertFileExists(file);
       EnumeratedPropertyFileScanner scanner =
           new EnumeratedPropertyFileScanner(
-              Files.newReader(file, StandardCharsets.UTF_8),
+              Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8),
               unicodeData,
               defaultPropertyName,
               defaultPropertyValue);
-      ImmutableSet<String> before =
-          DEBUG
-              ? ImmutableSet.copyOf(ImmutableList.copyOf(unicodeData.intervals().keySet()))
-              : ImmutableSet.of();
+      Set<String> before =
+          DEBUG ? new TreeSet<>(unicodeData.intervals().keySet()) : Collections.emptySet();
       scanner.scan();
       if (DEBUG) {
-        SetView<String> diff =
-            Sets.difference(
-                ImmutableSet.copyOf(ImmutableList.copyOf(unicodeData.intervals().keySet())),
-                before);
+        Set<String> diff = new TreeSet<>(unicodeData.intervals().keySet());
+        diff.removeAll(before);
         System.out.println(diff);
       }
     }

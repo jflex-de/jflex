@@ -5,11 +5,11 @@
 
 package de.jflex.ucd_test_generator.testdigit;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd_test_generator.base.UnicodeVersionTemplateVars;
+import java.util.List;
 
 public class UnicodeDigitGoldenTemplateVars extends UnicodeVersionTemplateVars {
 
-  public ImmutableList<NamedCodepointRange<Boolean>> digitBlocks;
+  public List<NamedCodepointRange<Boolean>> digitBlocks;
 }

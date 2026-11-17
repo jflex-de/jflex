@@ -4,10 +4,6 @@
  */
 package de.jflex.ucd_test_generator.testblock;
 
-import static com.google.common.base.Preconditions.checkState;
-import static com.google.common.collect.ImmutableList.toImmutableList;
-
-import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodePointRanges;
@@ -19,8 +15,11 @@ import de.jflex.ucd_test_generator.base.UnicodeVersion;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BlocksTestGenerator {
 
@@ -32,14 +31,16 @@ public class BlocksTestGenerator {
     List<String> files = Arrays.asList(Arrays.copyOfRange(args, 1, args.length));
     UcdVersion ucd = UcdVersion.findUcdFiles(version.version(), files);
     Path ucdBlocks = ucd.getFile(UcdFileType.Blocks).toPath();
-    ImmutableList<NamedCodepointRange<String>> blocks =
+    List<NamedCodepointRange<String>> blocks =
         SimpleIntervalsParser.parseUnicodeBlocks(ucdBlocks).stream()
             .filter(b -> !b.isSurrogate())
-            .collect(toImmutableList());
+            .collect(Collectors.toList());
     if (version.version().equals(Versions.VERSION_2_0)) {
       blocks = fixBlocksForUnicode_2_0(blocks);
     }
-    checkState(!blocks.isEmpty(), "There are no blocks defined in %s", version);
+    if (blocks.isEmpty()) {
+      throw new IllegalStateException("There are no blocks defined in " + version);
+    }
     blocks = NamedCodePointRanges.merge(blocks);
     generate(version, outDir, blocks);
   }
@@ -60,9 +61,9 @@ public class BlocksTestGenerator {
    *
    * @see de.jflex.ucd_generator.ucd.UnicodeData#hackUnicode_2_0
    */
-  private static ImmutableList<NamedCodepointRange<String>> fixBlocksForUnicode_2_0(
-      ImmutableList<NamedCodepointRange<String>> blocks) {
-    ImmutableList.Builder<NamedCodepointRange<String>> fixedBlocks = ImmutableList.builder();
+  private static List<NamedCodepointRange<String>> fixBlocksForUnicode_2_0(
+      List<NamedCodepointRange<String>> blocks) {
+    List<NamedCodepointRange<String>> fixedBlocks = new ArrayList<>();
     CodepointRange arabicRange = CodepointRange.create(0xFE70, 0xFEFF);
     CodepointRange lastSpecials = CodepointRange.create(0xFFF0, 0xFFFF);
     for (NamedCodepointRange<String> block : blocks) {
@@ -75,11 +76,11 @@ public class BlocksTestGenerator {
         fixedBlocks.add(block);
       }
     }
-    return fixedBlocks.build();
+    return Collections.unmodifiableList(fixedBlocks);
   }
 
   private static void generate(
-      UnicodeVersion version, Path outDir, ImmutableList<NamedCodepointRange<String>> blocks)
+      UnicodeVersion version, Path outDir, List<NamedCodepointRange<String>> blocks)
       throws IOException {
     UnicodeBlockFlexGenerator.create(version, blocks).generate(outDir);
     new UnicodeBlocksTestJavaGenerator(version, blocks).generate(outDir);

@@ -5,14 +5,12 @@
 
 package de.jflex.ucd_test_generator.testcaseless;
 
-import static com.google.common.collect.ImmutableMap.toImmutableMap;
-import static java.util.function.Function.identity;
-
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd_test_generator.base.AbstractGenerator;
 import de.jflex.ucd_test_generator.base.UnicodeVersion;
 import de.jflex.ucd_test_generator.testcaseless.CaselessTestGenerator.Equivalences;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeSet;
 
 public class UnicodeCaselessGoldenGenerator
     extends AbstractGenerator<UnicodeCaselessGoldenTemplateVars> {
@@ -30,9 +28,11 @@ public class UnicodeCaselessGoldenGenerator
 
     UnicodeCaselessGoldenTemplateVars vars = new UnicodeCaselessGoldenTemplateVars();
     vars.className = "UnicodeCaseless_" + unicodeVersion.underscoreVersion();
-    vars.equivalences =
-        ImmutableList.sortedCopyOf(equivalences.getKeys()).stream()
-            .collect(toImmutableMap(identity(), equivalences::getEquivalentValue));
+    Map<Integer, Integer> sortedEquivalences = new LinkedHashMap<>();
+    for (Integer key : new TreeSet<>(equivalences.getKeys())) {
+      sortedEquivalences.put(key, equivalences.getEquivalentValue(key));
+    }
+    vars.equivalences = sortedEquivalences;
     return vars;
   }
 

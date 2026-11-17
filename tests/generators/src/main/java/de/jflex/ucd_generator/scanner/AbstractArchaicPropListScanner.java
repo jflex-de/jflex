@@ -6,17 +6,19 @@
  */
 package de.jflex.ucd_generator.scanner;
 
-import com.google.common.collect.HashMultimap;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.UnicodeData;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class AbstractArchaicPropListScanner {
 
   final UnicodeData unicodeData;
 
   /** Map of propName -> intervals */
-  HashMultimap<String, CodepointRange> intervals = HashMultimap.create();
+  Map<String, Set<CodepointRange>> intervals = new HashMap<>();
 
   String propertyName;
   int start;
@@ -27,14 +29,17 @@ public class AbstractArchaicPropListScanner {
   }
 
   public void addPropertyIntervals() {
-    for (Map.Entry<String, CodepointRange> property : intervals.entries()) {
+    for (Map.Entry<String, Set<CodepointRange>> property : intervals.entrySet()) {
       String currentPropertyName = property.getKey();
-      CodepointRange interval = property.getValue();
-      unicodeData.addBinaryPropertyInterval(currentPropertyName, interval);
+      for (CodepointRange interval : property.getValue()) {
+        unicodeData.addBinaryPropertyInterval(currentPropertyName, interval);
+      }
     }
   }
 
   public void addCurrentInterval() {
-    intervals.put(propertyName, CodepointRange.create(start, end));
+    intervals
+        .computeIfAbsent(propertyName, k -> new HashSet<>())
+        .add(CodepointRange.create(start, end));
   }
 }

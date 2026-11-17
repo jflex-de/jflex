@@ -4,23 +4,34 @@
  */
 package de.jflex.ucd;
 
-import com.google.auto.value.AutoValue;
 import java.util.Comparator;
+import java.util.Objects;
 
-@AutoValue
-public abstract class NamedCodepointRange<T> {
+public final class NamedCodepointRange<T> {
 
   public static final Comparator<NamedCodepointRange> START_COMPARATOR =
       (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
 
   private static final String HEX_FORMAT = "%04X";
 
-  public abstract T name();
+  private final T name;
+  private final CodepointRange range;
 
-  public abstract CodepointRange range();
+  private NamedCodepointRange(T name, CodepointRange range) {
+    this.name = Objects.requireNonNull(name, "name");
+    this.range = Objects.requireNonNull(range, "range");
+  }
+
+  public T name() {
+    return name;
+  }
+
+  public CodepointRange range() {
+    return range;
+  }
 
   public static <T> NamedCodepointRange<T> create(T name, CodepointRange range) {
-    return new AutoValue_NamedCodepointRange<T>(name, range);
+    return new NamedCodepointRange<T>(name, range);
   }
 
   public static <T> NamedCodepointRange<T> create(T name, int start, int end) {
@@ -28,7 +39,24 @@ public abstract class NamedCodepointRange<T> {
   }
 
   @Override
-  public final String toString() {
+  public boolean equals(Object o) {
+    if (o == this) {
+      return true;
+    }
+    if (!(o instanceof NamedCodepointRange)) {
+      return false;
+    }
+    NamedCodepointRange<?> other = (NamedCodepointRange<?>) o;
+    return name.equals(other.name) && range.equals(other.range);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, range);
+  }
+
+  @Override
+  public String toString() {
     return String.format("%04X..%04X; %s", range().start(), range().end(), name());
   }
 

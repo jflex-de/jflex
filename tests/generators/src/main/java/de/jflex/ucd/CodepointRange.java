@@ -4,27 +4,54 @@
  */
 package de.jflex.ucd;
 
-import com.google.auto.value.AutoValue;
 import java.util.Comparator;
 
-@AutoValue
-public abstract class CodepointRange {
+public final class CodepointRange {
 
   public static final Comparator<CodepointRange> COMPARATOR =
       Comparator.comparingInt(CodepointRange::start).thenComparingInt(CodepointRange::end);
 
+  private final int start;
+  private final int end;
+
+  private CodepointRange(int start, int end) {
+    this.start = start;
+    this.end = end;
+  }
+
   /** Start code-point, included. */
-  public abstract int start();
+  public int start() {
+    return start;
+  }
 
   /** End code-point, included. */
-  public abstract int end();
+  public int end() {
+    return end;
+  }
 
-  public final int length() {
+  public int length() {
     return end() - start();
   }
 
   @Override
-  public final String toString() {
+  public boolean equals(Object o) {
+    if (o == this) {
+      return true;
+    }
+    if (!(o instanceof CodepointRange)) {
+      return false;
+    }
+    CodepointRange other = (CodepointRange) o;
+    return start == other.start && end == other.end;
+  }
+
+  @Override
+  public int hashCode() {
+    return 31 * start + end;
+  }
+
+  @Override
+  public String toString() {
     if (length() == 0) {
       return String.format("\\u%04x", start());
     }
@@ -32,7 +59,7 @@ public abstract class CodepointRange {
   }
 
   public static CodepointRange create(int start, int end) {
-    return new AutoValue_CodepointRange(start, end);
+    return new CodepointRange(start, end);
   }
 
   public static CodepointRange createPoint(int codePoint) {

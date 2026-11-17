@@ -5,16 +5,16 @@
 
 package de.jflex.ucd;
 
-import com.google.common.collect.ImmutableList;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class NamedCodePointRanges {
 
-  public static ImmutableList<NamedCodepointRange<String>> merge(
-      List<NamedCodepointRange<String>> ranges) {
+  public static List<NamedCodepointRange<String>> merge(List<NamedCodepointRange<String>> ranges) {
     ranges = sort(ranges);
-    ImmutableList.Builder<NamedCodepointRange<String>> retval = ImmutableList.builder();
+    List<NamedCodepointRange<String>> retval = new ArrayList<>();
     NamedCodepointRange<String> prev = ranges.get(0);
     for (int i = 1; i < ranges.size(); i++) {
       NamedCodepointRange<String> block = ranges.get(i);
@@ -29,14 +29,15 @@ public class NamedCodePointRanges {
     }
     // add last
     retval.add(prev);
-    return retval.build();
+    return Collections.unmodifiableList(retval);
   }
 
-  public static ImmutableList<NamedCodepointRange<String>> sort(
-      List<NamedCodepointRange<String>> ranges) {
+  public static List<NamedCodepointRange<String>> sort(List<NamedCodepointRange<String>> ranges) {
     Comparator<NamedCodepointRange<String>> comparator =
         (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
-    return ImmutableList.sortedCopyOf(comparator, ranges);
+    List<NamedCodepointRange<String>> sorted = new ArrayList<>(ranges);
+    sorted.sort(comparator);
+    return Collections.unmodifiableList(sorted);
   }
 
   private NamedCodePointRanges() {}

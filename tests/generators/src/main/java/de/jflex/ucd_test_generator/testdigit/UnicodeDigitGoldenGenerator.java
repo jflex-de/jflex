@@ -5,13 +5,13 @@
 
 package de.jflex.ucd_test_generator.testdigit;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd.Versions;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.ucd_test_generator.base.AbstractGenerator;
 import de.jflex.ucd_test_generator.base.UnicodeVersion;
+import java.util.List;
 
 public class UnicodeDigitGoldenGenerator extends AbstractGenerator<UnicodeDigitGoldenTemplateVars> {
 
@@ -49,8 +49,8 @@ public class UnicodeDigitGoldenGenerator extends AbstractGenerator<UnicodeDigitG
     return vars.className + ".output";
   }
 
-  private ImmutableList<NamedCodepointRange<Boolean>> createDigitBlocks(int maxCodepoint) {
-    ImmutableList<CodepointRange> ranges = unicodeData.getPropertyValueIntervals("Nd");
+  private List<NamedCodepointRange<Boolean>> createDigitBlocks(int maxCodepoint) {
+    List<CodepointRange> ranges = unicodeData.getPropertyValueIntervals("Nd");
     DigitBlocks.Builder digitBlocks = DigitBlocks.builder();
     digitBlocks.add(false, 0, ranges.get(0).start() - 1);
     digitBlocks.add(true, ranges.get(0));

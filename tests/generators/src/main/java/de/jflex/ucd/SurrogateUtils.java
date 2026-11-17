@@ -6,8 +6,10 @@
  */
 package de.jflex.ucd;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class SurrogateUtils {
@@ -33,23 +35,24 @@ public class SurrogateUtils {
    * is entirely outside of or starts or ends within; or straddles the surrogate range
    * [0xD800-0xDFFF], respectively.
    */
-  public static ImmutableList<CodepointRange> removeSurrogates(
-      int startCodePoint, int endCodePoint) {
-    Preconditions.checkArgument(startCodePoint <= endCodePoint);
+  public static List<CodepointRange> removeSurrogates(int startCodePoint, int endCodePoint) {
+    if (startCodePoint > endCodePoint) {
+      throw new IllegalArgumentException();
+    }
     if (startCodePoint >= START && endCodePoint <= END) {
-      return ImmutableList.of();
+      return Collections.emptyList();
     }
     if (endCodePoint < START || startCodePoint > END) {
-      return ImmutableList.of(CodepointRange.create(startCodePoint, endCodePoint));
+      return Arrays.asList(CodepointRange.create(startCodePoint, endCodePoint));
     }
-    ImmutableList.Builder<CodepointRange> ranges = ImmutableList.builder();
+    List<CodepointRange> ranges = new ArrayList<>();
     if (startCodePoint < START) {
       ranges.add(CodepointRange.create(startCodePoint, START - 1));
     }
     if (endCodePoint > END) {
       ranges.add(CodepointRange.create(END + 1, endCodePoint));
     }
-    return ranges.build();
+    return Collections.unmodifiableList(ranges);
   }
 
   public static boolean containsSurrogate(CodepointRange cp) {

@@ -6,24 +6,24 @@
  */
 package de.jflex.ucd_generator.ucd;
 
-import static com.google.common.base.Preconditions.checkState;
 import static de.jflex.ucd_generator.ucd.PropertyNames.NORMALIZED_GENERAL_CATEGORY;
 import static de.jflex.ucd_generator.ucd.PropertyNames.NORMALIZED_SCRIPT;
 import static java.util.Arrays.asList;
 
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.ImmutableSortedMap;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.Versions;
 import de.jflex.version.Version;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.SortedSet;
+import java.util.TreeMap;
 
 public class UnicodeData {
 
@@ -104,7 +104,8 @@ public class UnicodeData {
     return propertyValueIntervals.usedBinaryProperties;
   }
 
-  public ImmutableMultimap<String, String> usedEnumeratedProperties() {
+  /** Returns the used values of each enumerated property. */
+  public Map<String, Set<String>> usedEnumeratedProperties() {
     return propertyValueIntervals.usedEnumeratedProperties();
   }
 
@@ -120,7 +121,7 @@ public class UnicodeData {
    *     enumerated property (e.g. {@code Line_Break=BB} or {@code lb=Break_Before}). Property names
    *     and values can be given by alias.
    */
-  public ImmutableList<CodepointRange> getPropertyValueIntervals(String property) {
+  public List<CodepointRange> getPropertyValueIntervals(String property) {
     return propertyValueIntervals.getRanges(canonicalKey(property));
   }
 
@@ -151,36 +152,42 @@ public class UnicodeData {
   }
 
   /** Returns the code point range by property. */
-  public ImmutableSortedMap<String, CodepointRangeSet> intervals() {
-    ImmutableSortedMap<String, CodepointRangeSet> map = propertyValueIntervals.asSortedMap();
-    return ImmutableSortedMap.<String, CodepointRangeSet>naturalOrder()
-        .putAll(map.entrySet())
-        .build();
+  public SortedMap<String, CodepointRangeSet> intervals() {
+    return Collections.unmodifiableSortedMap(propertyValueIntervals.asSortedMap());
   }
 
-  public ImmutableList<Map.Entry<String, String>> usedPropertyValueAliases() {
-    return ImmutableList.<Map.Entry<String, String>>builder()
-        .addAll(computeUsedPropertyValueAliases().entrySet())
-        .build();
+  public List<Map.Entry<String, String>> usedPropertyValueAliases() {
+    return Collections.unmodifiableList(
+        new ArrayList<>(computeUsedPropertyValueAliases().entrySet()));
   }
 
-  private ImmutableSortedMap<String, String> computeUsedPropertyValueAliases() {
-    ImmutableSortedMap.Builder<String, String> usedPropertyValueAliases =
-        ImmutableSortedMap.naturalOrder();
+  /** Like put, but duplicate keys are not allowed. */
+  private static void putUnique(Map<String, String> map, String key, String value) {
+    if (map.put(key, value) != null) {
+      throw new IllegalArgumentException("Multiple entries with same key: " + key);
+    }
+  }
+
+  private SortedMap<String, String> computeUsedPropertyValueAliases() {
+    SortedMap<String, String> usedPropertyValueAliases = new TreeMap<>();
     for (String binaryProperty : usedBinaryProperties()) {
       for (String nameAlias : getPropertyAliases(binaryProperty)) {
         if (!Objects.equals(nameAlias, binaryProperty)) {
-          usedPropertyValueAliases.put(nameAlias, binaryProperty);
+          putUnique(usedPropertyValueAliases, nameAlias, binaryProperty);
         }
       }
     }
-    ImmutableMultimap<String, String> usedEnumProperties =
-        ImmutableMultimap.<String, String>builder()
-            .putAll(usedEnumeratedProperties())
-            .put(NORMALIZED_GENERAL_CATEGORY, "lc")
-            .build();
-    for (String propName : usedEnumProperties.keySet()) {
-      for (String propValue : usedEnumProperties.get(propName)) {
+    // The used values, and "lc" as an additional General_Category value.
+    Map<String, List<String>> usedEnumProperties = new LinkedHashMap<>();
+    for (Map.Entry<String, Set<String>> entry : usedEnumeratedProperties().entrySet()) {
+      usedEnumProperties.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+    }
+    usedEnumProperties
+        .computeIfAbsent(NORMALIZED_GENERAL_CATEGORY, k -> new ArrayList<>())
+        .add("lc");
+    for (Map.Entry<String, List<String>> usedEnumProperty : usedEnumProperties.entrySet()) {
+      String propName = usedEnumProperty.getKey();
+      for (String propValue : usedEnumProperty.getValue()) {
         String canonicalValue = propName + '=' + propValue;
         Collection<String> propertyValueAliases = getPropertyValueAliases(propName, propValue);
 
@@ -190,7 +197,7 @@ public class UnicodeData {
           canonicalValue = propValue;
           for (String valueAlias : propertyValueAliases) {
             if (!Objects.equals(valueAlias, propValue)) {
-              usedPropertyValueAliases.put(valueAlias, propValue);
+              putUnique(usedPropertyValueAliases, valueAlias, propValue);
             }
           }
         }
@@ -205,13 +212,13 @@ public class UnicodeData {
                 || !(Objects.equals(nameAlias, propName)
                     && Objects.equals(valueAlias, propValue))) {
               String alias = nameAlias + '=' + valueAlias;
-              usedPropertyValueAliases.put(alias, canonicalValue);
+              putUnique(usedPropertyValueAliases, alias, canonicalValue);
             }
           }
         }
       }
     }
-    return usedPropertyValueAliases.build();
+    return usedPropertyValueAliases;
   }
 
   public String getCanonicalPropertyValueName(String propName, String propValue) {
@@ -222,7 +229,7 @@ public class UnicodeData {
     return caselessMatches.maxCaselessMatchPartitionSize();
   }
 
-  public ImmutableCollection<SortedSet<Integer>> uniqueCaselessMatchPartitions() {
+  public Collection<SortedSet<Integer>> uniqueCaselessMatchPartitions() {
     return caselessMatches.uniqueCaselessMatchPartitions();
   }
 
@@ -263,7 +270,7 @@ public class UnicodeData {
   private void addCompatibilityHexDigit_1_1() {
     propertyValueIntervals.addAllRanges(
         "xdigit",
-        ImmutableList.of(
+        asList(
             CodepointRange.create('A', 'F'),
             CodepointRange.create('a', 'f'),
             // FF21..FF26;FULLWIDTH LATIN CAPITAL LETTER A..F
@@ -289,9 +296,9 @@ public class UnicodeData {
     addCompatibilityProperty("alnum", asList("ll", "lu", "lt", "lm", "lo"));
   }
 
-  private ImmutableList<CodepointRange> createBlankSet() {
+  private List<CodepointRange> createBlankSet() {
     CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
-    ImmutableList<CodepointRange> whitespaceRanges = getWhitespaceRange();
+    List<CodepointRange> whitespaceRanges = getWhitespaceRange();
     ranges.addAllImmutable(whitespaceRanges);
     // Subtract: [\N{LF}\N{VT}\N{FF}\N{CR}] = [U+000A-U+000D]
     ranges.substract(CodepointRange.create(0xA, 0xD));
@@ -303,7 +310,7 @@ public class UnicodeData {
     return ranges.build().ranges();
   }
 
-  private ImmutableList<CodepointRange> createGraphSet() {
+  private List<CodepointRange> createGraphSet() {
     CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
     ranges.add(MutableCodepointRange.create(0x0, maximumCodePoint));
     ranges.substractAll(getWhitespaceRange());
@@ -313,7 +320,7 @@ public class UnicodeData {
     return ranges.build().ranges();
   }
 
-  private ImmutableList<CodepointRange> createPrintSet() {
+  private List<CodepointRange> createPrintSet() {
     CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
     ranges.addAllImmutable(propertyValueIntervals.getRanges("graph"));
     ranges.addAllImmutable(propertyValueIntervals.getRanges("blank"));
@@ -321,13 +328,13 @@ public class UnicodeData {
     return ranges.build().ranges();
   }
 
-  private ImmutableList<CodepointRange> getWhitespaceRange() {
-    ImmutableList<CodepointRange> whitespaceRanges = propertyValueIntervals.getRanges("whitespace");
+  private List<CodepointRange> getWhitespaceRange() {
+    List<CodepointRange> whitespaceRanges = propertyValueIntervals.getRanges("whitespace");
     if (whitespaceRanges.isEmpty()) {
-      checkState(
-          Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_1_1) == 0,
-          "No whitespace property in Unicode %s. Was PropList parsed?",
-          version);
+      if (Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_1_1) != 0) {
+        throw new IllegalStateException(
+            "No whitespace property in Unicode " + version + ". Was PropList parsed?");
+      }
       // For Unicode 1.1, substitute "Space_separator" (Zs) for "Whitespace"
       whitespaceRanges = propertyValueIntervals.getRanges("zs");
     }

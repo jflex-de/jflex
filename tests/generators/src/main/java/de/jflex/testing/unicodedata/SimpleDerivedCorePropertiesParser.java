@@ -5,7 +5,6 @@
 
 package de.jflex.testing.unicodedata;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodepointRange;
 import java.io.IOException;
@@ -13,6 +12,8 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -35,19 +36,18 @@ public class SimpleDerivedCorePropertiesParser extends AbstractSimpleParser {
   }
 
   /** Parses the unicode {@code Blocks.txt} and returns the defined blocks. */
-  public static ImmutableList<NamedCodepointRange<String>> parseProperties(Path blocksTxt)
+  public static List<NamedCodepointRange<String>> parseProperties(Path blocksTxt)
       throws IOException {
     return parseProperties(Files.newBufferedReader(blocksTxt, StandardCharsets.UTF_8));
   }
 
-  static ImmutableList<NamedCodepointRange<String>> parseProperties(Reader reader)
-      throws IOException {
-    ImmutableList.Builder<NamedCodepointRange<String>> list = ImmutableList.builder();
+  static List<NamedCodepointRange<String>> parseProperties(Reader reader) throws IOException {
+    List<NamedCodepointRange<String>> list = new ArrayList<>();
     SimpleDerivedCorePropertiesParser parser =
         new SimpleDerivedCorePropertiesParser(
             reader, regexpGroups -> list.add(createBlock(regexpGroups)));
     parser.parse();
-    return list.build();
+    return Collections.unmodifiableList(list);
   }
 
   private static NamedCodepointRange<String> createBlock(List<String> regexpGroups) {

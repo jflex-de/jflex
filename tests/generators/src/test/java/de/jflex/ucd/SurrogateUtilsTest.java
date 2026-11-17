@@ -7,68 +7,71 @@
  */
 package de.jflex.ucd;
 
-import static com.google.common.truth.Truth.assertThat;
 import static de.jflex.ucd.SurrogateUtils.containsSurrogate;
 import static de.jflex.ucd.SurrogateUtils.isSurrogateProperty;
 import static de.jflex.ucd.SurrogateUtils.removeSurrogates;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 /** Test for {@link SurrogateUtils}. */
 public class SurrogateUtilsTest {
   @Test
   public void isSurrogate_not() {
-    assertThat(isSurrogateProperty("block=generalcategory")).isFalse();
+    assertFalse(isSurrogateProperty("block=generalcategory"));
   }
 
   @Test
   public void isSurrogate_sc() {
-    assertThat(isSurrogateProperty("cs")).isTrue();
-    assertThat(isSurrogateProperty("csxxx")).isFalse();
-    assertThat(isSurrogateProperty("xxxcs")).isFalse();
+    assertTrue(isSurrogateProperty("cs"));
+    assertFalse(isSurrogateProperty("csxxx"));
+    assertFalse(isSurrogateProperty("xxxcs"));
   }
 
   @Test
   public void isSurrogate_surrogate() {
-    assertThat(isSurrogateProperty("block=surrogate")).isTrue();
-    assertThat(isSurrogateProperty("block=hightprivateusesurrogates")).isTrue();
+    assertTrue(isSurrogateProperty("block=surrogate"));
+    assertTrue(isSurrogateProperty("block=hightprivateusesurrogates"));
   }
 
   @Test
   public void removeSurrogate_surrogates() {
-    assertThat(removeSurrogates(0xd83f, 0xdffe)).isEmpty();
+    assertTrue(removeSurrogates(0xd83f, 0xdffe).isEmpty());
   }
 
   @Test
   public void removeSurrogate_notSurrogates() {
-    assertThat(removeSurrogates(0x0000, 0x01f5))
-        .containsExactly(CodepointRange.create(0x0000, 0x01f5));
+    assertEquals(
+        Arrays.asList(CodepointRange.create(0x0000, 0x01f5)), removeSurrogates(0x0000, 0x01f5));
   }
 
   @Test
   public void containsSurrogates_before() {
-    assertThat(containsSurrogate(CodepointRange.create(0x0000, 0x01f5))).isFalse();
+    assertFalse(containsSurrogate(CodepointRange.create(0x0000, 0x01f5)));
   }
 
   @Test
   public void containsSurrogates_within() {
-    assertThat(containsSurrogate(CodepointRange.create(0xD801, 0xD802))).isTrue();
-    assertThat(containsSurrogate(CodepointRange.create(0xd83f, 0xdffe))).isTrue();
+    assertTrue(containsSurrogate(CodepointRange.create(0xD801, 0xD802)));
+    assertTrue(containsSurrogate(CodepointRange.create(0xd83f, 0xdffe)));
   }
 
   @Test
   public void containsSurrogates_endOverlaps() {
-    assertThat(containsSurrogate(CodepointRange.create(0x0000, 0xD802))).isTrue();
+    assertTrue(containsSurrogate(CodepointRange.create(0x0000, 0xD802)));
   }
 
   @Test
   public void containsSurrogates_after() {
-    assertThat(containsSurrogate(CodepointRange.create(0xE0000, 0xE0001))).isFalse();
-    assertThat(containsSurrogate(CodepointRange.create(0xE0000, 0xF8FF))).isFalse();
+    assertFalse(containsSurrogate(CodepointRange.create(0xE0000, 0xE0001)));
+    assertFalse(containsSurrogate(CodepointRange.create(0xE0000, 0xF8FF)));
   }
 
   @Test
   public void containsSurrogates_larger() {
-    assertThat(containsSurrogate(CodepointRange.create(0x20ad, 0xfffb))).isTrue();
+    assertTrue(containsSurrogate(CodepointRange.create(0x20ad, 0xfffb)));
   }
 }

@@ -10,22 +10,21 @@ import static de.jflex.ucd.SurrogateUtils.isSurrogateProperty;
 import static de.jflex.ucd.SurrogateUtils.removeSurrogates;
 import static de.jflex.ucd_generator.ucd.PropertyNames.NORMALIZED_GENERAL_CATEGORY;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.ImmutableSetMultimap;
-import com.google.common.collect.ImmutableSortedMap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Ordering;
-import com.google.common.collect.SortedSetMultimap;
-import com.google.common.collect.TreeMultimap;
 import de.jflex.ucd.CodepointRange;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class PropertyValueIntervals {
@@ -36,11 +35,12 @@ public class PropertyValueIntervals {
 
   Set<String> usedBinaryProperties = new HashSet<>();
 
-  private final Multimap<String, String> usedEnumProperties = HashMultimap.create();
+  /** Maps an enumerated property name to its used values. */
+  private final Map<String, Set<String>> usedEnumProperties = new HashMap<>();
 
-  // We need to keep the order of the added CodepointRanges
-  private final SortedSetMultimap<String, CodepointRange> propertyValueIntervals =
-      TreeMultimap.create(Ordering.natural(), CodepointRange.COMPARATOR);
+  /** Maps a property to its ranges; properties and ranges are both kept sorted. */
+  private final SortedMap<String, SortedSet<CodepointRange>> propertyValueIntervals =
+      new TreeMap<>();
 
   public PropertyValueIntervals(PropertyValues propertyValues) {
     this.propertyValues = propertyValues;
@@ -68,7 +68,7 @@ public class PropertyValueIntervals {
     String canonicalValue = PropertyNames.canonicalValue(propName, propValue);
     boolean added = addPropertyInterval(canonicalValue, startCodePoint, endCodePoint);
     if (added) {
-      usedEnumProperties.put(propName, propValue);
+      usedEnumProperties.computeIfAbsent(propName, k -> new HashSet<>()).add(propValue);
     }
     return added;
   }
@@ -83,34 +83,56 @@ public class PropertyValueIntervals {
     if (ranges.isEmpty()) {
       return false;
     }
-    boolean added = propertyValueIntervals.putAll(propName, ranges);
+    boolean added = addRanges(propName, ranges);
     checkPropertyIntervalsState(propName, ranges);
     return added;
+  }
+
+  /**
+   * Adds the ranges to the ranges of the property.
+   *
+   * @return whether a range was added that the property did not have yet.
+   */
+  private boolean addRanges(String propName, Collection<CodepointRange> ranges) {
+    if (ranges.isEmpty()) {
+      return false;
+    }
+    return propertyValueIntervals
+        .computeIfAbsent(propName, k -> new TreeSet<>(CodepointRange.COMPARATOR))
+        .addAll(ranges);
+  }
+
+  /** The ranges of the property, empty if it has none. */
+  private SortedSet<CodepointRange> rangesOf(String propName) {
+    SortedSet<CodepointRange> ranges = propertyValueIntervals.get(propName);
+    return ranges != null ? ranges : new TreeSet<>(CodepointRange.COMPARATOR);
   }
 
   /** Assert property intervals are sorted. */
   private void checkPropertyIntervalsState(
       String propName, Collection<CodepointRange> addedRanges) {
-    if (DEBUG) {
-      try {
-        Preconditions.checkState(
-            Ordering.from(CodepointRange.COMPARATOR)
-                .isOrdered(propertyValueIntervals.get(propName)));
-      } catch (IllegalStateException e) {
-        throw new IllegalStateException(
-            String.format(
-                "Property value intervals not order for %s after adding %s",
-                propName,
-                addedRanges.stream()
-                    .map(CodepointRange::toString)
-                    .collect(Collectors.joining(","))),
-            e);
-      }
+    if (DEBUG && !isOrdered(rangesOf(propName))) {
+      throw new IllegalStateException(
+          String.format(
+              "Property value intervals not order for %s after adding %s",
+              propName,
+              addedRanges.stream().map(CodepointRange::toString).collect(Collectors.joining(","))));
     }
   }
 
+  private static boolean isOrdered(Collection<CodepointRange> ranges) {
+    CodepointRange prev = null;
+    for (CodepointRange range : ranges) {
+      if (prev != null && CodepointRange.COMPARATOR.compare(prev, range) > 0) {
+        return false;
+      }
+      prev = range;
+    }
+    return true;
+  }
+
   public void addAllRanges(String propertyName, Collection<CodepointRange> ranges) {
-    propertyValueIntervals.putAll(propertyName, ranges);
+    addRanges(propertyName, ranges);
     usedBinaryProperties.add(propertyName);
   }
 
@@ -122,27 +144,26 @@ public class PropertyValueIntervals {
     CodepointRange point = CodepointRange.createPoint(codepoint);
     String canonicalName =
         PropertyNames.canonicalValue(PropertyNames.normalize(propertyName), propertyValue);
-    SortedSet<CodepointRange> ranges = propertyValueIntervals.get(canonicalName);
+    SortedSet<CodepointRange> ranges = rangesOf(canonicalName);
     CodepointRange range = ranges.headSet(point).last();
     ranges.remove(range);
     // In practice there is only one \ufe70\ufefe ; but in theory the removed point could have been
     // in the middle.
-    ImmutableList<CodepointRange> hackedRanges =
+    List<CodepointRange> hackedRanges =
         CodepointRangeSet.builder().add(range).substract(point).build().ranges();
     ranges.addAll(hackedRanges);
   }
 
-  ImmutableList<CodepointRange> getRanges(String propName) {
-    Collection<CodepointRange> ranges = propertyValueIntervals.get(propName);
-    if (ranges.isEmpty()) {
-      return ImmutableList.of();
-    }
-    return ImmutableList.copyOf(ranges);
+  List<CodepointRange> getRanges(String propName) {
+    return Collections.unmodifiableList(new ArrayList<>(rangesOf(propName)));
   }
 
-  public ImmutableMultimap<String, String> usedEnumeratedProperties() {
-    ImmutableSetMultimap.Builder<String, String> multimap = ImmutableSetMultimap.builder();
-    multimap.putAll(usedEnumProperties);
+  /** Returns a copy of the used values of each enumerated property. */
+  public Map<String, Set<String>> usedEnumeratedProperties() {
+    Map<String, Set<String>> multimap = new LinkedHashMap<>();
+    for (Map.Entry<String, Set<String>> entry : usedEnumProperties.entrySet()) {
+      multimap.put(entry.getKey(), new LinkedHashSet<>(entry.getValue()));
+    }
     // First letter is added for General_category such as
     // gc ; C         ; Other                            # Cc | Cf | Cn | Co | Cs
     // gc ; Cc        ; Control                          ; cntrl
@@ -151,11 +172,11 @@ public class PropertyValueIntervals {
     if (usedEnumProperties.containsKey(NORMALIZED_GENERAL_CATEGORY)) {
       for (String value : usedEnumProperties.get(NORMALIZED_GENERAL_CATEGORY)) {
         if (value.length() == 2) {
-          multimap.put(NORMALIZED_GENERAL_CATEGORY, value.substring(0, 1));
+          multimap.get(NORMALIZED_GENERAL_CATEGORY).add(value.substring(0, 1));
         }
       }
     }
-    return multimap.build();
+    return multimap;
   }
 
   public boolean hasUsedEnumeratedProperty(String category) {
@@ -166,23 +187,20 @@ public class PropertyValueIntervals {
     return propertyValueIntervals.keySet();
   }
 
-  public ImmutableSortedMap<String, CodepointRangeSet> asSortedMap() {
-    ImmutableSortedMap.Builder<String, CodepointRangeSet> map = ImmutableSortedMap.naturalOrder();
-    for (String property : propertyValueIntervals.keySet()) {
+  public SortedMap<String, CodepointRangeSet> asSortedMap() {
+    SortedMap<String, CodepointRangeSet> map = new TreeMap<>();
+    for (Map.Entry<String, SortedSet<CodepointRange>> entry : propertyValueIntervals.entrySet()) {
       map.put(
-          property,
-          CodepointRangeSet.builder()
-              .addAllImmutable(propertyValueIntervals.get(property))
-              .build());
+          entry.getKey(), CodepointRangeSet.builder().addAllImmutable(entry.getValue()).build());
     }
-    return map.build();
+    return map;
   }
 
   public boolean codePointInProperty(int codepoint, String propName) {
     // Ranges do not overlap, so the only candidate is the last range that starts at or before the
     // code point, i.e. the last range before the point following the code point.
     CodepointRange point = CodepointRange.createPoint(codepoint);
-    SortedSet<CodepointRange> ranges = propertyValueIntervals.get(propName);
+    SortedSet<CodepointRange> ranges = rangesOf(propName);
     SortedSet<CodepointRange> head = ranges.headSet(CodepointRange.createPoint(codepoint + 1));
     if (head.isEmpty()) {
       return false;

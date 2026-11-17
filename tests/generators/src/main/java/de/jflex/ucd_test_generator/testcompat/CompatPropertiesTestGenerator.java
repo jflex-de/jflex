@@ -4,7 +4,6 @@
  */
 package de.jflex.ucd_test_generator.testcompat;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd_generator.scanner.UcdScanner;
 import de.jflex.ucd_generator.scanner.UcdScannerException;
@@ -24,7 +23,7 @@ public class CompatPropertiesTestGenerator {
     Path outDir = Paths.get(args[1]);
     UcdVersion ucdVersion =
         UcdVersion.findUcdFiles(
-            version.version(), ImmutableList.copyOf(Arrays.copyOfRange(args, 1, args.length)));
+            version.version(), Arrays.asList(Arrays.copyOfRange(args, 1, args.length)));
     UnicodeData unicodeData = parseUcd(ucdVersion);
     generate(version, unicodeData, outDir);
   }

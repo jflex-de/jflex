@@ -5,13 +5,14 @@
 
 package de.jflex.ucd_test_generator.testcompat;
 
-import com.google.common.collect.ImmutableList;
+import java.util.Arrays;
+import java.util.List;
 
 /** Constant holder. */
 public class UnicodeCompatibilityProperties {
 
-  public static final ImmutableList<String> COMPATIBILITY_PROPERTIES =
-      ImmutableList.of("alnum", "blank", "graph", "print", "xdigit");
+  public static final List<String> COMPATIBILITY_PROPERTIES =
+      Arrays.asList("alnum", "blank", "graph", "print", "xdigit");
 
   private UnicodeCompatibilityProperties() {}
 }

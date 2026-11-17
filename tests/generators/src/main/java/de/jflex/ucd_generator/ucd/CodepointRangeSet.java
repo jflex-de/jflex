@@ -6,35 +6,54 @@
  */
 package de.jflex.ucd_generator.ucd;
 
-import com.google.auto.value.AutoValue;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodepointRange;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-@AutoValue
-public abstract class CodepointRangeSet {
+public final class CodepointRangeSet {
 
-  public abstract ImmutableList<CodepointRange> ranges();
+  private final List<CodepointRange> ranges;
 
-  public static Builder builder() {
-    return new AutoValue_CodepointRangeSet.Builder();
+  private CodepointRangeSet(List<CodepointRange> ranges) {
+    this.ranges = Collections.unmodifiableList(ranges);
   }
 
-  @AutoValue.Builder
-  public abstract static class Builder {
+  public List<CodepointRange> ranges() {
+    return ranges;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    return o == this
+        || (o instanceof CodepointRangeSet && ranges.equals(((CodepointRangeSet) o).ranges));
+  }
+
+  @Override
+  public int hashCode() {
+    return ranges.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "CodepointRangeSet{ranges=" + ranges + "}";
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static final class Builder {
 
     private final TreeSet<MutableCodepointRange> mRanges =
         new TreeSet<>(MutableCodepointRange.COMPARATOR_START_POINT);
 
-    abstract ImmutableList.Builder<CodepointRange> rangesBuilder();
+    private Builder() {}
 
     public Builder addAllImmutable(Collection<CodepointRange> ranges) {
       if (ranges == null) {
@@ -124,8 +143,7 @@ public abstract class CodepointRangeSet {
       }
     }
 
-    /** Returns all intervals that intersect with intersecting. */
-    @VisibleForTesting
+    /** Returns all intervals that intersect with intersecting. For testing. */
     List<MutableCodepointRange> intersection(CodepointRange intersecting) {
       List<MutableCodepointRange> intersection = new ArrayList<>();
 
@@ -152,12 +170,15 @@ public abstract class CodepointRangeSet {
     }
 
     public CodepointRangeSet build() {
-      Preconditions.checkState(!mRanges.isEmpty(), "Cannot create an empty set");
-      internalAddRanges();
-      return internalBuild();
+      if (mRanges.isEmpty()) {
+        throw new IllegalStateException("Cannot create an empty set");
+      }
+      return new CodepointRangeSet(mergedRanges());
     }
 
-    private void internalAddRanges() {
+    /** The ranges, with adjacent ranges joined into one. */
+    private List<CodepointRange> mergedRanges() {
+      List<CodepointRange> ranges = new ArrayList<>();
       MutableCodepointRange lastRange = null;
       for (MutableCodepointRange r : mRanges) {
         if (lastRange == null) {
@@ -167,17 +188,14 @@ public abstract class CodepointRangeSet {
         if (lastRange.end + 1 == r.start) {
           lastRange.end = r.end;
         } else {
-          internalAddRange(lastRange);
+          ranges.add(lastRange.toImmutableRange());
           lastRange = r;
         }
       }
-      internalAddRange(lastRange);
+      if (lastRange != null) {
+        ranges.add(lastRange.toImmutableRange());
+      }
+      return ranges;
     }
-
-    private void internalAddRange(MutableCodepointRange range) {
-      rangesBuilder().add(range.toImmutableRange());
-    }
-
-    abstract CodepointRangeSet internalBuild();
   }
 }

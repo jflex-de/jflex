@@ -4,7 +4,6 @@
  */
 package de.jflex.ucd_generator;
 
-import com.google.common.base.Preconditions;
 import de.jflex.ucd.UcdFileType;
 import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UcdVersions;
@@ -12,6 +11,7 @@ import de.jflex.version.Version;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Main {
 
@@ -51,7 +51,9 @@ public class Main {
       String arg = argv[i];
       if (arg.startsWith(ARG_VERSION)) {
         String version = arg.substring(ARG_VERSION.length());
-        Preconditions.checkArgument(!version.isEmpty(), "Version cannot be empty");
+        if (version.isEmpty()) {
+          throw new IllegalArgumentException("Version cannot be empty");
+        }
         versions.put(version, UcdVersion.findUcdFiles(new Version(version), files));
         files.clear();
       }
@@ -63,15 +65,15 @@ public class Main {
       }
     }
 
-    Preconditions.checkArgument(
-        params.outputDir() != null, "Option --%s must be specified", ARG_OUT);
+    if (params.outputDir() == null) {
+      throw new IllegalArgumentException("Option --" + ARG_OUT + " must be specified");
+    }
 
     UcdVersions ucdVersions = versions.build();
     for (Version v : ucdVersions.versionSet()) {
-      Preconditions.checkNotNull(
+      Objects.requireNonNull(
           ucdVersions.get(v).getFile(UcdFileType.UnicodeData),
-          "Missing UnicodeData.txt. Try: --version=%s /path/to/UnicodeData.txt",
-          v);
+          "Missing UnicodeData.txt. Try: --version=" + v + " /path/to/UnicodeData.txt");
     }
 
     return params.setUcdVersions(ucdVersions).build();

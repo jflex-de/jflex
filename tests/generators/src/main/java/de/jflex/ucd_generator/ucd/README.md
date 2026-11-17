@@ -21,7 +21,7 @@ version. Besides the version and the maximum code point, it holds:
     e.g. *age=v11➡(codepointRange1, codepointRange2)*
   - `usedBinaryProperties` Set of normalized names,
     e.g. *{blank, graph, uppercase, etc.}*
-  - `usedEnumProperties` Multimap,
+  - `usedEnumProperties` Map from property name to set of values,
     e.g. *wordbreak➡(other, format, midnum, etc.)*
 * `CodepointRangeSet` immutable set of ranges of Unicode code points
   * [`CodepointRange`](../../ucd/CodepointRange.java) (and `MutableCodepointRange`) contiguous
