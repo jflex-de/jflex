@@ -4,13 +4,17 @@
  */
 package de.jflex.ucd;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.version.Version;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -28,10 +32,12 @@ public class UcdVersionTest {
     File blocks = UcdFiles.zippedFile("ucd_10_0", "Blocks.txt");
     UcdVersion parsedVersion =
         UcdVersion.findUcdFiles(
-            new Version("10.0.0"), ImmutableList.of(emoji.getPath(), blocks.getPath()));
+            new Version("10.0.0"), Arrays.asList(emoji.getPath(), blocks.getPath()));
 
-    assertThat(parsedVersion.files())
-        .containsExactly(UcdFileType.Blocks, blocks, UcdFileType.Emoji, emoji);
+    Map<UcdFileType, File> expected = new HashMap<>();
+    expected.put(UcdFileType.Blocks, blocks);
+    expected.put(UcdFileType.Emoji, emoji);
+    assertEquals(expected, parsedVersion.files());
   }
 
   /**
@@ -42,9 +48,10 @@ public class UcdVersionTest {
   public void findUcdFiles_unicode_4_0_1() throws Exception {
     File derivedAge = UcdFiles.singleFile("ucd_4_0_1", "DerivedAge-4.0.1.txt");
     UcdVersion parsedVersion =
-        UcdVersion.findUcdFiles(new Version("4.0.1"), ImmutableList.of(derivedAge.getPath()));
+        UcdVersion.findUcdFiles(new Version("4.0.1"), Arrays.asList(derivedAge.getPath()));
 
-    assertThat(parsedVersion.files()).containsExactly(UcdFileType.DerivedAge, derivedAge);
+    assertEquals(
+        Collections.singletonMap(UcdFileType.DerivedAge, derivedAge), parsedVersion.files());
   }
 
   /**
@@ -62,13 +69,14 @@ public class UcdVersionTest {
     UcdVersion parsedVersion =
         UcdVersion.findUcdFiles(
             new Version("3.1.1"),
-            ImmutableList.of(
+            Arrays.asList(
                 UcdFiles.singleFile("ucd_3_1_1", "PropList-3.1.1.txt").getPath(),
                 UcdFiles.singleFile("ucd_3_1_0", "LineBreak-6.txt").getPath(),
                 UcdFiles.derivedAge().getPath()));
 
-    assertThat(parsedVersion.files().keySet())
-        .containsExactly(UcdFileType.PropList, UcdFileType.LineBreak, UcdFileType.DerivedAge);
+    assertEquals(
+        EnumSet.of(UcdFileType.PropList, UcdFileType.LineBreak, UcdFileType.DerivedAge),
+        parsedVersion.files().keySet());
   }
 
   /** Test that only the file name selects the type, and that the path is kept unchanged. */
@@ -80,13 +88,13 @@ public class UcdVersionTest {
     UcdVersion parsedVersion =
         UcdVersion.findUcdFiles(
             new Version("4.0.1"),
-            ImmutableList.of(derivedAge.getPath(), emoji.getPath(), scripts.getPath()));
+            Arrays.asList(derivedAge.getPath(), emoji.getPath(), scripts.getPath()));
 
-    assertThat(parsedVersion.files())
-        .containsExactly(
-            UcdFileType.DerivedAge, derivedAge,
-            UcdFileType.Emoji, emoji,
-            UcdFileType.Scripts, scripts);
+    Map<UcdFileType, File> expected = new HashMap<>();
+    expected.put(UcdFileType.DerivedAge, derivedAge);
+    expected.put(UcdFileType.Emoji, emoji);
+    expected.put(UcdFileType.Scripts, scripts);
+    assertEquals(expected, parsedVersion.files());
   }
 
   private File newFile(String path) throws IOException {

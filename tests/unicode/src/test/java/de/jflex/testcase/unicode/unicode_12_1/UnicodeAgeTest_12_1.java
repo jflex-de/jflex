@@ -4,8 +4,8 @@
  */
 package de.jflex.testcase.unicode.unicode_12_1;
 
-import static com.google.common.truth.Truth.assertThat;
 import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
@@ -25,28 +25,28 @@ public class UnicodeAgeTest_12_1 {
   @Test
   public void age() throws Exception {
     UnicodeProperties properties = new UnicodeProperties("12.1");
-    assertThat(properties.getPropertyValues()).contains("age=1.1");
-    assertThat(properties.getPropertyValues()).contains("age=2.0");
-    assertThat(properties.getPropertyValues()).contains("age=2.1");
-    assertThat(properties.getPropertyValues()).contains("age=3.0");
-    assertThat(properties.getPropertyValues()).contains("age=3.1");
-    assertThat(properties.getPropertyValues()).contains("age=3.2");
-    assertThat(properties.getPropertyValues()).contains("age=4.0");
-    assertThat(properties.getPropertyValues()).contains("age=4.1");
-    assertThat(properties.getPropertyValues()).contains("age=5.0");
-    assertThat(properties.getPropertyValues()).contains("age=5.1");
-    assertThat(properties.getPropertyValues()).contains("age=5.2");
-    assertThat(properties.getPropertyValues()).contains("age=6.0");
-    assertThat(properties.getPropertyValues()).contains("age=6.1");
-    assertThat(properties.getPropertyValues()).contains("age=6.2");
-    assertThat(properties.getPropertyValues()).contains("age=6.3");
-    assertThat(properties.getPropertyValues()).contains("age=7.0");
-    assertThat(properties.getPropertyValues()).contains("age=8.0");
-    assertThat(properties.getPropertyValues()).contains("age=9.0");
-    assertThat(properties.getPropertyValues()).contains("age=10.0");
-    assertThat(properties.getPropertyValues()).contains("age=11.0");
-    assertThat(properties.getPropertyValues()).contains("age=12.0");
-    assertThat(properties.getPropertyValues()).contains("age=12.1");
+    assertTrue(properties.getPropertyValues().contains("age=1.1"));
+    assertTrue(properties.getPropertyValues().contains("age=2.0"));
+    assertTrue(properties.getPropertyValues().contains("age=2.1"));
+    assertTrue(properties.getPropertyValues().contains("age=3.0"));
+    assertTrue(properties.getPropertyValues().contains("age=3.1"));
+    assertTrue(properties.getPropertyValues().contains("age=3.2"));
+    assertTrue(properties.getPropertyValues().contains("age=4.0"));
+    assertTrue(properties.getPropertyValues().contains("age=4.1"));
+    assertTrue(properties.getPropertyValues().contains("age=5.0"));
+    assertTrue(properties.getPropertyValues().contains("age=5.1"));
+    assertTrue(properties.getPropertyValues().contains("age=5.2"));
+    assertTrue(properties.getPropertyValues().contains("age=6.0"));
+    assertTrue(properties.getPropertyValues().contains("age=6.1"));
+    assertTrue(properties.getPropertyValues().contains("age=6.2"));
+    assertTrue(properties.getPropertyValues().contains("age=6.3"));
+    assertTrue(properties.getPropertyValues().contains("age=7.0"));
+    assertTrue(properties.getPropertyValues().contains("age=8.0"));
+    assertTrue(properties.getPropertyValues().contains("age=9.0"));
+    assertTrue(properties.getPropertyValues().contains("age=10.0"));
+    assertTrue(properties.getPropertyValues().contains("age=11.0"));
+    assertTrue(properties.getPropertyValues().contains("age=12.0"));
+    assertTrue(properties.getPropertyValues().contains("age=12.1"));
   }
 
   /** Tests character class syntax of the Unicode 12.1 Age=1.1 property. */

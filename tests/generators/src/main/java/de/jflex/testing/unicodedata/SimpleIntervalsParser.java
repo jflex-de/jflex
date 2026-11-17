@@ -5,7 +5,6 @@
 
 package de.jflex.testing.unicodedata;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodepointRange;
 import java.io.IOException;
@@ -67,16 +66,14 @@ public class SimpleIntervalsParser extends AbstractSimpleParser {
     return NamedCodepointRange.create(regexpGroups.get(2).trim(), createRange(regexpGroups));
   }
 
-  // Still an ImmutableList, because if the generated UnicodeEmojiTest classes in tests/unicode.
-  // Change this together with UnicodeEmojiTest.java.template.
-  public static ImmutableList<CodepointRange> parseRanges(Path expectedFile) throws IOException {
+  public static List<CodepointRange> parseRanges(Path expectedFile) throws IOException {
     List<CodepointRange> expectedBlocks = new ArrayList<>();
     SimpleIntervalsParser parser =
         new SimpleIntervalsParser(
             Files.newBufferedReader(expectedFile),
             regexpGroups -> expectedBlocks.add(createRange(regexpGroups)));
     parser.parse();
-    return ImmutableList.copyOf(expectedBlocks);
+    return Collections.unmodifiableList(expectedBlocks);
   }
 
   private static CodepointRange createRange(List<String> regexpGroups) {

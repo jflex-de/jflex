@@ -4,15 +4,15 @@
  */
 package de.jflex.testcase.unicode.unicode_${underscoreVersion};
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /** Test the emoji property. */
@@ -23,9 +23,9 @@ public class UnicodeEmojiTest_${underscoreVersion} {
       Paths.get("src/test/java/de/jflex/testcase/unicode")
           .resolve("unicode_${underscoreVersion}");
 
-  private static ImmutableList<CodepointRange> expected;
+  private static List<CodepointRange> expected;
 
-  private static ImmutableList<CodepointRange> readGolden(String propName) throws Exception {
+  private static List<CodepointRange> readGolden(String propName) throws Exception {
     Path expectedFile =
           PACKAGE_DIRECTORY
               .resolve("UnicodeEmoji_" + propName + "_${underscoreVersion}.output");

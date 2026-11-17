@@ -4,8 +4,8 @@
  */
 package de.jflex.testcase.unicode.unicode_4_1;
 
-import static com.google.common.truth.Truth.assertThat;
 import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
@@ -25,14 +25,14 @@ public class UnicodeAgeTest_4_1 {
   @Test
   public void age() throws Exception {
     UnicodeProperties properties = new UnicodeProperties("4.1");
-    assertThat(properties.getPropertyValues()).contains("age=1.1");
-    assertThat(properties.getPropertyValues()).contains("age=2.0");
-    assertThat(properties.getPropertyValues()).contains("age=2.1");
-    assertThat(properties.getPropertyValues()).contains("age=3.0");
-    assertThat(properties.getPropertyValues()).contains("age=3.1");
-    assertThat(properties.getPropertyValues()).contains("age=3.2");
-    assertThat(properties.getPropertyValues()).contains("age=4.0");
-    assertThat(properties.getPropertyValues()).contains("age=4.1");
+    assertTrue(properties.getPropertyValues().contains("age=1.1"));
+    assertTrue(properties.getPropertyValues().contains("age=2.0"));
+    assertTrue(properties.getPropertyValues().contains("age=2.1"));
+    assertTrue(properties.getPropertyValues().contains("age=3.0"));
+    assertTrue(properties.getPropertyValues().contains("age=3.1"));
+    assertTrue(properties.getPropertyValues().contains("age=3.2"));
+    assertTrue(properties.getPropertyValues().contains("age=4.0"));
+    assertTrue(properties.getPropertyValues().contains("age=4.1"));
   }
 
   /** Tests character class syntax of the Unicode 4.1 Age=1.1 property. */

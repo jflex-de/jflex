@@ -4,15 +4,10 @@
  */
 package de.jflex.ucd_generator;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
-import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertWithMessage;
 import static java.lang.Math.min;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.google.auto.value.AutoValue;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.io.Files;
 import de.jflex.testing.diff.DiffOutputStream;
 import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd_generator.util.JavaStrings;
@@ -21,7 +16,14 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -173,8 +175,9 @@ public class UcdGeneratorIntegrationTest {
 
     File goldenFile = new File(testDir, "Unicode_5_0.java.golden");
     try (DiffOutputStream goldenOutputStream =
-        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8))) {
-      Files.copy(f, goldenOutputStream);
+        new DiffOutputStream(
+            Files.newBufferedReader(goldenFile.toPath(), StandardCharsets.UTF_8))) {
+      Files.copy(f.toPath(), goldenOutputStream);
     }
   }
 
@@ -269,8 +272,9 @@ public class UcdGeneratorIntegrationTest {
 
     File goldenFile = new File(testDir, "Unicode_6_3.java.golden");
     try (DiffOutputStream goldenOutputStream =
-        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8))) {
-      Files.copy(f, goldenOutputStream);
+        new DiffOutputStream(
+            Files.newBufferedReader(goldenFile.toPath(), StandardCharsets.UTF_8))) {
+      Files.copy(f.toPath(), goldenOutputStream);
     }
   }
 
@@ -335,8 +339,9 @@ public class UcdGeneratorIntegrationTest {
 
     File goldenFile = new File(testDir, "Unicode_10_0.java.golden");
     try (DiffOutputStream goldenOutputStream =
-        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8))) {
-      Files.copy(f, goldenOutputStream);
+        new DiffOutputStream(
+            Files.newBufferedReader(goldenFile.toPath(), StandardCharsets.UTF_8))) {
+      Files.copy(f.toPath(), goldenOutputStream);
     }
   }
 
@@ -387,64 +392,60 @@ public class UcdGeneratorIntegrationTest {
 
   private File generateUnicodeProperties(UcdVersion ucdVersion) throws Exception {
     File outputDir = new File(tempDir, "generated");
-    assertThat(outputDir.mkdir()).isTrue();
+    assertTrue(outputDir.mkdir());
     UcdGenerator.emitUnicodeVersionXY(ucdVersion, outputDir);
 
     File f = new File(outputDir, ucdVersion.version().unicodeClassName() + ".java");
-    assertThat(f.exists()).isTrue();
+    assertTrue(f.exists());
     return f;
   }
 
   private void assertUnicodeProperties(UnicodePropertiesData expected, File src) throws Exception {
     UnicodePropertiesData actual = parseUnicodeDataFromSource(src);
 
-    assertWithMessage("propertyValues")
-        .that(actual.propertyValues())
-        .containsExactlyElementsIn(expected.propertyValues());
+    assertEquals(expected.propertyValues(), actual.propertyValues(), "propertyValues");
 
-    ImmutableMap<String, String> actualPropertyValuesAliases =
-        pairListToMap(actual.propertyValueAliases());
-    ImmutableMap<String, String> expectedPropertyValueAliases =
+    Map<String, String> actualPropertyValuesAliases = pairListToMap(actual.propertyValueAliases());
+    Map<String, String> expectedPropertyValueAliases =
         pairListToMap(expected.propertyValueAliases());
-    assertWithMessage("propertyValueAliases")
-        .that(actualPropertyValuesAliases)
-        .isEqualTo(expectedPropertyValueAliases);
+    assertEquals(expectedPropertyValueAliases, actualPropertyValuesAliases, "propertyValueAliases");
 
-    assertWithMessage("maximumCodePoint")
-        .that(actual.maximumCodePoint())
-        .isEqualTo(expected.maximumCodePoint());
+    assertEquals(expected.maximumCodePoint(), actual.maximumCodePoint(), "maximumCodePoint");
 
     List<String> actualIntervals = escapeUnicodeCharacters(actual.intervals());
-    ImmutableList<String> expectedIntervals = escapeUnicodeCharacters(expected.intervals());
+    List<String> expectedIntervals = escapeUnicodeCharacters(expected.intervals());
     for (int i = 0; i < min(expectedIntervals.size(), actualIntervals.size()); i++) {
-      assertWithMessage("interval for " + actual.propertyValues().get(i))
-          .that(actualIntervals.get(i))
-          .isEqualTo(expectedIntervals.get(i));
+      assertEquals(
+          expectedIntervals.get(i),
+          actualIntervals.get(i),
+          "interval for " + actual.propertyValues().get(i));
     }
-    assertWithMessage("Number of intervals")
-        .that(actualIntervals.size())
-        .isEqualTo(expectedIntervals.size());
+    assertEquals(expectedIntervals.size(), actualIntervals.size(), "Number of intervals");
 
-    assertWithMessage("caselessMatchPartitions")
-        .that(actual.caselessMatchPartitions())
-        .isEqualTo(expected.caselessMatchPartitions());
+    assertEquals(
+        expected.caselessMatchPartitions(),
+        actual.caselessMatchPartitions(),
+        "caselessMatchPartitions");
 
-    assertWithMessage("caselessMatchPartitionSize")
-        .that(actual.caselessMatchPartitionSize())
-        .isEqualTo(expected.caselessMatchPartitionSize());
+    assertEquals(
+        expected.caselessMatchPartitionSize(),
+        actual.caselessMatchPartitionSize(),
+        "caselessMatchPartitionSize");
   }
 
-  private static ImmutableList<String> escapeUnicodeCharacters(List<String> data) {
-    return data.stream().map(JavaStrings::escapedUTF16String).collect(toImmutableList());
+  private static List<String> escapeUnicodeCharacters(List<String> data) {
+    return data.stream().map(JavaStrings::escapedUTF16String).collect(Collectors.toList());
   }
 
   /** Converts a List of {@code k1,v1,k2,v2,etc.} to a Map of {@code k1→v1, k2→v2, etc.}. */
-  private static <E> ImmutableMap<E, E> pairListToMap(List<E> list) {
-    ImmutableMap.Builder<E, E> map = ImmutableMap.builder();
+  private static <E> Map<E, E> pairListToMap(List<E> list) {
+    Map<E, E> map = new HashMap<>();
     for (int i = 0; i < list.size(); i += 2) {
-      map.put(list.get(i), list.get(i + 1));
+      if (map.put(list.get(i), list.get(i + 1)) != null) {
+        throw new IllegalArgumentException("Multiple entries with same key: " + list.get(i));
+      }
     }
-    return map.build();
+    return map;
   }
 
   /**
@@ -453,8 +454,8 @@ public class UcdGeneratorIntegrationTest {
    */
   private UnicodePropertiesData parseUnicodeDataFromSource(File src) throws Exception {
     File outputDir = new File(tempDir, "classes");
-    assertThat(outputDir.mkdir()).isTrue();
-    JavacUtils.compile(ImmutableList.of(src), outputDir);
+    assertTrue(outputDir.mkdir());
+    JavacUtils.compile(Collections.singletonList(src), outputDir);
     String className = "jflex.core.unicode.data." + src.getName().replaceFirst("\\.java$", "");
     try (URLClassLoader loader =
         new URLClassLoader(new URL[] {outputDir.toURI().toURL()}, /* parent= */ null)) {
@@ -469,19 +470,54 @@ public class UcdGeneratorIntegrationTest {
     }
   }
 
-  @AutoValue
-  abstract static class UnicodePropertiesData {
-    abstract ImmutableList<String> propertyValues();
+  /** The constants of a generated Unicode_x_y class. */
+  static final class UnicodePropertiesData {
+    private final List<String> propertyValues;
+    private final List<String> intervals;
+    private final List<String> propertyValueAliases;
+    private final long maximumCodePoint;
+    private final String caselessMatchPartitions;
+    private final long caselessMatchPartitionSize;
 
-    abstract ImmutableList<String> intervals();
+    private UnicodePropertiesData(
+        List<String> propertyValues,
+        List<String> intervals,
+        List<String> propertyValueAliases,
+        long maximumCodePoint,
+        String caselessMatchPartitions,
+        long caselessMatchPartitionSize) {
+      this.propertyValues = Collections.unmodifiableList(new ArrayList<>(propertyValues));
+      this.intervals = Collections.unmodifiableList(new ArrayList<>(intervals));
+      this.propertyValueAliases =
+          Collections.unmodifiableList(new ArrayList<>(propertyValueAliases));
+      this.maximumCodePoint = maximumCodePoint;
+      this.caselessMatchPartitions = caselessMatchPartitions;
+      this.caselessMatchPartitionSize = caselessMatchPartitionSize;
+    }
 
-    abstract ImmutableList<String> propertyValueAliases();
+    List<String> propertyValues() {
+      return propertyValues;
+    }
 
-    abstract long maximumCodePoint();
+    List<String> intervals() {
+      return intervals;
+    }
 
-    abstract String caselessMatchPartitions();
+    List<String> propertyValueAliases() {
+      return propertyValueAliases;
+    }
 
-    abstract long caselessMatchPartitionSize();
+    long maximumCodePoint() {
+      return maximumCodePoint;
+    }
+
+    String caselessMatchPartitions() {
+      return caselessMatchPartitions;
+    }
+
+    long caselessMatchPartitionSize() {
+      return caselessMatchPartitionSize;
+    }
 
     static UnicodePropertiesData create(
         String[] propertyValues,
@@ -491,9 +527,9 @@ public class UcdGeneratorIntegrationTest {
         String caselessMatchPartitions,
         long caselessMatchPartitionSize) {
       return create(
-          ImmutableList.copyOf(propertyValues),
-          ImmutableList.copyOf(intervals),
-          ImmutableList.copyOf(propertyValueAliases),
+          Arrays.asList(propertyValues),
+          Arrays.asList(intervals),
+          Arrays.asList(propertyValueAliases),
           maximumCodePoint,
           caselessMatchPartitions,
           caselessMatchPartitionSize);
@@ -506,10 +542,10 @@ public class UcdGeneratorIntegrationTest {
         long maximumCodePoint,
         String caselessMatchPartitions,
         long caselessMatchPartitionSize) {
-      return new AutoValue_UcdGeneratorIntegrationTest_UnicodePropertiesData(
-          ImmutableList.copyOf(propertyValues),
-          ImmutableList.copyOf(intervals),
-          ImmutableList.copyOf(propertyValueAliases),
+      return new UnicodePropertiesData(
+          propertyValues,
+          intervals,
+          propertyValueAliases,
           maximumCodePoint,
           caselessMatchPartitions,
           caselessMatchPartitionSize);

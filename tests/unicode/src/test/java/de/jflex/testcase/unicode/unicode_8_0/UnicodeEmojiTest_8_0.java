@@ -4,15 +4,15 @@
  */
 package de.jflex.testcase.unicode.unicode_8_0;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /** Test the emoji property. */
@@ -22,9 +22,9 @@ public class UnicodeEmojiTest_8_0 {
   private static final Path PACKAGE_DIRECTORY =
       Paths.get("src/test/java/de/jflex/testcase/unicode").resolve("unicode_8_0");
 
-  private static ImmutableList<CodepointRange> expected;
+  private static List<CodepointRange> expected;
 
-  private static ImmutableList<CodepointRange> readGolden(String propName) throws Exception {
+  private static List<CodepointRange> readGolden(String propName) throws Exception {
     Path expectedFile = PACKAGE_DIRECTORY.resolve("UnicodeEmoji_" + propName + "_8_0.output");
     return SimpleIntervalsParser.parseRanges(expectedFile);
   }
@@ -37,7 +37,7 @@ public class UnicodeEmojiTest_8_0 {
             ScannerFactory.of(UnicodeEmoji_Emoji_8_0::new),
             UnicodeEmoji_Emoji_8_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
-    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji"));
+    assertEquals(readGolden("Emoji"), scanner.ranges());
   }
 
   /** Test property {@code Emoji_Modifier}. */
@@ -48,7 +48,7 @@ public class UnicodeEmojiTest_8_0 {
             ScannerFactory.of(UnicodeEmoji_Emoji_Modifier_8_0::new),
             UnicodeEmoji_Emoji_Modifier_8_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
-    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Modifier"));
+    assertEquals(readGolden("Emoji_Modifier"), scanner.ranges());
   }
 
   /** Test property {@code Emoji_Modifier_Base}. */
@@ -59,7 +59,7 @@ public class UnicodeEmojiTest_8_0 {
             ScannerFactory.of(UnicodeEmoji_Emoji_Modifier_Base_8_0::new),
             UnicodeEmoji_Emoji_Modifier_Base_8_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
-    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Modifier_Base"));
+    assertEquals(readGolden("Emoji_Modifier_Base"), scanner.ranges());
   }
 
   /** Test property {@code Emoji_Presentation}. */
@@ -70,6 +70,6 @@ public class UnicodeEmojiTest_8_0 {
             ScannerFactory.of(UnicodeEmoji_Emoji_Presentation_8_0::new),
             UnicodeEmoji_Emoji_Presentation_8_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
-    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Presentation"));
+    assertEquals(readGolden("Emoji_Presentation"), scanner.ranges());
   }
 }

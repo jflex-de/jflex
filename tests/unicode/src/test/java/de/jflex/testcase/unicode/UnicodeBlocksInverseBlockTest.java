@@ -6,13 +6,14 @@
  */
 package de.jflex.testcase.unicode;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 /** Tests the inverse of the Unicode block property character class syntax for one block. */
@@ -36,12 +37,12 @@ public class UnicodeBlocksInverseBlockTest {
             ScannerFactory.of(UnicodeBlocksInverseBlockScanner::new),
             UnicodeBlocksInverseBlockScanner.YYEOF,
             Dataset.BMP);
-    assertThat(scanner.blocks())
-        .containsExactly(
+    assertEquals(
+        Arrays.asList(
             NamedCodepointRange.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0x0000, 0x1DFF),
             NamedCodepointRange.create(TestingBlock.LATIN_EXTENDED_ADDITIONAL, 0x1E00, 0x1EFF),
             NamedCodepointRange.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0x1F00, 0xD7FF),
-            NamedCodepointRange.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0xE000, 0xFFFD))
-        .inOrder();
+            NamedCodepointRange.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0xE000, 0xFFFD)),
+        scanner.blocks());
   }
 }

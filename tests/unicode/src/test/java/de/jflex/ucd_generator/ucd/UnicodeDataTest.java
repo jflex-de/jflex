@@ -4,7 +4,7 @@
  */
 package de.jflex.ucd_generator.ucd;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd_generator.TestedVersions;
@@ -22,7 +22,7 @@ public class UnicodeDataTest {
     unicodeData.addBinaryPropertyInterval("whitespace", '\t', '\r');
     unicodeData.addBinaryPropertyInterval("whitespace", '\u2028', '\u2029');
     unicodeData.addCompatibilityProperties();
-    assertThat(unicodeData.intervals().get("blank").ranges())
-        .contains(CodepointRange.createPoint('\t'));
+    assertTrue(
+        unicodeData.intervals().get("blank").ranges().contains(CodepointRange.createPoint('\t')));
   }
 }

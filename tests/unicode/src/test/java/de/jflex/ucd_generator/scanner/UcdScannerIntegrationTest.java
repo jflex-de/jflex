@@ -4,13 +4,17 @@
  */
 package de.jflex.ucd_generator.scanner;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd_generator.TestedVersions;
 import de.jflex.version.Version;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,8 +28,8 @@ public class UcdScannerIntegrationTest {
    * "\u0488\u0489" + "\u20dd\u20e0" + "\u20e2\u20e4" + "\ua670\ua672"
    * }</pre>
    */
-  private static final ImmutableList<CodepointRange> INTERVALS_FOR_GENERALCATEGORY_ME =
-      ImmutableList.of(
+  private static final List<CodepointRange> INTERVALS_FOR_GENERALCATEGORY_ME =
+      Arrays.asList(
           CodepointRange.create('\u0488', '\u0489'),
           CodepointRange.create('\u20dd', '\u20e0'),
           CodepointRange.create('\u20e2', '\u20e4'),
@@ -36,32 +40,38 @@ public class UcdScannerIntegrationTest {
   @BeforeEach
   public void ucdScanner() {
     ucdScanner = new UcdScanner(TestedVersions.UCD_VERSION_6_3);
-    assertThat(ucdScanner.ucdVersion().version()).isEqualTo(new Version(6, 3, 0));
+    assertEquals(new Version(6, 3, 0), ucdScanner.ucdVersion().version());
   }
 
   @Test
   public void scanPropertyAliases() throws Exception {
     ucdScanner.scanPropertyAliases();
-    assertThat(ucdScanner.unicodeData.getCanonicalPropertyName("ccc"))
-        .isEqualTo("canonicalcombiningclass");
-    assertThat(ucdScanner.unicodeData.getPropertyAliases("script")).containsExactly("sc", "script");
-    assertThat(ucdScanner.unicodeData.getPropertyAliases("Bidi_Class"))
-        .containsExactly("bc", "bidiclass");
+    assertEquals("canonicalcombiningclass", ucdScanner.unicodeData.getCanonicalPropertyName("ccc"));
+    assertEquals(
+        new HashSet<>(Arrays.asList("sc", "script")),
+        ucdScanner.unicodeData.getPropertyAliases("script"));
+    assertEquals(
+        new HashSet<>(Arrays.asList("bc", "bidiclass")),
+        ucdScanner.unicodeData.getPropertyAliases("Bidi_Class"));
   }
 
   @Test
   public void scanPropertyValueAliases() throws Exception {
     ucdScanner.scanPropertyAliases();
-    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("sentencebreak", "at"))
-        .containsExactly("at");
-    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("sentencebreak", "aterm"))
-        .containsExactly("aterm");
+    assertEquals(
+        new HashSet<>(Arrays.asList("at")),
+        ucdScanner.unicodeData.getPropertyValueAliases("sentencebreak", "at"));
+    assertEquals(
+        new HashSet<>(Arrays.asList("aterm")),
+        ucdScanner.unicodeData.getPropertyValueAliases("sentencebreak", "aterm"));
 
     ucdScanner.scanPropertyValueAliases();
-    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("sentencebreak", "at"))
-        .containsExactly("at", "aterm");
-    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("sentencebreak", "aterm"))
-        .containsExactly("at", "aterm");
+    assertEquals(
+        new HashSet<>(Arrays.asList("at", "aterm")),
+        ucdScanner.unicodeData.getPropertyValueAliases("sentencebreak", "at"));
+    assertEquals(
+        new HashSet<>(Arrays.asList("at", "aterm")),
+        ucdScanner.unicodeData.getPropertyValueAliases("sentencebreak", "aterm"));
   }
 
   @Test
@@ -69,16 +79,16 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanPropertyAliases();
     ucdScanner.scanPropertyValueAliases();
     // generalcategory=me
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me")).isEmpty();
+    assertTrue(ucdScanner.unicodeData.getPropertyValueIntervals("me").isEmpty());
 
     ucdScanner.scanUnicodeData();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
-        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME)
-        .inOrder();
-    assertThat(ucdScanner.unicodeData.maximumCodePoint()).isEqualTo(1114111);
-    assertThat(ucdScanner.unicodeData.maxCaselessMatchPartitionSize()).isEqualTo(4);
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("generalcategory"))
-        .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("gc"));
+    assertEquals(
+        INTERVALS_FOR_GENERALCATEGORY_ME, ucdScanner.unicodeData.getPropertyValueIntervals("me"));
+    assertEquals(1114111, ucdScanner.unicodeData.maximumCodePoint());
+    assertEquals(4, ucdScanner.unicodeData.maxCaselessMatchPartitionSize());
+    assertEquals(
+        ucdScanner.unicodeData.getPropertyValueIntervals("gc"),
+        ucdScanner.unicodeData.getPropertyValueIntervals("generalcategory"));
   }
 
   @Test
@@ -86,13 +96,16 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanPropertyAliases();
     ucdScanner.scanPropertyValueAliases();
     ucdScanner.scanUnicodeData();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("otheruppercase")).isEmpty();
+    assertTrue(ucdScanner.unicodeData.getPropertyValueIntervals("otheruppercase").isEmpty());
 
     ucdScanner.scanPropList();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
-        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("otheruppercase"))
-        .contains(CodepointRange.create(8544, 8559));
+    assertEquals(
+        INTERVALS_FOR_GENERALCATEGORY_ME, ucdScanner.unicodeData.getPropertyValueIntervals("me"));
+    assertTrue(
+        ucdScanner
+            .unicodeData
+            .getPropertyValueIntervals("otheruppercase")
+            .contains(CodepointRange.create(8544, 8559)));
   }
 
   @Test
@@ -101,13 +114,16 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanPropertyValueAliases();
     ucdScanner.scanUnicodeData();
     ucdScanner.scanPropList();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("idcontinue")).isEmpty();
+    assertTrue(ucdScanner.unicodeData.getPropertyValueIntervals("idcontinue").isEmpty());
 
     ucdScanner.scanDerivedCoreProperties();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
-        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("idcontinue"))
-        .contains(CodepointRange.create(48, 57));
+    assertEquals(
+        INTERVALS_FOR_GENERALCATEGORY_ME, ucdScanner.unicodeData.getPropertyValueIntervals("me"));
+    assertTrue(
+        ucdScanner
+            .unicodeData
+            .getPropertyValueIntervals("idcontinue")
+            .contains(CodepointRange.create(48, 57)));
   }
 
   @Test
@@ -117,12 +133,12 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanUnicodeData();
     ucdScanner.scanPropList();
     ucdScanner.scanDerivedCoreProperties();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("arabic")).isEmpty();
+    assertTrue(ucdScanner.unicodeData.getPropertyValueIntervals("arabic").isEmpty());
 
     ucdScanner.scanScripts();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
-        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("arabic")).isNotEmpty();
+    assertEquals(
+        INTERVALS_FOR_GENERALCATEGORY_ME, ucdScanner.unicodeData.getPropertyValueIntervals("me"));
+    assertFalse(ucdScanner.unicodeData.getPropertyValueIntervals("arabic").isEmpty());
   }
 
   @Test
@@ -134,29 +150,30 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanPropList();
     ucdScanner.scanDerivedCoreProperties();
     ucdScanner.scanScripts();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("hiragana"))
-        .isNotEmpty(); // from scanScripts
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("katakana")).isNotEmpty();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scx=hira")).isEmpty();
+    assertFalse(
+        ucdScanner.unicodeData.getPropertyValueIntervals("hiragana").isEmpty()); // from scanScripts
+    assertFalse(ucdScanner.unicodeData.getPropertyValueIntervals("katakana").isEmpty());
+    assertTrue(ucdScanner.unicodeData.getPropertyValueIntervals("scx=hira").isEmpty());
     // 3034 has Script=Common
-    assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "hiragana")).isFalse();
-    assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "katakana")).isFalse();
-    assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "common")).isTrue();
+    assertFalse(ucdScanner.unicodeData.codePointInProperty(0x3034, "hiragana"));
+    assertFalse(ucdScanner.unicodeData.codePointInProperty(0x3034, "katakana"));
+    assertTrue(ucdScanner.unicodeData.codePointInProperty(0x3034, "common"));
 
     ucdScanner.scanScriptExtensions();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
-        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
+    assertEquals(
+        INTERVALS_FOR_GENERALCATEGORY_ME, ucdScanner.unicodeData.getPropertyValueIntervals("me"));
     // Script_Extensions does not change Script
-    assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "hiragana")).isFalse();
-    assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "katakana")).isFalse();
+    assertFalse(ucdScanner.unicodeData.codePointInProperty(0x3034, "hiragana"));
+    assertFalse(ucdScanner.unicodeData.codePointInProperty(0x3034, "katakana"));
     // 3031..3035    ; Hira Kana # Lm   [5] VERTICAL KANA REPEAT MARK..
-    assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "scx=hira")).isTrue();
-    assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "scx=kana")).isTrue();
-    assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "scx=common")).isFalse();
+    assertTrue(ucdScanner.unicodeData.codePointInProperty(0x3034, "scx=hira"));
+    assertTrue(ucdScanner.unicodeData.codePointInProperty(0x3034, "scx=kana"));
+    assertFalse(ucdScanner.unicodeData.codePointInProperty(0x3034, "scx=common"));
     // Code points without extension get their Script as Script_Extensions
-    assertThat(ucdScanner.unicodeData.codePointInProperty('a', "scx=latin")).isTrue();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scx=hira"))
-        .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("Script_Extensions=Hiragana"));
+    assertTrue(ucdScanner.unicodeData.codePointInProperty('a', "scx=latin"));
+    assertEquals(
+        ucdScanner.unicodeData.getPropertyValueIntervals("Script_Extensions=Hiragana"),
+        ucdScanner.unicodeData.getPropertyValueIntervals("scx=hira"));
   }
 
   @Test
@@ -169,20 +186,25 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanDerivedCoreProperties();
     ucdScanner.scanScripts();
     ucdScanner.scanScriptExtensions();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("block=supplementalpunctuation"))
-        .isEmpty();
+    assertTrue(
+        ucdScanner
+            .unicodeData
+            .getPropertyValueIntervals("block=supplementalpunctuation")
+            .isEmpty());
 
     ucdScanner.scanBlocks();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
-        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira"))
-        .isNotEmpty();
+    assertEquals(
+        INTERVALS_FOR_GENERALCATEGORY_ME, ucdScanner.unicodeData.getPropertyValueIntervals("me"));
+    assertFalse(
+        ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira").isEmpty());
     // 2E00..2E7F; Supplemental Punctuation
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("block=supplementalpunctuation"))
-        .containsExactly(CodepointRange.create(0x2E00, 0x2E7F));
+    assertEquals(
+        Arrays.asList(CodepointRange.create(0x2E00, 0x2E7F)),
+        ucdScanner.unicodeData.getPropertyValueIntervals("block=supplementalpunctuation"));
     // blk; Sup_Punctuation                  ; Supplemental_Punctuation
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("blk=Sup_Punctuation"))
-        .containsExactly(CodepointRange.create(0x2E00, 0x2E7F));
+    assertEquals(
+        Arrays.asList(CodepointRange.create(0x2E00, 0x2E7F)),
+        ucdScanner.unicodeData.getPropertyValueIntervals("blk=Sup_Punctuation"));
   }
 
   @Test
@@ -196,16 +218,18 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanScripts();
     ucdScanner.scanScriptExtensions();
     ucdScanner.scanBlocks();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=bb")).isEmpty();
+    assertTrue(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=bb").isEmpty());
 
     ucdScanner.scanLineBreak();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
-        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=bb")).isNotEmpty();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=bb"))
-        .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=breakbefore"));
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("lb=BB"))
-        .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("Line_Break=Break_Before"));
+    assertEquals(
+        INTERVALS_FOR_GENERALCATEGORY_ME, ucdScanner.unicodeData.getPropertyValueIntervals("me"));
+    assertFalse(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=bb").isEmpty());
+    assertEquals(
+        ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=breakbefore"),
+        ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=bb"));
+    assertEquals(
+        ucdScanner.unicodeData.getPropertyValueIntervals("Line_Break=Break_Before"),
+        ucdScanner.unicodeData.getPropertyValueIntervals("lb=BB"));
   }
 
   @Test
@@ -220,21 +244,22 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanScriptExtensions();
     ucdScanner.scanBlocks();
     ucdScanner.scanLineBreak();
-    assertThat(
-            ucdScanner.unicodeData.getPropertyValueIntervals(
-                "graphemeclusterbreak=regionalindicator"))
-        .isEmpty();
+    assertTrue(
+        ucdScanner
+            .unicodeData
+            .getPropertyValueIntervals("graphemeclusterbreak=regionalindicator")
+            .isEmpty());
 
     ucdScanner.scanGraphemeBreakProperty();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
-        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
+    assertEquals(
+        INTERVALS_FOR_GENERALCATEGORY_ME, ucdScanner.unicodeData.getPropertyValueIntervals("me"));
     // 1F1E6..1F1FF  ; Regional_Indicator # So  [26] REGIONAL INDICATOR SYMBOL LETTER A..Z
-    assertThat(
-            ucdScanner.unicodeData.getPropertyValueIntervals(
-                "graphemeclusterbreak=regionalindicator"))
-        .containsExactly(CodepointRange.create(0x1F1E6, 0x1F1FF));
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("gcb=ri"))
-        .containsExactly(CodepointRange.create(0x1F1E6, 0x1F1FF));
+    assertEquals(
+        Arrays.asList(CodepointRange.create(0x1F1E6, 0x1F1FF)),
+        ucdScanner.unicodeData.getPropertyValueIntervals("graphemeclusterbreak=regionalindicator"));
+    assertEquals(
+        Arrays.asList(CodepointRange.create(0x1F1E6, 0x1F1FF)),
+        ucdScanner.unicodeData.getPropertyValueIntervals("gcb=ri"));
   }
 
   @Test
@@ -251,15 +276,15 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanLineBreak();
     ucdScanner.scanGraphemeBreakProperty();
 
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close")).isEmpty();
+    assertTrue(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close").isEmpty());
     ucdScanner.scanSentenceBreakProperty();
 
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
-        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close"))
-        .isNotEmpty();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close"))
-        .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("sb=cl"));
+    assertEquals(
+        INTERVALS_FOR_GENERALCATEGORY_ME, ucdScanner.unicodeData.getPropertyValueIntervals("me"));
+    assertFalse(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close").isEmpty());
+    assertEquals(
+        ucdScanner.unicodeData.getPropertyValueIntervals("sb=cl"),
+        ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close"));
   }
 
   @Test
@@ -277,16 +302,18 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanGraphemeBreakProperty();
     ucdScanner.scanSentenceBreakProperty();
 
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("wordbreak=doublequote")).isEmpty();
+    assertTrue(ucdScanner.unicodeData.getPropertyValueIntervals("wordbreak=doublequote").isEmpty());
     ucdScanner.scanWordBreakProperty();
 
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
-        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
+    assertEquals(
+        INTERVALS_FOR_GENERALCATEGORY_ME, ucdScanner.unicodeData.getPropertyValueIntervals("me"));
     // 0022          ; Double_Quote # Po       QUOTATION MARK
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("wordbreak=doublequote"))
-        .containsExactly(CodepointRange.createPoint('"'));
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("wb=dq"))
-        .containsExactly(CodepointRange.createPoint('"'));
+    assertEquals(
+        Arrays.asList(CodepointRange.createPoint('"')),
+        ucdScanner.unicodeData.getPropertyValueIntervals("wordbreak=doublequote"));
+    assertEquals(
+        Arrays.asList(CodepointRange.createPoint('"')),
+        ucdScanner.unicodeData.getPropertyValueIntervals("wb=dq"));
   }
 
   @Test
@@ -305,23 +332,25 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanSentenceBreakProperty();
     ucdScanner.scanWordBreakProperty();
 
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("age=6.3")).isEmpty();
+    assertTrue(ucdScanner.unicodeData.getPropertyValueIntervals("age=6.3").isEmpty());
     ucdScanner.scanDerivedAge();
 
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
-        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
-    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("age", "4.0"))
-        .containsExactly("4.0", "v40");
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("age=6.3")).isNotEmpty();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("age=6.3"))
-        .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("age=v63"));
+    assertEquals(
+        INTERVALS_FOR_GENERALCATEGORY_ME, ucdScanner.unicodeData.getPropertyValueIntervals("me"));
+    assertEquals(
+        new HashSet<>(Arrays.asList("4.0", "v40")),
+        ucdScanner.unicodeData.getPropertyValueAliases("age", "4.0"));
+    assertFalse(ucdScanner.unicodeData.getPropertyValueIntervals("age=6.3").isEmpty());
+    assertEquals(
+        ucdScanner.unicodeData.getPropertyValueIntervals("age=v63"),
+        ucdScanner.unicodeData.getPropertyValueIntervals("age=6.3"));
     // Age includes all code points of the previous versions
-    assertThat(ucdScanner.unicodeData.codePointInProperty('a', "age=1.1")).isTrue();
-    assertThat(ucdScanner.unicodeData.codePointInProperty('a', "age=6.3")).isTrue();
+    assertTrue(ucdScanner.unicodeData.codePointInProperty('a', "age=1.1"));
+    assertTrue(ucdScanner.unicodeData.codePointInProperty('a', "age=6.3"));
     // 061C          ; 6.3 #       ARABIC LETTER MARK
-    assertThat(ucdScanner.unicodeData.codePointInProperty(0x061C, "age=6.2")).isFalse();
-    assertThat(ucdScanner.unicodeData.codePointInProperty(0x061C, "age=6.3")).isTrue();
+    assertFalse(ucdScanner.unicodeData.codePointInProperty(0x061C, "age=6.2"));
+    assertTrue(ucdScanner.unicodeData.codePointInProperty(0x061C, "age=6.3"));
     // Future versions are not known
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("age=9.0")).isEmpty();
+    assertTrue(ucdScanner.unicodeData.getPropertyValueIntervals("age=9.0").isEmpty());
   }
 }

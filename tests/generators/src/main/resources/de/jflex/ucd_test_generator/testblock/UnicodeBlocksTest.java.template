@@ -4,12 +4,13 @@
  */
 package de.jflex.testcase.unicode.unicode_${underscoreVersion};
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /** Test that parsing all Unicode codepoints detects the correct block ranges for Unicode ${unicodeVersion}. */
@@ -22,7 +23,9 @@ public class UnicodeBlocksTest_${underscoreVersion} {
             ScannerFactory.of(UnicodeBlocks_${underscoreVersion}::new),
             UnicodeBlocks_${underscoreVersion}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
-    assertThat(scanner.blocks()).containsExactly(
+    List<NamedCodepointRange<String>> expected =
+        Arrays.<NamedCodepointRange<String>>asList(
 ${blockRanges});
+    assertEquals(expected, scanner.blocks());
   }
 }

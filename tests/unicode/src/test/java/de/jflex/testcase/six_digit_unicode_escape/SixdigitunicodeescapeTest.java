@@ -5,10 +5,11 @@
  */
 package de.jflex.testcase.six_digit_unicode_escape;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
 import de.jflex.util.scanner.ScannerFactory;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 /** Tests {@code \UXXXXXX} six-digit hexadecimal character escape syntax. */
@@ -24,14 +25,14 @@ public class SixdigitunicodeescapeTest {
 
     SixDigitUnicodeEscape scanner = scannerFactory.createScannerWithContent(Dataset.ALL.content());
     scanner.yylex();
-    assertThat(scanner.output())
-        .containsExactly(
+    assertEquals(
+        Arrays.asList(
             "0000..0000; inverse matched",
             "0001..0001; matched",
             "0002..0002; inverse matched",
             "0003..D7FF; matched",
             "E000..10FFFD; matched",
-            "10FFFE..10FFFF; inverse matched")
-        .inOrder();
+            "10FFFE..10FFFF; inverse matched"),
+        scanner.output());
   }
 }

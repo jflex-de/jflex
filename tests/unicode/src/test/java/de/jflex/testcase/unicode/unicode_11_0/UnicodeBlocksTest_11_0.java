@@ -4,11 +4,13 @@
  */
 package de.jflex.testcase.unicode.unicode_11_0;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /** Test that parsing all Unicode codepoints detects the correct block ranges for Unicode 11.0. */
@@ -21,8 +23,10 @@ public class UnicodeBlocksTest_11_0 {
             ScannerFactory.of(UnicodeBlocks_11_0::new),
             UnicodeBlocks_11_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
-    assertThat(scanner.blocks())
-        .containsExactly(
+    // The explicit type argument avoids inferring the type of every element, which takes javac 8
+    // very long for a list of this size.
+    List<NamedCodepointRange<String>> expected =
+        Arrays.<NamedCodepointRange<String>>asList(
             NamedCodepointRange.create("Basic Latin", 0x0000, 0x007F),
             NamedCodepointRange.create("Latin-1 Supplement", 0x0080, 0x00FF),
             NamedCodepointRange.create("Latin Extended-A", 0x0100, 0x017F),
@@ -363,5 +367,6 @@ public class UnicodeBlocksTest_11_0 {
             NamedCodepointRange.create("No Block", 0xE01F0, 0xEFFFF),
             NamedCodepointRange.create("Supplementary Private Use Area-A", 0xF0000, 0xFFFFF),
             NamedCodepointRange.create("Supplementary Private Use Area-B", 0x100000, 0x10FFFF));
+    assertEquals(expected, scanner.blocks());
   }
 }

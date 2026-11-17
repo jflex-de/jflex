@@ -4,10 +4,13 @@
  */
 package de.jflex.ucd_test_generator.testcaseless;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.ucd.UcdFiles;
 import de.jflex.ucd_test_generator.testcaseless.CaselessTestGenerator.Equivalences;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 
 public class CaselessTestGeneratorTest {
@@ -24,7 +27,7 @@ public class CaselessTestGeneratorTest {
     Equivalences<Integer> equivalences =
         CaselessTestGenerator.parseUnicodeData(
             UcdFiles.zippedFile("ucd_7_0", "UnicodeData.txt").toPath());
-    assertThat(equivalences.get(0x0041)).containsExactly(0x0041, 0x0061);
-    assertThat(equivalences.get(0xAC00)).containsExactly(0xAC00);
+    assertEquals(new HashSet<>(Arrays.asList(0x0041, 0x0061)), equivalences.get(0x0041));
+    assertEquals(Collections.singleton(0xAC00), equivalences.get(0xAC00));
   }
 }

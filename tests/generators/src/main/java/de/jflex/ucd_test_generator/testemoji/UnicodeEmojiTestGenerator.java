@@ -39,7 +39,7 @@ public class UnicodeEmojiTestGenerator extends AbstractGenerator<UnicodeEmojiTes
                   + "            ScannerFactory.of(%2$s::new),\n"
                   + "            %2$s.YYEOF,\n"
                   + "            UnicodeDataScanners.Dataset.ALL);\n"
-                  + "    assertThat(scanner.ranges()).isEqualTo(readGolden(\"%1$s\"));\n"
+                  + "    assertEquals(readGolden(\"%1$s\"), scanner.ranges());\n"
                   + "  }",
               propName, scanner));
     }
