@@ -16,7 +16,7 @@ Java aims to be implementation platform independent, yet different platforms
 use different ways to encode characters. Moreover, a file written on one
 platform, say Windows, may later be read by a scanner on another platform,
 for instance Linux.
- 
+
 If a program reads a file from disk, what it really reads is a stream of
 bytes. These bytes can be mapped to characters in different ways. For
 instance, in standard ASCII, the byte value 65 stands for the character `A`,
@@ -124,6 +124,90 @@ might depend on which platform you run JFlex on when you generate the scanner
 are not sure, or if the development platform might change, it’s probably best
 to use character code escapes in all places, since they don’t change their
 meaning.
+
+
+Supplementary characters and surrogate pairs {#sec:surrogates}
+--------------------------------------------
+
+Java `chars` as used in Java strings are UTF-16 code units, and Unicode versions
+since 1.1 allow and since 3.1 assign code points beyond 16 bits. They are the
+so-called supplementary code points, used for instance for emojis and more
+generally for characters above the Basic Multilingual Plane.
+
+Such characters are encoded as *surrogate pairs*, a high (leading) surrogate in
+the range `\uD800` to `\uDBFF` followed by a low (trailing) surrogate in the
+range `\uDC00` to `\uDFFF`.
+
+Scanners with `%unicode` (default) match on Unicode code points, not on Java
+`char`. JFlex treats these as follows.
+
+### Input
+
+-   A high surrogate followed by a low surrogate is always read as one
+    supplementary code point, regardless of how the input `Reader` splits
+    input.
+
+-   Any other surrogate is *unpaired*. For instance a high surrogate followed by
+    something that is not a low surrogate or the end of the input is an unpaired
+    surrogate. Similarly, a low surrogate not preceded by a high surrogate is
+    also unpaired. Unpaired surrogates are returned as their own code point in a
+    single `char`. While those sequences should not exist in wellformed Unicode
+    input, they are not errors or otherwise filtered by JFlex and can be matched
+    in rules.
+
+-   Unpaired surrogates generally do not reach the scanner if the input `Reader`
+    correctly decodes bytes into Java `char` sequences. Java's default decoders
+    for UTF-8 for example will replace malformed encodings with the error
+    (Replacement) character `\uFFFD` by default. Unpaired surrogates can however
+    easily originate from manually created `String`s and `char` arrays, e.g. via
+    a `StringReader`.
+
+### Lexer Specification
+
+-   The expressions `[^]`, negated classes such as `[^a]`, and Unicode
+    properties `\p{...}` match one code point, so they can match one or two
+    `char`s of input.
+
+-   `[^]`, negated classes, negated properties such as `\P{L}`, and `\p{Any}`
+    include unpaired surrogates. Dot (`.`) and positive Unicode properties do
+    *not* match unpaired surrogates, because they match Unicode code points. For
+    a general fall-back rule that matches anything, including unpaired
+    surrogates, use `[^]`.
+
+-   Supplementary characters such as emojis can be written directly as
+    characters in the specification or with escapes, for instance `\U01F600` or
+    `\u{1F600}`. They stand for one code point and `char` and can be used
+    normally in regular expressions, strings and character classes.
+
+-   The escape sequence `\uXXXX` or `\u{...}` denotes exactly one code point. In
+    a string, a high surrogate escape directly followed by a low surrogate
+    escape combines into the supplementary code point, as it does in Java.
+    Outside of strings the two escapes stay separate:
+
+        "\uD83D\uDE00"     matches \u{1F600}
+        \u{D83D DE00}      matches \u{1F600}
+        \uD83D\uDE00       never matches, because in input these would combine
+        [\uD83D\uDE00]     matches one unpaired surrogate, \uD83D or \uDE00
+
+-   A single surrogate escape such as `\uD800`, or a range such as
+    `[\uD800-\uDBFF]`, matches unpaired surrogates only. They do not match one
+    half of surrogate pairs.
+
+### Actions
+
+-   `yylength()`, `yycharat()`, `yypushback()`, `yychar` and `yycolumn` all
+    count Java `char`s, not code points, i.e., supplementary characters count as
+    two. Use `codePointCount()` for instance as in `yytext().codePointCount(0,
+    yylength())` for the number of code points in a match.
+
+-   `yycharat()` returns a `char` and can therefore return one half of a
+    surrogate pair. Use `yytext().codePointAt(pos)` to get the full code point.
+
+-   `yypushback()` can split surrogate pairs. If it pushes back only the low
+    surrogate, the matched text ends with an unpaired high surrogate and the
+    next match starts at the low surrogate, which the scanner then also reads as
+    an unpaired surrogate. If the matched text can contain surrogate pairs, the
+    code needs to take care to push back two `char`s for pairs.
 
 
 Conformance with Unicode Regular Expressions UTS\#18 {#unicoderegexconformance}
@@ -236,5 +320,6 @@ JFlex conforms.
 > of a leading surrogate followed by a trailing surrogate shall be
 > handled as a single code point in matching.*
 
-JFlex conforms.
+JFlex conforms. See [Supplementary characters and surrogate
+pairs](#sec:surrogates) for details.
 

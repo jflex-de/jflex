@@ -873,7 +873,8 @@ A regular expression that consists solely of
     -   Dot (`.`) matches `[^\r\n\u2028\u2029\u000B\u000C\u0085]`.\
         Use the `–legacydot` option to instead match `[^\n]`.\
         Note that unpaired Unicode surrogate chars `[\uD800-\uDFFF]`
-        are not matched by `.`.
+        are not matched by `.`. See also [Supplementary characters and
+        surrogate pairs](#sec:surrogates).
 
     -   `\R` matches any newline:
         `\r\n|[\r\n\u2028\u2029\u000B\u000C\u0085]`.
