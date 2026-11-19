@@ -105,3 +105,9 @@ path = "jflex/src/main/resources/LICENSE_JFLEX"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2023, Gerwin Klein, Régis Décamps, Steve Rowe"
 SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "tests/regression/src/test/java/de/jflex/testcase/java_lexer/scanner.input"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "1998-2018, Gerwin Klein"
+SPDX-License-Identifier = "GPL-2.0-only"
