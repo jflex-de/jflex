@@ -164,7 +164,9 @@ Currently, the API consists of the following methods and member fields:
     Basic Multilingual Plane) are represented in Java Strings by paired
     Unicode surrogate characters, and as a result expressions such as
     `[^]` (any character) and `\p{...}` (characters having a Unicode
-    property) can match more than one `char`.
+    property) can match more than one `char`. Pushing back only one
+    `char` can split such pairs, see [Supplementary characters and
+    surrogate pairs](#sec:surrogates).
 
 -   `yyatEOF()`
 

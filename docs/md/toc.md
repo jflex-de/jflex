@@ -31,6 +31,7 @@ Table of Contents
     -   [The Problem](#the-problem)
     -   [Scanning text files](#scanning-text-files)
     -   [Scanning binaries](#scanning-binaries)
+    -   [Supplementary characters and surrogate pairs](#sec:surrogates)
     -   [Conformance with Unicode Regular Expressions
         UTS\#18](#unicoderegexconformance)
 -   [A few words on performance](#performance)
