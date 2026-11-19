@@ -1,6 +1,6 @@
 /*
  * Copyright 1998-2018, Gerwin Klein <lsf@jflex.de>
- * SPDX-License-Identifier: BSD-3-Clause
+ * SPDX-License-Identifier: GPL-2.0-only
  */
 
 /*
