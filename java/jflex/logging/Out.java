@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import jflex.base.Build;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
@@ -37,11 +39,33 @@ public final class Out {
   /** Platform specific newline. */
   public static final String NL = System.getProperty("line.separator");
 
-  /** count total warnings */
-  private int warnings;
-
   /** count total errors */
   private int errors;
+
+  /** The warnings since the last {@link #resetCounters()} in the order they were reported. */
+  private final List<Warning> reportedWarnings = new ArrayList<>();
+
+  /** A stored reported warning */
+  public static final class Warning {
+    /** The code of the warning message. */
+    public final ErrorMessages message;
+
+    /** The file the warning is for, or null if the warning has no file information. */
+    public final File file;
+
+    /** The line of the warning, starting at 1. 0 for no line. */
+    public final int line;
+
+    /** The column of the warning, starting at 1. 0 for no column. */
+    public final int column;
+
+    Warning(ErrorMessages message, File file, int line, int column) {
+      this.message = message;
+      this.file = file;
+      this.line = line;
+      this.column = column;
+    }
+  }
 
   /** output device */
   private final StdOutWriter out;
@@ -214,7 +238,15 @@ public final class Out {
 
   /** Returns the number of warnings reported since the last {@link #resetCounters()}. */
   public int warnings() {
-    return warnings;
+    return reportedWarnings.size();
+  }
+
+  /**
+   * Returns the warnings since the last {@link #resetCounters()} in the order they were reported.
+   * Suppressed warnings are not included.
+   */
+  public List<Warning> reportedWarnings() {
+    return new ArrayList<>(reportedWarnings);
   }
 
   /** print error and warning statistics */
@@ -222,8 +254,8 @@ public final class Out {
     StringBuilder line = new StringBuilder(errors + " error");
     if (errors != 1) line.append("s");
 
-    line.append(", ").append(warnings).append(" warning");
-    if (warnings != 1) line.append("s");
+    line.append(", ").append(warnings()).append(" warning");
+    if (warnings() != 1) line.append("s");
 
     line.append(".");
     err(line.toString());
@@ -232,7 +264,7 @@ public final class Out {
   /** reset error and warning counters */
   public void resetCounters() {
     errors = 0;
-    warnings = 0;
+    reportedWarnings.clear();
   }
 
   /**
@@ -242,7 +274,7 @@ public final class Out {
    * @see ErrorMessages
    */
   public void warning(ErrorMessages message) {
-    warning(message, 0);
+    warning(message, -1);
   }
 
   /**
@@ -253,14 +285,14 @@ public final class Out {
    * @see ErrorMessages
    */
   public void warning(ErrorMessages message, Object... args) {
-    warning(message, 0, args);
+    warning(message, -1, args);
   }
 
   /**
    * Print a warning with line information.
    *
    * @param message code of the warning message
-   * @param line the line information
+   * @param line the line starting at 0, negative for no line
    * @see ErrorMessages
    */
   public void warning(ErrorMessages message, int line) {
@@ -271,17 +303,17 @@ public final class Out {
    * Print a warning with line information and arguments.
    *
    * @param message code of the warning message
-   * @param line the line information
+   * @param line the line starting at 0, or negative for no line
    * @param args arguments to the warning message
    * @see ErrorMessages
    */
   public void warning(ErrorMessages message, int line, Object... args) {
     if (options.isSuppressed(message)) return;
 
-    warnings++;
+    reportedWarnings.add(new Warning(message, null, line >= 0 ? line + 1 : 0, 0));
 
     String msg = NL + ErrorMessages.get(ErrorMessages.WARNING_PREFIX);
-    if (line > 0) {
+    if (line >= 0) {
       msg += " " + ErrorMessages.get(ErrorMessages.IN_LINE, String.valueOf(line + 1));
     }
 
@@ -307,7 +339,8 @@ public final class Out {
       err(msg);
     }
 
-    warnings++;
+    reportedWarnings.add(
+        new Warning(message, file, line >= 0 ? line + 1 : 0, line >= 0 ? column + 1 : 0));
 
     if (line >= 0) {
       if (column >= 0) showPosition(file, line, column);
