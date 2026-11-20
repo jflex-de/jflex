@@ -69,9 +69,6 @@ public final class NFA {
    */
   private int numLexStates;
 
-  /** estimated size of the NFA (before actual construction) */
-  private final int estSize;
-
   private CharClasses classes;
 
   private LexScan scanner;
@@ -93,7 +90,6 @@ public final class NFA {
     this.options = options;
     this.out = out;
     this.numInput = numInput;
-    this.estSize = estSize;
     numStates = 0;
     epsilon = new StateSet[estSize];
     action = new Action[estSize];
@@ -326,7 +322,7 @@ public final class NFA {
     if (maxS > numStates) numStates = maxS;
 
     if (table[start][input] != null) table[start][input].addState(dest);
-    else table[start][input] = new StateSet(estSize, dest);
+    else table[start][input] = new StateSet(dest);
   }
 
   public void addEpsilonTransition(int start, int dest) {
@@ -335,7 +331,7 @@ public final class NFA {
     if (max > numStates) numStates = max;
 
     if (epsilon[start] != null) epsilon[start].addState(dest);
-    else epsilon[start] = new StateSet(estSize, dest);
+    else epsilon[start] = new StateSet(dest);
   }
 
   /**
@@ -383,6 +379,9 @@ public final class NFA {
    * <p>The epsilon closure for set a is the set of states that can be reached by epsilon edges from
    * a.
    *
+   * <p>Precondition: for all states {@code s < startState}, {@code epsilon[s]} is the epsilon
+   * closure of {@code s}, as in {@link #epsilonFill()}.
+   *
    * @param startState the start state for the set of states to calculate the epsilon closure for
    * @return the epsilon closure of the specified set of states in this NFA
    */
@@ -391,7 +390,7 @@ public final class NFA {
     // Out.debug("Calculating closure of "+set);
 
     StateSet notvisited = tempStateSet;
-    StateSet closure = new StateSet(numStates, startState);
+    StateSet closure = new StateSet(startState);
 
     notvisited.clear();
     notvisited.addState(startState);
@@ -402,7 +401,9 @@ public final class NFA {
       int state = notvisited.getAndRemoveElement();
       // Out.debug("removed element "+state+" of "+notvisited);
       // Out.debug("epsilon[states] = "+epsilon[state]);
-      notvisited.add(closure.complement(epsilon[state]));
+      // epsilonFill() has replaced epsilon[state] with the closure for all states before
+      // startState, so these have nothing further to visit.
+      if (state >= startState) notvisited.add(closure.complement(epsilon[state]));
       closure.add(epsilon[state]);
     }
 
@@ -724,7 +725,7 @@ public final class NFA {
     }
 
     StateSet notvisited = tempStateSet;
-    StateSet reachable = new StateSet(numStates, start);
+    StateSet reachable = new StateSet(start);
 
     notvisited.clear();
     notvisited.addState(start);
@@ -743,7 +744,7 @@ public final class NFA {
       Out.debug("reachable states " + reachable);
     }
 
-    StateSet live = new StateSet(numStates, end);
+    StateSet live = new StateSet(end);
     boolean changed = true;
 
     // compute all live states
