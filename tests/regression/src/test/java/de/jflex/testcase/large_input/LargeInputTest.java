@@ -7,7 +7,10 @@ package de.jflex.testcase.large_input;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import de.jflex.testing.testsuite.JFlexTest;
+import de.jflex.testing.testsuite.annotations.TestSpec;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import org.junit.jupiter.api.Test;
@@ -17,7 +20,26 @@ import org.junit.jupiter.api.Test;
  *
  * <p>See <a href="https://github.com/jflex-de/jflex/issues/536">#536</a>.
  */
-public class LargeInputTest {
+@TestSpec(
+    lex = "src/test/java/de/jflex/testcase/large_input/large_input.flex",
+    noOutput = true,
+    quiet = true,
+    minimizedDfaStatesCount = 4,
+    charClassesCount = 3,
+    charClasses = {
+      "{ [0-9][14-132][134-8231][8234-55295][57344-1114111] }",
+      "{ [10] }",
+      "{ [11-13][133][8232-8233][55296-57343] }"
+    })
+public class LargeInputTest implements JFlexTest {
+
+  private LargeInputScanner scanner;
+
+  /** Asserts that the next match is a line with this text. */
+  private void assertLine(State state, String text) throws IOException {
+    assertEquals(state, scanner.yylex());
+    assertEquals(text, scanner.yytext());
+  }
 
   /**
    * Tests a well-formed input content larger than MAX_INT (2^32-1). The scanner should never
@@ -25,16 +47,17 @@ public class LargeInputTest {
    */
   @Test
   public void consumeLargeInput() throws Exception {
-    final String content = "One every character the `yychar` is incremented, but don't overflow!\n";
+    final String line = "For every character `yychar` is incremented, but it does not overflow!";
+    final String content = line + "\n";
     long size = 4 * (long) content.length();
     Reader largeContentReader = new RepeatContentReader(size, content);
-    LargeInputScanner scanner = createScanner(largeContentReader);
+    scanner = createScanner(largeContentReader);
     // Pretend we move close to MAX_INT
     scanner.fakeRead(Integer.MAX_VALUE - 2 * content.length());
-    assertEquals(State.BEFORE_2GB, scanner.yylex());
-    assertEquals(State.BEFORE_2GB, scanner.yylex());
-    assertEquals(State.BEFORE_2GB, scanner.yylex());
-    assertEquals(State.AFTER_2GB, scanner.yylex());
+    assertLine(State.BEFORE_2GB, line);
+    assertLine(State.BEFORE_2GB, line);
+    assertLine(State.BEFORE_2GB, line);
+    assertLine(State.AFTER_2GB, line);
     assertEquals(State.END_OF_FILE, scanner.yylex());
   }
 
@@ -42,20 +65,18 @@ public class LargeInputTest {
   public void consumeSmallInput() throws Exception {
     long size = 50;
     Reader largeContentReader = new RepeatContentReader(size, "hello foo\n");
-    LargeInputScanner scanner = createScanner(largeContentReader);
-    assertEquals(State.BEFORE_2GB, scanner.yylex());
-    assertEquals(State.BEFORE_2GB, scanner.yylex());
-    assertEquals(State.BEFORE_2GB, scanner.yylex());
-    assertEquals(State.BEFORE_2GB, scanner.yylex());
-    assertEquals(State.BEFORE_2GB, scanner.yylex());
+    scanner = createScanner(largeContentReader);
+    for (int i = 0; i < 5; i++) {
+      assertLine(State.BEFORE_2GB, "hello foo");
+    }
     assertEquals(State.END_OF_FILE, scanner.yylex());
   }
 
   @Test
   public void consumeUnterminatedLine() throws Exception {
-    LargeInputScanner scanner = createScanner(new BufferedReader(new StringReader("Hello\nworld")));
-    assertEquals(State.BEFORE_2GB, scanner.yylex());
-    assertEquals(State.BEFORE_2GB, scanner.yylex());
+    scanner = createScanner(new BufferedReader(new StringReader("Hello\nworld")));
+    assertLine(State.BEFORE_2GB, "Hello");
+    assertLine(State.BEFORE_2GB, "world");
     assertEquals(State.END_OF_FILE, scanner.yylex());
   }
 

@@ -1,7 +1,0 @@
-name: dot
-
-description:
-Test that graphviz dot files are generated.
-See also https://github.com/jflex-de/jflex/issues/769
-
-jflex: -q --dot

@@ -17,6 +17,17 @@ package de.jflex.testcase.ctorarg;
 
 %standalone
 
+%{
+  /** The values of the %ctorarg arguments, stored by the %init code. */
+  int x;
+  Object y;
+%}
+
+%init{
+  this.x = x;
+  this.y = y;
+%init}
+
 %%
 
 "some rule" { /* without content */ }

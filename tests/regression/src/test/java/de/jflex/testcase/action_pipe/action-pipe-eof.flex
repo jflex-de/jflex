@@ -19,9 +19,9 @@ Identifier = [:jletter:][:jletterdigit:]*
 
 %%
 
-{Identifier}     { System.out.println(yytext()); return 1; }
+{Identifier}     { return 1; }
 
 {LineTerminator} |
-<<EOF>>          { System.out.println("⏎"); return 0; }
+<<EOF>>          { return 0; }
 
 [^]              { /* no action */ }

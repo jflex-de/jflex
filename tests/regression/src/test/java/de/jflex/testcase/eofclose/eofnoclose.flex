@@ -11,6 +11,8 @@ package de.jflex.testcase.eofclose;
 %class EofNoClose
 %int
 
+// %eofclose false turns the effect of %eofclose off again
+%eofclose
 %eofclose false
 
 %%
