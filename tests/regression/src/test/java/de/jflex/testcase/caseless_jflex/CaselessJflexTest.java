@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/caseless_jflex/caseless.flex",
-    // no warnings: "hello" can match, other than with --jlex
     noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 16,

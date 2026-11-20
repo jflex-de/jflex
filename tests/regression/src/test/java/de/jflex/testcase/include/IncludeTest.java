@@ -32,7 +32,6 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/include/include.flex",
     skeleton = "src/test/java/de/jflex/testcase/include/skeleton.nested",
-    // no warnings
     noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 23,

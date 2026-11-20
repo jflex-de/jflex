@@ -27,7 +27,6 @@ import org.junit.jupiter.api.Test;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/genlook2/genlook2.flex",
-    // no warnings
     noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 9,
