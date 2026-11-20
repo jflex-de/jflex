@@ -1,15 +1,17 @@
 /*
- * Copyright 2020, Google, LLC.
+ * Copyright 2026, Gerwin Klein
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
 package de.jflex.testcase.caseless_jflex;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import de.jflex.testing.testsuite.JFlexTest;
+import de.jflex.testing.testsuite.annotations.TestSpec;
 import java.io.IOException;
 import java.io.StringReader;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -17,84 +19,150 @@ import org.junit.jupiter.api.Test;
  *
  * <p>Only strings and chars are caseless.
  */
-public class CaselessJflexTest {
+@TestSpec(
+    lex = "src/test/java/de/jflex/testcase/caseless_jflex/caseless.flex",
+    // no warnings: "hello" can match, other than with --jlex
+    noOutput = true,
+    quiet = true,
+    minimizedDfaStatesCount = 16,
+    charClassesCount = 15,
+    charClasses = {
+      "{ [0-9][14-'@']['B'-'D']['F'-'G']['I'-'K']['M'-'N']['P'-'`']['{'-132][134-8231]"
+          + "[8234-55295][57344-1114111] }",
+      "{ [10] }",
+      "{ [11-12][133][8232-8233][55296-57343] }",
+      "{ [13] }",
+      "{ ['A'] }",
+      "{ ['E'] }",
+      "{ ['H'] }",
+      "{ ['L'] }",
+      "{ ['O'] }",
+      "{ ['a'] }",
+      "{ ['b'-'d']['f'-'g']['i'-'k']['m'-'n']['p'-'z'] }",
+      "{ ['e'] }",
+      "{ ['h'] }",
+      "{ ['l'] }",
+      "{ ['o'] }"
+    })
+public class CaselessJflexTest implements JFlexTest {
 
   private CaselessScanner scanner;
 
-  @AfterEach
-  public void endOfFile() throws Exception {
+  private void scan(String input) {
+    scanner = new CaselessScanner(new StringReader(input));
+  }
+
+  /** Checks the next token: the matched rule and text. */
+  private void assertToken(State rule, String text) throws IOException {
+    assertEquals(rule, scanner.yylex(), "rule for " + text);
+    assertEquals(text, scanner.yytext());
+  }
+
+  private void assertEof() throws IOException {
     assertEquals(State.END_OF_FILE, scanner.yylex());
+    assertTrue(scanner.yyatEOF());
   }
 
   @Test
   public void a() throws Exception {
-    scanner = createScanner("a");
-    assertEquals(State.A, scanner.yylex());
+    scan("a");
+    assertToken(State.A, "a");
+    assertEof();
   }
 
+  /** 'A' matches 'a' in caseless mode. */
   @Test
   public void a_upper() throws Exception {
-    scanner = createScanner("A");
-    assertEquals(State.A, scanner.yylex(), "'A' matches 'a' in caseless mode");
+    scan("A");
+    assertToken(State.A, "A");
+    assertEof();
   }
 
   @Test
   public void hello() throws Exception {
     // [a-z]+ has higher priority than "hello" in the rules
-    scanner = createScanner("hello");
-    assertEquals(State.WORD, scanner.yylex());
+    scan("hello");
+    assertToken(State.WORD, "hello");
+    assertEof();
   }
 
+  /** 'HelLo' matches 'hello' in caseless mode. */
   @Test
   public void hello_mixedCase() throws Exception {
     // [a-z]+ has higher priority than the "hello" rule, but doesn't match "HelLo"
-    scanner = createScanner("HelLo");
-    assertEquals(State.HELLO, scanner.yylex(), "'HelLo' matches 'hello' in caseless mode");
+    scan("HelLo");
+    assertToken(State.HELLO, "HelLo");
+    assertEof();
   }
 
   @Test
   public void hello_within() throws Exception {
-    scanner = createScanner("blubHELLObla");
-    assertEquals(State.WORD, scanner.yylex());
-    assertEquals(State.HELLO, scanner.yylex());
-    assertEquals(State.WORD, scanner.yylex());
+    scan("blubHELLObla");
+    assertToken(State.WORD, "blub");
+    assertToken(State.HELLO, "HELLO");
+    assertToken(State.WORD, "bla");
+    assertEof();
   }
 
+  /** 'helLo' is mixed case and is no match of 'hello' here, because [a-z]+ matches 'hel'. */
   @Test
   public void hello_withinMixedCase() throws Exception {
-    scanner = createScanner("sdfahelLobla");
-    assertEquals(State.WORD, scanner.yylex()); // sdfa
-    assertEquals(
-        State.OTHER,
-        scanner.yylex(),
-        "'helLo' is mixed case and doesn't match 'hello' in JFlex mode"); // helLo
-    assertEquals(State.WORD, scanner.yylex()); // bla
+    scan("sdfahelLobla");
+    assertToken(State.WORD, "sdfahel");
+    assertToken(State.OTHER, "L");
+    assertToken(State.WORD, "obla");
+    assertEof();
   }
 
   @Test
   public void hello_newline() throws Exception {
-    scanner = createScanner("HELLO\n;");
-    assertEquals(State.HELLO, scanner.yylex());
-    assertEquals(State.NEW_LINE, scanner.yylex());
-    assertEquals(State.OTHER, scanner.yylex());
+    scan("HELLO\n;");
+    assertToken(State.HELLO, "HELLO");
+    assertToken(State.NEW_LINE, "\n");
+    assertToken(State.OTHER, ";");
+    assertEof();
   }
 
   @Test
   public void other() throws Exception {
-    scanner = createScanner("asd123hello;qwe");
-    assertEquals(State.WORD, scanner.yylex(), "'asd' is word");
-    assertEquals(State.OTHER, scanner.yylex(), "'1' is other"); // 1
-    assertEquals(State.OTHER, scanner.yylex(), "'2' is other"); // 2
-    assertEquals(State.OTHER, scanner.yylex(), "'3' is other"); // 3
-    assertEquals(
-        State.WORD,
-        scanner.yylex(),
-        "'hello' is concatenated and doesn't create a HELLO qqtoken in that case");
-    assertEquals(State.OTHER, scanner.yylex(), "';' is other");
-    assertEquals(State.WORD, scanner.yylex()); // qwe
+    scan("asd123hello;qwe");
+    assertToken(State.WORD, "asd");
+    assertToken(State.OTHER, "1");
+    assertToken(State.OTHER, "2");
+    assertToken(State.OTHER, "3");
+    // 'hello' is lower case, so it is a word and not a HELLO token
+    assertToken(State.WORD, "hello");
+    assertToken(State.OTHER, ";");
+    assertToken(State.WORD, "qwe");
+    assertEof();
   }
 
-  private static CaselessScanner createScanner(String input) throws IOException {
-    return new CaselessScanner(new StringReader(input));
+  /** Character classes stay case-sensitive: {@code [a-z]+} does not match upper case. */
+  @Test
+  public void upperCaseIsNoWord() throws Exception {
+    scan("Ab");
+    assertToken(State.A, "A");
+    assertToken(State.WORD, "b");
+    assertEof();
+
+    scan("BZ");
+    assertToken(State.OTHER, "B");
+    assertToken(State.OTHER, "Z");
+    assertEof();
+  }
+
+  /** The longer match wins: 'h' is a word, but 'hELLO' matches the caseless string. */
+  @Test
+  public void hello_lowerCaseStart() throws Exception {
+    scan("hELLO");
+    assertToken(State.HELLO, "hELLO");
+    assertEof();
+
+    scan("hELL");
+    assertToken(State.WORD, "h");
+    assertToken(State.OTHER, "E");
+    assertToken(State.OTHER, "L");
+    assertToken(State.OTHER, "L");
+    assertEof();
   }
 }

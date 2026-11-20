@@ -25,6 +25,8 @@ import jflex.exceptions.MacroException;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/macro_complement/macro.flex",
+    quiet = true,
+    output = {"", "Found no definition for macro \"r\" while expanding \"s\""},
     generatorThrows = GeneratorException.class,
     generatorThrowableCause = MacroException.class)
 public class MacroComplementTest implements JFlexTest {}

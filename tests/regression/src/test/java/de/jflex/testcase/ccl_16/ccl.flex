@@ -10,11 +10,10 @@ package de.jflex.testcase.ccl_16;
 %public
 %class CclScanner
 
-%debug
-%standalone
+%int
 
 %16bit
 
 %%
 
-[^] { /* do nothing */ }
+[^] { return 1; }
