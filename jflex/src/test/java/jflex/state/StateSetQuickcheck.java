@@ -44,11 +44,6 @@ public class StateSetQuickcheck {
   }
 
   @Property
-  public void size2nbits(@ForAll @IntRange(min = 1, max = 56) int size) {
-    assertEquals(size, StateSet.size2nbits(StateSet.nbits2size(size)));
-  }
-
-  @Property
   public void containsIsSubset(@ForAll StateSet s1, @ForAll StateSet s2) {
     boolean allElements = true;
     for (int e : s2) allElements &= s1.hasElement(e);
@@ -191,10 +186,12 @@ public class StateSetQuickcheck {
     s.addState(e);
     assertEquals(sPre, s);
 
-    // add larger state value to force resize
+    // add a state value that is larger than all elements
+    int max = 0;
+    for (int state : s) max = Math.max(max, state);
     int largerState;
     try {
-      largerState = Math.addExact(s.getCurrentMaxState(), largeOffset);
+      largerState = Math.addExact(max + 1, largeOffset);
     } catch (ArithmeticException arithmeticException) {
       largerState = Integer.MAX_VALUE;
     }
@@ -242,7 +239,7 @@ public class StateSetQuickcheck {
   public void addStateAdd(@ForAll StateSet set, @ForAll @IntRange(max = 34) int e) {
     StateSet set2 = new StateSet(set);
     set.addState(e);
-    set2.add(new StateSet(10, e));
+    set2.add(new StateSet(e));
     assertEquals(set2, set);
   }
 

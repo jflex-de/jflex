@@ -9,7 +9,8 @@ import java.util.PrimitiveIterator;
 import jflex.logging.Out;
 
 /**
- * Enumerates the states of a {@link StateSet}. Also provides an iterator for native int.
+ * Enumerates the states of a {@link StateSet} in ascending order. Also provides an iterator for
+ * native int.
  *
  * @author Gerwin Klein
  * @version JFlex 1.10.0-SNAPSHOT
@@ -21,28 +22,22 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
   private static final boolean DEBUG = false;
 
   /**
-   * Current index into the StateSet array. {@code index >= bits.length} indicates that there are no
+   * Index of the next element in {@link #elems}. {@code index >= size} indicates that there are no
    * further elements in the set.
    */
   private int index;
 
-  /** Current offset into the StateSet array */
-  private int offset;
+  /** Reference to the elements of the StateSet to iterate over */
+  private int[] elems;
 
-  /** {@code mask = 1 << offset} */
-  private long mask;
-
-  /** Reference to the array of the StateSet to iterate over */
-  private long[] bits;
+  /** Number of elements in {@link #elems} */
+  private int size;
 
   /**
-   * Creates a new StateSetEnumerator that is not yet associated with a StateSet. {@link
-   * #hasMoreElements()} and {@link #nextElement()} will throw {@link NullPointerException} when
-   * used before {@link #reset(StateSet)}
+   * Creates a new StateSetEnumerator that is not yet associated with a StateSet. It has no elements
+   * before {@link #reset(StateSet)}.
    */
-  public StateSetEnumerator() {
-    this.bits = new long[0];
-  }
+  public StateSetEnumerator() {}
 
   /**
    * Construct a StateSetEnumerator for a given StateSet. This should be the default constructor to
@@ -52,7 +47,6 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
    * @see StateSet#states()
    */
   public StateSetEnumerator(StateSet states) {
-    this.bits = states.bits;
     reset(states);
   }
 
@@ -62,77 +56,9 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
    * @param states the {@link StateSet} object to iterate over.
    */
   public void reset(StateSet states) {
-    this.bits = states.bits;
+    this.elems = states.elems;
+    this.size = states.numElems;
     this.index = 0;
-    this.offset = 0;
-    this.mask = 1;
-
-    // find the first index with elements in the array (= first non-zero bits[index])
-    while (index < bits.length && bits[index] == 0) index++;
-
-    // if there are none, the set is empty
-    if (index >= bits.length) return;
-
-    // find the first non-zero bit in bits[index]
-    while (offset <= StateSet.MASK && (bits[index] & mask) == 0) {
-      mask <<= 1;
-      offset++;
-    }
-  }
-
-  /**
-   * Advance to the next element in the set.
-   *
-   * <p>Precondition: there are more elements in the set.
-   */
-  private void advance() {
-
-    if (DEBUG) Out.trace("Advancing, at start, index = " + index + ", offset = " + offset);
-
-    // cache fields in local variable for faster access
-    int _index = this.index;
-    int _offset = this.offset;
-    long _mask = this.mask;
-    long[] _bits = this.bits;
-
-    long bi = _bits[_index];
-
-    // check if there are further bits set at the current index
-    do {
-      _offset++;
-      _mask <<= 1;
-    } while (_offset <= StateSet.MASK && ((bi & _mask) == 0));
-
-    // if there are no further bits set at the current index
-    if (_offset > StateSet.MASK) {
-      int length = _bits.length;
-
-      // find next index with elements
-      do _index++;
-      while (_index < length && _bits[_index] == 0);
-
-      // if there are none, there were no further elements
-      if (_index >= length) {
-        this.index = length; // indicates "no more elements"
-        return;
-      }
-
-      // search for first non-zero bit in bits[index]
-      _offset = 0;
-      _mask = 1;
-      bi = _bits[_index];
-
-      // terminates, because bi != 0
-      while ((bi & _mask) == 0) {
-        _mask <<= 1;
-        _offset++;
-      }
-    }
-
-    // write back cached values
-    this.index = _index;
-    this.mask = _mask;
-    this.offset = _offset;
   }
 
   /**
@@ -142,9 +68,9 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
    */
   public boolean hasMoreElements() {
     if (DEBUG) {
-      Out.trace("hasMoreElements, index = " + index + ", offset = " + offset);
+      Out.trace("hasMoreElements, index = " + index);
     }
-    return index < bits.length;
+    return index < size;
   }
 
   /**
@@ -158,12 +84,10 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
    */
   public int nextElement() {
     if (DEBUG) {
-      Out.trace("nextElement, index = " + index + ", offset = " + offset);
+      Out.trace("nextElement, index = " + index);
     }
-    if (index >= bits.length) throw new NoSuchElementException();
-    int x = (index << StateSet.BITS) + offset;
-    advance();
-    return x;
+    if (index >= size) throw new NoSuchElementException();
+    return elems[index++];
   }
 
   /** Iterator interface method for {@link #nextElement()}. */
