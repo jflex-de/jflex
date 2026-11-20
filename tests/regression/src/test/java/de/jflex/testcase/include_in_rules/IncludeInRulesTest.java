@@ -34,6 +34,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/include_in_rules/IncludeInRules.flex",
     warnings = @Warn(value = ErrorMessages.NEVER_MATCH, line = 23),
+    // checks the "Including" message, and that the warning has the including spec
     sysout = "src/test/java/de/jflex/testcase/include_in_rules/IncludeInRules.sysout",
     minimizedDfaStatesCount = 11,
     minimizedDfa = {

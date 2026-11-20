@@ -15,6 +15,7 @@ import de.jflex.testing.testsuite.annotations.TestSpec;
 /** Test for the {@code --no-warn-unused} option. */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/unused_warning/no-unused.flex",
-    sysout = "src/test/java/de/jflex/testcase/unused_warning/expected_nounused_sysout.txt",
+    quiet = true,
+    noOutput = true,
     warnUnused = false)
 public class NoUnusedTest implements JFlexTest {}

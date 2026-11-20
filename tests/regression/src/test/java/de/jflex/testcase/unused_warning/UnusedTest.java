@@ -18,6 +18,7 @@ import jflex.l10n.ErrorMessages;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/unused_warning/unused.flex",
     warnings = @Warn(ErrorMessages.MACRO_UNUSED),
+    // checks that the warning comes before the NFA build
     sysout = "src/test/java/de/jflex/testcase/unused_warning/expected_unused_sysout.txt",
     warnUnused = true)
 public class UnusedTest implements JFlexTest {}

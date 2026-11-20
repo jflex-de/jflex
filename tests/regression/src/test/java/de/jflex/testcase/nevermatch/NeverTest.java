@@ -18,7 +18,8 @@ import org.junit.jupiter.api.Test;
       @Warn(value = ErrorMessages.NEVER_MATCH, line = 20),
       @Warn(value = ErrorMessages.NEVER_MATCH, line = 26)
     },
-    sysout = "src/test/java/de/jflex/testcase/nevermatch/expected_sysout.txt")
+    sysout = "src/test/java/de/jflex/testcase/nevermatch/expected_sysout.txt",
+    minimizedDfaStatesCount = 4)
 public class NeverTest implements JFlexTest {
 
   /** Tests that the scanner was successfully generated and can be instantiated. */
