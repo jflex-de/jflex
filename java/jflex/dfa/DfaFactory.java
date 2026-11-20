@@ -73,7 +73,7 @@ public class DfaFactory {
 
     StateSet tempStateSet = nfa.tempStateSet();
     StateSetEnumerator states = nfa.states();
-    newState = new StateSet(numStates);
+    newState = new StateSet();
     while (currentDFAState <= numDFAStates) {
 
       currentState = dfaList.get(currentDFAState);
