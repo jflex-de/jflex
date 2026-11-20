@@ -10,8 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.annotations.Warn;
 import java.io.IOException;
 import java.io.StringReader;
+import jflex.l10n.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -25,7 +27,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/dot_newline/dotnewline.flex",
     // the never-match warning for [^]
-    sysout = "src/test/java/de/jflex/testcase/dot_newline/dotnewline.sysout",
+    warnings = @Warn(value = ErrorMessages.NEVER_MATCH, line = 39),
     quiet = true,
     minimizedDfaStatesCount = 5,
     minimizedDfa = {

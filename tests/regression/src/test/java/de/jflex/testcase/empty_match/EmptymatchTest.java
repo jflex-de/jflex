@@ -10,8 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.annotations.Warn;
 import java.io.IOException;
 import java.io.StringReader;
+import jflex.l10n.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -26,7 +28,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/empty_match/emptymatch.flex",
     // the empty match warning for ""
-    sysout = "src/test/java/de/jflex/testcase/empty_match/emptymatch.sysout",
+    warnings = @Warn(value = ErrorMessages.EMPTY_MATCH, line = 32),
     quiet = true,
     minimizedDfaStatesCount = 9,
     minimizedDfa = {

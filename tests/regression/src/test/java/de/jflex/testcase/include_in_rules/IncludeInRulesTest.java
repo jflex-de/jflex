@@ -11,10 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import de.jflex.testing.SystemOutCapture;
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.annotations.Warn;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.StringReader;
+import jflex.l10n.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -31,7 +33,7 @@ import org.junit.jupiter.api.Test;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/include_in_rules/IncludeInRules.flex",
-    // never-match warning for "def"
+    warnings = @Warn(value = ErrorMessages.NEVER_MATCH, line = 23),
     sysout = "src/test/java/de/jflex/testcase/include_in_rules/IncludeInRules.sysout",
     minimizedDfaStatesCount = 11,
     minimizedDfa = {

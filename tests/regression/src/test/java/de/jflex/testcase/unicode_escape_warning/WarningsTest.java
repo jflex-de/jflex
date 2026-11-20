@@ -9,7 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.annotations.Warn;
 import de.jflex.util.scanner.ScannerFactory;
+import jflex.l10n.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -19,6 +21,14 @@ import org.junit.jupiter.api.Test;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/unicode_escape_warning/warnings.flex",
+    warnings = {
+      @Warn(value = ErrorMessages.UNICODE_TOO_LONG, line = 28, column = 7),
+      @Warn(value = ErrorMessages.UNICODE_TOO_LONG, line = 29, column = 7),
+      @Warn(value = ErrorMessages.UNICODE_TOO_LONG, line = 30, column = 9),
+      @Warn(value = ErrorMessages.UNICODE_TOO_LONG, line = 32, column = 8),
+      @Warn(value = ErrorMessages.UNICODE_TOO_LONG, line = 33, column = 8),
+      @Warn(value = ErrorMessages.UNICODE_TOO_LONG, line = 34, column = 10)
+    },
     sysout = "src/test/java/de/jflex/testcase/unicode_escape_warning/sys-out.txt",
     quiet = true)
 public class WarningsTest implements JFlexTest {
