@@ -32,7 +32,7 @@
     <maven.javadoc.skip>true</maven.javadoc.skip>
     <maven.site.skip>true</maven.site.skip>
     <maven.source.skip>true</maven.source.skip>
-    <!-- Comma-separated case directories for TestsuiteTest, e.g. -Dtestcases=dot,testloader.
+    <!-- Comma-separated case directories for TestsuiteTest, e.g. -Dtestcases=testloader.
          The empty default here means all tests. -->
     <testcases></testcases>
     <generated.scanners.dir>${project.build.directory}/generated-test-sources/jflex</generated.scanners.dir>
@@ -101,6 +101,8 @@
               <lexDefinitions>
                 <lexDefinition>src/test/java/de/jflex/testcase/action_pipe/action-pipe-eof.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/action_pipe/eof-pipe-action.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/apipirivate/private.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/arr_return/arr.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/bol/bol.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/bol/bol2.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/buffer/buffer.flex</lexDefinition>
@@ -166,6 +168,7 @@
             <configuration>
               <jlex>true</jlex>
               <lexDefinitions>
+                <lexDefinition>src/test/java/de/jflex/testcase/caseless_max_codepoint/caseless-any-jlex.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/caseless_jlex/caseless.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/dot_jlex/dotjlex.flex</lexDefinition>
               </lexDefinitions>

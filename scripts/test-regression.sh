@@ -18,7 +18,7 @@ logi "Run regression test cases"
 logi "========================="
 # The hand-written end-to-end tests in tests/regression: JUnit tests, and the .test cases that
 # TestsuiteTest runs. Needs jflex and jflex-maven-plugin installed.
-# Select .test case directories with -Dtestcases=dot,testloader
+# Select .test case directories with -Dtestcases=testloader
 cd "$BASEDIR"
 "$MVN" -pl tests/framework,tests/regression install "$@"
 cd "$CWD"

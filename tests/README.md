@@ -55,7 +55,7 @@ the copy step.
   Their inputs are the `*BreakTest.txt` files of the UCD, and the goldens are the expected
   breaks in those files.
 
-Add `-Dtestcases=dot,testloader` to run only some case directories.
+Add `-Dtestcases=unicode-scripts,unicode-word-break` to run only some case directories of a module.
 
 ### Generated Unicode test cases
 

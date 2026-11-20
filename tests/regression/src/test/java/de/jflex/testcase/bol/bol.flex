@@ -10,7 +10,6 @@ package de.jflex.testcase.bol;
 %public
 %class BolScanner
 %type State
-%debug
 
 %line
 %column
@@ -20,6 +19,21 @@ package de.jflex.testcase.bol;
 %char
 %{
   State state = State.INITIAL;
+
+  /** Line of the current match, counted from 0. */
+  public int line() {
+    return yyline;
+  }
+
+  /** Column of the current match, counted from 0. */
+  public int column() {
+    return yycolumn;
+  }
+
+  /** Number of characters before the current match. */
+  public long offset() {
+    return yychar;
+  }
 %}
 
 %%

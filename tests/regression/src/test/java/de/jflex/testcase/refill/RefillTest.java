@@ -7,10 +7,9 @@ package de.jflex.testcase.refill;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.EOFException;
+import de.jflex.testing.testsuite.JFlexTest;
+import de.jflex.testing.testsuite.annotations.TestSpec;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -25,28 +24,40 @@ import org.junit.jupiter.api.Test;
  *
  * <p>See <a href="https://github.com/jflex-de/jflex/issues/1090">#1090</a>.
  */
-public class RefillTest {
+@TestSpec(
+    lex = "src/test/java/de/jflex/testcase/refill/refill.flex",
+    noOutput = true,
+    quiet = true,
+    minimizedDfaStatesCount = 3,
+    minimizedDfa = {
+      "states 3, inputs 4, lexical states 1",
+      "entry: 0 0",
+      "0: 0-2 -> 1; 3 -> 2",
+      "1 [a0]:",
+      "2 [a0]: 1 -> 1; 3 -> 2",
+      "a0: return yytext();"
+    },
+    charClassesCount = 4,
+    charClasses = {"{ [0-12][14-'`']['c'-1114111] }", "{ [13] }", "{ ['a'] }", "{ ['b'] }"})
+public class RefillTest implements JFlexTest {
 
   /** A high surrogate. Unpaired if not followed by {@link #LOW}. */
-  private static final String HIGH = "\uD83D";
+  static final String HIGH = "\uD83D";
 
   /** A low surrogate. Unpaired if not preceded by {@link #HIGH}. */
   private static final String LOW = "\uDE00";
 
   /** U+1F600, a character that takes two Java {@code char}s. */
-  private static final String PAIR = HIGH + LOW;
-
-  /** The {@code %token_size_limit} of {@code refill-limit.flex}. */
-  private static final int LIMIT = 4;
+  static final String PAIR = HIGH + LOW;
 
   /** The {@code yylex()} method of a scanner in this test. */
   @FunctionalInterface
-  private interface Lexer {
+  interface Lexer {
     String yylex() throws IOException;
   }
 
   /** Scans to the end of the input and returns the text of all tokens. */
-  private static List<String> tokens(Lexer lexer) throws IOException {
+  static List<String> tokens(Lexer lexer) throws IOException {
     List<String> tokens = new ArrayList<>();
     for (String token = lexer.yylex(); token != null; token = lexer.yylex()) {
       tokens.add(token);
@@ -56,14 +67,6 @@ public class RefillTest {
 
   private static List<String> tokens(String input) throws IOException {
     return tokens(new Refill(new StringReader(input))::yylex);
-  }
-
-  private static List<String> limitTokens(String input) throws IOException {
-    return tokens(new RefillLimit(new StringReader(input))::yylex);
-  }
-
-  private static List<String> bolTokens(String input) throws IOException {
-    return tokens(new RefillBol(new StringReader(input))::yylex);
   }
 
   /**
@@ -128,46 +131,6 @@ public class RefillTest {
     assertNull(scanner.yylex());
   }
 
-  /**
-   * The match {@code bbb\r} fills the buffer. For {@code ^}, the scanner has to refill the buffer
-   * to see if a {@code \n} follows the {@code \r}.
-   */
-  @Test
-  public void beginningOfLineAfterCarriageReturnAtEndOfBuffer() throws Exception {
-    assertEquals(Arrays.asList("bbb\r", "^x", "x"), bolTokens("bbb\rxx"));
-    assertEquals(Arrays.asList("bbb\r", "\n", "^x", "x"), bolTokens("bbb\r\nxx"));
-    assertEquals(Arrays.asList("bbb\r"), bolTokens("bbb\r"));
-  }
-
-  /**
-   * With {@code %token_size_limit}, a match is guaranteed if it is at least two {@code char}s
-   * smaller than the limit. The scanner may need the code point after the match, which can take two
-   * {@code char}s.
-   */
-  @Test
-  public void limitWithSurrogatePairAfterMatch() throws Exception {
-    assertEquals(Arrays.asList("bb", PAIR, "a"), limitTokens("bb" + PAIR + "a"));
-    assertEquals(Arrays.asList("a", "bb", PAIR, "a"), limitTokens("abb" + PAIR + "a"));
-    assertEquals(Arrays.asList(PAIR, PAIR, HIGH, PAIR), limitTokens(PAIR + PAIR + HIGH + PAIR));
-  }
-
-  /**
-   * The match {@code bbb} and the character after it take 5 {@code char}s, which is more than the
-   * limit. The scanner must not drop the high surrogate to make room for the low surrogate.
-   */
-  @Test
-  public void limitReachedBySurrogatePairAfterMatch() throws Exception {
-    assertLimitReached("bbb" + PAIR + "a");
-    assertLimitReached("bbb" + HIGH + HIGH);
-    assertEquals(Arrays.asList("bbb", "a", PAIR), limitTokens("bbba" + PAIR));
-  }
-
-  private static void assertLimitReached(String input) {
-    RefillLimit scanner = new RefillLimit(new StringReader(input));
-    EOFException e = assertThrows(EOFException.class, scanner::yylex, describe(input));
-    assertEquals("Scan buffer limit reached [" + LIMIT + "]", e.getMessage());
-  }
-
   // Exhaustive tests: all short inputs over an alphabet that covers the characters that are special
   // to zzRefill, with readers that return the input in pieces of different sizes.
 
@@ -182,7 +145,7 @@ public class RefillTest {
   private static final int[] CHUNK_SIZES = {1, 3, Integer.MAX_VALUE};
 
   /** A reader for {@code input} that returns at most {@code chunkSize} chars per read. */
-  private static Reader chunked(String input, int chunkSize) {
+  static Reader chunked(String input, int chunkSize) {
     return new StringReader(input) {
       @Override
       public int read(char[] buffer, int offset, int length) throws IOException {
@@ -192,7 +155,7 @@ public class RefillTest {
   }
 
   /** The matches of {@code refill.flex} and {@code refill-limit.flex} on {@code input}. */
-  private static List<String> expectedTokens(String input) {
+  static List<String> expectedTokens(String input) {
     List<String> tokens = new ArrayList<>();
     int start = 0;
     while (start < input.length()) {
@@ -227,7 +190,7 @@ public class RefillTest {
     return line;
   }
 
-  private static String describe(String input) {
+  static String describe(String input) {
     StringBuilder result = new StringBuilder("input \"");
     for (char c : input.toCharArray()) {
       if (c == 'a' || c == 'b') {
@@ -240,7 +203,7 @@ public class RefillTest {
   }
 
   /** Calls {@code check} with all inputs over {@link #ALPHABET} up to {@link #MAX_LENGTH}. */
-  private static void forAllInputs(InputCheck check) throws IOException {
+  static void forAllInputs(InputCheck check) throws IOException {
     forAllInputs(new StringBuilder(), check);
   }
 
@@ -259,7 +222,7 @@ public class RefillTest {
   }
 
   @FunctionalInterface
-  private interface InputCheck {
+  interface InputCheck {
     void check(String input, int chunkSize, String description) throws IOException;
   }
 
@@ -275,30 +238,6 @@ public class RefillTest {
             start += expected.length();
           }
           assertNull(scanner.yylex(), description);
-        });
-  }
-
-  @Test
-  public void allShortInputsWithLimit() throws Exception {
-    forAllInputs(
-        (input, chunkSize, description) -> {
-          List<String> expected = expectedTokens(input);
-          List<String> actual = new ArrayList<>();
-          RefillLimit scanner = new RefillLimit(chunked(input, chunkSize));
-          try {
-            for (String token = scanner.yylex(); token != null; token = scanner.yylex()) {
-              actual.add(token);
-            }
-          } catch (EOFException e) {
-            // the limit was reached in the match after the ones in actual
-            assertTrue(actual.size() < expected.size(), description);
-            assertEquals(expected.subList(0, actual.size()), actual, description);
-            String match = expected.get(actual.size());
-            assertTrue(
-                match.length() > LIMIT - 2, "limit reached for " + match + ", " + description);
-            return;
-          }
-          assertEquals(expected, actual, description);
         });
   }
 }

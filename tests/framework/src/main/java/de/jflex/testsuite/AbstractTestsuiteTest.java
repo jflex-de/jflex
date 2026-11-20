@@ -60,7 +60,7 @@ import org.junit.jupiter.params.provider.MethodSource;
  *       that the module directory does not have is taken from the same place in this directory.
  *   <li>{@code jflex.testsuite.out}: where generated scanners go.
  *   <li>{@code jflex.testsuite.cases}: optional comma-separated list of case directories to run,
- *       e.g. {@code dot,unicode-scripts}. All by default.
+ *       e.g. {@code unicode-scripts,unicode-word-break}. All by default.
  * </ul>
  */
 public abstract class AbstractTestsuiteTest {

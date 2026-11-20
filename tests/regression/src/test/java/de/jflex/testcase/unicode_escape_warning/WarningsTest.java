@@ -10,7 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
 import de.jflex.testing.testsuite.annotations.Warn;
-import de.jflex.util.scanner.ScannerFactory;
+import java.io.IOException;
+import java.io.StringReader;
 import jflex.l10n.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
@@ -32,24 +33,31 @@ import org.junit.jupiter.api.Test;
     sysout = "src/test/java/de/jflex/testcase/unicode_escape_warning/sys-out.txt",
     quiet = true)
 public class WarningsTest implements JFlexTest {
-  private final ScannerFactory<Warnings> scannerFactory = ScannerFactory.of(Warnings::new);
+
+  private Warnings scanner;
+
+  private void assertToken(int rule, String text) throws IOException {
+    assertEquals(rule, scanner.yylex(), "rule for " + text);
+    assertEquals(text, scanner.yytext());
+  }
 
   @Test
   public void run() throws java.io.IOException {
-    Warnings scanner = scannerFactory.createScannerWithContent("013245020210ab121201ab0");
-    assertEquals(0, scanner.yylex());
-    assertEquals(1, scanner.yylex());
-    assertEquals(3, scanner.yylex());
-    assertEquals(2, scanner.yylex());
-    assertEquals(4, scanner.yylex());
-    assertEquals(5, scanner.yylex());
-    assertEquals(6, scanner.yylex());
-    assertEquals(7, scanner.yylex());
-    assertEquals(8, scanner.yylex());
-    assertEquals(9, scanner.yylex());
-    assertEquals(10, scanner.yylex());
-    assertEquals(11, scanner.yylex());
-    assertEquals(0, scanner.yylex());
+    scanner = new Warnings(new StringReader("013245020210ab121201ab0"));
+    assertToken(0, "0");
+    assertToken(1, "1");
+    assertToken(3, "3");
+    assertToken(2, "2");
+    assertToken(4, "4");
+    assertToken(5, "5");
+    // the escapes that are too long: the extra characters are matched as themselves
+    assertToken(6, "02");
+    assertToken(7, "021");
+    assertToken(8, "0ab");
+    assertToken(9, "12");
+    assertToken(10, "120");
+    assertToken(11, "1ab");
+    assertToken(0, "0");
     assertEquals(-1, scanner.yylex());
   }
 }

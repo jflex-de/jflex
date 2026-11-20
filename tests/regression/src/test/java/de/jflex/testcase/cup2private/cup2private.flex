@@ -18,7 +18,7 @@ package de.jflex.testcase.cup2private;
 %%
 
 \s  {}
-\w+  { return new ScannerToken(Token.WORD); }
-[^] { return new ScannerToken(Token.OTHER);  }
+\w+  { return token(Token.WORD, yytext()); }
+[^] { return token(Token.OTHER, yytext());  }
 
-<<EOF>> { return new ScannerToken(Token.EOF); }
+<<EOF>> { return token(Token.EOF); }
