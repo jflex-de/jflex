@@ -11,10 +11,13 @@ package de.jflex.testcase.unused_warning;
 
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.annotations.Warn;
+import jflex.l10n.ErrorMessages;
 
 /** Test for the {@code --warn-unused} option. */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/unused_warning/unused.flex",
+    warnings = @Warn(ErrorMessages.MACRO_UNUSED),
     sysout = "src/test/java/de/jflex/testcase/unused_warning/expected_unused_sysout.txt",
     warnUnused = true)
 public class UnusedTest implements JFlexTest {}

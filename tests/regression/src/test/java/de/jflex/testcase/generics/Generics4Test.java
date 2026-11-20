@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import de.jflex.testing.SystemOutCapture;
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.annotations.Warn;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.Reader;
@@ -18,6 +19,7 @@ import java.io.StringReader;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Vector;
+import jflex.l10n.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -32,10 +34,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/generics/generics4.flex",
     // warning about the second constructor
-    output = {
-      "",
-      "Warning: Emitting default constructor without parameters and init code for debug/standalone."
-    },
+    warnings = @Warn(ErrorMessages.CTOR_DEBUG),
     quiet = true,
     minimizedDfaStatesCount = 3,
     minimizedDfa = {

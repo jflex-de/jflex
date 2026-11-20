@@ -107,6 +107,21 @@ public @interface TestSpec {
    */
   String[] distinctCharClasses() default {};
 
+  /**
+   * The warnings that JFlex is expected to report in the given order.
+   *
+   * <pre>{@code
+   * warnings = {@Warn(ErrorMessages.MACRO_UNUSED), @Warn(value = ErrorMessages.NEVER_MATCH, line = 17)}
+   * }</pre>
+   *
+   * <p>If not present, checks that JFlex does not report any warnings.
+   *
+   * <p>Each {@link Warn} annotation can have optional file, line and column. Checks the codes of
+   * the messages and not their text. Use {@link #sysout()} and {@link #output()} for explicitly
+   * checking text.
+   */
+  Warn[] warnings() default {};
+
   /** Runs JFlex generation with the {@code -q} option. */
   boolean quiet() default false;
 
@@ -131,9 +146,6 @@ public @interface TestSpec {
    */
   String[] output() default {};
 
-  /**
-   * Asserts that JFlex prints nothing. Together with {@link #quiet()} this is the check that the
-   * spec has no warnings.
-   */
+  /** Asserts that JFlex prints nothing, for instance no progress messages with {@link #quiet()}. */
   boolean noOutput() default false;
 }

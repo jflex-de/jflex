@@ -15,11 +15,11 @@ import de.jflex.testing.QuietOutputExtension;
 import de.jflex.testing.diff.DiffOutputStream;
 import de.jflex.testing.testsuite.annotations.NoExceptionThrown;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.annotations.Warn;
 import de.jflex.util.javac.JavacUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
@@ -37,6 +37,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import jflex.core.unicode.CharClasses;
 import jflex.dfa.DFA;
 import jflex.generator.LexGenerator;
+import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
 import org.junit.jupiter.api.Assumptions;
@@ -158,18 +159,65 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
           "@TestSpec: at most one of sysout, output and noOutput can be set");
     }
     String lexerJavaFileName = null;
+    Options options = new Options();
+    Out out = new Out(options, jflexOutput);
     if (spec.generatorThrows() == NoExceptionThrown.class) {
-      lexerJavaFileName = invokeJflex(spec, jflexOutput);
+      lexerJavaFileName = invokeJflex(spec, options, out);
     } else {
-      generateLexerWithExpectedException(spec, jflexOutput);
+      generateLexerWithExpectedException(spec, options, out);
     }
+    checkWarnings(spec, out.reportedWarnings());
     checkOutput(spec, jflexOutput);
     return lexerJavaFileName;
   }
 
-  private static void generateLexerWithExpectedException(TestSpec spec, OutputStream jflexOutput) {
+  /** Compares the warnings of the test run with the {@code warnings} of the spec. */
+  private static void checkWarnings(TestSpec spec, List<Out.Warning> reported) {
+    List<String> reportedWarnings = new ArrayList<>();
+    for (Out.Warning warning : reported) {
+      reportedWarnings.add(
+          describe(warning.message, fileName(warning), warning.line, warning.column));
+    }
+    List<String> expectedWarnings = new ArrayList<>();
+    Warn[] expected = spec.warnings();
+    for (int i = 0; i < expected.length; i++) {
+      Warn warn = expected[i];
+      String file = warn.file();
+      int line = warn.line();
+      int column = warn.column();
+      if (i < reported.size()) {
+        Out.Warning warning = reported.get(i);
+        if (file.isEmpty()) file = fileName(warning);
+        if (line == 0) line = warning.line;
+        if (column == 0) column = warning.column;
+      }
+      expectedWarnings.add(describe(warn.value(), file, line, column));
+    }
+    assertEquals(
+        String.join("\n", expectedWarnings),
+        String.join("\n", reportedWarnings),
+        "@TestSpec(warnings): warnings differ");
+  }
+
+  /** The name of the file of the warning without directories, empty if it has no file. */
+  private static String fileName(Out.Warning warning) {
+    return warning.file == null ? "" : warning.file.getName();
+  }
+
+  /** A warning as text, e.g. {@code NEVER_MATCH (a.flex, line 3)}. */
+  private static String describe(ErrorMessages message, String file, int line, int column) {
+    List<String> position = new ArrayList<>();
+    if (!file.isEmpty()) position.add(file);
+    if (line > 0) position.add("line " + line);
+    if (column > 0) position.add("column " + column);
+    return position.isEmpty()
+        ? message.name()
+        : message.name() + " (" + String.join(", ", position) + ")";
+  }
+
+  private static void generateLexerWithExpectedException(TestSpec spec, Options options, Out out) {
     try {
-      invokeJflex(spec, jflexOutput);
+      invokeJflex(spec, options, out);
     } catch (AssertionError e) {
       // Not an exception of the generator, e.g. a failed check of the DFA: report the failure
       // itself.
@@ -246,10 +294,10 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
   /**
    * Runs JFlex on the spec of the test.
    *
-   * @param jflexOutput where JFlex prints to
+   * @param options the default options, to set from the spec
+   * @param out where JFlex prints to, reads {@code options}
    */
-  private static String invokeJflex(TestSpec spec, OutputStream jflexOutput) {
-    Options options = new Options();
+  private static String invokeJflex(TestSpec spec, Options options, Out out) {
     options.setJLex(spec.jlexCompat());
     options.setDump(spec.dump());
     if (!spec.skeleton().isEmpty()) {
@@ -271,7 +319,6 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
     options.setUnusedWarning(spec.warnUnused());
     File lexFile = new File(spec.lex());
     Set<File> existingJavaFiles = javaFilesIn(lexFile.getAbsoluteFile().getParentFile());
-    Out out = new Out(options, jflexOutput);
     LexGenerator lexGenerator = new LexGenerator(lexFile, options, out);
     String lexerJavaFileName = Objects.requireNonNull(lexGenerator.generate());
     checkNoCollision(existingJavaFiles, new File(lexerJavaFileName));

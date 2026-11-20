@@ -10,8 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.annotations.Warn;
 import java.io.IOException;
 import java.io.StringReader;
+import jflex.l10n.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -24,8 +26,10 @@ import org.junit.jupiter.api.Test;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/include_in_rules/IncludeInRulesOrder.flex",
-    // never-match warnings for the included "abc" and for "def"
-    sysout = "src/test/java/de/jflex/testcase/include_in_rules/IncludeInRulesOrder.sysout",
+    warnings = {
+      @Warn(value = ErrorMessages.NEVER_MATCH, file = "order-rules.inc.jflex", line = 6),
+      @Warn(value = ErrorMessages.NEVER_MATCH, file = "IncludeInRulesOrder.flex", line = 21)
+    },
     quiet = true,
     minimizedDfaStatesCount = 8,
     charClassesCount = 8,

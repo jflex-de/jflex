@@ -11,8 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.annotations.Warn;
 import java.io.IOException;
 import java.io.StringReader;
+import jflex.l10n.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -23,8 +25,11 @@ import org.junit.jupiter.api.Test;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/ccl_esc/ccl.flex",
-    // three warnings for matching the empty string
-    sysout = "src/test/java/de/jflex/testcase/ccl_esc/ccl.sysout",
+    warnings = {
+      @Warn(value = ErrorMessages.EMPTY_MATCH, line = 53),
+      @Warn(value = ErrorMessages.EMPTY_MATCH, line = 56),
+      @Warn(value = ErrorMessages.EMPTY_MATCH, line = 60)
+    },
     quiet = true,
     minimizedDfaStatesCount = 35,
     charClassesCount = 17,

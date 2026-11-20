@@ -7,7 +7,9 @@ package de.jflex.testcase.six_digit_unicode_escape;
 
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.annotations.Warn;
 import jflex.exceptions.GeneratorException;
+import jflex.l10n.ErrorMessages;
 
 /**
  * Check that generation fails when a codepoint specified in {@code \UHHHHHH} format is greater than
@@ -15,6 +17,7 @@ import jflex.exceptions.GeneratorException;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/six_digit_unicode_escape/SixDigitUnicodeEscape-f-2.flex",
+    warnings = @Warn(value = ErrorMessages.UNICODE_TOO_LONG, line = 13, column = 23),
     generatorThrows = GeneratorException.class,
     sysout = "src/test/java/de/jflex/testcase/six_digit_unicode_escape/failure2.out")
 public class SixdigitunicodeescapeFailure2Test implements JFlexTest {}

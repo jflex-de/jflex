@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.annotations.Warn;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
@@ -19,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.EnumMap;
 import java.util.Map;
+import jflex.l10n.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -29,8 +31,11 @@ import org.junit.jupiter.api.Test;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/java_lexer/java.flex",
-    // the fallback rule .|\n does not match all characters
-    sysout = "src/test/java/de/jflex/testcase/java_lexer/java.sysout",
+    warnings =
+        @Warn(
+            value = ErrorMessages.DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS,
+            line = 314,
+            column = 1),
     quiet = true,
     minimizedDfaStatesCount = 426,
     charClassesCount = 76,

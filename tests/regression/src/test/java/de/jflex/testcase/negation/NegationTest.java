@@ -10,9 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.annotations.Warn;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Arrays;
+import jflex.l10n.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -26,8 +28,10 @@ import org.junit.jupiter.api.Test;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/negation/negation.flex",
-    // the warnings for the empty match and the rule that is never matched
-    sysout = "src/test/java/de/jflex/testcase/negation/negation.sysout",
+    warnings = {
+      @Warn(value = ErrorMessages.EMPTY_MATCH, line = 33),
+      @Warn(value = ErrorMessages.NEVER_MATCH, line = 34)
+    },
     quiet = true,
     minimizedDfaStatesCount = 1,
     minimizedDfa = {

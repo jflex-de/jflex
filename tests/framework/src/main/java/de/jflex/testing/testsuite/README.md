@@ -32,6 +32,16 @@ Supported:
   (`charClassesCount`, `charClasses`)
 - checking that given characters are in the same or in different character
   classes (`sameCharClass`, `distinctCharClasses`)
-- comparing the output log of JFlex with a golden file (`sysout`), with the expected
-  lines inline (`output`), or checking that JFlex prints nothing (`noOutput`).
-  `quiet = true, noOutput = true` checks that a spec has no warnings.
+- checking the warnings of JFlex (`warnings`), by message code and optionally file,
+  line and column:
+
+      warnings = {
+        @Warn(ErrorMessages.MACRO_UNUSED),
+        @Warn(value = ErrorMessages.NEVER_MATCH, line = 17)
+      }
+
+  A spec without the `warnings` annotation must not produce any warning.
+- comparing the output log of JFlex with a golden file (`sysout`), with the
+  expected lines inline (`output`), or checking that JFlex prints nothing
+  (`noOutput`). Prefer `warnings` for warnings, because it does not depend on
+  the text of the messages.
