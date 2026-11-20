@@ -32,7 +32,7 @@
 
   /** this buffer contains the current text to be matched and is
       the source of the yytext() string */
-  private char zzBuffer[] = new char[ZZ_BUFFERSIZE];
+  private char zzBuffer[] = new char[Math.min(ZZ_BUFFERSIZE, zzMaxBufferLen())];
 
   /** the textposition at the last accepting state */
   private int zzMarkedPos;
@@ -55,15 +55,16 @@
 
   /**
    * The number of occupied positions in zzBuffer beyond zzEndRead.
-   * When a lead/high surrogate has been read from the input stream
-   * into the final zzBuffer position, this will have a value of 1;
-   * otherwise, it will have a value of 0.
+   *
+   * When the last char read from the input is a lead/high surrogate, zzRefill
+   * will hold it back at zzBuffer[zzEndRead] until the next refill, and
+   * zzFinalHighSurrogate will be 1. Otherwise, it will be 0.
    */
   private int zzFinalHighSurrogate = 0;
 
   /** the stack of open (nested) input streams to read from */
-  private java.util.Stack<ZzFlexStreamInfo> zzStreams
-    = new java.util.Stack<ZzFlexStreamInfo>();
+  private java.util.Deque<ZzFlexStreamInfo> zzStreams
+    = new java.util.ArrayDeque<ZzFlexStreamInfo>();
 
   /**
    * inner class used to store info for nested
@@ -120,10 +121,13 @@
    */
   private boolean zzRefill() throws java.io.IOException {
 
+    /* a high surrogate held back by the previous refill is part of the input again */
+    boolean heldBack = zzFinalHighSurrogate > 0;
+    zzEndRead += zzFinalHighSurrogate;
+    zzFinalHighSurrogate = 0;
+
     /* first: make room (if you can) */
     if (zzStartRead > 0) {
-      zzEndRead += zzFinalHighSurrogate;
-      zzFinalHighSurrogate = 0;
       System.arraycopy(zzBuffer, zzStartRead,
                        zzBuffer, 0,
                        zzEndRead-zzStartRead);
@@ -136,13 +140,11 @@
     }
 
     /* is the buffer big enough? */
-    if (zzCurrentPos >= zzBuffer.length - zzFinalHighSurrogate) {
-      /* if not: blow it up */
-      char newBuffer[] = new char[zzBuffer.length * 2];
+    if (zzEndRead >= zzBuffer.length && zzCanGrow()) {
+      /* if not, and it can grow: blow it up */
+      char newBuffer[] = new char[Math.min(zzBuffer.length * 2, zzMaxBufferLen())];
       System.arraycopy(zzBuffer, 0, newBuffer, 0, zzBuffer.length);
       zzBuffer = newBuffer;
-      zzEndRead += zzFinalHighSurrogate;
-      zzFinalHighSurrogate = 0;
     }
 
     /* fill the buffer with new input */
@@ -151,29 +153,32 @@
 
     /* not supposed to occur according to specification of java.io.Reader */
     if (numRead == 0) {
-      throw new java.io.IOException("Reader returned 0 characters. See JFlex examples for workaround.");
+      if (requested == 0) {
+        throw new java.io.EOFException("Scan buffer limit reached ["+zzBuffer.length+"]");
+      }
+      else {
+        throw new java.io.IOException(
+            "Reader returned 0 characters. See JFlex examples/zero-reader for a workaround.");
+      }
     }
     if (numRead > 0) {
       zzEndRead += numRead;
       if (Character.isHighSurrogate(zzBuffer[zzEndRead - 1])) {
-        if (numRead == requested) { // We requested too few chars to encode a full Unicode character
-          --zzEndRead;
-          zzFinalHighSurrogate = 1;
-        } else {                    // There is room in the buffer for at least one more char
-          int c = zzReader.read();  // Expecting to read a paired low surrogate char
-          if (c == -1) {
-            return true;
-          } else {
-            zzBuffer[zzEndRead++] = (char)c;
-          }
+        /* might be half of a character. Hold it back until the next refill has read more */
+        --zzEndRead;
+        zzFinalHighSurrogate = 1;
+        if (numRead == 1 && !heldBack) {
+          /* Get more input. The recursion can only be one level deep, because of !heldBack. */
+          return zzRefill();
         }
       }
       /* potentially more input available */
       return false;
     }
 
-    /* numRead < 0 ==> end of stream */
-    return true;
+    /* When we get here, numRead is < 0 and the reader is at the end of the stream. If the previous
+       refill held back a high surrogate, that high surrogate is now a single last new input. */
+    return !heldBack;
   }
 
   /**
@@ -196,7 +201,7 @@
    * char, and column counting remain untouched.
    *
    * The current input stream can be restored with
-   * yypopStream (usually in an <<EOF>> action).
+   * yypopStream (usually in an {@code <<EOF>>} action).
    *
    * @param reader the new input stream to read from
    *
@@ -208,7 +213,7 @@
                         zzMarkedPos, zzBuffer, zzAtBOL, zzAtEOF, zzEOFDone,
                         zzFinalHighSurrogate, yyline, yychar, yycolumn)
     );
-    zzBuffer = new char[ZZ_BUFFERSIZE];
+    zzBuffer = new char[Math.min(ZZ_BUFFERSIZE, zzMaxBufferLen())];
     zzReader = reader;
     yyResetPosition();
   }
@@ -218,7 +223,7 @@
    * Closes the current input stream and continues to
    * read from the one on top of the stream stack.
    *
-   * @throws java.util.EmptyStackException
+   * @throws java.util.NoSuchElementException
    *         if there is no further stream to read from.
    *
    * @throws java.io.IOException
@@ -274,8 +279,9 @@
     zzEOFDone = false;
     yyResetPosition();
     zzLexicalState = YYINITIAL;
-    if (zzBuffer.length > ZZ_BUFFERSIZE) {
-      zzBuffer = new char[ZZ_BUFFERSIZE];
+    int initBufferSize = Math.min(ZZ_BUFFERSIZE, zzMaxBufferLen());
+    if (zzBuffer.length > initBufferSize) {
+      zzBuffer = new char[initBufferSize];
     }
   }
 
