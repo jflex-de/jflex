@@ -34,7 +34,6 @@ import org.junit.jupiter.api.Test;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/look/look.flex",
-    // no warnings
     noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 8,

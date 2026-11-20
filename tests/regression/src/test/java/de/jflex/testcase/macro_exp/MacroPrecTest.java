@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 /** Tests that macros are expressions not text replacement. */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/macro_exp/macro_prec.flex",
-    // no warnings
     noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 17,

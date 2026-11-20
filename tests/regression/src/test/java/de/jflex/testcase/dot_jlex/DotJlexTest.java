@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/dot_jlex/dotjlex.flex",
-    // no warnings
     noOutput = true,
     quiet = true,
     jlexCompat = true,

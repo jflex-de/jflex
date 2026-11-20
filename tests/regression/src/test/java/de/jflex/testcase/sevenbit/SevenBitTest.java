@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 /** Test generation of a 7-bit scanner. */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/sevenbit/sevenbit.flex",
-    // no warnings
     noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 3,

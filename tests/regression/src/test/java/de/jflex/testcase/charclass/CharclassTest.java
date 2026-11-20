@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 /** Test character class syntax. */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/charclass/charclass.flex",
-    // no warnings
     noOutput = true,
     quiet = true,
     minimizedDfaStatesCount = 35,
