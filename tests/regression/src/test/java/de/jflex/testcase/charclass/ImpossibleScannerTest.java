@@ -16,5 +16,15 @@ import jflex.exceptions.GeneratorException;
  */
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/charclass/char-range-failing.flex",
-    generatorThrows = GeneratorException.class)
+    quiet = true,
+    output = {
+      "",
+      "Error in file \"src/test/java/de/jflex/testcase/charclass/char-range-failing.flex\" (line"
+          + " 10): ",
+      "Impossible character class range (end is less than start)",
+      "BadRange = [b-a]",
+      "            ^"
+    },
+    generatorThrows = GeneratorException.class,
+    generatorThrowableCause = Void.class)
 public class ImpossibleScannerTest implements JFlexTest {}

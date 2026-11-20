@@ -8,6 +8,7 @@ package de.jflex.testcase.ccl_init;
 import de.jflex.testing.testsuite.JFlexTest;
 import de.jflex.testing.testsuite.annotations.TestSpec;
 import jflex.exceptions.GeneratorException;
+import jflex.scanner.ScannerException;
 
 /**
  * Test that double char class declaration fails to generate.
@@ -17,5 +18,12 @@ import jflex.exceptions.GeneratorException;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/ccl_init/ccl2.flex",
     quiet = true,
-    generatorThrows = GeneratorException.class)
+    output = {
+      "",
+      "Error in file \"src/test/java/de/jflex/testcase/ccl_init/ccl2.flex\" (line 20): ",
+      "Character set already declared.",
+      "%unicode"
+    },
+    generatorThrows = GeneratorException.class,
+    generatorThrowableCause = ScannerException.class)
 public class CclDoubleTest implements JFlexTest {}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, Google, LLC.
+ * Copyright 2026, Gerwin Klein
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -7,18 +7,47 @@ package de.jflex.testcase.charclass;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import de.jflex.testing.testsuite.JFlexTest;
+import de.jflex.testing.testsuite.annotations.TestSpec;
 import java.io.IOException;
 import java.io.StringReader;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 /** Test character class syntax. */
-public class CharclassTest {
+@TestSpec(
+    lex = "src/test/java/de/jflex/testcase/charclass/charclass.flex",
+    // no warnings
+    noOutput = true,
+    quiet = true,
+    minimizedDfaStatesCount = 35,
+    charClassesCount = 34,
+    sameCharClass = {
+      "47nopqruvwxyz",
+      "abcdef",
+      "ghijklmst",
+      "ABDEF",
+      "HIJL",
+      // [\p{Lu}--A-RT-Z]
+      "S\u00C0\u0391",
+      "\";",
+      "$`",
+      "&+",
+      "./",
+      "_|",
+      " \n#%\'P[^{}0\u00E4"
+    },
+    distinctCharClasses = {"!\"$&(,-.4@ACGHKMNOQRSTUVWXYZ\\]_ag "})
+public class CharclassTest implements JFlexTest {
 
   private CharclassScanner scanner;
 
-  @AfterEach
-  public void endOfFile() throws Exception {
+  /** Checks rule and text of the next token. */
+  private void assertToken(State rule, String text) throws IOException {
+    assertEquals(rule, scanner.yylex(), "rule for " + text);
+    assertEquals(text, scanner.yytext());
+  }
+
+  private void assertEof() throws IOException {
     assertEquals(State.END_OF_FILE, scanner.yylex());
   }
 
@@ -29,66 +58,68 @@ public class CharclassTest {
             "4 score and 7 years ago our fathers brought forth on this continent\n"
                 + "a new nation, living and dead who struggled here have consecrated\n"
                 + "it far above our poor power to add or detract.\n");
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // 4
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // score
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // and
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // 7
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // years
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // ago
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // our
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // fathers
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // brought
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // forth
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // on
-    assertEquals(State.NESTED_GHIJKMTS, scanner.yylex()); // this
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // continent
-    assertEquals(State.NESTED_ABCDEF, scanner.yylex()); // a
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // new
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // nation
-    assertEquals(State.INTER_PUNCTUATION1, scanner.yylex()); // ,
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // living
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // and
-    assertEquals(State.NESTED_ABCDEF, scanner.yylex()); // dead
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // who
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // struggled
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // here
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // have
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // consecrated
-    assertEquals(State.NESTED_GHIJKMTS, scanner.yylex()); // it
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // far
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // above
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // our
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // poor
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // power
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // to
-    assertEquals(State.NESTED_ABCDEF, scanner.yylex()); // add
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // or
-    assertEquals(State.NESTED_AZ47, scanner.yylex()); // detract
-    assertEquals(State.SYM_2, scanner.yylex(), "/[-.~~-/]+/ matched '.'"); // .
+    assertToken(State.NESTED_AZ47, "4");
+    assertToken(State.NESTED_AZ47, "score");
+    assertToken(State.NESTED_AZ47, "and");
+    assertToken(State.NESTED_AZ47, "7");
+    assertToken(State.NESTED_AZ47, "years");
+    assertToken(State.NESTED_AZ47, "ago");
+    assertToken(State.NESTED_AZ47, "our");
+    assertToken(State.NESTED_AZ47, "fathers");
+    assertToken(State.NESTED_AZ47, "brought");
+    assertToken(State.NESTED_AZ47, "forth");
+    assertToken(State.NESTED_AZ47, "on");
+    assertToken(State.NESTED_GHIJKMTS, "this");
+    assertToken(State.NESTED_AZ47, "continent");
+    assertToken(State.NESTED_ABCDEF, "a");
+    assertToken(State.NESTED_AZ47, "new");
+    assertToken(State.NESTED_AZ47, "nation");
+    assertToken(State.INTER_PUNCTUATION1, ",");
+    assertToken(State.NESTED_AZ47, "living");
+    assertToken(State.NESTED_AZ47, "and");
+    assertToken(State.NESTED_ABCDEF, "dead");
+    assertToken(State.NESTED_AZ47, "who");
+    assertToken(State.NESTED_AZ47, "struggled");
+    assertToken(State.NESTED_AZ47, "here");
+    assertToken(State.NESTED_AZ47, "have");
+    assertToken(State.NESTED_AZ47, "consecrated");
+    assertToken(State.NESTED_GHIJKMTS, "it");
+    assertToken(State.NESTED_AZ47, "far");
+    assertToken(State.NESTED_AZ47, "above");
+    assertToken(State.NESTED_AZ47, "our");
+    assertToken(State.NESTED_AZ47, "poor");
+    assertToken(State.NESTED_AZ47, "power");
+    assertToken(State.NESTED_AZ47, "to");
+    assertToken(State.NESTED_ABCDEF, "add");
+    assertToken(State.NESTED_AZ47, "or");
+    assertToken(State.NESTED_AZ47, "detract");
+    assertToken(State.SYM_2, ".");
+    assertEof();
   }
 
   @Test
   public void test() throws Exception {
     scanner = createScanner("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-    assertEquals(State.SUBSTRACT_AGCGZ, scanner.yylex(), "/[A-G--CG-Z]+/ matched 'AB'");
-    assertEquals(State.NOT_ABC_ABZ, scanner.yylex(), "/[^[^ABC--ABZ]]/ matched 'C'");
-    assertEquals(State.SUBSTRACT_AGCGZ, scanner.yylex(), "/[A-G--CG-Z]+/ matched 'DEF'");
-    assertEquals(State.NOT_GMM, scanner.yylex(), "/[^[^-GM---M]]+/ matched 'G'");
-    assertEquals(State.SUBSTRACT_HLK, scanner.yylex(), "/[[H-L]--K]+/ matched 'HIJ'");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched 'K'");
-    assertEquals(State.SUBSTRACT_HLK, scanner.yylex(), "/[[H-L]--K]+/ matched 'L'");
-    assertEquals(State.SUBSTRACT_MON, scanner.yylex(), "/[-M-O--N]+/ matched 'M'");
-    assertEquals(State.SUBSTRACT_NPP, scanner.yylex(), "/[-N-P---P]+/ matched 'NO'");
-    assertEquals(State.SUBSTRACT_QRR, scanner.yylex(), "/[QR[-]---R]+/ matched 'Q'");
-    assertEquals(State.NOT_R, scanner.yylex(), "/[^[^R[-]---]]+/ matched 'R'");
-    assertEquals(State.SUBSTRACT_PLU, scanner.yylex(), "/[\\p{Lu}--A-RT-Z]+/ matched 'S'");
-    assertEquals(State.INTER_PLN, scanner.yylex(), "/[\\p{L}&&[T||\\p{N}]]+/ matched 'T'");
-    assertEquals(State.INTER_TUV_UA, scanner.yylex(), "/[-TUV&&-UA]+/ matched 'U''");
-    assertEquals(State.INTER_TUV_AV, scanner.yylex(), "/[-TUV&&VA]+/ matched 'V'");
-    assertEquals(State.INTER_VW_WA, scanner.yylex(), "/[VW&&-WA]+/ matched 'W'");
-    assertEquals(State.INTER_XXX_XYZ, scanner.yylex(), "/[XXX&&XYZ]+/ matched 'X'");
-    assertEquals(State.INTER_AYZ_YMB, scanner.yylex(), "/[^[^-AYZ&&-YBM]]+/ matched 'Y'");
-    assertEquals(State.INTER_ZR_ABZ, scanner.yylex(), "/[^[^-ZR&&ABZ]]+/ matched 'Z'");
+    assertToken(State.SUBSTRACT_AGCGZ, "AB");
+    assertToken(State.NOT_ABC_ABZ, "C");
+    assertToken(State.SUBSTRACT_AGCGZ, "DEF");
+    assertToken(State.NOT_GMM, "G");
+    assertToken(State.SUBSTRACT_HLK, "HIJ");
+    assertToken(State.NOT_KOO, "K");
+    assertToken(State.SUBSTRACT_HLK, "L");
+    assertToken(State.SUBSTRACT_MON, "M");
+    assertToken(State.SUBSTRACT_NPP, "NO");
+    assertToken(State.SUBSTRACT_QRR, "Q");
+    assertToken(State.NOT_R, "R");
+    assertToken(State.SUBSTRACT_PLU, "S");
+    assertToken(State.INTER_PLN, "T");
+    assertToken(State.INTER_TUV_UA, "U");
+    assertToken(State.INTER_TUV_AV, "V");
+    assertToken(State.INTER_VW_WA, "W");
+    assertToken(State.INTER_XXX_XYZ, "X");
+    assertToken(State.INTER_AYZ_YMB, "Y");
+    assertToken(State.INTER_ZR_ABZ, "Z");
+    assertEof();
   }
 
   @Test
@@ -103,23 +134,24 @@ public class CharclassTest {
                 + "-QQQ-\n"
                 + "-RRR-\n"
                 + "SSS\n");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-K-`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.NOT_GMM, scanner.yylex(), "/[^[^-GM---M]]+/ matched `G`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.SUBSTRACT_MON, scanner.yylex(), "/[-M-O--N]+/ matched `-MOO`");
-    assertEquals(State.SUBSTRACT_NPP, scanner.yylex(), "/[-N-P---P]+/ matched `N`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.SUBSTRACT_NPP, scanner.yylex(), "/[-N-P---P]+/ matched `NOON`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.SUBSTRACT_QRR, scanner.yylex(), "/[QR[-]---R]+/ matched `QQQ`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.NOT_R, scanner.yylex(), "/[^[^R[-]---]]+/ matched `RRR`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.SUBSTRACT_PLU, scanner.yylex(), "/[\\p{Lu}--A-RT-Z]+/ matched `SSS`");
+    assertToken(State.NOT_KOO, "-K-");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.NOT_GMM, "G");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.SUBSTRACT_MON, "-MOO");
+    assertToken(State.SUBSTRACT_NPP, "N");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.SUBSTRACT_NPP, "NOON");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.SUBSTRACT_QRR, "QQQ");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.NOT_R, "RRR");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.SUBSTRACT_PLU, "SSS");
+    assertEof();
   }
 
   @Test
@@ -134,21 +166,22 @@ public class CharclassTest {
                 + "-XXX-\n"
                 + "-YYY-\n"
                 + "-ZZZ-");
-    assertEquals(State.INTER_PLN, scanner.yylex(), "/[\\p{L}&&[T||\\p{N}]]+/ matched `TTT`");
-    assertEquals(State.INTER_TUV_UA, scanner.yylex(), "/[-TUV&&-UA]+/ matched `-UUU-`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.INTER_TUV_AV, scanner.yylex(), "/[-TUV&&VA]+/ matched `VVV`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.INTER_VW_WA, scanner.yylex(), "/[VW&&-WA]+/ matched `WWW`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.INTER_XXX_XYZ, scanner.yylex(), "/[XXX&&XYZ]+/ matched `XXX`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.INTER_AYZ_YMB, scanner.yylex(), "/[^[^-AYZ&&-YBM]]+/ matched `-YYY-`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.INTER_ZR_ABZ, scanner.yylex(), "/[^[^-ZR&&ABZ]]+/ matched `ZZZ`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
+    assertToken(State.INTER_PLN, "TTT");
+    assertToken(State.INTER_TUV_UA, "-UUU-");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.INTER_TUV_AV, "VVV");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.INTER_VW_WA, "WWW");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.INTER_XXX_XYZ, "XXX");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.INTER_AYZ_YMB, "-YYY-");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.INTER_ZR_ABZ, "ZZZ");
+    assertToken(State.NOT_KOO, "-");
+    assertEof();
   }
 
   @Test
@@ -166,30 +199,31 @@ public class CharclassTest {
                 + "<-@@@->\n"
                 + "{-\\\\\\-}\n"
                 + "/??\";\"??/\n");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.INTER_PUNCTUATION1, scanner.yylex(), "/[^[^,.:&&-*(),]]+/ matched `,,,`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.INTER_PUNCTUATION2, scanner.yylex(), "/[^[^!&#&&\\^~!]]+/ matched `!!!`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.SYM_1, scanner.yylex(), "/[[\\p{L}||+]~~[\\p{L}||&]]+/ matched `&+&+&`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.SYM_2, scanner.yylex(), "/[-.~~-/]+/ matched `//..`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.SYM_3, scanner.yylex(), "/[-()~~)]+/ matched `(-(((-`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.SYM_4, scanner.yylex(), "/[\\[\\]~~\\[-]+/ matched `-]`");
-    assertEquals(State.INTER_PUNCTUATION2, scanner.yylex(), "/[^[^!&#&&\\^~!]]+/ matched `!`");
-    assertEquals(State.SYM_5, scanner.yylex(), "/[#!~~!#`$]+/ matched `$```$`");
-    assertEquals(State.INTER_PUNCTUATION2, scanner.yylex(), "/[^[^!&#&&\\^~!]]+/ matched `!`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.SYM_6, scanner.yylex(), "/[^[^-=%_|~~-%=!]]+/ matched `_!_||_!_`");
-    assertEquals(State.NOT_KOO, scanner.yylex(), "/[^[^-KO--O]]+/ matched `-`");
-    assertEquals(State.SYM_7, scanner.yylex(), "/[^[^-<>~~<@>]]+/ matched `-@@@-`");
-    assertEquals(State.SYM_8, scanner.yylex(), "/[^[^{}~~-{\\\\}]]+/ matched `-\\\\\\-`");
-    assertEquals(State.SYM_2, scanner.yylex(), "/[-.~~-/]+/ matched `/`");
-    assertEquals(State.SYM_9, scanner.yylex(), "/[^[^;?/~~\"?/]]+/ matched `\";\"`");
-    assertEquals(State.SYM_2, scanner.yylex(), "/[-.~~-/]+/ matched `/`");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.INTER_PUNCTUATION1, ",,,");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.INTER_PUNCTUATION2, "!!!");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.SYM_1, "&+&+&");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.SYM_2, "//..");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.SYM_3, "(-(((-");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.SYM_4, "-]");
+    assertToken(State.INTER_PUNCTUATION2, "!");
+    assertToken(State.SYM_5, "$```$");
+    assertToken(State.INTER_PUNCTUATION2, "!");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.SYM_6, "_!_||_!_");
+    assertToken(State.NOT_KOO, "-");
+    assertToken(State.SYM_7, "-@@@-");
+    assertToken(State.SYM_8, "-\\\\\\-");
+    assertToken(State.SYM_2, "/");
+    assertToken(State.SYM_9, "\";\"");
+    assertToken(State.SYM_2, "/");
+    assertEof();
   }
 
   private static CharclassScanner createScanner(String content) throws IOException {
