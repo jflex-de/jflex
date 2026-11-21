@@ -89,9 +89,9 @@ public class RegExp {
    * macro expansion and without negation)
    *
    * @param macros macro table for expansion
-   * @return a int.
+   * @return the estimate, as {@code long} because it can be larger than what an NFA can have.
    */
-  public int size(Macros macros) {
+  public long size(Macros macros) {
     RegExp1 unary;
     RegExp2 binary;
     RegExp content;
@@ -119,15 +119,18 @@ public class RegExp {
       case sym.BANG:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        return content.size(macros) * content.size(macros);
-      // this is only a very rough estimate (worst case 2^n)
-      // exact size too complicated (propably requires construction)
+        // The NFA of the positive content and 3 states for the complement transitions. The DFA
+        // of the complement is not counted. The worst case size is 2^n, but it is safe to
+        // underestimate, and overestimating may consume too much memory. In particular, an
+        // estimate that is a multiple of the content size grows exponentially with nested
+        // negations.
+        return content.size(macros) + 3;
 
       case sym.TILDE:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        return content.size(macros) * content.size(macros) * 3;
-      // see sym.BANG
+        // ~a = !([^]* a [^]*) a, where [^]* has 4 states, see sym.BANG for the rest
+        return 2 * content.size(macros) + 11;
 
       case sym.STRING:
       case sym.STRING_I:

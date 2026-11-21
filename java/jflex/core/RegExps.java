@@ -230,13 +230,13 @@ public class RegExps {
   }
 
   /**
-   * NFASize.
+   * The approximate number of NFA states for all expressions.
    *
    * @param macros a {@link Macros} object.
-   * @return a int.
+   * @return the sum of {@link RegExp#size(Macros)}.
    */
-  public int NFASize(Macros macros) {
-    int size = 0;
+  public long NFASize(Macros macros) {
+    long size = 0;
     for (RegExp r : regExps) if (r != null) size += r.size(macros);
 
     for (RegExp r : look) if (r != null) size += r.size(macros);

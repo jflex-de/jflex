@@ -21,6 +21,7 @@ import jflex.chars.Interval;
 import jflex.core.unicode.CharClasses;
 import jflex.core.unicode.IntCharSet;
 import jflex.exceptions.GeneratorException;
+import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
 import jflex.state.StateSet;
@@ -110,11 +111,7 @@ public final class NFA {
    * @param classes a {@link CharClasses} object.
    */
   public NFA(int numInput, LexScan scanner, RegExps regExps, Macros macros, CharClasses classes) {
-    this(
-        numInput,
-        regExps.NFASize(macros) + 2 * scanner.states.number(),
-        scanner.options(),
-        scanner.out());
+    this(numInput, initialSize(scanner, regExps, macros), scanner.options(), scanner.out());
 
     this.scanner = scanner;
     this.regExps = regExps;
@@ -126,6 +123,20 @@ public final class NFA {
     int new_num = numEntryStates();
     ensureCapacity(new_num);
     numStates = new_num;
+  }
+
+  /**
+   * Returns the estimated number of states of the NFA for a spec, as initial size of the NFA.
+   *
+   * @param scanner the scanner of the spec, for the lexical states.
+   * @param regExps the rules of the spec.
+   * @param macros the macros of the spec.
+   * @throws GeneratorException if the estimate is more than an NFA can have.
+   */
+  static int initialSize(LexScan scanner, RegExps regExps, Macros macros) {
+    long estimate = regExps.NFASize(macros) + 2L * scanner.states.number();
+    if (estimate > Integer.MAX_VALUE) throw new GeneratorException(ErrorMessages.TABLE_TOO_LARGE);
+    return (int) estimate;
   }
 
   public StateSet epsilon(int i) {
@@ -294,13 +305,15 @@ public final class NFA {
 
     boolean[] newFinal = new boolean[newStatesLength];
     Action[] newAction = new Action[newStatesLength];
-    StateSet[][] newTable = new StateSet[newStatesLength][numInput];
+    StateSet[][] newTable = new StateSet[newStatesLength][];
     StateSet[] newEpsilon = new StateSet[newStatesLength];
 
     System.arraycopy(isFinal, 0, newFinal, 0, numStates);
     System.arraycopy(action, 0, newAction, 0, numStates);
     System.arraycopy(epsilon, 0, newEpsilon, 0, numStates);
-    System.arraycopy(table, 0, newTable, 0, numStates);
+    // keep the existing rows as references, and only allocate new memory for the new ones
+    System.arraycopy(table, 0, newTable, 0, oldLength);
+    for (int i = oldLength; i < newStatesLength; i++) newTable[i] = new StateSet[numInput];
 
     isFinal = newFinal;
     action = newAction;
