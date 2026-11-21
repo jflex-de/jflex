@@ -5,8 +5,7 @@
 #
 # Check the Java code style with google-java-format. Needs JDK 21+.
 #
-# To reformat instead of check, run
-#   ./mvnw com.spotify.fmt:fmt-maven-plugin:format
+# To reformat instead of check, run scripts/format-java.sh
 
 CWD="$PWD"
 BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
