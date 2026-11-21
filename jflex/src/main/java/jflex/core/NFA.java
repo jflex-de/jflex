@@ -323,7 +323,9 @@ public final class NFA {
   }
 
   public void addTransition(int start, int input, int dest) {
-    Out.debug("Adding transition (" + start + ", " + input + ", " + dest + ")");
+    if (Build.DEBUG) {
+      Out.debug("Adding transition (" + start + ", " + input + ", " + dest + ")");
+    }
 
     // Trying to insert a transition for a character that is not in the input
     // char set. Ignore it. This can happen for case insensitive matching.
@@ -372,7 +374,9 @@ public final class NFA {
 
     Action maxAction = null;
 
-    Out.debug("Determining action of : " + set);
+    if (Build.DEBUG) {
+      Out.debug("Determining action of : " + set);
+    }
 
     while (states.hasMoreElements()) {
 
@@ -780,7 +784,9 @@ public final class NFA {
     // compute all live states
     while (changed) {
       changed = false;
-      Out.debug("live: " + live);
+      if (Build.DEBUG) {
+        Out.debug("live: " + live);
+      }
       StateSet complement = live.complement(reachable);
       if (complement == null) throw new GeneratorException(new NullPointerException(), true);
       for (int s : complement) {
