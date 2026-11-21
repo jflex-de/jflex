@@ -111,6 +111,9 @@ public class DFA {
    * @param trueState whether it is the current state.
    */
   public void setEntryState(int eState, int trueState) {
+    ensureStateCapacity(trueState + 1);
+    if (trueState + 1 > numStates) numStates = trueState + 1;
+
     entryState[eState] = trueState;
     minimized = false;
   }

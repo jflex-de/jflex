@@ -344,4 +344,34 @@ public class DfaTest {
     assertFalse(dfa.isFinal(entryStates));
     assertEquals(entryStates, dfa.table(0, 0));
   }
+
+  /** Make sure all entry states are present. */
+  @Test
+  public void setEntryState_isState() {
+    Action action = new Action("return 1;", 1);
+
+    DFA dfa = new DFA(4, 1, 2);
+    for (int i = 0; i < 4; i++) {
+      dfa.setEntryState(i, i);
+    }
+    assertEquals(4, dfa.numStates());
+
+    dfa.setFinal(0, true);
+    dfa.setAction(0, action);
+    dfa.setFinal(1, true);
+    dfa.setAction(1, action);
+    dfa.addTransition(0, 0, 1);
+    dfa.addTransition(1, 0, 1);
+    assertEquals(4, dfa.numStates());
+
+    dfa.minimize();
+    assertEquals(
+        Arrays.asList(
+            "states 2, inputs 1, lexical states 2",
+            "entry: 0 0 1 1",
+            "0 [a0]: 0 -> 0",
+            "1:",
+            "a0: return 1;"),
+        dfa.canonicalLines());
+  }
 }
