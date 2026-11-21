@@ -107,7 +107,7 @@ State[FINAL] 39
 
 40 states in NFA
 Converting NFA to DFA : 
-......
+.....
 DFA is
 State [FINAL] 0:
   with 1 in 2
@@ -120,19 +120,17 @@ State [FINAL] 1:
   with 3 in 4
   with 4 in 5
 State [FINAL] 2:
-  with 1 in 6
+  with 1 in 2
 State [FINAL] 3:
-  with 2 in 7
+  with 2 in 6
 State [FINAL] 4:
 State [FINAL] 5:
   with 4 in 5
 State [FINAL] 6:
-  with 1 in 6
-State [FINAL] 7:
-  with 2 in 7
+  with 2 in 6
 
 
-8 states before minimization, 5 states in minimized DFA
+7 states before minimization, 5 states in minimized DFA
 Miniminal DFA is
 State [FINAL] 0:
   with 1 in 1

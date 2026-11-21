@@ -327,7 +327,7 @@ public class DfaQuickcheck {
   }
 
   /** A copy of the DFA without the transitions to states that cannot reach a final state. */
-  private static DFA withoutDeadTransitions(DFA dfa) {
+  static DFA withoutDeadTransitions(DFA dfa) {
     DFA result = dfa.copy();
     boolean[] live = live(dfa);
     for (int state = 0; state < dfa.numStates(); state++) {
@@ -346,7 +346,7 @@ public class DfaQuickcheck {
    * Reachability search over the cross product DFA. Aborts if there is any behaviour mismatch. The
    * DFAs accept the same language if they behave the same for all reachable states.
    */
-  private static boolean sameLanguage(DFA a, DFA b) {
+  static boolean sameLanguage(DFA a, DFA b) {
     if (a.numInput() != b.numInput() || a.entryState.length != b.entryState.length) {
       return false;
     }

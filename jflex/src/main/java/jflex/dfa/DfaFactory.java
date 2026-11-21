@@ -38,6 +38,7 @@ public class DfaFactory {
 
     out.println("Converting NFA to DFA : ");
     nfa.epsilonFill();
+    nfa.keepImportantStates();
 
     StateSet currentState;
     // will be reused
@@ -91,7 +92,7 @@ public class DfaFactory {
         while (states.hasMoreElements())
           tempStateSet.add(nfa.reachableStates(states.nextElement(), input));
 
-        newState.copy(tempStateSet);
+        newState.clear();
 
         states.reset(tempStateSet);
         while (states.hasMoreElements()) newState.add(nfa.epsilon(states.nextElement()));

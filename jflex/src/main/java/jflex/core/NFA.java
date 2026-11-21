@@ -438,6 +438,34 @@ public final class NFA {
   }
 
   /**
+   * Reduce the epsilon closures to only states that are important. These are the states that have
+   * an outgoing transition, are final, or have an action. The other states of the closure have no
+   * influence on the transitions, final flag, or action of a DFA state.
+   *
+   * <p>Precondition: {@link #epsilonFill()}. The NFA must not change afterwards, and {@link
+   * #closure(int)} must not be used any more, because it needs full closures to be correct.
+   */
+  public void keepImportantStates() {
+    boolean[] important = new boolean[numStates];
+    for (int s = 0; s < numStates; s++) {
+      important[s] = isFinal[s] || action[s] != null;
+      for (int i = 0; i < numInput && !important[s]; i++) {
+        important[s] = table[s][i] != null && table[s][i].containsElements();
+      }
+    }
+
+    for (int s = 0; s < numStates; s++) {
+      tempStateSet.clear();
+      states.reset(epsilon[s]);
+      while (states.hasMoreElements()) {
+        int state = states.nextElement();
+        if (important[state]) tempStateSet.addState(state);
+      }
+      epsilon[s] = new StateSet(tempStateSet);
+    }
+  }
+
+  /**
    * Calculates the set of states that can be reached from another set of states {@code start} with
    * an specified input character {@code input}
    *
