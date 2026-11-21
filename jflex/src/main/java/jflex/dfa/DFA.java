@@ -127,8 +127,8 @@ public class DFA {
     Action[] newAction = new Action[newLength];
     int[][] newTable = new int[newLength][numInput];
 
-    System.arraycopy(isFinal, 0, newFinal, 0, numStates);
-    System.arraycopy(action, 0, newAction, 0, numStates);
+    System.arraycopy(isFinal, 0, newFinal, 0, oldLength);
+    System.arraycopy(action, 0, newAction, 0, oldLength);
     System.arraycopy(table, 0, newTable, 0, oldLength);
 
     int i, j;
