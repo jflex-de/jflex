@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -392,8 +393,9 @@ public final class NFA {
    * <p>The epsilon closure for set a is the set of states that can be reached by epsilon edges from
    * a.
    *
-   * <p>Precondition: for all states {@code s < startState}, {@code epsilon[s]} is the epsilon
-   * closure of {@code s}, as in {@link #epsilonFill()}.
+   * <p>Precondition: for all states {@code s < startState} that can be reached from {@code
+   * startState}, {@code epsilon[s]} is the epsilon closure of {@code s}, as in {@link
+   * #epsilonFill()}.
    *
    * @param startState the start state for the set of states to calculate the epsilon closure for
    * @return the epsilon closure of the specified set of states in this NFA
@@ -414,7 +416,7 @@ public final class NFA {
       int state = notvisited.getAndRemoveElement();
       // Out.debug("removed element "+state+" of "+notvisited);
       // Out.debug("epsilon[states] = "+epsilon[state]);
-      // epsilonFill() has replaced epsilon[state] with the closure for all states before
+      // epsilonFill() has replaced epsilon[state] with the closure for the states before
       // startState, so these have nothing further to visit.
       if (state >= startState) notvisited.add(closure.complement(epsilon[state]));
       closure.add(epsilon[state]);
@@ -606,9 +608,11 @@ public final class NFA {
    * common.
    *
    * @param nfa the NFA to construct the complement for.
+   * @param first the first state of the NFA to complement. All its states and transitions are in
+   *     {@code [first, nfa.end()]} only.
    * @return a pair of integers denoting the index of start and end state of the complement NFA.
    */
-  private IntPair complement(IntPair nfa) {
+  private IntPair complement(IntPair nfa, int first) {
 
     if (Build.DEBUG) {
       Out.debug("complement for " + nfa);
@@ -617,7 +621,8 @@ public final class NFA {
 
     int dfaStart = nfa.end() + 1;
 
-    epsilonFill();
+    // closures for the NFA to complement only, the rest of the NFA cannot be reached from it
+    for (int i = first; i <= nfa.end(); i++) epsilon[i] = closure(i);
 
     Map<StateSet, Integer> dfaStates = new HashMap<>(numStates);
     List<StateSet> dfaList = new ArrayList<>(numStates);
@@ -714,6 +719,13 @@ public final class NFA {
     // eliminate transitions that cannot reach final states
     removeDead(dfaStart, end);
 
+    // The complement does not lead back into the NFA of the positive expression, so the positive
+    // NFA cannot be reached any more. Remove it so we do not compute closures for it again.
+    for (int s = first; s < dfaStart; s++) {
+      epsilon[s] = null;
+      Arrays.fill(table[s], null);
+    }
+
     if (Build.DEBUG) {
       Out.debug("complement finished, nfa (" + start + "," + end + ") is now :" + this);
     }
@@ -735,7 +747,7 @@ public final class NFA {
    *
    * @param start the first state from which to compute live states
    * @param end the state that if it can be reached makes a state live
-   * @see NFA#complement(IntPair)
+   * @see NFA#complement(IntPair, int)
    */
   private void removeDead(int start, int end) {
     if (Build.DEBUG) {
@@ -942,7 +954,8 @@ public final class NFA {
         return IntPair.create(nfa1.start(), nfa1.end());
 
       case sym.BANG:
-        return complement(insertNFA((RegExp) ((RegExp1) regExp).content));
+        start = numStates;
+        return complement(insertNFA((RegExp) ((RegExp1) regExp).content), start);
 
       case sym.TILDE:
         return insertNFA(regExp.resolveTilde());
