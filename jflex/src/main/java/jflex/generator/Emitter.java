@@ -7,6 +7,8 @@ package jflex.generator;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.nio.IntBuffer;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import jflex.base.Build;
@@ -1266,32 +1268,41 @@ public final class Emitter {
   private void reduceRows() {
     rowMap = new int[dfa.numStates()];
     rowKilled = new boolean[dfa.numStates()];
+    reduceRows(dfa, rowMap, rowKilled);
+  }
 
-    int i, j, k;
+  /**
+   * Finds the states that have the same row in the transition table as an earlier state, so that
+   * each distinct row is emitted only once. Separate from {@link #reduceRows()} for test access.
+   *
+   * @param dfa the DFA with the transition table
+   * @param rowMap is set to the number of the row in the reduced table for each state
+   * @param rowKilled is set to true for the states whose row is the same as that of an earlier
+   *     state. Must initially be all false.
+   */
+  static void reduceRows(DFA dfa, int[] rowMap, boolean[] rowKilled) {
     int translate = 0;
-    boolean equal;
+
+    // The first state with each row. Buffers are equal iff their content is.
+    Map<IntBuffer, Integer> rows = new HashMap<>();
 
     // i is the state to add to the new table
-    for (i = 0; i < dfa.numStates(); i++) {
+    for (int i = 0; i < dfa.numStates(); i++) {
 
       rowMap[i] = i - translate;
 
+      int[] row = new int[dfa.numInput()];
+      for (int k = 0; k < dfa.numInput(); k++) row[k] = dfa.table(i, k);
+
       // check if state i can be removed (i.e. already
       // exists in entries 0..i-1)
-      for (j = 0; j < i; j++) {
+      Integer j = rows.putIfAbsent(IntBuffer.wrap(row), i);
 
-        // test for equality:
-        k = -1;
-        equal = true;
-        while (equal && ++k < dfa.numInput()) equal = dfa.table(i, k) == dfa.table(j, k);
-
-        if (equal) {
-          translate++;
-          rowMap[i] = rowMap[j];
-          rowKilled[i] = true;
-          break;
-        } // if
-      } // for j
+      if (j != null) {
+        translate++;
+        rowMap[i] = rowMap[j];
+        rowKilled[i] = true;
+      }
     } // for i
   }
 
