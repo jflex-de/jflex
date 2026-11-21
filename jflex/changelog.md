@@ -43,6 +43,9 @@
 - fix a generator crash for `[^]` with `%ignorecase` in JLex mode (`--jlex`)
   and Unicode versions before 3.0.
 - fix the priority of rules from `%include` files (#1183)
+- fix generation for the empty string `""` literal as the first operand of a
+  parenthesised expression. The expression after the literal was translated
+  incorrectly.
 
 ## [JFlex 1.9.1](https://github.com/jflex-de/jflex/milestone/21?closed=1) (Mar 11, 2023)
 

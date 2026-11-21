@@ -123,6 +123,7 @@
                 <lexDefinition>src/test/java/de/jflex/testcase/cupsym/cupsym.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/dot_newline/dotnewline.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/empty_match/emptymatch.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/empty_string/EmptyString.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/eof/eof.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/eof_min/eofmin.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/eofclose/eofclose.flex</lexDefinition>
