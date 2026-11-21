@@ -8,6 +8,7 @@ package jflex.dfa;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -313,5 +314,34 @@ public class DfaTest {
         dfa.canonicalLines());
     assertEquals(dfa.canonicalLines(), swapped.canonicalLines());
     assertTrue(dfa.isIsomorphicTo(swapped));
+  }
+
+  /** All states, including entry states, are preserved when the DFA grows. */
+  @Test
+  public void addTransition_growKeepsFinalAndAction() {
+    // more entry states than the initial capacity of a DFA
+    int entryStates = 600;
+    Action action = new Action("return 1;", 1);
+
+    DFA dfa = new DFA(entryStates, 1, entryStates / 2);
+    for (int i = 0; i < entryStates; i++) {
+      dfa.setEntryState(i, i);
+    }
+    dfa.setFinal(0, true);
+    dfa.setAction(0, action);
+    dfa.setFinal(entryStates - 1, true);
+    dfa.setAction(entryStates - 1, action);
+
+    // the first state after the entry states makes the DFA grow
+    dfa.addTransition(0, 0, entryStates);
+
+    assertEquals(entryStates + 1, dfa.numStates());
+    assertTrue(dfa.isFinal(0));
+    assertSame(action, dfa.action(0));
+    assertTrue(dfa.isFinal(entryStates - 1));
+    assertSame(action, dfa.action(entryStates - 1));
+    assertFalse(dfa.isFinal(1));
+    assertFalse(dfa.isFinal(entryStates));
+    assertEquals(entryStates, dfa.table(0, 0));
   }
 }

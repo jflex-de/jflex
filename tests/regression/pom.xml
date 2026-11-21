@@ -146,6 +146,7 @@
                 <lexDefinition>src/test/java/de/jflex/testcase/look_macro/lookmacro.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/macro_exp/macro.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/macro_exp/macro_prec.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/many_lex_states/ManyLexStates.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/negation/negation.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/negation/negation2.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/refill/refill.flex</lexDefinition>
