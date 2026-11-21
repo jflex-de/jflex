@@ -585,7 +585,12 @@ public final class NFA {
       pos += Character.charCount(ch);
     }
 
-    return IntPair.create(start, i + start);
+    // make sure the state are created even for "" before the next expression is added
+    int end = i + start;
+    ensureCapacity(end + 1);
+    numStates = end + 1;
+
+    return IntPair.create(start, end);
   }
 
   private void insertClassNFA(IntCharSet set, int start, int end) {
