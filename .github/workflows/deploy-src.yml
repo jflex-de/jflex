@@ -30,7 +30,18 @@ jobs:
         # Fixed JDK version to keep [:jletter:] character class constant.
         java-version: 25
         distribution: zulu
-        cache: maven
+        cache-jdk: true
+    # See build.yml for the cache setup. lib has the jars that compile.sh
+    # downloads. Needs to come after the checkouts, which clear their directory.
+    - name: Cache dependencies
+      uses: actions/cache@v5
+      with:
+        path: |
+          ~/.m2/repository
+          ~/.m2/wrapper
+          aggregated-java-sources/lib
+        key: deps-deploy-src-${{ runner.os }}-jdk25-${{ hashFiles('jflex/**/pom.xml', 'jflex/.mvn/wrapper/maven-wrapper.properties', 'jflex/scripts/compile-aggregated-java-sources.sh') }}
+        restore-keys: deps-deploy-src-${{ runner.os }}-jdk25-
     - name: 'Prepare aggregated sources'
       run: |
         cd jflex; scripts/prepare-deploy-source-code.sh

@@ -12,6 +12,9 @@ on:
 env:
   PUBLISH_SOURCES: 'true'
 
+# Separate cache for each job, because they need separate artefacts, which is
+# also why the maven cache of setup-java does not work properly.
+
 jobs:
   build:
     name: 'Maven & Examples'
@@ -28,7 +31,16 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         distribution: zulu
-        cache: maven
+        cache-jdk: true
+    - name: Cache dependencies
+      uses: actions/cache@v5
+      with:
+        path: |
+          ~/.m2/repository
+          ~/.m2/wrapper
+          ~/.ant
+        key: deps-${{ github.job }}-${{ runner.os }}-jdk${{ matrix.java }}-${{ hashFiles('**/pom.xml', '.mvn/wrapper/maven-wrapper.properties', 'jflex/examples/common/*.xml') }}
+        restore-keys: deps-${{ github.job }}-${{ runner.os }}-jdk${{ matrix.java }}-
     - name: '🔨 Maven (build, test)'
       run: scripts/test-unit.sh
     - name: '🔨 Maven (site)'
@@ -53,7 +65,15 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         distribution: zulu
-        cache: maven
+        cache-jdk: true
+    - name: Cache dependencies
+      uses: actions/cache@v5
+      with:
+        path: |
+          ~/.m2/repository
+          ~/.m2/wrapper
+        key: deps-${{ github.job }}-${{ runner.os }}-jdk${{ matrix.java }}-${{ hashFiles('**/pom.xml', '.mvn/wrapper/maven-wrapper.properties') }}
+        restore-keys: deps-${{ github.job }}-${{ runner.os }}-jdk${{ matrix.java }}-
     - name: '📝 Regression tests'
       run: |
         scripts/mvn-install-fastbuild.sh jflex-maven-plugin
@@ -74,7 +94,15 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         distribution: zulu
-        cache: maven
+        cache-jdk: true
+    - name: Cache dependencies
+      uses: actions/cache@v5
+      with:
+        path: |
+          ~/.m2/repository
+          ~/.m2/wrapper
+        key: deps-${{ github.job }}-${{ runner.os }}-jdk${{ matrix.java }}-${{ hashFiles('**/pom.xml', '.mvn/wrapper/maven-wrapper.properties') }}
+        restore-keys: deps-${{ github.job }}-${{ runner.os }}-jdk${{ matrix.java }}-
     - name: '📝 Unicode tests'
       run: |
         scripts/mvn-install-fastbuild.sh jflex-maven-plugin
@@ -90,7 +118,17 @@ jobs:
       with:
         java-version: 25
         distribution: zulu
-        cache: maven
+        cache-jdk: true
+    # lib contains downloaded jars from compile.sh.
+    - name: Cache dependencies
+      uses: actions/cache@v5
+      with:
+        path: |
+          ~/.m2/repository
+          ~/.m2/wrapper
+          target/aggregated-java-sources/lib
+        key: deps-${{ github.job }}-${{ runner.os }}-jdk25-${{ hashFiles('**/pom.xml', '.mvn/wrapper/maven-wrapper.properties', 'scripts/compile-aggregated-java-sources.sh') }}
+        restore-keys: deps-${{ github.job }}-${{ runner.os }}-jdk25-
     - name: '🔨 Build JFlex'
       run: scripts/mvn-install-fastbuild.sh
     - name: '🔨 Check that aggregated sources compile'
@@ -115,7 +153,15 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         distribution: zulu
-        cache: maven
+        cache-jdk: true
+    - name: Cache dependencies
+      uses: actions/cache@v5
+      with:
+        path: |
+          ~/.m2/repository
+          ~/.m2/wrapper
+        key: deps-${{ github.job }}-${{ runner.os }}-jdk${{ matrix.java }}-${{ hashFiles('**/pom.xml', '.mvn/wrapper/maven-wrapper.properties') }}
+        restore-keys: deps-${{ github.job }}-${{ runner.os }}-jdk${{ matrix.java }}-
     - name: '🔨 Build JFlex jar'
       run: |
         ./mvnw -Pfastbuild install
