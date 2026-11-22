@@ -208,6 +208,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%char"                     { charCount = true;  }
   "%line"                     { lineCount = true;  }
   "%column"                   { columnCount = true; }
+  "%counter_methods" {WSP}*   { counterMethods = true; }
   "%byaccj"                   { isInteger = true;
                                 if (eofVal == null)
                                   eofVal = "return 0;";

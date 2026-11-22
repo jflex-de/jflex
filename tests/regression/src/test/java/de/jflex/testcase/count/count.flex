@@ -14,25 +14,11 @@ package de.jflex.testcase.count;
 %char
 %line
 %column
+%counter_methods
 
 %{
   /** Number of characters that the next action pushes back. Set by the test class. */
   public int pushback;
-
-  /** Line of the current match, counted from 0. */
-  public int line() {
-    return yyline;
-  }
-
-  /** Column of the current match, counted from 0. */
-  public int column() {
-    return yycolumn;
-  }
-
-  /** Number of characters before the current match. */
-  public long offset() {
-    return yychar;
-  }
 %}
 
 %%

@@ -15,7 +15,8 @@ import java.io.StringReader;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test for line, column and character counting ({@code %line}, {@code %column}, {@code %char}).
+ * Test for line, column and character counting ({@code %line}, {@code %column}, {@code %char}), and
+ * for the access methods of the counters ({@code %counter_methods}).
  *
  * <p>All three counters count from 0. {@code yycolumn} and {@code yychar} count Java {@code char}s,
  * the same as {@code yylength()}. A character outside the BMP counts as two.
@@ -52,9 +53,9 @@ public class CountTest implements JFlexTest {
     assertEquals(1, scanner.yylex(), "rule " + at);
     assertEquals(text, scanner.yytext(), "text " + at);
     assertEquals(text.length(), scanner.yylength(), "length " + at);
-    assertEquals(line, scanner.line(), "line " + at);
-    assertEquals(column, scanner.column(), "column " + at);
-    assertEquals(offset, scanner.offset(), "char " + at);
+    assertEquals(line, scanner.yyline(), "line " + at);
+    assertEquals(column, scanner.yycolumn(), "column " + at);
+    assertEquals(offset, scanner.yychar(), "char " + at);
   }
 
   /** Checks that the input ends here. The counters are those of the position after the input. */
@@ -62,9 +63,9 @@ public class CountTest implements JFlexTest {
     String at = "at line " + line + ", column " + column + ", char " + offset;
     assertEquals(Count.YYEOF, scanner.yylex(), "end of input " + at);
     assertTrue(scanner.yyatEOF());
-    assertEquals(line, scanner.line(), "line " + at);
-    assertEquals(column, scanner.column(), "column " + at);
-    assertEquals(offset, scanner.offset(), "char " + at);
+    assertEquals(line, scanner.yyline(), "line " + at);
+    assertEquals(column, scanner.yycolumn(), "column " + at);
+    assertEquals(offset, scanner.yychar(), "char " + at);
   }
 
   private static String repeat(String s, int times) {
