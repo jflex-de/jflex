@@ -26,6 +26,7 @@ import jflex.state.StateSetEnumerator;
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.Combinators;
+import net.jqwik.api.Example;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import net.jqwik.api.Provide;
@@ -107,11 +108,90 @@ public class DfaFactoryQuickcheck {
   }
 
   /**
+   * A chain of alternatives {@code a | b | c | d} gives the same DFA as the same alternatives in
+   * nested pairs {@code a | (b | (c | d))}.
+   *
+   * <p>This tests the {@code .. | ..} chain insertion into the NFA, using the pairwise insertion
+   * that happens for nested pairs as a test oracle. They are equivalent, so should produce the same
+   * DFAs. In this case even before minimization.
+   */
+  @Property(tries = 200)
+  public void alternativeChainAgreesWithPairs(
+      @ForAll("alternatives") List<String> alternatives,
+      @ForAll("contexts") String context,
+      @ForAll("specs") String otherRules)
+      throws Exception {
+    Options options = new Options();
+    Out out = new Out(options, new ByteArrayOutputStream());
+
+    String pairs = alternatives.get(alternatives.size() - 1);
+    for (int i = alternatives.size() - 2; i >= 0; i--) {
+      pairs = alternatives.get(i) + " | (" + pairs + ")";
+    }
+    String specOfPairs = withFirstRule(otherRules, String.format(context, pairs));
+    String spec =
+        withFirstRule(otherRules, String.format(context, String.join(" | ", alternatives)));
+
+    DFA expected = DfaFactory.createFromNfa(parse(specOfPairs, options, out), options, out);
+    DFA dfa = DfaFactory.createFromNfa(parse(spec, options, out), options, out);
+    assertEquals(expected.numStates(), dfa.numStates(), spec);
+    assertEquals(expected, dfa, spec);
+  }
+
+  /** A chain of alternatives has one start and one end state, pairs have two states per pair. */
+  @Example
+  public void alternativeChain_oneStartAndEndState() throws Exception {
+    Options options = new Options();
+    Out out = new Out(options, new ByteArrayOutputStream());
+    String head = "%%\n%unicode\n%int\n%%\n";
+
+    NFA chain = parse(head + "\"ab\" | \"cd\" | \"ef\" | \"gh\" { return 0; }\n", options, out);
+    NFA pairs = parse(head + "\"ab\" | (\"cd\" | (\"ef\" | \"gh\")) { return 0; }\n", options, out);
+
+    assertEquals(pairs.numStates() - 4, chain.numStates());
+  }
+
+  /** Three to six alternatives. */
+  @Provide
+  static Arbitrary<List<String>> alternatives() {
+    return Arbitraries.integers()
+        .between(0, 2)
+        .flatMap(DfaFactoryQuickcheck::regExp)
+        .list()
+        .ofMinSize(3)
+        .ofMaxSize(6);
+  }
+
+  /** Contexts into which we want to put {@code .. | ..} expressions. */
+  @Provide
+  static Arbitrary<String> contexts() {
+    return Arbitraries.of(
+        "%s",
+        "a (%s) b",
+        "(%s)* c",
+        "(%s)+",
+        "!(%s)",
+        "~(%s)",
+        "[^]* (%s) [^]*",
+        "a (%s) / b",
+        "a (%s) / b*",
+        "a (%s) $",
+        "a / %s",
+        "a+ / (%s)+");
+  }
+
+  /** The spec with the provided rule added before any existing rules. */
+  private static String withFirstRule(String spec, String rule) {
+    int rules = spec.indexOf("\n%%\n") + 4;
+    return spec.substring(0, rules) + rule + " { return -1; }\n" + spec.substring(rules);
+  }
+
+  /**
    * Specs with up to four rules, with and without lexical states, {@code ^} and lookahead. No
    * macros.
    */
   @Provide
-  static Arbitrary<String> specs() {
+  public static Arbitrary<String> specs() {
     return Combinators.combine(
             Arbitraries.of("", "%state S", "%xstate X", "%state S\n%xstate X"),
             rule().list().ofMinSize(1).ofMaxSize(4))
@@ -172,7 +252,7 @@ public class DfaFactoryQuickcheck {
   }
 
   /** The NFA of a spec. */
-  private static NFA parse(String spec, Options options, Out out) throws Exception {
+  public static NFA parse(String spec, Options options, Out out) throws Exception {
     LexScan scanner = new LexScan(new StringReader(spec));
     scanner.setOptions(options);
     scanner.setOut(out);

@@ -85,21 +85,33 @@ public class RegExp {
   }
 
   /**
-   * The approximate number of NFA states this expression will need (only works correctly after
-   * macro expansion and without negation)
+   * The approximate number of NFA states that {@link NFA#insertNFA(RegExp)} creates for this
+   * expression.
+   *
+   * <p>Exact for a normalised expression without negation. With negation it is a lower bound.
    *
    * @param macros macro table for expansion
-   * @return the estimate, as {@code long} because it can be larger than what an NFA can have.
+   * @return the number of states, as {@code long} because it can be larger than what an NFA can
+   *     have.
    */
   public long size(Macros macros) {
     RegExp1 unary;
     RegExp2 binary;
     RegExp content;
 
+    if (isCharClass()) return 2;
+
     switch (type) {
       case sym.BAR:
-        binary = (RegExp2) this;
-        return binary.r1.size(macros) + binary.r2.size(macros) + 2;
+        // one start and end state in total for all alternatives of chains a | b | c
+        long size = 2;
+        RegExp first = this;
+        while (first.type == sym.BAR) {
+          binary = (RegExp2) first;
+          size += binary.r2.size(macros);
+          first = binary.r1;
+        }
+        return size + first.size(macros);
 
       case sym.CONCAT:
         binary = (RegExp2) this;
@@ -135,7 +147,8 @@ public class RegExp {
       case sym.STRING:
       case sym.STRING_I:
         unary = (RegExp1) this;
-        return ((String) unary.content).length() + 1;
+        String string = (String) unary.content;
+        return string.codePointCount(0, string.length()) + 1;
 
       case sym.CHAR:
       case sym.CHAR_I:
