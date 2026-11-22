@@ -29,7 +29,8 @@ public class DfaQuickcheck {
   /** A copy has the same states with the same numbers, and is independent of the original. */
   @Property
   public void copyIsIdenticalAndIndependent(@ForAll DFA dfa, @ForAll Random random) {
-    String before = dfa.toString();
+    DFA before = dfa.copy();
+    String stringBefore = dfa.toString();
     List<String> linesBefore = dfa.canonicalLines();
 
     DFA copy = dfa.copy();
@@ -46,8 +47,43 @@ public class DfaQuickcheck {
 
     // Generator only produced DFAs without minimized flag set.
     assertFalse(dfa.isMinimized());
-    assertEquals(before, dfa.toString());
+    assertEquals(before, dfa);
+    assertEquals(stringBefore, dfa.toString());
     assertEquals(linesBefore, dfa.canonicalLines());
+  }
+
+  /**
+   * {@link DFA#equals(Object)} agrees with a comparison of the DFAs state by state, and equal DFAs
+   * are isomorphic and have the same hash code. Compare DFAs with up to two random content changes,
+   * without renumbering the states.
+   */
+  @Property
+  @StatisticsReport(StatisticsReport.StatisticsReportMode.OFF)
+  public void equalsAgreesWithSameStatesAndImpliesIsomorphic(
+      @ForAll DFA dfa, @ForAll Random random) {
+    DFA other = dfa.copy();
+    for (int changes = random.nextInt(3); changes > 0; changes--) {
+      change(other, random);
+    }
+
+    boolean sameStates = sameStates(dfa, other);
+    // both outcomes have to occur for this property to mean something
+    Statistics.collect(sameStates);
+    Statistics.coverage(
+        coverage -> {
+          coverage.check(true).percentage(p -> p > 10);
+          coverage.check(false).percentage(p -> p > 10);
+        });
+
+    assertEquals(sameStates, dfa.equals(other));
+    assertEquals(sameStates, other.equals(dfa));
+    if (sameStates) {
+      assertEquals(dfa.hashCode(), other.hashCode());
+      assertTrue(dfa.isIsomorphicTo(other));
+      assertTrue(other.isIsomorphicTo(dfa));
+      assertTrue(bruteForceIsomorphic(dfa, other));
+      assertEquals(dfa.canonical(), other.canonical());
+    }
   }
 
   /** The canonical form does not depend on state numbering. */
@@ -110,6 +146,7 @@ public class DfaQuickcheck {
 
     assertTrue(minimized.isIsomorphicTo(renumbered));
     assertEquals(minimized.canonicalLines(), renumbered.canonicalLines());
+    assertEquals(minimized.canonical(), renumbered.canonical());
     assertTrue(minimized.canonical().isMinimized());
     assertTrue(minimized.canonical().numStates() <= dfa.canonical().numStates());
   }
@@ -254,6 +291,30 @@ public class DfaQuickcheck {
       default:
         dfa.setEntryState(random.nextInt(dfa.entryState.length), state);
     }
+  }
+
+  /**
+   * The specification of {@link DFA#equals(Object)}: the same counts and entry states, and for each
+   * state the same transitions, the same final flag, and for final states equivalent actions.
+   */
+  private static boolean sameStates(DFA a, DFA b) {
+    if (a.numStates() != b.numStates()
+        || a.numInput() != b.numInput()
+        || a.numLexStates() != b.numLexStates()
+        || a.entryState.length != b.entryState.length) {
+      return false;
+    }
+    for (int i = 0; i < a.entryState.length; i++) {
+      if (a.entryState(i) != b.entryState(i)) return false;
+    }
+    for (int state = 0; state < a.numStates(); state++) {
+      if (a.isFinal(state) != b.isFinal(state)) return false;
+      if (a.isFinal(state) && !a.action(state).isEquiv(b.action(state))) return false;
+      for (int input = 0; input < a.numInput(); input++) {
+        if (a.table(state, input) != b.table(state, input)) return false;
+      }
+    }
+    return true;
   }
 
   /**
