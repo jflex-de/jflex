@@ -371,30 +371,8 @@ public class DFA {
    * @see #canonical()
    */
   public boolean isIsomorphicTo(DFA other) {
-    DFA a = canonical();
-    DFA b = other.canonical();
-
-    if (a.numInput != b.numInput
-        || a.numLexStates != b.numLexStates
-        || a.numStates != b.numStates
-        || !Arrays.equals(a.entryState, b.entryState)) {
-      return false;
-    }
-    for (int i = 0; i < a.numStates; i++) {
-      if (a.isFinal[i] != b.isFinal[i]) {
-        return false;
-      }
-      // as in minimize(), the action only counts for final states
-      if (a.isFinal[i] && !Objects.equals(a.action[i], b.action[i])) {
-        return false;
-      }
-      for (int input = 0; input < a.numInput; input++) {
-        if (a.table[i][input] != b.table[i][input]) {
-          return false;
-        }
-      }
-    }
-    return true;
+    // equals() compares the action for final states only, as minimize() does
+    return canonical().equals(other.canonical());
   }
 
   /**

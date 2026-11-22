@@ -44,7 +44,9 @@ public class DfaTest {
     assertEquals(DFA.NO_TARGET, dfa.table(0, 0));
     assertEquals(2, dfa.entryState(1));
     assertFalse(dfa.isFinal(3));
+    assertEquals(example(), dfa);
     assertEquals(example().canonicalLines(), dfa.canonicalLines());
+    assertNotEquals(dfa, copy);
     assertFalse(dfa.isIsomorphicTo(copy));
   }
 
