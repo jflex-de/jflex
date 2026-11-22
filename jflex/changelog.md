@@ -7,7 +7,10 @@
 
 ## JFlex 1.10.0 (upcoming)
 
-- Reduce memory overhead: allocate the lookahead buffer on demand (#1106, #1136)
+- Reduce runtime memory overhead: allocate the lookahead buffer on demand
+  (#1106, #1136)
+- 10-20x performance improvement in constructing very large scanners. This is
+  for scanner generation speed and memory, not runtime speed.
 - JFlex runtime and generated scanners now require JDK 1.8+, which is the oldest
   supported Java LTS release.
 - Removed the Bazel build. The separate
