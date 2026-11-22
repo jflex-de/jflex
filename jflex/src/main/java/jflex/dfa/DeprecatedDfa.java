@@ -157,7 +157,7 @@ public class DeprecatedDfa extends DFA {
     }
     copy.isFinal = Arrays.copyOf(dfa.isFinal, dfa.isFinal.length);
     copy.entryState = Arrays.copyOf(dfa.entryState, dfa.entryState.length);
-    // Sets action and usedActions
+    // Sets action and usedRules
     for (int i = 0; i < dfa.numStates(); i++) {
       copy.setAction(i, dfa.action(i));
     }

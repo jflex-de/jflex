@@ -13,7 +13,6 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -72,9 +71,6 @@ public class DFA {
    * null} if there is no action.
    */
   private Action[] action;
-
-  /** all actions that are used in this DFA */
-  private final Map<Action, Action> usedActions = new HashMap<>();
 
   /**
    * The priorities of all actions that are used in this DFA. The priority identifies the rule of an
@@ -165,7 +161,6 @@ public class DFA {
   public void setAction(int state, Action stateAction) {
     action[state] = stateAction;
     if (stateAction != null) {
-      usedActions.put(stateAction, stateAction);
       usedRules.add(stateAction.priority);
       lookaheadUsed |= stateAction.isGenLookAction();
       minimized = false;
@@ -244,7 +239,6 @@ public class DFA {
     return Arrays.equals(isFinal, ((DFA) obj).isFinal)
         && Arrays.equals(entryState, ((DFA) obj).entryState)
         && Arrays.equals(action, ((DFA) obj).action)
-        && Objects.equals(usedActions, ((DFA) obj).usedActions)
         && tableEquals(table, ((DFA) obj).table);
   }
 
@@ -273,7 +267,6 @@ public class DFA {
     result.isFinal = isFinal.clone();
     result.action = action.clone();
     result.entryState = entryState.clone();
-    result.usedActions.putAll(usedActions);
     result.usedRules.addAll(usedRules);
     result.lookaheadUsed = lookaheadUsed;
     result.minimized = minimized;
