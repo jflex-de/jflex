@@ -113,6 +113,12 @@ public class Main {
         continue;
       }
 
+      if (Objects.equals(argv[i], "--Werror")
+          || Objects.equals(argv[i], "-Werror")) { // $NON-NLS-1$ //$NON-NLS-2$
+        options.setWarningsAsErrors(true);
+        continue;
+      }
+
       if (Objects.equals(argv[i], "--warn-all")) { // $NON-NLS-1$
         options.enableAllWarnings();
         continue;
@@ -323,6 +329,7 @@ public class Main {
     out.println("                       unused, never-match, empty-match, cupsym-after-cup,");
     out.println("                       unicode-too-long, all.");
     out.println("--no-warn-<warning>  suppress warnings of type <warning>");
+    out.println("--Werror             treat warnings as errors");
     out.println("--time               display generation time statistics");
     out.println("--version            print the version number of this copy of jflex");
     out.println("--info               print system + JDK information");

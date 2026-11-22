@@ -128,6 +128,13 @@ public class JFlexTaskTest {
   }
 
   @Test
+  public void testFailOnWarning() {
+    assertFalse(task.options().warningsAsErrors());
+    task.setFailOnWarning(true);
+    assertTrue(task.options().warningsAsErrors());
+  }
+
+  @Test
   public void testUnusedWarning_Verbose() {
     task.setVerbose(false);
     assertTrue(task.options().isSuppressed(ErrorMessages.MACRO_UNUSED), "Disabled in quiet mode");

@@ -7,6 +7,7 @@ package jflex.maven.plugin.jflex;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -27,6 +28,7 @@ import org.apache.maven.api.plugin.testing.InjectMojo;
 import org.apache.maven.api.plugin.testing.MojoExtension;
 import org.apache.maven.api.plugin.testing.MojoParameter;
 import org.apache.maven.api.plugin.testing.MojoTest;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -184,6 +186,39 @@ public class JFlexMojoTest {
     String log = executeCleanAndCapture(mojo);
 
     assertFalse(log.contains("Warning"), "Output:\n" + log);
+    assertTrue(new File(outputDirectory(mojo), "Warnings.java").isFile());
+  }
+
+  /** {@code failOnWarning} fails the build for a spec with warnings and generates no scanner. */
+  @Test
+  @InjectMojo(goal = "generate", pom = PROJECTS + "warnings-test" + CONFIG)
+  @MojoParameter(name = "failOnWarning", value = "true")
+  public void testFailOnWarning(JFlexMojo mojo) throws Exception {
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    PrintStream savedOut = System.out;
+    System.setOut(new PrintStream(output, true));
+    try {
+      assertThrows(MojoExecutionException.class, () -> executeClean(mojo));
+    } finally {
+      System.setOut(savedOut);
+    }
+    String log = output.toString();
+
+    assertTrue(log.contains("Error in file \""), "Output:\n" + log);
+    assertTrue(log.contains("is not at the beginning of the line"), "Output:\n" + log);
+    assertFalse(log.contains("Warning"), "Output:\n" + log);
+    assertFalse(new File(outputDirectory(mojo), "Warnings.java").exists());
+  }
+
+  /** {@code failOnWarning} does not fail the build for warnings that are switched off. */
+  @Test
+  @InjectMojo(goal = "generate", pom = PROJECTS + "warnings-test" + CONFIG)
+  @MojoParameter(name = "failOnWarning", value = "true")
+  @MojoParameter(name = "suppressAllWarnings", value = "true")
+  public void testFailOnWarningSuppressed(JFlexMojo mojo) throws Exception {
+    String log = executeCleanAndCapture(mojo);
+
+    assertFalse(log.contains("Error"), "Output:\n" + log);
     assertTrue(new File(outputDirectory(mojo), "Warnings.java").isFile());
   }
 

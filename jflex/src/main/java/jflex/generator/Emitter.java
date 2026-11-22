@@ -94,6 +94,37 @@ public final class Emitter {
     this.skel = options.skeleton();
   }
 
+  /**
+   * Reports the warnings of code emission. Run before output is opened, so that no file is written
+   * if warnings are treated as errors.
+   *
+   * @param scanner the scanner of the spec to emit code for
+   * @throws jflex.exceptions.GeneratorException if warnings are errors and there was a warning
+   */
+  static void checkWarnings(AbstractLexScan scanner) {
+    if (unusedCounterMethods(scanner)) {
+      scanner.out().warning(ErrorMessages.COUNTER_METHODS_UNUSED);
+    }
+    if (emitsDefaultConstructor(scanner)) {
+      scanner.out().warning(ErrorMessages.CTOR_DEBUG);
+    }
+    scanner.out().checkErrors();
+  }
+
+  /** Whether the spec has {@code %counter_methods}, but no counter is turned on. */
+  private static boolean unusedCounterMethods(AbstractLexScan scanner) {
+    return scanner.counterMethods()
+        && !scanner.lineCount()
+        && !scanner.columnCount()
+        && !scanner.charCount();
+  }
+
+  /** Whether the scanner gets an additional default constructor despite {@code %ctorarg}. */
+  private static boolean emitsDefaultConstructor(AbstractLexScan scanner) {
+    return (scanner.standalone() || scanner.debugOption() || scanner.cupDebug())
+        && scanner.ctorArgsCount() > 0;
+  }
+
   /** Emits the next section of the skeleton. */
   private void emitSkeletonSection() {
     out.print(skel.section(skelPos++));
@@ -690,9 +721,7 @@ public final class Emitter {
   private void emitConstructorDecl() {
     emitConstructorDecl(true);
 
-    if ((scanner.standalone() || scanner.debugOption() || scanner.cupDebug())
-        && scanner.ctorArgsCount() > 0) {
-      scanner.out().warning(ErrorMessages.CTOR_DEBUG);
+    if (emitsDefaultConstructor(scanner)) {
       println();
       emitConstructorDecl(false);
     }
@@ -1324,10 +1353,7 @@ public final class Emitter {
   private void emitCounterMethods() {
     if (!scanner.counterMethods()) return;
 
-    if (!scanner.lineCount() && !scanner.columnCount() && !scanner.charCount()) {
-      scanner.out().warning(ErrorMessages.COUNTER_METHODS_UNUSED);
-      return;
-    }
+    if (unusedCounterMethods(scanner)) return;
 
     if (scanner.lineCount()) {
       emitCounterMethod(

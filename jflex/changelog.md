@@ -25,6 +25,9 @@
 - jflex-maven-plugin: more robust package name detection (#539, #1160)
 - jflex-maven-plugin: new parameters to switch off warnings: `neverMatchWarning`,
   `emptyMatchWarning`, etc, as well as `suppressAllWarnings`.
+- New command line option `--Werror`, jflex-maven-plugin parameter
+  `failOnWarning`, and Ant task attribute `failonwarning` to treat warnings as
+  errors. (#1112)
 - `%suppress`, `%no-warn`, `%warn`, and `%apiprivate` no longer carry over to
   later specs in the same run, e.g. for CLI with several files,
   jflex-maven-plugin, etc

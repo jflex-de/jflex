@@ -261,6 +261,15 @@ public class JFlexTask extends Task {
   }
 
   /**
+   * Sets whether warnings are treated as errors.
+   *
+   * @param failOnWarning true to fail the build for a spec with warnings.
+   */
+  public void setFailOnWarning(boolean failOnWarning) {
+    options.setWarningsAsErrors(failOnWarning);
+  }
+
+  /**
    * setSkeleton.
    *
    * @param skeleton a {@link java.io.File} object.

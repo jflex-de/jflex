@@ -86,6 +86,9 @@ The following attributes are available for invoking the JFlex task.
 -  `unusedwarning` (default `"true"`)\
     Warn about unused macro definitions in the lexer specification.
 
+-  `failonwarning` (default `"false"`)\
+    Treat warnings as errors.
+
 
 ### Example
 

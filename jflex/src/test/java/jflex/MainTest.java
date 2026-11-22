@@ -85,6 +85,42 @@ public class MainTest {
     assertFalse(output.contains("never be matched"), output);
   }
 
+  /** With {@code --Werror}, a warning is reported as an error and no scanner is generated. */
+  @Test
+  public void generate_werror_failsOnWarning() throws Exception {
+    String spec = writeSpec("Werror", "");
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+    assertThrows(
+        GeneratorException.class,
+        () -> Main.generate(new String[] {"--Werror", "-d", tmp.getPath(), spec}, output));
+
+    assertTrue(output.toString().contains("Error in file \"" + spec + "\""), output.toString());
+    assertTrue(output.toString().contains("never be matched"), output.toString());
+    assertFalse(warnsFor(output.toString(), spec), output.toString());
+    assertFalse(new File(tmp, "Werror.java").exists(), "Werror.java not generated");
+  }
+
+  /** With {@code --Werror}, a suppressed warning is not an error. */
+  @Test
+  public void generate_werror_suppressedWarningIsNoError() throws Exception {
+    String output = generateNeverMatch("--Werror", "--no-warn-never-match");
+    assertFalse(output.contains("never be matched"), output);
+  }
+
+  /** With {@code --Werror}, a spec without warnings generates as usual. */
+  @Test
+  public void generate_werror_noWarning() throws Exception {
+    File spec = new File(tmp, "Clean.flex");
+    String text = "%%\n%class Clean\n%int\n%%\n\"a\" { return 1; }\n";
+    Files.write(spec.toPath(), text.getBytes(StandardCharsets.UTF_8));
+
+    String output = generate("-Werror", "-d", tmp.getPath(), spec.getPath());
+
+    assertFalse(output.contains("Error"), output);
+    assertTrue(new File(tmp, "Clean.java").isFile(), "Clean.java generated");
+  }
+
   /** A {@code %suppress} in one spec does not apply to the next spec on the command line. */
   @Test
   public void generate_twoSpecs_suppressDoesNotLeak() throws Exception {

@@ -46,6 +46,7 @@ public class OptionsDialog extends Dialog {
 
   private Checkbox no_minimize;
   private Checkbox no_backup;
+  private Checkbox warnings_as_errors;
 
   private Checkbox jlex;
   private Checkbox dot;
@@ -95,6 +96,7 @@ public class OptionsDialog extends Dialog {
 
     no_minimize = new Checkbox(" skip minimization");
     no_backup = new Checkbox(" no backup file");
+    warnings_as_errors = new Checkbox(" warnings as errors");
 
     jlex = new Checkbox(" JLex compatibility");
     dot = new Checkbox(" dot graph files");
@@ -167,6 +169,14 @@ public class OptionsDialog extends Dialog {
           }
         });
 
+    warnings_as_errors.addItemListener(
+        new ItemListener() {
+          @Override
+          public void itemStateChanged(ItemEvent e) {
+            options.setWarningsAsErrors(warnings_as_errors.getState());
+          }
+        });
+
     dot.addItemListener(
         new ItemListener() {
           @Override
@@ -211,6 +221,7 @@ public class OptionsDialog extends Dialog {
     panel.add(1, 3, 1, 1, no_minimize);
 
     panel.add(2, 2, 1, 1, no_backup);
+    panel.add(2, 3, 1, 1, warnings_as_errors);
 
     panel.add(3, 2, 1, 1, jlex);
     panel.add(3, 3, 1, 1, dot);
@@ -244,6 +255,7 @@ public class OptionsDialog extends Dialog {
 
     no_minimize.setState(options.noMinimize());
     no_backup.setState(options.noBackup());
+    warnings_as_errors.setState(options.warningsAsErrors());
 
     jlex.setState(options.jlex());
     dot.setState(options.dot());

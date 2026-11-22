@@ -27,7 +27,8 @@ import jflex.performance.Timer;
  *
  * <p>Writes to {@code System.out}, to an {@link OutputStream}, or to a TextArea in GUI mode.
  *
- * <p>Counts error and warning messages.
+ * <p>Counts error and warning messages. With {@link Options#warningsAsErrors()}, warnings are
+ * printed and counted as errors.
  *
  * <p>Concurrent runs use separate Out instances (and separate {@link Options}).
  *
@@ -243,7 +244,7 @@ public final class Out {
 
   /**
    * Returns the warnings since the last {@link #resetCounters()} in the order they were reported.
-   * Suppressed warnings are not included.
+   * Suppressed warnings and warnings that were reported as errors are not included.
    */
   public List<Warning> reportedWarnings() {
     return new ArrayList<>(reportedWarnings);
@@ -310,9 +311,9 @@ public final class Out {
   public void warning(ErrorMessages message, int line, Object... args) {
     if (options.isSuppressed(message)) return;
 
-    reportedWarnings.add(new Warning(message, null, line >= 0 ? line + 1 : 0, 0));
+    countWarning(new Warning(message, null, line >= 0 ? line + 1 : 0, 0));
 
-    String msg = NL + ErrorMessages.get(ErrorMessages.WARNING_PREFIX);
+    String msg = NL + ErrorMessages.get(warningPrefix());
     if (line >= 0) {
       msg += " " + ErrorMessages.get(ErrorMessages.IN_LINE, String.valueOf(line + 1));
     }
@@ -331,7 +332,7 @@ public final class Out {
   public void warning(File file, ErrorMessages message, int line, int column) {
     if (options.isSuppressed(message)) return;
 
-    String msg = NL + ErrorMessages.prefix(ErrorMessages.WARNING_PREFIX, file, line);
+    String msg = NL + ErrorMessages.prefix(warningPrefix(), file, line);
 
     try {
       err(msg + ": " + NL + ErrorMessages.get(message));
@@ -339,12 +340,25 @@ public final class Out {
       err(msg);
     }
 
-    reportedWarnings.add(
-        new Warning(message, file, line >= 0 ? line + 1 : 0, line >= 0 ? column + 1 : 0));
+    countWarning(new Warning(message, file, line >= 0 ? line + 1 : 0, line >= 0 ? column + 1 : 0));
 
     if (line >= 0) {
       if (column >= 0) showPosition(file, line, column);
       else showPosition(file, line);
+    }
+  }
+
+  /** The message prefix for a warning: an error prefix if warnings are treated as errors. */
+  private ErrorMessages warningPrefix() {
+    return options.warningsAsErrors() ? ErrorMessages.ERROR_PREFIX : ErrorMessages.WARNING_PREFIX;
+  }
+
+  /** Counts a warning that is not suppressed: as error if warnings are treated as errors. */
+  private void countWarning(Warning warning) {
+    if (options.warningsAsErrors()) {
+      errors++;
+    } else {
+      reportedWarnings.add(warning);
     }
   }
 
