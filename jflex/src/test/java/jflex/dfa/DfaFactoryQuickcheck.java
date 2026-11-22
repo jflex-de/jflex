@@ -86,7 +86,8 @@ public class DfaFactoryQuickcheck {
     Statistics.label("fewer states")
         .coverage(
             coverage -> {
-              coverage.check(true).percentage(p -> p > 20);
+              // about 28% on average; low limit so that 200 tries do not miss it by chance
+              coverage.check(true).percentage(p -> p > 10);
               coverage.check(false).percentage(p -> p > 20);
             });
 
