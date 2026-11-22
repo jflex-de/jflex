@@ -146,6 +146,7 @@ public final class Macros {
     switch (definition.type) {
       case sym.BAR:
       case sym.CONCAT:
+      case sym.LOOKAHEAD:
         RegExp2 binary = (RegExp2) definition;
         binary.r1 = expandMacro(name, binary.r1);
         binary.r2 = expandMacro(name, binary.r2);
