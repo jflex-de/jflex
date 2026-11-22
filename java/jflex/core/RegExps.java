@@ -230,18 +230,45 @@ public class RegExps {
   }
 
   /**
-   * The approximate number of NFA states for all expressions.
+   * The approximate number of NFA states that {@link NFA#addRegExp(int)} creates for all
+   * expressions.
+   *
+   * <p>Assumes that lookahead cases are already resolved, see {@link #checkLookAheads()}.
    *
    * @param macros a {@link Macros} object.
-   * @return the sum of {@link RegExp#size(Macros)}.
+   * @return the number of states, exact up to negation as {@link RegExp#size(Macros)}.
    */
   public long NFASize(Macros macros) {
     long size = 0;
-    for (RegExp r : regExps) if (r != null) size += r.size(macros);
+    for (int i = 0; i < regExps.size(); i++) {
+      RegExp r = regExps.get(i);
+      RegExp lookAhead = look.get(i);
 
-    for (RegExp r : look) if (r != null) size += r.size(macros);
+      if (r != null) size += r.size(macros);
+      if (lookAhead == null) continue;
+
+      Action a = getAction(i);
+      if (a != null && a.lookAhead() == Action.Kind.FINITE_CHOICE) {
+        size += choicesSize(lookAhead, macros);
+      } else {
+        size += lookAhead.size(macros);
+        // the forward and the backward pass have their own NFAs
+        if (a != null && a.lookAhead() == Action.Kind.GENERAL_LOOK) {
+          size += lookAhead.size(macros);
+          if (r != null) size += r.size(macros);
+        }
+      }
+    }
 
     return size;
+  }
+
+  /** The number of NFA states for a finite choice lookahead. One NFA per choice. */
+  private static long choicesSize(RegExp lookAhead, Macros macros) {
+    if (lookAhead.type != sym.BAR) return lookAhead.size(macros);
+
+    RegExp2 r = (RegExp2) lookAhead;
+    return choicesSize(r.r1, macros) + choicesSize(r.r2, macros);
   }
 
   /** checkLookAheads. */
