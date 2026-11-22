@@ -131,7 +131,7 @@ State [FINAL] 6:
 
 
 7 states before minimization, 5 states in minimized DFA
-Miniminal DFA is
+Minimal DFA is
 State [FINAL] 0:
   with 1 in 1
   with 2 in 2
