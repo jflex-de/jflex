@@ -148,6 +148,8 @@
                 <lexDefinition>src/test/java/de/jflex/testcase/large_input/large_input.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/large_table/large.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/look/look.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/look_in_macro/LookInMacro.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/look_in_macro/LookInMacroRef.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/look_macro/lookmacro.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/macro_exp/macro.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/macro_exp/macro_prec.flex</lexDefinition>

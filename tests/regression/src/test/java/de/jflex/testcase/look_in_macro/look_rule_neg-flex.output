@@ -1,0 +1,40 @@
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_rule_neg.flex" (line 18): 
+Lookahead must be the top level operator.
+{m}*       { return 1; }
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_rule_neg.flex" (line 19): 
+Lookahead must be the top level operator.
+x {m}      { return 2; }
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_rule_neg.flex" (line 20): 
+Lookahead must be the top level operator.
+{m} | c    { return 3; }
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_rule_neg.flex" (line 21): 
+Lookahead must be the top level operator.
+{m} / c    { return 4; }
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_rule_neg.flex" (line 22): 
+Lookahead must be the top level operator.
+c / {m}    { return 5; }
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_rule_neg.flex" (line 23): 
+Lookahead must be the top level operator.
+(a / b)*   { return 6; }
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_rule_neg.flex" (line 24): 
+"|" action cannot be used with lookahead expressions
+{n}        |
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_rule_neg.flex" (line 25): 
+Lookahead must be the top level operator.
+{e}+       { return 7; }
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_rule_neg.flex" (line 26): 
+Lookahead must be the top level operator.
+[{m}]      { return 8; }
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_rule_neg.flex" (line 27): 
+Lookahead must be the top level operator.
+!(a $)     { return 9; }

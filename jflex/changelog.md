@@ -9,6 +9,8 @@
 
 - New `%counter_methods` directive that generates the access methods `yyline()`,
   `yycolumn()`, and `yychar()` for the counters that are turned on (#1178)
+- Lookahead (`r1 / r2`, `r $`) can now be used in macro definitions. It must
+  still be the outermost rule operator after macro expansion. (#1088, #1089)
 - Reduce runtime memory overhead: allocate the lookahead buffer on demand
   (#1106, #1136)
 - 10-20x performance improvement in constructing very large scanners. This is
