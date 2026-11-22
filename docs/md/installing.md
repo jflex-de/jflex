@@ -163,6 +163,10 @@ suppress warnings of type `<warning>`, where `<warning>` is one of\
 `unused`, `never-match`, `empty-match`, `cupsym-after-cup`, `unicode-too-long`,
 `all`.
 
+`--Werror`\
+treat warnings as errors and do not generate a scanner for a specification with
+warnings. Suppressed warnings do not count.
+
 `--time`\
 display time statistics about the code generation process (not very
 accurate)

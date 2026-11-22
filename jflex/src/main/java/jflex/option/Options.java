@@ -30,6 +30,9 @@ public class Options {
   /** Warnings that should not be printed. */
   private final Set<ErrorMessages> suppressedWarnings = new HashSet<>();
 
+  /** If true, warnings that are not suppressed are reported as errors. */
+  private boolean warningsAsErrors;
+
   /** output directory, or null for the directory of the spec */
   private File directory;
 
@@ -95,6 +98,7 @@ public class Options {
     legacyDot = false;
     encoding = Charset.defaultCharset();
     skeleton = Skeleton.DEFAULT;
+    warningsAsErrors = false;
     enableAllWarnings();
   }
 
@@ -114,6 +118,7 @@ public class Options {
     copy.legacyDot = legacyDot;
     copy.encoding = encoding;
     copy.skeleton = skeleton;
+    copy.warningsAsErrors = warningsAsErrors;
     copy.suppressedWarnings.addAll(suppressedWarnings);
     return copy;
   }
@@ -324,6 +329,19 @@ public class Options {
    */
   public void setSkeleton(File skeletonFile) {
     skeleton = Skeleton.readSkelFile(skeletonFile);
+  }
+
+  /** Whether warnings are reported as errors. */
+  public boolean warningsAsErrors() {
+    return warningsAsErrors;
+  }
+
+  /**
+   * Sets whether warnings are reported as errors, so that no scanner is generated for a spec with
+   * warnings (command line option {@code --Werror}). Suppressed warnings remain suppressed.
+   */
+  public void setWarningsAsErrors(boolean warningsAsErrors) {
+    this.warningsAsErrors = warningsAsErrors;
   }
 
   /**

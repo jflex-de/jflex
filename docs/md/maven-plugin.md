@@ -143,6 +143,10 @@ setting the corresponding property to `false`:
 `<suppressAllWarnings>true</suppressAllWarnings>` switches off all warnings and
 takes precedence over the single parameters.
 
+`<failOnWarning>true</failOnWarning>` treats warnings as errors. Warnings that
+are switched off do not fail the build. The parameter can also be set on the
+command line with `-Djflex.failOnWarning=true`.
+
 ```xml
       <plugin>
         <groupId>de.jflex</groupId>

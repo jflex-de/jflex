@@ -32,6 +32,8 @@ public final class Emitters {
   public static Emitter createFileEmitter(File inputLexFile, LexParse parser, DFA dfa)
       throws IOException {
 
+    Emitter.checkWarnings(parser.scanner);
+
     String name = Emitter.getBaseName(parser.scanner.className()) + ".java";
 
     File outputFile =
@@ -58,6 +60,7 @@ public final class Emitters {
    * @return {@link Emitter}.
    */
   public static Emitter createPrintWriterEmitter(LexParse parser, DFA dfa, PrintWriter writer) {
+    Emitter.checkWarnings(parser.scanner);
     return new Emitter(null, new File(""), parser, dfa, writer);
   }
 }

@@ -107,6 +107,13 @@ public class JFlexMojo extends AbstractMojo {
   @Parameter(defaultValue = "false")
   private boolean suppressAllWarnings;
 
+  /**
+   * Whether to treat warnings as errors and fail the build for a lexer spec with warnings. Warnings
+   * that are switched off do not fail the build.
+   */
+  @Parameter(property = "jflex.failOnWarning", defaultValue = "false")
+  private boolean failOnWarning;
+
   /** Whether to dump full debug information. */
   @Parameter(defaultValue = "false")
   private boolean dump;
@@ -279,6 +286,7 @@ public class JFlexMojo extends AbstractMojo {
       if (suppressAllWarnings) {
         options.suppressAllWarnings();
       }
+      options.setWarningsAsErrors(failOnWarning);
       options.setDot(dot);
       options.setLegacyDot(legacyDot);
       if (skeleton != null) {

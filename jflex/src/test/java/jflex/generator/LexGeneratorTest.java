@@ -24,6 +24,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import jflex.core.unicode.CharClasses;
 import jflex.dfa.DFA;
+import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
@@ -179,6 +180,28 @@ public class LexGeneratorTest {
     assertEquals(1, out.warnings());
     assertEquals(ErrorMessages.COUNTER_METHODS_UNUSED, out.reportedWarnings().get(0).message);
     assertFalse(generated.contains("yyline()"), generated);
+  }
+
+  /**
+   * If warnings are errors, a warning of code emission fails the run before the output file is
+   * written, and counts as an error.
+   */
+  @Test
+  public void generate_warningsAsErrors_emitterWarning() throws Exception {
+    Options options = new Options();
+    options.setDir(tmp);
+    options.setWarningsAsErrors(true);
+    ByteArrayOutputStream log = new ByteArrayOutputStream();
+    Out out = new Out(options, log);
+    File spec = writeSpec("NoCountersError", "%counter_methods");
+
+    assertThrows(GeneratorException.class, () -> new LexGenerator(spec, options, out).generate());
+
+    assertEquals(1, out.errors());
+    assertEquals(0, out.warnings());
+    assertTrue(log.toString().contains("Error: "), log.toString());
+    assertFalse(log.toString().contains("Warning"), log.toString());
+    assertFalse(new File(tmp, "NoCountersError.java").exists(), "no output file");
   }
 
   /** Two generators with different options do not affect each other. */
