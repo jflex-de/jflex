@@ -10,8 +10,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,7 +129,8 @@ public final class NFA {
   }
 
   /**
-   * Returns the estimated number of states of the NFA for a spec, as initial size of the NFA.
+   * Returns the estimated number of states of the NFA for a spec, as initial size of the NFA. Exact
+   * for a spec without negation, a lower bound otherwise.
    *
    * @param scanner the scanner of the spec, for the lexical states.
    * @param regExps the rules of the spec.
@@ -135,9 +138,17 @@ public final class NFA {
    * @throws GeneratorException if the estimate is more than an NFA can have.
    */
   static int initialSize(LexScan scanner, RegExps regExps, Macros macros) {
-    long estimate = regExps.NFASize(macros) + 2L * scanner.states.number();
+    // the entry states, see numEntryStates()
+    long estimate = 2L * (scanner.states.number() + regExps.gen_look_count);
+    estimate += regExps.NFASize(macros);
+    if (scanner.standalone) estimate += 2;
     if (estimate > Integer.MAX_VALUE) throw new GeneratorException(ErrorMessages.TABLE_TOO_LARGE);
     return (int) estimate;
+  }
+
+  /** The number of states this NFA has space for. Initially {@link #initialSize}. */
+  int capacity() {
+    return epsilon.length;
   }
 
   public StateSet epsilon(int i) {
@@ -300,7 +311,7 @@ public final class NFA {
   private void ensureCapacity(int newNumStates) {
     int oldLength = epsilon.length;
 
-    if (newNumStates < oldLength) return;
+    if (newNumStates <= oldLength) return;
 
     int newStatesLength = Math.max(oldLength * 2, newNumStates);
 
@@ -928,18 +939,28 @@ public final class NFA {
 
     switch (regExp.type) {
       case sym.BAR:
-        r = (RegExp2) regExp;
+        // a | b | c is (a | b) | c. We want all alternatives of such a chain to share one start and
+        // end
+        // state. A pair of states per "|" would make the epsilon closure quadratic in the length of
+        // the chain.
+        Deque<RegExp> alternatives = new ArrayDeque<>();
+        RegExp first = regExp;
+        while (first.type == sym.BAR) {
+          alternatives.push(((RegExp2) first).r2);
+          first = ((RegExp2) first).r1;
+        }
+        alternatives.push(first);
 
-        nfa1 = insertNFA(r.r1);
-        nfa2 = insertNFA(r.r2);
+        List<IntPair> nfas = new ArrayList<>();
+        for (RegExp alternative : alternatives) nfas.add(insertNFA(alternative));
 
-        start = nfa2.end() + 1;
-        end = nfa2.end() + 2;
+        start = nfas.get(nfas.size() - 1).end() + 1;
+        end = start + 1;
 
-        addEpsilonTransition(start, nfa1.start());
-        addEpsilonTransition(start, nfa2.start());
-        addEpsilonTransition(nfa1.end(), end);
-        addEpsilonTransition(nfa2.end(), end);
+        for (IntPair nfa : nfas) {
+          addEpsilonTransition(start, nfa.start());
+          addEpsilonTransition(nfa.end(), end);
+        }
 
         return IntPair.create(start, end);
 
