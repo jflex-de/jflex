@@ -13,18 +13,9 @@ package de.jflex.testcase.eol_look;
 
 %line
 %column
+%counter_methods
 
 %unicode
-
-%{
-  public int line() {
-    return yyline;
-  }
-
-  public int column() {
-    return yycolumn;
-  }
-%}
 
 %%
 

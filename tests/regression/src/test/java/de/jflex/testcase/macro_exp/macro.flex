@@ -11,18 +11,8 @@ package de.jflex.testcase.macro_exp;
 
 %line
 %column
+%counter_methods
 
-%{
-  /** Line of the current match, counted from 0. */
-  public int line() {
-    return yyline;
-  }
-
-  /** Column of the current match, counted from 0. */
-  public int column() {
-    return yycolumn;
-  }
-%}
 operatorChar=([\+\-\*\/\<\>\=\~\!\@\#\%\^\&\|\`\?\$])
 illegalOperator=(({operatorChar}*("--"|"/*"){operatorChar}*)|({operatorChar}+[\-\/]))
 operator=(!(!({operatorChar}+)|{illegalOperator}))

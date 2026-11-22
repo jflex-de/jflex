@@ -13,18 +13,7 @@ package de.jflex.testcase.ccl_macros;
 
 %line
 %column
-
-%{
-  /** Line of the current match, counted from 0. */
-  public int line() {
-    return yyline;
-  }
-
-  /** Column of the current match, counted from 0. */
-  public int column() {
-    return yycolumn;
-  }
-%}
+%counter_methods
 
 A = [A]
 NCD = [^CD]

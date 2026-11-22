@@ -13,20 +13,11 @@ package de.jflex.testcase.genlook;
 
 %line
 %column
+%counter_methods
 
 %unicode
 
 %states YYINITIAL, END
-
-%{
-  public int line() {
-    return yyline;
-  }
-
-  public int column() {
-    return yycolumn;
-  }
-%}
 
 %%
 

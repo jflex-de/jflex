@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/dot_newline/dotnewline.flex",
     // the never-match warning for [^]
-    warnings = @Warn(value = ErrorMessages.NEVER_MATCH, line = 39),
+    warnings = @Warn(value = ErrorMessages.NEVER_MATCH, line = 28),
     quiet = true,
     minimizedDfaStatesCount = 5,
     minimizedDfa = {
@@ -81,8 +81,8 @@ public class DotnewlineTest implements JFlexTest {
     assertEquals(rule, scanner.yylex(), "rule " + at);
     assertEquals(text, scanner.yytext(), "text " + at);
     assertEquals(text.length(), scanner.yylength(), "length " + at);
-    assertEquals(line, scanner.line(), "line " + at);
-    assertEquals(column, scanner.column(), "column " + at);
+    assertEquals(line, scanner.yyline(), "line " + at);
+    assertEquals(column, scanner.yycolumn(), "column " + at);
   }
 
   private void assertEof() throws IOException {

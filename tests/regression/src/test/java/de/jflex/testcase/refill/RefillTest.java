@@ -121,13 +121,13 @@ public class RefillTest implements JFlexTest {
   public void lineCountAfterCarriageReturnAtEndOfBuffer() throws Exception {
     Refill scanner = new Refill(new StringReader("bbb\r\nbbb\rb"));
     assertEquals("bbb\r", scanner.yylex());
-    assertEquals(0, scanner.line());
+    assertEquals(0, scanner.yyline());
     assertEquals("\n", scanner.yylex());
-    assertEquals(0, scanner.line(), "\\r\\n is one line end");
+    assertEquals(0, scanner.yyline(), "\\r\\n is one line end");
     assertEquals("bbb\r", scanner.yylex());
-    assertEquals(1, scanner.line());
+    assertEquals(1, scanner.yyline());
     assertEquals("b", scanner.yylex());
-    assertEquals(2, scanner.line());
+    assertEquals(2, scanner.yyline());
     assertNull(scanner.yylex());
   }
 
@@ -234,7 +234,7 @@ public class RefillTest implements JFlexTest {
           int start = 0;
           for (String expected : expectedTokens(input)) {
             assertEquals(expected, scanner.yylex(), description);
-            assertEquals(expectedLine(input, start), scanner.line(), "line, " + description);
+            assertEquals(expectedLine(input, start), scanner.yyline(), "line, " + description);
             start += expected.length();
           }
           assertNull(scanner.yylex(), description);

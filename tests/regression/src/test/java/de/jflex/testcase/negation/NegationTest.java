@@ -29,8 +29,8 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/negation/negation.flex",
     warnings = {
-      @Warn(value = ErrorMessages.EMPTY_MATCH, line = 33),
-      @Warn(value = ErrorMessages.NEVER_MATCH, line = 34)
+      @Warn(value = ErrorMessages.EMPTY_MATCH, line = 22),
+      @Warn(value = ErrorMessages.NEVER_MATCH, line = 23)
     },
     quiet = true,
     minimizedDfaStatesCount = 1,
@@ -59,8 +59,8 @@ public class NegationTest implements JFlexTest {
     assertEquals(ALL, scanner.yylex(), "rule");
     assertEquals(input, scanner.yytext(), "text");
     assertEquals(input.length(), scanner.yylength(), "length");
-    assertEquals(0, scanner.line(), "line");
-    assertEquals(0, scanner.column(), "column");
+    assertEquals(0, scanner.yyline(), "line");
+    assertEquals(0, scanner.yycolumn(), "column");
     assertEquals(Negation.YYEOF, scanner.yylex());
     assertTrue(scanner.yyatEOF());
   }

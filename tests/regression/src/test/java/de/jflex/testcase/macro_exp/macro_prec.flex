@@ -12,18 +12,7 @@ package de.jflex.testcase.macro_exp;
 
 %line
 %column
-
-%{
-  /** Line of the current match, counted from 0. */
-  public int line() {
-    return yyline;
-  }
-
-  /** Column of the current match, counted from 0. */
-  public int column() {
-    return yycolumn;
-  }
-%}
+%counter_methods
 
 // No parentheses around the macro bodies and usages
 A = a|b

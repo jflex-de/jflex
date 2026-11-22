@@ -12,19 +12,13 @@ package de.jflex.testcase.genlook2;
 %integer
 
 %char
+%counter_methods
 
 %unicode
 
 %buffer 10
 
 %states YYINITIAL
-
-%{
-  /** Offset of the current match from the start of input, counted from 0. */
-  public long offset() {
-    return yychar;
-  }
-%}
 
 %%
 

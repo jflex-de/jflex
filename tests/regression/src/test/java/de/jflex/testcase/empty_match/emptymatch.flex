@@ -12,14 +12,8 @@ package de.jflex.testcase.empty_match;
 
 %int
 %char
+%counter_methods
 %state A, B
-
-%{
-  /** Offset of the current match from the start of input, counted from 0. */
-  public long offset() {
-    return yychar;
-  }
-%}
 
 %%
 

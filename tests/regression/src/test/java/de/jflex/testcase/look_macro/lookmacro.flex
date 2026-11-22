@@ -11,16 +11,7 @@ package de.jflex.testcase.look_macro;
 
 %line
 %column
-
-%{
-  public int line() {
-    return yyline;
-  }
-
-  public int column() {
-    return yycolumn;
-  }
-%}
+%counter_methods
 
 foo="<foo>"|":"
 bar=([:letter:])+
