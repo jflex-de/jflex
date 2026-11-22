@@ -133,6 +133,7 @@
                 <lexDefinition>src/test/java/de/jflex/testcase/eofclose/eofnoclose.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/eol_comment/eolcomment.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/eol_look/eol.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/finite_look/FiniteLook.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/fixed_look/fixedlook.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/generics/generics.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/generics/generics2.flex</lexDefinition>
@@ -153,6 +154,7 @@
                 <lexDefinition>src/test/java/de/jflex/testcase/many_lex_states/ManyLexStates.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/negation/negation.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/negation/negation2.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/nevermatch/SameAction.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/refill/refill.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/refill/refill-bol.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/refill/refill-limit.flex</lexDefinition>

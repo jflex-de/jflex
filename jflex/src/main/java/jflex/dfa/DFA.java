@@ -14,10 +14,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import jflex.core.Action;
 import jflex.core.EOFActions;
 import jflex.core.LexParse;
@@ -73,6 +75,12 @@ public class DFA {
 
   /** all actions that are used in this DFA */
   private final Map<Action, Action> usedActions = new HashMap<>();
+
+  /**
+   * The priorities of all actions that are used in this DFA. The priority identifies the rule of an
+   * action.
+   */
+  private final Set<Integer> usedRules = new HashSet<>();
 
   /** True iff this DFA contains general lookahead */
   private boolean lookaheadUsed;
@@ -158,6 +166,7 @@ public class DFA {
     action[state] = stateAction;
     if (stateAction != null) {
       usedActions.put(stateAction, stateAction);
+      usedRules.add(stateAction.priority);
       lookaheadUsed |= stateAction.isGenLookAction();
       minimized = false;
     }
@@ -265,6 +274,7 @@ public class DFA {
     result.action = action.clone();
     result.entryState = entryState.clone();
     result.usedActions.putAll(usedActions);
+    result.usedRules.addAll(usedRules);
     result.lookaheadUsed = lookaheadUsed;
     result.minimized = minimized;
     return result;
@@ -632,12 +642,19 @@ public class DFA {
     return result.toString();
   }
 
-  /** Checks that all actions can actually be matched in this DFA. */
+  /**
+   * Checks that all rules can actually be matched in this DFA.
+   *
+   * <p>A rule can be matched if a state has its action. A spec rule with multiple finite lookahead
+   * choices translates into multiple rules with the same priority in the DFA. Since these lookahead
+   * choices are internal to the rule, we need only one of these actions to be able to match (like
+   * for standard {@code |}). We still want a warning if none of the rules in the choice can match.
+   */
   public void checkActions(LexScan scanner, LexParse parser) {
     EOFActions eofActions = parser.getEOFActions();
 
     for (Action a : scanner.actions())
-      if (!Objects.equals(a, usedActions.get(a)) && !eofActions.isEOFAction(a))
+      if (!usedRules.contains(a.priority) && !eofActions.isEOFAction(a))
         scanner.out().warning(a.file, ErrorMessages.NEVER_MATCH, a.line - 1, -1);
   }
 

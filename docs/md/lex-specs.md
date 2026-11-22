@@ -960,7 +960,13 @@ is a true trailing context, the end of file does **not** count as end of
 line.
 
 For arbitrary look-ahead (also called _trailing context_) the expression is
-matched only when followed by input that matches the trailing context.
+matched only when followed by input that matches the trailing context. If
+there is more than one way to split the input into `r` and its trailing
+context, `r` will be the longest match.
+
+This also holds for `$`. For example when the input is `ab\r\n`, the expression
+`[^\n]+$` matches `ab\r` with `\n` as the end of the line. To leave the `\r` to
+the end of the line, exclude it from the match: `[^\r\n]+$` matches `ab`.
 
 JFlex allows lex/flex style `<<EOF>>` rules in lexical specifications. A rule
 

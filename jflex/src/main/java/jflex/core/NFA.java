@@ -217,9 +217,6 @@ public final class NFA {
 
       if (a != null && a.lookAhead() == Action.Kind.FINITE_CHOICE) {
         insertLookAheadChoices(nfa.end(), a, regExps.getLookAhead(regExpNum));
-        // remove the original action from the collection: it will never
-        // be matched directly, only its copies will.
-        scanner.actions.remove(a);
       } else {
         RegExp r1 = regExps.getRegExp(regExpNum);
         RegExp r2 = regExps.getLookAhead(regExpNum);
@@ -278,13 +275,9 @@ public final class NFA {
 
         addEpsilonTransition(baseEnd, look.start());
 
-        Action x = a.copyChoice(len);
-        action[look.end()] = x;
+        // the original action is never matched directly, only its copies are
+        action[look.end()] = a.copyChoice(len);
         isFinal[look.end()] = true;
-
-        // add new copy to the collection of known actions such that
-        // it can be checked for the NEVER_MATCH warning.
-        scanner.actions.add(x);
       } else {
         // should never happen
         throw new RegExpException(lookAhead);
