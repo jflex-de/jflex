@@ -284,7 +284,6 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 // [LB11 is partially handled through lookaheads in the following rules]
 //
 \p{LB:WJ} ({CM} | \p{LB:ZWJ})* / [^] { addMatch(); }
-\p{LB:WJ} ({CM} | \p{LB:ZWJ})* { addMatch(); }
 
 
 // Non-breaking characters:
@@ -294,7 +293,6 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 // GL ×
 //
 \p{LB:GL} ({CM} | \p{LB:ZWJ})* / [^] { addMatch(); }
-\p{LB:GL} ({CM} | \p{LB:ZWJ})* { addMatch(); }
 
 // 6.3 Tailorable Line Breaking Rules
 //
@@ -343,7 +341,6 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 // OP SP* ×
 //
 \p{LB:OP} ({CM} | \p{LB:ZWJ})* \p{LB:SP}* / [^] { addMatch(); }
-\p{LB:OP} ({CM} | \p{LB:ZWJ})* \p{LB:SP}* { addMatch(); }
 
 
 // LB15  Do not break within ‘”[’, even with intervening spaces.
@@ -399,7 +396,6 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 // [LB19 is partially handled through lookaheads in following rules]
 //
 \p{LB:QU} ({CM} | \p{LB:ZWJ})* / [^] { addMatch(); }
-\p{LB:QU} ({CM} | \p{LB:ZWJ})* { addMatch(); }
 
 
 // LB20  Break before and after unresolved CB.
@@ -420,7 +416,6 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 \p{LB:CB} ({CM} | \p{LB:ZWJ})* / [\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:SP}\p{LB:ZW}\p{LB:WJ}\p{LB:CL}\p{LB:CP}\p{LB:EX}\p{LB:IS}\p{LB:SY}\p{LB:QU}] { addMatch(); }
 \p{LB:CB} ({CM} | \p{LB:ZWJ})* / [^] { addMatch(); return nextSegment(); }
-\p{LB:CB} ({CM} | \p{LB:ZWJ})* { addMatch(); return nextSegment(); }
 
 
 // LB21  Do not break before hyphen-minus, other hyphens, fixed-width spaces,
@@ -434,7 +429,6 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 \p{LB:BB} ({CM} | \p{LB:ZWJ})* / \p{LB:CB} { addMatch(); return nextSegment(); }
 \p{LB:BB} ({CM} | \p{LB:ZWJ})* / [^] { addMatch(); }
-\p{LB:BB} ({CM} | \p{LB:ZWJ})* { addMatch(); }
 
 // LB21a  Don't break after Hebrew + Hyphen
 //

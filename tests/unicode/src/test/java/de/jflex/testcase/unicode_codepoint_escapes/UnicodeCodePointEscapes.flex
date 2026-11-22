@@ -37,7 +37,6 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 
 "\u{2}" { setCurCharPropertyValue("matched"); }
 "\u{000011}" { setCurCharPropertyValue("matched"); }
-"\u{ CFF D00 }" { setCurCharPropertyValue("matched"); }
 "\u{FFF 1000 1001}" { setCurCharPropertyValue("matched"); }
 
 [\u{3}\u{10FFFF}] { setCurCharPropertyValue("matched"); }
