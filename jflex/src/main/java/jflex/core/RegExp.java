@@ -298,7 +298,67 @@ public class RegExp {
   }
 
   /**
+   * Find out if a lookahead node ({@link sym#LOOKAHEAD}) occurs anywhere in a regular expression.
+   *
+   * <p>Does not look into macro definitions, i.e. is only complete after macro expansion.
+   *
+   * @param r the expression to search, can be {@code null} (for expressions with syntax errors)
+   * @return true if the expression contains a lookahead node.
+   */
+  @SuppressWarnings("unchecked")
+  static boolean containsLookAhead(RegExp r) {
+    if (r == null) return false;
+
+    switch (r.type) {
+      case sym.LOOKAHEAD:
+        return true;
+
+      case sym.BAR:
+      case sym.CONCAT:
+        RegExp2 binary = (RegExp2) r;
+        return containsLookAhead(binary.r1) || containsLookAhead(binary.r2);
+
+      case sym.STAR:
+      case sym.PLUS:
+      case sym.QUESTION:
+      case sym.BANG:
+      case sym.TILDE:
+        return containsLookAhead((RegExp) ((RegExp1) r).content);
+
+      case sym.CCLASS:
+      case sym.CCLASSNOT:
+        // not possible syntactically, but possible by macro expansion, e.g. [{m}]
+        for (RegExp c : (List<RegExp>) ((RegExp1) r).content) {
+          if (containsLookAhead(c)) return true;
+        }
+        return false;
+
+      case sym.CCLASSOP:
+        RegExp2 op = (RegExp2) ((RegExp1) r).content;
+        return containsLookAhead(op.r1) || containsLookAhead(op.r2);
+
+      default:
+        return false;
+    }
+  }
+
+  /**
+   * Find out if this expression has a lookahead node ({@link sym#LOOKAHEAD}) that is not the root
+   * of the expression. Such an expression is not valid in any rule.
+   *
+   * @return true if there is a lookahead node below the root.
+   */
+  public final boolean hasNestedLookAhead() {
+    if (type != sym.LOOKAHEAD) return containsLookAhead(this);
+
+    RegExp2 look = (RegExp2) this;
+    return containsLookAhead(look.r1) || containsLookAhead(look.r2);
+  }
+
+  /**
    * Normalise the regular expression to eliminate macro use (expand them).
+   *
+   * <p>Keeps lookahead nodes ({@link sym#LOOKAHEAD}), see {@link RegExps#normaliseMacros}.
    *
    * @return a regexp that contains no {@link sym#MACROUSE}.
    */
@@ -311,6 +371,7 @@ public class RegExp {
     switch (type) {
       case sym.BAR:
       case sym.CONCAT:
+      case sym.LOOKAHEAD:
         binary = (RegExp2) this;
         return new RegExp2(type, binary.r1.normaliseMacros(m), binary.r2.normaliseMacros(m));
 

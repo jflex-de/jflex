@@ -585,7 +585,7 @@ matched.
 
 A macro definition has the form
 
-    macroidentifier = regular expression
+    macroidentifier = regular expression [look-ahead]
 
 That means, a macro definition is a macro identifier (letter followed by a
 sequence of letters, digits or underscores), that can later be used to
@@ -595,9 +595,25 @@ followed by optional white-space, followed by a regular expression (see
 syntax).
 
 The regular expression on the right hand side must be well formed and
-must not contain the `^`, `/` or `$` operators. *Differently to JLex,
+must not contain the `^` operator. *Differently to JLex,
 macros are not just pieces of text that are expanded by copying* - they
 are parsed and must be well formed.
+
+The right hand side is allowed to end in a look-ahead expression (`/` or `$`,
+see [Lexical Rules](#LexRules)), but look-ahead is not allowed to occur inside
+other operators when expanded.
+
+For example
+
+    stopped = [a-z]+ / "stop"
+    %%
+    {stopped}   { action }
+
+is allowed, but
+
+    {stopped}*  { action }
+
+is not.
 
 **This is a feature.** It eliminates some very hard to find bugs in lexical
 specifications (such like not having parentheses around more complicated
@@ -637,12 +653,12 @@ EBNF grammar (terminal symbols are enclosed in ’quotes’):
                    | StateGroup
     StateGroup   ::= StateList '{' Rule+ '}'
     StateList    ::= '<' Identifier (',' Identifier)* '>'
-    LookAhead    ::= '$' | '/' RegExp
+    LookAhead    ::= '$' | '/' RegExp ['$']
     Action       ::= '{' JavaCode '}' | '|'
 
     RegExp       ::= RegExp '|' RegExp
                    | RegExp RegExp
-                   | '(' RegExp ')'
+                   | '(' RegExp [LookAhead] ')'
                    | ('!'|'~') RegExp
                    | RegExp ('*'|'+'|'?')
                    | RegExp "{" Number ["," Number] "}"

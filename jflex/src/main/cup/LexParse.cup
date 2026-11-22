@@ -236,14 +236,14 @@ terminal STRING_I, CHAR_I;  /* case insensitive strings/chars */
 non terminal            macros, macro;
 non terminal Integer    rule;
 non terminal NFA        specification;
-non terminal RegExp     series, concs, nregexp, regexp, charclass, lookahead;
+non terminal RegExp     series, concs, nregexp, regexp, charclass, lookahead, lookexp;
 non terminal RegExp     opt_hat_content, classcontentelem;
 non terminal Integer    preclass;
 non terminal List<RegExp>  opt_dash_content, classcontent;
 non terminal List<Integer> states, statesOPT, rules;
 non terminal Integer    charclass_op;
 non terminal Boolean    hatOPT;
-non terminal Action     act, actions;
+non terminal Action     act;
 
 
 /* grammar specification */
@@ -269,7 +269,7 @@ specification ::=  USERCODE
                      }
 
                      // expand macros + char classes in rules and lookahead rules
-                     regExps.normaliseMacros(macros);
+                     regExps.normaliseMacros(macros, scanner.file, out);
                      // make char class partitions (modifies charClasses)
                      if (null == scanner.charClasses) {
                        scanner.initCharClasses(AbstractLexScan.CharSetSize.UNICODE);
@@ -329,8 +329,15 @@ macros        ::=  /* empty, most switches & state declarations are parsed in le
                 | macros macro
                 | error;
 
-macro         ::= IDENT:name EQUALS series:definition REGEXPEND
-                   {: macros.insert(name, definition); :}
+macro         ::= IDENT:name EQUALS lookexp:definition REGEXPEND
+                   {:
+                     // null for a syntax error that is already reported
+                     if (definition != null && definition.hasNestedLookAhead()) {
+                       syntaxError(ErrorMessages.LOOKAHEAD_NOT_TOP_LEVEL,
+                                   definitionleft, definitionright);
+                     }
+                     macros.insert(name, definition);
+                   :}
                 | IDENT EQUALS:e
                    {: syntaxError(ErrorMessages.REGEXP_EXPECTED, eleft, eright); :}
                 ;
@@ -363,17 +370,38 @@ rules         ::=  rules:rlist rule:r
                    {: RESULT = new ArrayList<Integer>(); RESULT.add(r); :}
                 ;
 
-rule          ::=  statesOPT:s hatOPT:bol series:r actions:a
-                   {: RESULT = regExps.insert(rleft, s, r, a, bol, null); :}
-                |  statesOPT:s hatOPT:bol series:r lookahead:l act:a
-                   {: RESULT = regExps.insert(rleft, s, r, a, bol, l); :}
-                |  statesOPT:s hatOPT:bol series:r lookahead:l NOACTION:a
-                   {: syntaxError(ErrorMessages.LOOKAHEAD_NEEDS_ACTION, aleft, aright+1); :}
+rule          ::=  statesOPT:s hatOPT:bol lookexp:r act:a
+                   {:
+                     if (r != null && r.type == sym.LOOKAHEAD) {
+                       RegExp2 look = (RegExp2) r;
+                       RESULT = regExps.insert(rleft, s, look.r1, a, bol, look.r2);
+                     }
+                     else {
+                       RESULT = regExps.insert(rleft, s, r, a, bol, null);
+                     }
+                   :}
+                |  statesOPT:s hatOPT:bol lookexp:r NOACTION:a
+                   {:
+                     if (r != null && r.type == sym.LOOKAHEAD) {
+                       syntaxError(ErrorMessages.LOOKAHEAD_NEEDS_ACTION, aleft, aright+1);
+                     }
+                     else {
+                       RESULT = regExps.insert(rleft, s, r, null, bol, null);
+                     }
+                   :}
                 |  statesOPT:s EOFRULE ACTION:a
                    {: RESULT = regExps.insert(s, a); :}
                 |  statesOPT:s EOFRULE NOACTION
                    {: RESULT = regExps.insert(s, null); :}
                 |  error
+                ;
+
+/* Regular expression with optional lookahead. Lookahead is only valid at
+   top level. This is checked after macro expansion. */
+lookexp       ::=  series:r
+                   {: RESULT = r; :}
+                |  series:r lookahead:l
+                   {: RESULT = new RegExp2(sym.LOOKAHEAD, r, l); :}
                 ;
 
 lookahead     ::=  DOLLAR
@@ -387,11 +415,6 @@ lookahead     ::=  DOLLAR
 act           ::=  REGEXPEND ACTION:a
                    {: RESULT = a; :}
 				;
-
-actions       ::=  act:a
-                   {: RESULT = a; :}
-                |  NOACTION
-                ;
 
 
 statesOPT     ::=  LESSTHAN states:list MORETHAN
@@ -471,7 +494,7 @@ regexp        ::=  regexp:r STAR
                    {: RESULT = makeRepeat(r, n, n, bleft, bright); :}
                 |  regexp:r REPEAT:n1 REPEAT:n2 RBRACE
                    {: RESULT = makeRepeat(r, n1, n2, n1left, n2right); :}
-                |  OPENBRACKET series:r CLOSEBRACKET
+                |  OPENBRACKET lookexp:r CLOSEBRACKET
                    {: RESULT = r; :}
                 |  MACROUSE:ident
                    {:

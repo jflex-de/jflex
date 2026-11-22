@@ -1,0 +1,25 @@
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_macro_def_neg.flex" (line 12): 
+Lookahead must be the top level operator.
+star = (a / b)*
+              ^
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_macro_def_neg.flex" (line 14): 
+Lookahead must be the top level operator.
+concat = c (a $)
+               ^
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_macro_def_neg.flex" (line 15): 
+Lookahead must be the top level operator.
+base = (a / b) / c
+                 ^
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_macro_def_neg.flex" (line 16): 
+Lookahead must be the top level operator.
+look = a / (b $)
+               ^
+
+Error in file "src/test/java/de/jflex/testcase/look_in_macro/look_macro_def_neg.flex" (line 18): 
+Lookahead must be the top level operator.
+bar = a | (b / c)
+                ^

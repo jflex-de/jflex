@@ -314,13 +314,50 @@ public class RegExps {
     }
   }
 
-  /** Expand all macro calls in regexp and lookahead rules. */
-  public void normaliseMacros(Macros m) {
+  /**
+   * Expand all macro calls in regexp and lookahead rules.
+   *
+   * <p>A macro can define an expression with lookahead ({@code m = a / b}). If such an expression
+   * is the entire expression of a rule after expansion, the rule becomes a lookahead rule.
+   * Lookahead in any other position is reported as error.
+   *
+   * @param m the macro definitions, already expanded
+   * @param f the spec file for error reporting
+   * @param out the output of this generator run, for error reporting
+   */
+  public void normaliseMacros(Macros m, File f, Out out) {
     List<RegExp> newRegExps = new ArrayList<RegExp>();
     List<RegExp> newLook = new ArrayList<RegExp>();
 
-    for (RegExp r : regExps) newRegExps.add(r == null ? r : r.normaliseMacros(m));
-    for (RegExp r : look) newLook.add(r == null ? r : r.normaliseMacros(m));
+    for (int i = 0; i < regExps.size(); i++) {
+      RegExp r = regExps.get(i);
+      RegExp l = look.get(i);
+
+      if (r != null) r = r.normaliseMacros(m);
+      if (l != null) l = l.normaliseMacros(m);
+
+      // the action stores which file the rule came from
+      Action a = getAction(i);
+      File file = a == null ? f : a.file;
+
+      // a lookahead from a macro at the top level of a rule without lookahead
+      if (r != null && r.type == sym.LOOKAHEAD && l == null) {
+        if (actions.get(i) == null) {
+          // "|" action not allowed, the action stores the lookahead kind and cannot be shared
+          out.error(file, ErrorMessages.LOOKAHEAD_NEEDS_ACTION, lines.get(i), -1);
+        }
+        RegExp2 lookExp = (RegExp2) r;
+        r = lookExp.r1;
+        l = lookExp.r2;
+      }
+
+      if (RegExp.containsLookAhead(r) || RegExp.containsLookAhead(l)) {
+        out.error(file, ErrorMessages.LOOKAHEAD_NOT_TOP_LEVEL, lines.get(i), -1);
+      }
+
+      newRegExps.add(r);
+      newLook.add(l);
+    }
 
     this.regExps = newRegExps;
     this.look = newLook;
