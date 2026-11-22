@@ -48,6 +48,133 @@ public class DfaTest {
     assertFalse(dfa.isIsomorphicTo(copy));
   }
 
+  @Test
+  public void equalsSameStates() {
+    DFA dfa = example();
+    assertEqualBothWays(dfa, dfa);
+    assertEqualBothWays(dfa, example());
+    assertNotEquals(dfa, null);
+    assertNotEquals(dfa, "DFA");
+
+    // in contrast to isIsomorphicTo, state numbers and unreachable states count
+    assertNotEquals(dfa, dfa.canonical());
+    DFA otherUnreachable = example();
+    otherUnreachable.addTransition(3, 1, 3);
+    assertNotEqualBothWays(dfa, otherUnreachable);
+
+    DFA otherTransition = example();
+    otherTransition.addTransition(2, 1, 1);
+    assertNotEqualBothWays(dfa, otherTransition);
+
+    DFA otherEntry = example();
+    otherEntry.setEntryState(1, 0);
+    assertNotEqualBothWays(dfa, otherEntry);
+
+    DFA otherFinal = example();
+    otherFinal.setFinal(1, false);
+    assertNotEqualBothWays(dfa, otherFinal);
+  }
+
+  @Test
+  public void equalsComparesCounts() {
+    // an additional non-final state without transitions
+    assertNotEqualBothWays(new DFA(2, 1, 1, 2), new DFA(2, 1, 1, 3));
+    // inputs
+    assertNotEqualBothWays(new DFA(2, 1, 1, 2), new DFA(2, 2, 1, 2));
+    assertNotEqualBothWays(new DFA(2, 1, 1), new DFA(2, 2, 1));
+    // lexical states
+    assertNotEqualBothWays(new DFA(4, 1, 1), new DFA(4, 1, 2));
+    // entry states
+    assertNotEqualBothWays(new DFA(2, 1, 1), new DFA(4, 1, 1));
+  }
+
+  @Test
+  public void equalsComparesActionsOfFinalStates() {
+    DFA dfa = example();
+
+    // equivalent actions: same code and lookahead, but priority is ignored
+    DFA sameAction = example();
+    sameAction.setAction(0, new Action("return a[i];", 7));
+    assertEqualBothWays(dfa, sameAction);
+
+    DFA otherAction = example();
+    otherAction.setAction(0, new Action("return a[j];", 1));
+    assertNotEqualBothWays(dfa, otherAction);
+
+    // an action that was set and replaced leaves no trace
+    DFA replacedAction = example();
+    replacedAction.setAction(0, new Action("return a[j];", 1));
+    replacedAction.setAction(0, new Action("return a[i];", 1));
+    assertEqualBothWays(dfa, replacedAction);
+
+    // the action of a state that is not final is not compared
+    DFA actionOnNonFinal = example();
+    actionOnNonFinal.setAction(2, new Action("return 2;", 2));
+    assertEqualBothWays(dfa, actionOnNonFinal);
+  }
+
+  /** Rows of the internal arrays beyond the number of states are not part of the DFA. */
+  @Test
+  public void equalsIgnoresRowsBeyondNumStates() {
+    DFA dfa = example();
+    DFA leftover = example();
+    int row = leftover.numStates();
+    leftover.table[row][0] = 1;
+    leftover.isFinal[row] = true;
+    leftover.setAction(row, new Action("return 5;", 5));
+    assertEquals(dfa.numStates(), leftover.numStates());
+    assertEqualBothWays(dfa, leftover);
+  }
+
+  /**
+   * A minimized DFA equals a newly built DFA with the same states, although its arrays still have
+   * the capacity and the rows of the DFA before minimization.
+   */
+  @Test
+  public void equalsAfterMinimize() {
+    Action a = new Action("return 1;", 1);
+    // more states than the initial capacity; all states from 1 on are equivalent
+    int n = 600;
+    DFA big = new DFA(2, 1, 1);
+    big.setEntryState(0, 0);
+    big.setEntryState(1, 0);
+    for (int i = 0; i < n - 1; i++) {
+      big.addTransition(i, 0, i + 1);
+    }
+    big.addTransition(n - 1, 0, n - 1);
+    for (int i = 1; i < n; i++) {
+      big.setFinal(i, true);
+      big.setAction(i, a);
+    }
+    assertEquals(n, big.numStates());
+    assertTrue(big.table.length > new DFA(2, 1, 1).table.length);
+
+    DFA small = new DFA(2, 1, 1);
+    small.setEntryState(0, 0);
+    small.setEntryState(1, 0);
+    small.addTransition(0, 0, 1);
+    small.addTransition(1, 0, 1);
+    small.setFinal(1, true);
+    small.setAction(1, new Action("return 1;", 2));
+
+    assertNotEqualBothWays(big, small);
+    big.minimize();
+    assertEquals(2, big.numStates());
+    assertEqualBothWays(big, small);
+    assertEqualBothWays(big, big.copy());
+  }
+
+  private static void assertEqualBothWays(DFA a, DFA b) {
+    assertEquals(a, b);
+    assertEquals(b, a);
+    assertEquals(a.hashCode(), b.hashCode());
+  }
+
+  private static void assertNotEqualBothWays(DFA a, DFA b) {
+    assertNotEquals(a, b);
+    assertNotEquals(b, a);
+  }
+
   /**
    * A DFA for one lexical state over three inputs. Entry state is state 2. State 3 is unreachable.
    */

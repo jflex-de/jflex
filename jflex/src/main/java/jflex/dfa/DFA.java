@@ -228,23 +228,46 @@ public class DFA {
 
   @Override
   public int hashCode() {
-    return Arrays.deepHashCode(table);
+    int result = Objects.hash(numInput, numLexStates, numStates);
+    result = 31 * result + Arrays.hashCode(entryState);
+    for (int i = 0; i < numStates; i++) {
+      result = 31 * result + Arrays.hashCode(table[i]);
+      // as in equals(), the action only counts for final states
+      result = 31 * result + (isFinal[i] ? 1 + Objects.hashCode(action[i]) : 0);
+    }
+    return result;
   }
 
+  /**
+   * Returns true iff the other object is a DFA with the same number of states, inputs and lexical
+   * states, the same entry states, and the same transitions, final states and actions for each
+   * state. In contrast to {@link #isIsomorphicTo(DFA)}, the states must have the same numbers and
+   * unreachable states count.
+   *
+   * <p>Actions are compared for final states only, as in {@link #minimize()}, and with {@link
+   * Action#equals(Object)}, which ignores the priority of an action. The capacity of the internal
+   * arrays and the set of actions that were ever set (see {@link #checkActions}) are not part of
+   * equality.
+   */
   @Override
   public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
     if (!(obj instanceof DFA)) {
       return false;
     }
-    return Arrays.equals(isFinal, ((DFA) obj).isFinal)
-        && Arrays.equals(entryState, ((DFA) obj).entryState)
-        && Arrays.equals(action, ((DFA) obj).action)
-        && tableEquals(table, ((DFA) obj).table);
-  }
-
-  private static boolean tableEquals(int[][] a, int[][] b) {
-    for (int i = 0; i < a.length; i++) {
-      if (!Arrays.equals(a[i], b[i])) {
+    DFA other = (DFA) obj;
+    if (numInput != other.numInput
+        || numLexStates != other.numLexStates
+        || numStates != other.numStates
+        || !Arrays.equals(entryState, other.entryState)) {
+      return false;
+    }
+    for (int i = 0; i < numStates; i++) {
+      if (isFinal[i] != other.isFinal[i]
+          || (isFinal[i] && !Objects.equals(action[i], other.action[i]))
+          || !Arrays.equals(table[i], other.table[i])) {
         return false;
       }
     }
