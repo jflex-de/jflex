@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/empty_match/emptymatch.flex",
     // the empty match warning for ""
-    warnings = @Warn(value = ErrorMessages.EMPTY_MATCH, line = 32),
+    warnings = @Warn(value = ErrorMessages.EMPTY_MATCH, line = 26),
     quiet = true,
     minimizedDfaStatesCount = 9,
     minimizedDfa = {
@@ -85,7 +85,7 @@ public class EmptymatchTest implements JFlexTest {
     assertEquals(rule, scanner.yylex(), "rule " + at);
     assertEquals(text, scanner.yytext(), "text " + at);
     assertEquals(text.length(), scanner.yylength(), "length " + at);
-    assertEquals(offset, scanner.offset(), "offset " + at);
+    assertEquals(offset, scanner.yychar(), "offset " + at);
     assertEquals(state, scanner.yystate(), "state " + at);
   }
 

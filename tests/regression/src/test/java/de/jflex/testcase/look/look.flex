@@ -14,20 +14,9 @@ package de.jflex.testcase.look;
 
 %line
 %column
+%counter_methods
 
 %unicode
-
-%{
-  /** Line of the current match, counted from 0. */
-  public int line() {
-    return yyline;
-  }
-
-  /** Column of the current match, counted from 0. */
-  public int column() {
-    return yycolumn;
-  }
-%}
 
 %%
 

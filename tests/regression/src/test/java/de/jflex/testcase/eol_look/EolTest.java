@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/eol_look/eol.flex",
     // the never-match warning for "bb"$
-    warnings = @Warn(value = ErrorMessages.NEVER_MATCH, line = 35),
+    warnings = @Warn(value = ErrorMessages.NEVER_MATCH, line = 26),
     quiet = true,
     minimizedDfaStatesCount = 16,
     minimizedDfa = {
@@ -103,8 +103,8 @@ public class EolTest implements JFlexTest {
     assertEquals(rule, scanner.yylex(), "rule " + at);
     assertEquals(text, scanner.yytext(), "text " + at);
     assertEquals(text.length(), scanner.yylength(), "length " + at);
-    assertEquals(line, scanner.line(), "line " + at);
-    assertEquals(column, scanner.column(), "column " + at);
+    assertEquals(line, scanner.yyline(), "line " + at);
+    assertEquals(column, scanner.yycolumn(), "column " + at);
   }
 
   private void assertEof() throws IOException {

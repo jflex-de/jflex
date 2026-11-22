@@ -86,8 +86,8 @@ public class LookTest implements JFlexTest {
     assertEquals(rule, scanner.yylex(), "rule " + at);
     assertEquals(text, scanner.yytext(), "text " + at);
     assertEquals(text.length(), scanner.yylength(), "length " + at);
-    assertEquals(line, scanner.line(), "line " + at);
-    assertEquals(column, scanner.column(), "column " + at);
+    assertEquals(line, scanner.yyline(), "line " + at);
+    assertEquals(column, scanner.yycolumn(), "column " + at);
   }
 
   private void assertEof() throws IOException {
@@ -179,19 +179,19 @@ public class LookTest implements JFlexTest {
         String.join(
             System.lineSeparator(),
             "line: 1 col: 1 match: --abcd--",
-            "action [35] { return 7; }",
+            "action [24] { return 7; }",
             "line: 1 col: 5 match: --f--",
-            "action [37] { return 0; }",
+            "action [26] { return 0; }",
             "line: 1 col: 6 match: --\\u000A--",
-            "action [37] { return 0; }",
+            "action [26] { return 0; }",
             "line: 2 col: 1 match: --ab--",
-            "action [34] { return 2; }",
+            "action [23] { return 2; }",
             "line: 2 col: 3 match: --c--",
-            "action [37] { return 0; }",
+            "action [26] { return 0; }",
             "line: 2 col: 4 match: --d--",
-            "action [37] { return 0; }",
+            "action [26] { return 0; }",
             "line: 2 col: 5 match: --e--",
-            "action [37] { return 0; }",
+            "action [26] { return 0; }",
             "");
     assertEquals(expected, trace.toString("UTF-8"));
   }

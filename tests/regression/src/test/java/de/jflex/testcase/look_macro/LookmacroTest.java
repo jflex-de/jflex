@@ -61,8 +61,8 @@ public class LookmacroTest implements JFlexTest {
     assertEquals(rule, scanner.yylex(), "rule " + at);
     assertEquals(text, scanner.yytext(), "text " + at);
     assertEquals(text.length(), scanner.yylength(), "length " + at);
-    assertEquals(line, scanner.line(), "line " + at);
-    assertEquals(column, scanner.column(), "column " + at);
+    assertEquals(line, scanner.yyline(), "line " + at);
+    assertEquals(column, scanner.yycolumn(), "column " + at);
   }
 
   private void assertEof() throws IOException {

@@ -7,23 +7,12 @@ package de.jflex.testcase.dot_newline;
 
 %%
 
-%{
-  /** Line of the current match, counted from 0. */
-  public int line() {
-    return yyline;
-  }
-
-  /** Column of the current match, counted from 0. */
-  public int column() {
-    return yycolumn;
-  }
-%}
-
 %public
 %class Dotnewline
 %integer
 %line
 %column
+%counter_methods
 %unicode
 
 %%

@@ -90,7 +90,7 @@ public class Genlook2Test implements JFlexTest {
     assertEquals(rule, scanner.yylex(), "rule " + at);
     assertEquals(text, scanner.yytext(), "text " + at);
     assertEquals(text.length(), scanner.yylength(), "length " + at);
-    assertEquals(offset, scanner.offset(), "offset " + at);
+    assertEquals(offset, scanner.yychar(), "offset " + at);
   }
 
   private void assertEof() throws IOException {

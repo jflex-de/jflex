@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/genlook/genlook.flex",
     // the empty-match warning for "c"?
-    warnings = @Warn(value = ErrorMessages.EMPTY_MATCH, line = 42),
+    warnings = @Warn(value = ErrorMessages.EMPTY_MATCH, line = 33),
     quiet = true,
     minimizedDfaStatesCount = 16,
     charClassesCount = 4,
@@ -56,8 +56,8 @@ public class GenlookTest implements JFlexTest {
     assertEquals(rule, scanner.yylex(), "rule " + at);
     assertEquals(text, scanner.yytext(), "text " + at);
     assertEquals(text.length(), scanner.yylength(), "length " + at);
-    assertEquals(line, scanner.line(), "line " + at);
-    assertEquals(column, scanner.column(), "column " + at);
+    assertEquals(line, scanner.yyline(), "line " + at);
+    assertEquals(column, scanner.yycolumn(), "column " + at);
     assertEquals(Genlook.YYINITIAL, scanner.yystate(), "lexical state " + at);
   }
 

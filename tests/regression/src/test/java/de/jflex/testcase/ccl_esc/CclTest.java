@@ -26,9 +26,9 @@ import org.junit.jupiter.api.Test;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/ccl_esc/ccl.flex",
     warnings = {
-      @Warn(value = ErrorMessages.EMPTY_MATCH, line = 53),
-      @Warn(value = ErrorMessages.EMPTY_MATCH, line = 56),
-      @Warn(value = ErrorMessages.EMPTY_MATCH, line = 60)
+      @Warn(value = ErrorMessages.EMPTY_MATCH, line = 42),
+      @Warn(value = ErrorMessages.EMPTY_MATCH, line = 45),
+      @Warn(value = ErrorMessages.EMPTY_MATCH, line = 49)
     },
     quiet = true,
     minimizedDfaStatesCount = 35,
@@ -65,8 +65,8 @@ public class CclTest implements JFlexTest {
     String at = "at line " + line + ", column " + column;
     assertEquals(rule, scanner.yylex(), "rule " + at);
     assertEquals(text, scanner.yytext(), "text " + at);
-    assertEquals(line, scanner.line(), "line " + at);
-    assertEquals(column, scanner.column(), "column " + at);
+    assertEquals(line, scanner.yyline(), "line " + at);
+    assertEquals(column, scanner.yycolumn(), "column " + at);
     assertEquals(state, scanner.yystate(), "lexical state after the token " + at);
   }
 

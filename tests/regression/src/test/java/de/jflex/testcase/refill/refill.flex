@@ -14,16 +14,10 @@ package de.jflex.testcase.refill;
 
 // the line count looks at the character after a \r, which may need a refill
 %line
+%counter_methods
 
 // small buffer, so that short inputs reach the end of the buffer
 %buffer 4
-
-%{
-  /** Line of the current match, counted from 0. */
-  public int line() {
-    return yyline;
-  }
-%}
 
 %%
 
