@@ -113,7 +113,7 @@ public class DfaFactoryQuickcheck {
    *
    * <p>This tests the {@code .. | ..} chain insertion into the NFA, using the pairwise insertion
    * that happens for nested pairs as a test oracle. They are equivalent, so should produce the same
-   * DFAs. In this case even before minimization.
+   * DFAs after minimization. Without negation they are the same even before minimization.
    */
   @Property(tries = 200)
   public void alternativeChainAgreesWithPairs(
@@ -134,8 +134,16 @@ public class DfaFactoryQuickcheck {
 
     DFA expected = DfaFactory.createFromNfa(parse(specOfPairs, options, out), options, out);
     DFA dfa = DfaFactory.createFromNfa(parse(spec, options, out), options, out);
-    assertEquals(expected.numStates(), dfa.numStates(), spec);
-    assertEquals(expected, dfa, spec);
+    // Negation determinises the NFA of its content from full epsilon closures, so there the number
+    // of states depends on how the alternatives are grouped.
+    if (!context.contains("!") && !context.contains("~")) {
+      assertEquals(expected.numStates(), dfa.numStates(), spec);
+      assertEquals(expected, dfa, spec);
+    }
+
+    expected.minimize();
+    dfa.minimize();
+    assertEquals(expected.canonicalLines(), dfa.canonicalLines(), spec);
   }
 
   /** A chain of alternatives has one start and one end state, pairs have two states per pair. */
