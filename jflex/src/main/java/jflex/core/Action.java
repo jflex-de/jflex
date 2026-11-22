@@ -117,6 +117,9 @@ public final class Action {
   /**
    * Compares the priority value of this Action with the specified action.
    *
+   * <p>The choices of a finite choice lookahead have the same priority number. Of these, the
+   * shorter lookahead takes precendence, so that the main expression has the longest match.
+   *
    * @param other the other Action to compare this Action with.
    * @return this Action if it has higher priority - the specified one, if not.
    */
@@ -125,7 +128,11 @@ public final class Action {
 
     // the smaller the number the higher the priority
     if (other.priority > this.priority) return this;
-    else return other;
+    if (other.priority == this.priority
+        && this.kind == Kind.FINITE_CHOICE
+        && other.kind == Kind.FINITE_CHOICE
+        && this.len < other.len) return this;
+    return other;
   }
 
   @Override
@@ -238,10 +245,10 @@ public final class Action {
   }
 
   /**
-   * copyChoice.
+   * Returns a copy of this Action for one choice of a finite choice lookahead.
    *
-   * @param length a int.
-   * @return a {@link Action} object.
+   * @param length the length of the lookahead of this choice.
+   * @return the copy, with the same priority.
    */
   public Action copyChoice(int length) {
     Action a = new Action(this.content, this.file, this.line, this.priority);

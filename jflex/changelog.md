@@ -46,6 +46,15 @@
 - fix generation for the empty string `""` literal as the first operand of a
   parenthesised expression. The expression after the literal was translated
   incorrectly.
+- fix lookahead `r1 / r2` where `r2` is a choice of expressions with fixed
+  lengths, e.g. `a+ / (a | aa)`. If more than one lookahead choice matches, `r1`
+  is now guaranteed to get the longest match.
+- the same principle holds for `r$`. For example for `[^\n]+$` and input
+  `ab\r\n`, the match is `ab\r` and the lookahead `\n`. To get `ab` and `\r\n`,
+  make sure that the main expression does not match `\r`. For example,
+  use `[^\r\n]+$` instead. Most `$` expressions will already not match `\r`.
+- the "rule can never be matched" warning is now also reported for a rule that
+  has the same action code as a rule that can be matched.
 
 ## [JFlex 1.9.1](https://github.com/jflex-de/jflex/milestone/21?closed=1) (Mar 11, 2023)
 
