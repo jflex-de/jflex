@@ -63,6 +63,7 @@ public abstract class AbstractLexScan implements ILexScan {
   boolean charCount;
   boolean lineCount;
   boolean columnCount;
+  boolean counterMethods;
   boolean cupCompatible;
   boolean cup2Compatible;
   boolean cupDebug;
@@ -320,6 +321,11 @@ public abstract class AbstractLexScan implements ILexScan {
 
   public boolean columnCount() {
     return columnCount;
+  }
+
+  /** Whether to emit access methods for the enabled line, column, and character counters. */
+  public boolean counterMethods() {
+    return counterMethods;
   }
 
   public boolean cupCompatible() {
