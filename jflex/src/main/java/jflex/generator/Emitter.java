@@ -1318,6 +1318,55 @@ public final class Emitter {
   }
 
   /**
+   * Emit the access methods {@code yyline()}, {@code yycolumn()}, and {@code yychar()} for the
+   * counters that are turned on if the spec has {@code %counter_methods}.
+   */
+  private void emitCounterMethods() {
+    if (!scanner.counterMethods()) return;
+
+    if (!scanner.lineCount() && !scanner.columnCount() && !scanner.charCount()) {
+      scanner.out().warning(ErrorMessages.COUNTER_METHODS_UNUSED);
+      return;
+    }
+
+    if (scanner.lineCount()) {
+      emitCounterMethod(
+          "int",
+          "yyline",
+          "the number of newlines encountered up to the start of the matched text");
+    }
+    if (scanner.columnCount()) {
+      emitCounterMethod(
+          "int",
+          "yycolumn",
+          "the number of characters from the last newline up to the start of the matched text");
+    }
+    if (scanner.charCount()) {
+      emitCounterMethod(
+          "long", "yychar", "the number of characters up to the start of the matched text");
+    }
+  }
+
+  /**
+   * Emit an access method for a counter.
+   *
+   * @param type the type of the counter
+   * @param name the name of the counter field, which is also the name of the method
+   * @param description what the counter contains, for the JavaDoc comment of the method
+   */
+  private void emitCounterMethod(String type, String name, String description) {
+    println("  /**");
+    println("   * Returns " + description + ", starting at 0.");
+    println("   *");
+    println("   * @return " + description + ".");
+    println("   */");
+    println("  " + visibility + " final " + type + " " + name + "() {");
+    println("    return " + name + ";");
+    println("  }");
+    println();
+  }
+
+  /**
    * Emit {@code yychar}, {@code yycolumn}, {@code zzAtBOL}, {@code zzEOFDone} with warning
    * suppression when needed.
    */
@@ -1404,6 +1453,8 @@ public final class Emitter {
     emitLookBuffer();
 
     emitVarDefs();
+
+    emitCounterMethods();
 
     emitClassCode();
 

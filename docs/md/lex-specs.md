@@ -501,6 +501,18 @@ interested in how to interface your generated scanner with Byacc/J.
     Like `yychar`, it counts Java `char`s (UTF-16 code units), not
     Unicode code points.
 
+-   `%counter_methods`
+
+    Generates access methods for the counters above: `int yyline()`, `int
+    yycolumn()`, and `long yychar()`. The methods return the values of the
+    member variables with the same names. JFlex only generates the methods for
+    counters that are turned on. For example, a specification with `%line` and
+    `%column`, but without `%char`, gets `yyline()` and `yycolumn()`, but not
+    `yychar()`.
+
+    Like the other methods of the scanner API, the access methods are
+    `public` by default and `private` with `%apiprivate`.
+
 
 ### Warnings
 

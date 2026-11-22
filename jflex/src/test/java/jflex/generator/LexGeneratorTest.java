@@ -14,6 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -23,6 +24,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import jflex.core.unicode.CharClasses;
 import jflex.dfa.DFA;
+import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
 import org.junit.jupiter.api.Test;
@@ -33,11 +35,12 @@ public class LexGeneratorTest {
 
   @TempDir File tmp;
 
-  /** Writes a minimal spec for class {@code name} with an extra option line. */
-  private File writeSpec(String name, String directive) throws Exception {
+  /** Writes a minimal spec for class {@code name} with extra option lines. */
+  private File writeSpec(String name, String... directives) throws Exception {
     File spec = new File(tmp, name + ".flex");
-    List<String> lines =
-        Arrays.asList("%%", "%class " + name, "%int", directive, "%%", "\"a\" { return 1; }");
+    List<String> lines = new ArrayList<>(Arrays.asList("%%", "%class " + name, "%int"));
+    lines.addAll(Arrays.asList(directives));
+    lines.addAll(Arrays.asList("%%", "\"a\" { return 1; }"));
     Files.write(spec.toPath(), lines, StandardCharsets.UTF_8);
     return spec;
   }
@@ -107,6 +110,75 @@ public class LexGeneratorTest {
     assertTrue(privateApi.contains("private final void yyclose()"), privateApi);
     assertFalse(privateApi.contains("public final void yyclose()"), privateApi);
     assertTrue(publicApi.contains("public final void yyclose()"), publicApi);
+  }
+
+  /** {@code %counter_methods} generates access methods for the counters that are turned on. */
+  @Test
+  public void generate_counterMethods() throws Exception {
+    Options options = new Options();
+    options.setDir(tmp);
+
+    String lineOnly = generate(writeSpec("LineOnly", "%line", "%counter_methods"), options);
+    assertTrue(lineOnly.contains("public final int yyline() {"), lineOnly);
+    assertFalse(lineOnly.contains("yycolumn()"), lineOnly);
+    assertFalse(lineOnly.contains("yychar()"), lineOnly);
+
+    // the order of the directives does not matter
+    String all =
+        generate(writeSpec("All", "%counter_methods", "%line", "%column", "%char"), options);
+    assertTrue(all.contains("public final int yyline() {"), all);
+    assertTrue(all.contains("public final int yycolumn() {"), all);
+    assertTrue(all.contains("public final long yychar() {"), all);
+
+    // %cup2 turns on line and column counting
+    String cup = generate(writeSpec("Cup", "%cup2", "%counter_methods"), options);
+    assertTrue(cup.contains("public final int yyline() {"), cup);
+    assertTrue(cup.contains("public final int yycolumn() {"), cup);
+    assertFalse(cup.contains("yychar()"), cup);
+  }
+
+  /** Without {@code %counter_methods} there are no access methods for the counters. */
+  @Test
+  public void generate_noCounterMethodsByDefault() throws Exception {
+    Options options = new Options();
+    options.setDir(tmp);
+
+    String generated = generate(writeSpec("NoMethods", "%line", "%column", "%char"), options);
+
+    assertFalse(generated.contains("yyline()"), generated);
+    assertFalse(generated.contains("yycolumn()"), generated);
+    assertFalse(generated.contains("yychar()"), generated);
+  }
+
+  /** The access methods for the counters are private with {@code %apiprivate}. */
+  @Test
+  public void generate_counterMethodsApiPrivate() throws Exception {
+    Options options = new Options();
+    options.setDir(tmp);
+
+    String generated =
+        generate(writeSpec("PrivateCounters", "%apiprivate", "%line", "%counter_methods"), options);
+
+    assertTrue(generated.contains("private final int yyline() {"), generated);
+    assertFalse(generated.contains("public final int yyline() {"), generated);
+  }
+
+  /** {@code %counter_methods} without a counter gives a warning and generates no methods. */
+  @Test
+  public void generate_counterMethodsWithoutCounter() throws Exception {
+    Options options = new Options();
+    options.setDir(tmp);
+    Out out = new Out(options, new ByteArrayOutputStream());
+    File spec = writeSpec("NoCounters", "%counter_methods");
+
+    String generated =
+        new String(
+            Files.readAllBytes(new File(new LexGenerator(spec, options, out).generate()).toPath()),
+            StandardCharsets.UTF_8);
+
+    assertEquals(1, out.warnings());
+    assertEquals(ErrorMessages.COUNTER_METHODS_UNUSED, out.reportedWarnings().get(0).message);
+    assertFalse(generated.contains("yyline()"), generated);
   }
 
   /** Two generators with different options do not affect each other. */

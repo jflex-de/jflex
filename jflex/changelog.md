@@ -7,6 +7,8 @@
 
 ## JFlex 1.10.0 (upcoming)
 
+- New `%counter_methods` directive that generates the access methods `yyline()`,
+  `yycolumn()`, and `yychar()` for the counters that are turned on (#1178)
 - Reduce runtime memory overhead: allocate the lookahead buffer on demand
   (#1106, #1136)
 - 10-20x performance improvement in constructing very large scanners. This is

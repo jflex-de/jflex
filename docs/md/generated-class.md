@@ -173,6 +173,12 @@ Currently, the API consists of the following methods and member fields:
     returns whether the scanner has reached the end of the reader it reads
     from, which often corresponds to the end of file.
 
+-   `int yyline()`, `int yycolumn()`, `long yychar()`
+
+    return the values of the member fields `yyline`, `yycolumn`, and `yychar`
+    below. Only available with the `%counter_methods` directive, and only
+    for the counters that are turned on.
+
 -   `int yyline`
 
     contains the current line of input (starting with 0, only active
